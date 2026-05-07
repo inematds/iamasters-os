@@ -15,6 +15,36 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## v0.4.2 — Migración a org iamasters-academy + datos finales (2026-05-07)
+
+### Changed
+- **Repo migrado**: `angelapaia/iamasters-os` → `iamasters-academy/iamasters-os`
+  - Nueva URL: https://github.com/iamasters-academy/iamasters-os
+  - GitHub mantiene redirects automáticos del URL anterior
+- **Atribución corregida** en todos los archivos del repo:
+  - "iAmasters Academy" → "IA Masters Academy" (3 palabras separadas, según logo oficial)
+  - Email gmail → `aaparicio@iamastersacademy.com` (corporativo)
+  - Copyright `2026` → `2025-2026` (incluye año fundación academia)
+  - Añadida entidad legal: AASC Associates (a brand of)
+  - Añadido LinkedIn: linkedin.com/in/angel-aparicio92/
+  - Añadido GitHub Org link: @iamasters-academy
+- **Logo añadido**: `assets/logo.png` (2.4 MB, 1536×1024 PNG RGBA transparente). Mostrado en header del README, header del HTML team-presentation y footer del HTML.
+- **README header rediseñado**: logo centrado + título + subtitle + 5 badges centrados.
+- **LICENSE** ampliada con sección "Trademark notice" (marcas de AASC Associates).
+- **CITATION.cff** version bumpeada a 0.4.2 con URLs actualizadas a la org nueva.
+
+### Added
+- **`assets/logo.png`** — logo oficial IA Masters Academy
+- **Sweep global** automatizado para reemplazar referencias antiguas en todos los .md, .html, .cff, .json, .sh del repo
+
+### Brand assets central
+El logo y futuros assets viven en
+`Empresa/01-IA Masters/07-Equipo/brand-assets/iamasters-academy-logo.png`
+como fuente única de verdad. Cada repo nuevo lo copia desde ahí siguiendo el
+checklist `captacion-shared/07-Equipo/repo-attribution-checklist.md`.
+
+---
+
 ## v0.4.1 — Atribución y propiedad (2026-05-07)
 
 ### Added
