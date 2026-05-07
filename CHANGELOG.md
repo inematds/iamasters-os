@@ -9,8 +9,35 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### En construcción
-- v0.3.0: 4 templates verticales rellenos + add-client.sh + update.sh con conflict resolution
 - v0.4.0: `/install-skill <github-url>` con validación + `/install-mcp` + lista curada
+
+---
+
+## v0.3.0 — Multi-cliente + scripts de gestión (2026-05-07)
+
+### Added
+- **4 templates verticales completos** en `clients/_templates/`:
+  - `freelance-ia/` — operador IA solo, ticket 5-50K€/proyecto
+  - `agencia-marketing/` — pequeña agencia, MRR recurrente
+  - `formador-online/` — coach/educador, ticket 200-2000€
+  - `consultoria-b2b/` — high-ticket 30-300K€/engagement
+- Cada template incluye: README específico + voice-profile + positioning + ICP + soul + user (template) — 6 archivos × 4 templates = 24 archivos
+- **`scripts/add-client.sh`** — crea cliente nuevo desde template o vacío:
+  - Valida nombre kebab-case
+  - Clona template + reemplaza placeholders `{{CLIENT_NAME}}`
+  - Genera `clients/<nombre>/CLAUDE.md` con overrides específicos
+  - Output: estructura completa lista para configurar
+- **`scripts/update.sh`** — actualiza repo desde upstream con conflict resolution:
+  - 4 escenarios manejados: nada cambia / upstream actualiza / local modificó / conflicto
+  - Backup automático en `.backup/<timestamp>/` antes de tocar nada
+  - User data (brand-context, context, projects, clients, .env) NUNCA se sobrescribe
+  - Skills locales modificadas: prompt caso por caso (keep / use upstream / diff / skip)
+  - Vendor sinapsis + system files: safe to update
+
+### Notas operativas
+- Heredancia CLAUDE.md: el del cliente añade overrides al del raíz, no lo sustituye
+- Skills se copian al cliente (no se heredan automáticamente); se sincronizan con `update.sh`
+- El operador puede crear skills custom dentro de `clients/<nombre>/.claude/skills/` que sólo aplican a ese cliente
 
 ---
 
