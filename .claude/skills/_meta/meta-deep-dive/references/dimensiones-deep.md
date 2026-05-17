@@ -1,247 +1,247 @@
-# Dimensiones · Deep Dive (22-25 profundas)
+# Dimensões · Deep Dive (22-25 profundas)
 
-Definición de "done" del deep-dive. Cada dimensión debe quedar capturada con dato sólido — no genérica, no evasiva.
-
----
-
-## Bloque A · Persona profunda (7 dimensiones)
-
-### 1. Horario productivo
-
-**Qué capturar**: en qué franja del día concentras mejor, y si tienes ritmos distintos para tareas distintas.
-
-**Dato sólido**: "Mañana 8-12 para trabajo profundo (propuestas, código), tarde para reuniones y comunicación. Después de las 19h nada importante."
-
-**Débil**: "Por la mañana" (faltan detalles de bloques o tipos de tarea).
+Definição de "done" do deep-dive. Cada dimensão deve ficar capturada com dado sólido — não genérica, não evasiva.
 
 ---
 
-### 2. Interrupciones principales
+## Bloco A · Persona profunda (7 dimensões)
 
-**Qué capturar**: qué te interrumpe más en el día — clientes, equipo, familia, distracciones propias (móvil, social).
+### 1. Horário produtivo
 
-**Dato sólido**: "Email de clientes en plena ejecución (3-4 veces al día). Notificaciones de Slack del equipo. Hijo pequeño dos veces por la tarde, predecible."
+**O que capturar**: em que franja do dia te concentras melhor, e se tens ritmos distintos para tarefas distintas.
 
-**Débil**: "Lo de siempre" o "muchas cosas".
+**Dado sólido**: "Manhã 8-12 para trabalho profundo (propostas, código), tarde para reuniões e comunicação. Depois das 19h nada importante."
+
+**Fraco**: "De manhã" (faltam detalhes de blocos ou tipos de tarefa).
+
+---
+
+### 2. Interrupções principais
+
+**O que capturar**: o que te interrompe mais durante o dia — clientes, equipa, família, distrações próprias (telemóvel, redes sociais).
+
+**Dado sólido**: "Email de clientes a meio da execução (3-4 vezes por dia). Notificações de Slack da equipa. Filho pequeno duas vezes durante a tarde, previsível."
+
+**Fraco**: "O do costume" ou "muitas coisas".
 
 ---
 
 ### 3. Contexto vital relevante
 
-**Qué capturar**: lo que afecta tu energía / disponibilidad y el sistema debe saber. Hijos pequeños, salud, mudanza, viajes frecuentes.
+**O que capturar**: o que afeta a tua energia / disponibilidade e o sistema deve saber. Filhos pequenos, saúde, mudança de casa, viagens frequentes.
 
-**Dato sólido**: "Padre primerizo de 7 meses. Sueño irregular. Tarde-noche menos productivas que hace 1 año. Esto se mantendrá ~2 años más."
+**Dado sólido**: "Pai pela primeira vez de bebé de 7 meses. Sono irregular. Final do dia menos produtivo do que há 1 ano. Isto vai manter-se ~2 anos mais."
 
-**Si el usuario dice "no aplica" / "nada relevante"**: respétalo, no insistas.
+**Se o utilizador disser "não se aplica" / "nada relevante"**: respeita-o, não insistas.
 
 ---
 
 ### 4. Motivadores profundos
 
-**Qué capturar**: qué te motiva profesionalmente más allá del dinero. Concreto, no genérico.
+**O que capturar**: o que te motiva profissionalmente para além do dinheiro. Concreto, não genérico.
 
-**Dato sólido**: "Construir cosas que se queden funcionando cuando yo no estoy. La satisfacción de ver al cliente sin ese problema operativo que tenía hace 6 meses."
+**Dado sólido**: "Construir coisas que continuem a funcionar quando eu não estou. A satisfação de ver o cliente sem aquele problema operacional que tinha há 6 meses."
 
-**Débil**: "Ayudar a la gente", "el reto", "la libertad" (todos genéricos sin contexto).
+**Fraco**: "Ajudar as pessoas", "o desafio", "a liberdade" (todos genéricos sem contexto).
 
 ---
 
 ### 5. Drenadores
 
-**Qué capturar**: tipo de tareas que te drenan al punto de evitarlas o postergarlas.
+**O que capturar**: tipo de tarefas que te drenam ao ponto de as evitares ou adiares.
 
-**Dato sólido**: "Hacer follow-up comercial repetitivo. Reuniones de discovery que ya sé cómo van a terminar. Excel financiero detallado."
-
----
-
-### 6. Estilo preferido de comunicación con IA
-
-**Qué capturar**: cómo prefieres que te hable. Directa, conversacional, formal, con humor, etc.
-
-**Dato sólido**: "Directa sin rodeos. Sin 'qué buena pregunta'. Con humor seco si encaja, no forzado. Que me corrija si me equivoco."
+**Dado sólido**: "Fazer follow-up comercial repetitivo. Reuniões de discovery em que já sei como vão acabar. Excel financeiro detalhado."
 
 ---
 
-### 7. Palabras / tonos prohibidos
+### 6. Estilo preferido de comunicação com IA
 
-**Qué capturar**: 3-5 palabras, frases o tonos que NUNCA debería usar en outputs.
+**O que capturar**: como preferes que te fale. Direta, conversacional, formal, com humor, etc.
 
-**Dato sólido**: "Nunca: 'sinergia', 'desbloquear potencial', 'aliado estratégico', tono LinkedIn-influencer, emojis en email comercial."
-
----
-
-## Bloque B · Negocio profundo (6 dimensiones)
-
-### 8. Salud financiera (rango facturación)
-
-**Qué capturar**: rango aproximado de facturación mensual o anual. Sirve para calibrar qué recomendar.
-
-**Dato sólido**: "Entre 8K y 14K€/mes. Variable según haya proyecto cerrado o no."
-
-**Si el usuario incómodo con cifra exacta**: ofrece rangos: <2K / 2-5K / 5-15K / 15-50K / 50K+ /mes.
+**Dado sólido**: "Direta sem rodeios. Sem 'que boa pergunta'. Com humor seco se encaixar, não forçado. Que me corrija se eu me enganar."
 
 ---
 
-### 9. Margen aproximado
+### 7. Palavras / tons proibidos
 
-**Qué capturar**: margen bruto (no neto) en escala bajo / medio / alto.
+**O que capturar**: 3-5 palavras, frases ou tons que NUNCA deve usar nos outputs.
 
-**Dato sólido**: "Margen alto, ~70%. Mis costes principales son herramientas SaaS y mi tiempo."
-
----
-
-### 10. Ticket medio
-
-**Qué capturar**: ticket medio por cliente o por venta.
-
-**Dato sólido**: "Proyecto medio 18K€. Mantenimientos mensuales 350-500€."
+**Dado sólido**: "Nunca: 'sinergia', 'desbloquear potencial', 'aliado estratégico', tom LinkedIn-influencer, emojis em email comercial."
 
 ---
 
-### 11. Diferencial real (no genérico)
+## Bloco B · Negócio profundo (6 dimensões)
 
-**Qué capturar**: algo concreto que te diferencia. No "calidad" o "atención al cliente".
+### 8. Saúde financeira (intervalo de faturação)
 
-**Dato sólido**: "Soy la única consultora de IA en la zona que ha trabajado en fábrica antes. Entiendo la jerga y los miedos del operario, no solo del director."
+**O que capturar**: intervalo aproximado de faturação mensal ou anual. Serve para calibrar o que recomendar.
 
-**Débil**: "Doy buena atención", "soy profesional", "tengo experiencia" — todas genéricas. Profundizar con 5 whys ligero.
+**Dado sólido**: "Entre 8K e 14K€/mês. Variável consoante haja projeto fechado ou não."
 
----
-
-### 12. Side projects / negocios paralelos
-
-**Qué capturar**: proyectos secundarios, side projects, productos paralelos. Aunque sin revenue.
-
-**Dato sólido**: "Newsletter semanal sobre automatización (1.200 suscriptores, sin revenue). Curso autoeditado de OCR en prep (no lanzado)."
-
-**Si no tiene nada**: "No hay" es respuesta válida, no profundizar.
+**Se o utilizador estiver desconfortável com valor exato**: oferece intervalos: <2K / 2-5K / 5-15K / 15-50K / 50K+ /mês.
 
 ---
 
-### 13. Fricciones del modelo
+### 9. Margem aproximada
 
-**Qué capturar**: qué parte del modelo de negocio te gustaría cambiar pero no has cambiado. Y por qué no.
+**O que capturar**: margem bruta (não líquida) na escala baixa / média / alta.
 
-**Dato sólido**: "Quiero soltar las propuestas comerciales — las hago todas yo y no escalo. Me da miedo que otro las haga peor y pierda clientes en la fase comercial."
-
----
-
-## Bloque C · Equipo y clientes (6 dimensiones, condicionales)
-
-### 14. Tamaño del equipo (gate)
-
-**Qué capturar**: solo / 1-3 / 4-10 / 10+.
-
-Si "solo" → saltar dimensiones 15-17. Ir directo a 18-19.
+**Dado sólido**: "Margem alta, ~70%. Os meus custos principais são ferramentas SaaS e o meu tempo."
 
 ---
 
-### 15. Roles y dinámica (solo si tiene equipo)
+### 10. Ticket médio
 
-**Qué capturar**: para cada persona clave (3-5 máx): nombre, rol, fortaleza, debilidad.
+**O que capturar**: ticket médio por cliente ou por venda.
 
-**Dato sólido**:
-> "Pilar — administración. Fuerte: detallista, conoce a todos los clientes históricos. Floja: resistente a procesos nuevos.
-> Marc — técnico. Fuerte: rápido entendiendo herramientas. Flojo: comunicación con clientes."
+**Dado sólido**: "Projeto médio 18K€. Manutenções mensais 350-500€."
 
 ---
 
-### 16. Comunicación interna (solo si tiene equipo)
+### 11. Diferencial real (não genérico)
 
-**Qué capturar**: cómo se comunica el equipo. Canales + ritmo de reuniones.
+**O que capturar**: algo concreto que te diferencia. Não "qualidade" ou "atenção ao cliente".
 
-**Dato sólido**: "Slack para día a día. Reunión semanal lunes 9h, 45 min, agenda preparada por mí. WhatsApp solo emergencias."
+**Dado sólido**: "Sou a única consultora de IA na zona que já trabalhou em fábrica antes. Entendo o jargão e os medos do operário, não só do diretor."
 
----
-
-### 17. Delegación (solo si tiene equipo)
-
-**Qué capturar**: qué está delegado vs qué no, y POR QUÉ no lo demás.
-
-**Dato sólido**: "Delegado: ejecución técnica, soporte a clientes. No delegado: comercial, propuestas, decisiones de pricing. No lo delego porque siento que cierra mejor con mi voz."
+**Fraco**: "Dou boa atenção", "sou profissional", "tenho experiência" — todas genéricas. Aprofunda com 5 whys ligeiro.
 
 ---
 
-### 18. Clientes top (siempre)
+### 12. Side projects / negócios paralelos
 
-**Qué capturar**: 3-5 clientes más importantes ahora. Nombre (o nombre tipo si confidencial) + facturación aproximada.
+**O que capturar**: projetos secundários, side projects, produtos paralelos. Mesmo sem revenue.
 
-**Dato sólido**:
-> "1. Logística del Norte — 4.5K€/mes mantenimiento + 14K€ proyecto cerrado en marzo.
-> 2. Café del Mediterráneo — 2.2K€/mes recurrente.
-> 3. Academia Sintaxis — 8K€ proyecto en curso, no recurrente todavía."
+**Dado sólido**: "Newsletter semanal sobre automação (1.200 subscritores, sem revenue). Curso autoeditado de OCR em preparação (não lançado)."
 
----
-
-### 19. Clientes problemáticos (siempre)
-
-**Qué capturar**: hay clientes a los que aguantas por dinero pero son problemáticos. Honestidad.
-
-**Dato sólido**: "Sí, uno: una clínica dental. Me llaman fuera de horario, cambian de opinión, dan instrucciones contradictorias entre socios. Aguanto porque pagan 1.8K€/mes recurrente."
-
-**Si dice "no, no tengo"**: ok, respétalo. No insistas.
+**Se não tiver nada**: "Não há" é resposta válida, não aprofundar.
 
 ---
 
-## Bloque D · Foco profundo (6 dimensiones)
+### 13. Fricções do modelo
 
-### 20. Decisión pendiente
+**O que capturar**: que parte do modelo de negócio gostavas de mudar mas ainda não mudaste. E porque não.
 
-**Qué capturar**: qué decisión importante tienes pendiente de tomar ahora mismo.
-
-**Dato sólido**: "Si contrato perfil junior técnico (~28K/año) o sigo con freelance puntual (~15K/año pero menos disponible). Decisión pendiente desde febrero."
+**Dado sólido**: "Quero largar as propostas comerciais — faço-as todas eu e não escalo. Tenho medo que outro as faça pior e que perca clientes na fase comercial."
 
 ---
 
-### 21. Meta 3 años (profesional)
+## Bloco C · Equipa e clientes (6 dimensões, condicionais)
 
-**Qué capturar**: qué te imaginas profesionalmente en 3 años. Sin presión de "tener que".
+### 14. Tamanho da equipa (gate)
 
-**Dato sólido**: "Equipo de 4 personas. Facturando 350-400K€/año. Yo cerrando 1-2 días a la semana y dedicando 2-3 a producto."
+**O que capturar**: sozinho / 1-3 / 4-10 / 10+.
 
----
-
-### 22. Meta 3 años (vital, no profesional)
-
-**Qué capturar**: meta personal a 3 años. Familia, salud, lifestyle, lo que no es trabajo.
-
-**Dato sólido**: "Vivir 3-4 meses al año fuera de mi ciudad (digital nomad ligero). Volver a hacer deporte 4x semana (he dejado este año). Segundo hijo o decidir no tenerlo."
+Se "sozinho" → saltar dimensões 15-17. Ir diretamente para 18-19.
 
 ---
 
-### 23. Miedo profesional
+### 15. Papéis e dinâmica (só se tiver equipa)
 
-**Qué capturar**: el mayor miedo profesional. Honestidad.
+**O que capturar**: para cada pessoa-chave (3-5 máx): nome, papel, ponto forte, ponto fraco.
 
-**Dato sólido**: "Que la IA generativa comoditice mi trabajo en 2-3 años y que un cliente bueno pase a un proveedor más barato con calidad suficiente."
-
-**Si el usuario evade**: 1 follow-up con anclaje temporal: "¿Te pasaba hace un año este mismo miedo?". Si sigue evasivo, acepta y pasa.
-
----
-
-### 24. Métrica semanal de seguimiento
-
-**Qué capturar**: qué número/métrica miras cada semana para saber si vas bien.
-
-**Dato sólido**: "Cada viernes: caja proyectada a 90 días + número de propuestas activas + horas de trabajo profundo (no reuniones) que conseguí esa semana."
-
-**Si no tiene métrica**: capturar el "no tengo, lo hago a sensación" como dato. Sugerir definir una en futuras sesiones.
+**Dado sólido**:
+> "Pilar — administração. Forte: detalhista, conhece todos os clientes históricos. Fraca: resistente a processos novos.
+> Marc — técnico. Forte: rápido a entender ferramentas. Fraco: comunicação com clientes."
 
 ---
 
-### 25. Definición personal de éxito
+### 16. Comunicação interna (só se tiver equipa)
 
-**Qué capturar**: cómo defines éxito a 12 meses MÁS ALLÁ de los KPIs. Lo cualitativo.
+**O que capturar**: como comunica a equipa. Canais + ritmo de reuniões.
 
-**Dato sólido**: "Llegar a fin de año habiéndome desconectado un mes entero sin que el negocio cayera. Y que mi pareja diga que estuve más presente este año que el anterior."
+**Dado sólido**: "Slack para o dia a dia. Reunião semanal segunda-feira às 9h, 45 min, agenda preparada por mim. WhatsApp só emergências."
 
 ---
 
-## Plantillas de output (cómo se actualizan los archivos)
+### 17. Delegação (só se tiver equipa)
 
-Lee el archivo actual primero (lo dejó el wizard). Añade las secciones siguientes **sin sobrescribir** lo existente.
+**O que capturar**: o que está delegado vs. o que não está, e PORQUÊ o resto não está.
 
-### `context/me.md` — secciones a añadir
+**Dado sólido**: "Delegado: execução técnica, suporte a clientes. Não delegado: comercial, propostas, decisões de pricing. Não o delego porque sinto que fecha melhor com a minha voz."
+
+---
+
+### 18. Clientes top (sempre)
+
+**O que capturar**: 3-5 clientes mais importantes agora. Nome (ou nome-tipo se for confidencial) + faturação aproximada.
+
+**Dado sólido**:
+> "1. Logística do Norte — 4.5K€/mês manutenção + 14K€ projeto fechado em março.
+> 2. Café do Mediterrâneo — 2.2K€/mês recorrente.
+> 3. Academia Sintaxis — 8K€ projeto em curso, ainda não recorrente."
+
+---
+
+### 19. Clientes problemáticos (sempre)
+
+**O que capturar**: há clientes que aguentas por dinheiro mas que são problemáticos. Honestidade.
+
+**Dado sólido**: "Sim, um: uma clínica dentária. Ligam-me fora de horas, mudam de opinião, dão instruções contraditórias entre sócios. Aguento porque pagam 1.8K€/mês recorrente."
+
+**Se disser "não, não tenho"**: ok, respeita. Não insistas.
+
+---
+
+## Bloco D · Foco profundo (6 dimensões)
+
+### 20. Decisão pendente
+
+**O que capturar**: que decisão importante tens pendente de tomar agora mesmo.
+
+**Dado sólido**: "Se contrato perfil júnior técnico (~28K/ano) ou continuo com freelance pontual (~15K/ano mas menos disponível). Decisão pendente desde fevereiro."
+
+---
+
+### 21. Meta a 3 anos (profissional)
+
+**O que capturar**: o que te imaginas profissionalmente daqui a 3 anos. Sem pressão de "ter que".
+
+**Dado sólido**: "Equipa de 4 pessoas. A faturar 350-400K€/ano. Eu a fechar 1-2 dias por semana e a dedicar 2-3 a produto."
+
+---
+
+### 22. Meta a 3 anos (vital, não profissional)
+
+**O que capturar**: meta pessoal a 3 anos. Família, saúde, lifestyle, o que não é trabalho.
+
+**Dado sólido**: "Viver 3-4 meses por ano fora da minha cidade (digital nomad ligeiro). Voltar a fazer desporto 4x semana (deixei este ano). Segundo filho ou decidir não o ter."
+
+---
+
+### 23. Medo profissional
+
+**O que capturar**: o maior medo profissional. Honestidade.
+
+**Dado sólido**: "Que a IA generativa transforme o meu trabalho em commodity em 2-3 anos e que um cliente bom passe para um fornecedor mais barato com qualidade suficiente."
+
+**Se o utilizador evitar**: 1 follow-up com ancoragem temporal: "Há um ano sentias o mesmo medo?". Se continuar evasivo, aceita e passa.
+
+---
+
+### 24. Métrica semanal de acompanhamento
+
+**O que capturar**: que número/métrica olhas todas as semanas para saber se vais bem.
+
+**Dado sólido**: "Toda sexta-feira: caixa projetada a 90 dias + número de propostas ativas + horas de trabalho profundo (sem reuniões) que consegui essa semana."
+
+**Se não tiver métrica**: capturar o "não tenho, faço-o à sensação" como dado. Sugerir definir uma em sessões futuras.
+
+---
+
+### 25. Definição pessoal de sucesso
+
+**O que capturar**: como defines sucesso a 12 meses PARA ALÉM dos KPIs. O qualitativo.
+
+**Dado sólido**: "Chegar ao fim do ano tendo-me desligado um mês inteiro sem que o negócio caísse. E que a minha companheira diga que estive mais presente este ano do que no anterior."
+
+---
+
+## Templates de output (como se atualizam os ficheiros)
+
+Lê o ficheiro atual primeiro (foi deixado pelo wizard). Adiciona as secções seguintes **sem sobrescrever** o existente.
+
+### `context/me.md` — secções a adicionar
 
 ```markdown
 ## Ritmos y energía
@@ -254,7 +254,7 @@ Lee el archivo actual primero (lo dejó el wizard). Añade las secciones siguien
 - **Me drena**: <respuesta dim 5>
 ```
 
-### `context/soul.md` — sección a añadir
+### `context/soul.md` — secção a adicionar
 
 ```markdown
 ## Cómo me hablas tú (operador → IA)
@@ -264,7 +264,7 @@ Lee el archivo actual primero (lo dejó el wizard). Añade las secciones siguien
 - <lista de dim 7>
 ```
 
-### `context/work.md` — secciones a añadir
+### `context/work.md` — secções a adicionar
 
 ```markdown
 ## Salud financiera
@@ -284,7 +284,7 @@ Lee el archivo actual primero (lo dejó el wizard). Añade las secciones siguien
 > *Razón: <segunda parte de la respuesta>*
 ```
 
-### `context/team.md` — reescritura completa (el wizard solo dejó header)
+### `context/team.md` — reescrita completa (o wizard só deixou o header)
 
 ```markdown
 # Team
@@ -314,14 +314,14 @@ Lee el archivo actual primero (lo dejó el wizard). Añade las secciones siguien
 > <dim 19 — sin nombre si el operador lo pidió>
 ```
 
-### `context/current-priorities.md` — sección a añadir
+### `context/current-priorities.md` — secção a adicionar
 
 ```markdown
 ## Decisión pendiente importante
 > <dim 20>
 ```
 
-### `context/goals.md` — secciones a añadir
+### `context/goals.md` — secções a adicionar
 
 ```markdown
 ## Meta a 3 años (profesional)

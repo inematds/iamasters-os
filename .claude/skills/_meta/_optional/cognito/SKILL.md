@@ -1,70 +1,70 @@
 ---
 name: cognito
-description: Sistema Operativo de Pensamiento de Luis Pitik. Orquesta 7 modos cognitivos (divergente, verificador, devil's advocate, consolidador, ejecutor, estratega, auditor) según 5 fases de proyecto (discovery, planning, execution, review, shipping). Esta skill vive vendoreada en `vendor/cognito/` (intacta) e instalada globalmente en `~/.claude/skills/cognito/` por el installer. ACTIVAR SIEMPRE que la conversación involucre decisiones con trade-offs, cambios de enfoque, análisis profundo, cambios de fase explícitos, o detección de ancla. Coexiste con Sinapsis sin conflicto.
+description: Sistema Operativo de Pensamento de Luis Pitik. Orquestra 7 modos cognitivos (divergente, verificador, devil's advocate, consolidador, executor, estratega, auditor) segundo 5 fases de projeto (discovery, planning, execution, review, shipping). Esta skill vive vendored em `vendor/cognito/` (intacta) e instalada globalmente em `~/.claude/skills/cognito/` pelo installer. ATIVAR SEMPRE que a conversa envolva decisões com trade-offs, mudanças de abordagem, análise profunda, mudanças de fase explícitas, ou deteção de âncora. Coexiste com Sinapsis sem conflito.
 version: 1.0.0
 ---
 
 # cognito (vendored wrapper)
 
-> **Origen**: [github.com/Luispitik/cognito](https://github.com/Luispitik/cognito) por Luis Pitik.
-> **Vendoreada en**: `vendor/cognito/` (mantenida intacta — sin modificaciones).
-> **Instalada globalmente**: `~/.claude/skills/cognito/` (la copia el `install.sh` si no existe).
+> **Origem**: [github.com/Luispitik/cognito](https://github.com/Luispitik/cognito) por Luis Pitik.
+> **Vendored em**: `vendor/cognito/` (mantida intacta — sem modificações).
+> **Instalada globalmente**: `~/.claude/skills/cognito/` (a copia o `install.sh` se não existir).
 
-## Qué es
+## O que é
 
-Cognito es un sistema operativo cognitivo independiente que orquesta 7 modos de pensamiento según 5 fases de proyecto. iAmasters OS la vendorea **intacta** porque es un producto separado de Luis con su propio versionado, tests y documentación.
+Cognito é um sistema operativo cognitivo independente que orquestra 7 modos de pensamento segundo 5 fases de projeto. iAmasters OS vendora-a **intacta** porque é um produto separado do Luis com o seu próprio versionamento, testes e documentação.
 
-## Cómo se carga
+## Como se carrega
 
-La skill REAL vive en `~/.claude/skills/cognito/SKILL.md` (instalación global de Sinapsis-style). El installer la copia desde `vendor/cognito/` la primera vez.
+A skill REAL vive em `~/.claude/skills/cognito/SKILL.md` (instalação global de Sinapsis-style). O installer copia-a a partir de `vendor/cognito/` na primeira vez.
 
-**Cuando Claude Code activa la skill `cognito`, lee `~/.claude/skills/cognito/SKILL.md`** — no este archivo. Este wrapper solo existe para:
+**Quando Claude Code ativa a skill `cognito`, lê `~/.claude/skills/cognito/SKILL.md`** — não este ficheiro. Este wrapper só existe para:
 
-1. Documentar que la skill está disponible en el OS
-2. Mantener el patrón de "una carpeta por skill en `.claude/skills/_meta/`"
-3. Permitir que `find-skills` y `health-check` la detecten en el inventario
+1. Documentar que a skill está disponível no OS
+2. Manter o padrão de "uma pasta por skill em `.claude/skills/_meta/`"
+3. Permitir que `find-skills` e `health-check` a detetem no inventário
 
-## Modos cognito (resumen)
+## Modos cognito (resumo)
 
-Para detalle completo, ver `~/.claude/skills/cognito/SKILL.md` o `vendor/cognito/SKILL.md`.
+Para detalhe completo, ver `~/.claude/skills/cognito/SKILL.md` ou `vendor/cognito/SKILL.md`.
 
-- **Divergente** — explora alternativas, evita convergencia prematura
-- **Verificador** — comprueba supuestos, valida datos
-- **Devil's advocate** — ataca el plan para descubrir agujeros
-- **Consolidador** — sintetiza, junta hilos
-- **Ejecutor** — convierte plan en pasos accionables
-- **Estratega** — visión a largo plazo, encaje en sistema mayor
-- **Auditor** — revisión crítica final antes de cerrar
+- **Divergente** — explora alternativas, evita convergência prematura
+- **Verificador** — verifica pressupostos, valida dados
+- **Devil's advocate** — ataca o plano para descobrir buracos
+- **Consolidador** — sintetiza, junta fios
+- **Executor** — converte plano em passos acionáveis
+- **Estratega** — visão a longo prazo, encaixe no sistema maior
+- **Auditor** — revisão crítica final antes de fechar
 
-## Modos según fase
+## Modos segundo fase
 
 - **Discovery**: divergente + verificador
 - **Planning**: estratega + devil's advocate
-- **Execution**: ejecutor + verificador
+- **Execution**: executor + verificador
 - **Review**: auditor + consolidador
-- **Shipping**: ejecutor + auditor
+- **Shipping**: executor + auditor
 
 ## Modo guiado vs completo
 
-iAmasters OS añade UNA capa sobre cognito: durante el onboarding, `meta-onboarding-wizard` pregunta si quieres modo **guiado** (4 modos esenciales auto-elegidos por contexto) o **completo** (los 7 modos × 5 fases = 35 combinaciones disponibles para elegir manualmente).
+iAmasters OS adiciona UMA camada sobre cognito: durante o onboarding, `meta-onboarding-wizard` pergunta se queres modo **guiado** (4 modos essenciais auto-escolhidos por contexto) ou **completo** (os 7 modos × 5 fases = 35 combinações disponíveis para escolher à mão).
 
-La preferencia se guarda en `~/.claude/skills/_operator-state.json` como `cognitoMode: "guiado" | "completo"`.
+A preferência guarda-se em `~/.claude/skills/_operator-state.json` como `cognitoMode: "guiado" | "completo"`.
 
-Puedes cambiar en cualquier momento: `/cognito-mode <guiado|completo>` (si el comando está disponible) o editando manualmente el operator-state.
+Podes mudar a qualquer momento: `/cognito-mode <guiado|completo>` (se o comando estiver disponível) ou editando à mão o operator-state.
 
-## Skills que llama
+## Skills que chama
 
-Cognito puede invocar skills que detectan modos auto-triggered. No las nombramos aquí porque viven en su propio sistema.
+Cognito pode invocar skills que detetam modos auto-triggered. Não as nomeamos aqui porque vivem no seu próprio sistema.
 
 ## Edge cases
 
-- **Cognito no instalada globalmente**: el installer la copia desde `vendor/cognito/`. Si falla, ejecuta manualmente:
+- **Cognito não instalada globalmente**: o installer copia-a a partir de `vendor/cognito/`. Se falhar, executa à mão:
   ```bash
   cp -r vendor/cognito ~/.claude/skills/cognito
   ```
-- **Conflicto con Sinapsis**: NO hay. Ambas skills coexisten con scopes distintos (Sinapsis = memoria, cognito = razonamiento).
-- **Modo guiado pero usuario quiere ver opciones**: aceptar override por turno con `/modo <nombre>`.
+- **Conflito com Sinapsis**: NÃO há. Ambas as skills coexistem com scopes distintos (Sinapsis = memória, cognito = raciocínio).
+- **Modo guiado mas utilizador quer ver opções**: aceitar override por turno com `/modo <nome>`.
 
 ## Crédito
 
-Skill autoría de **Luis Pitik** ([github.com/Luispitik](https://github.com/Luispitik)). iAmasters OS la usa con respeto al patrón "vendoring intacto" + atribución completa. Ver `vendor/cognito/LICENSE` y `vendor/cognito/AUTHORS.md`.
+Skill da autoria de **Luis Pitik** ([github.com/Luispitik](https://github.com/Luispitik)). iAmasters OS usa-a com respeito pelo padrão "vendoring intacto" + atribuição completa. Ver `vendor/cognito/LICENSE` e `vendor/cognito/AUTHORS.md`.

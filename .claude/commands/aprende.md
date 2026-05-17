@@ -1,216 +1,216 @@
 ---
-description: Tour interactivo de 5 días que te enseña a usar iAmasters OS desde cero. Idempotente — retoma donde lo dejaste.
+description: Tour interativo de 5 dias que te ensina a usar o iAmasters OS desde zero. Idempotente — retoma onde paraste.
 ---
 
-# /aprende — Tour de 5 días por iAmasters OS
+# /aprende — Tour de 5 dias pelo iAmasters OS
 
-Tutorial paso-a-paso para alumnos que empiezan desde cero. Cada día son 5-10 minutos. Idempotente: si saltas un día, retoma donde quedaste.
+Tutorial passo-a-passo para alunos que começam de zero. Cada dia são 5-10 minutos. Idempotente: se saltares um dia, retoma onde ficaste.
 
 ## Process
 
-### Paso 1 · Detectar progreso
+### Passo 1 · Detetar progresso
 
-Leer `context/learn-progress.json`. Si no existe:
+Ler `context/learn-progress.json`. Se não existe:
 
 ```json
 {
-  "started_at": "<fecha hoy>",
+  "started_at": "<data hoje>",
   "current_day": 1,
   "completed_days": [],
-  "last_seen": "<fecha hoy>"
+  "last_seen": "<data hoje>"
 }
 ```
 
-Si existe, mostrar:
+Se existe, mostrar:
 ```
-Tour de 5 días — iAmasters OS
+Tour de 5 dias — iAmasters OS
 
-Día 1 ✅ completado
-Día 2 ✅ completado
-Día 3 ◀ siguiente (estás aquí)
-Día 4 ⏳ pendiente
-Día 5 ⏳ pendiente
+Dia 1 ✅ completado
+Dia 2 ✅ completado
+Dia 3 ◀ próximo (estás aqui)
+Dia 4 ⏳ pendente
+Dia 5 ⏳ pendente
 
-¿Continuamos con Día 3?
+Continuamos com o Dia 3?
 ```
 
-### Paso 2 · Ejecutar el día correspondiente
+### Passo 2 · Executar o dia correspondente
 
-Cada día sigue el patrón:
-1. **Concepto** (2-3 min lectura)
-2. **Demo en vivo** (Claude lo hace, el alumno mira)
-3. **Tu turno** (el alumno hace algo guiado)
-4. **Cierre** del día + previa del siguiente
+Cada dia segue o padrão:
+1. **Conceito** (2-3 min leitura)
+2. **Demo em direto** (o Claude faz, o aluno vê)
+3. **A tua vez** (o aluno faz algo guiado)
+4. **Fecho** do dia + prévia do próximo
 
-Al cerrar el día, marcar en `learn-progress.json` y proponer:
-- *"¿Continuamos con el día siguiente ahora o lo dejamos para mañana?"*
-
----
-
-## Día 1 — Qué es una skill y cómo Claude las activa sola
-
-### Concepto
-
-Una **skill** es una carpeta `.claude/skills/<categoria>/<nombre>/` con un `SKILL.md` que tiene un `description:`. Claude lee TODOS los `description:` al iniciar la sesión y, según lo que tú escribas, activa automáticamente la skill que encaja. Tú no la llamas — ella te encuentra.
-
-**Ejemplo real**: en este repo tienes `marketing-copywriting`. Si escribes *"escríbeme un email frío para un CTO de fintech"*, Claude activa esa skill solo. No necesitas decir "usa la skill de copywriting".
-
-### Demo en vivo
-
-Claude muestra:
-1. Lista de todas las skills actuales por categoría (lee `.claude/skills/`)
-2. Para una skill (ej. `marketing-copywriting`), abre su SKILL.md y enseña el `description:` que Claude usa para decidir cuándo activarla
-3. Hace una demo: genera 3 versiones de post LinkedIn sobre un tema cualquiera, **señalando en qué momento se activó la skill y por qué**
-
-### Tu turno
-
-Pide al alumno: *"Pídeme algo concreto. Yo te diré qué skill activé y por qué."* Tres rondas. Si la skill no activó la correcta, el alumno aprende a refinar su pregunta.
-
-### Cierre día 1
-
-> Hoy aprendiste: skills viven en `.claude/skills/`, Claude las activa solas leyendo el `description:`. Mañana: brand context — la pieza que hace que el sistema escriba en TU voz, no en una genérica.
+Ao fechar o dia, marcar em `learn-progress.json` e propor:
+- *"Continuamos com o dia seguinte agora ou deixamos para amanhã?"*
 
 ---
 
-## Día 2 — Brand context: voz, ICP, posicionamiento
+## Dia 1 — O que é uma skill e como o Claude as ativa sozinho
 
-### Concepto
+### Conceito
 
-**Brand context** es la información que hace que tus outputs suenen a TI, no a IA genérica. Tres piezas:
+Uma **skill** é uma pasta `.claude/skills/<categoria>/<nome>/` com um `SKILL.md` que tem um `description:`. O Claude lê TODOS os `description:` ao iniciar a sessão e, conforme o que escreveres, ativa automaticamente a skill que encaixa. Tu não a chamas — ela encontra-te.
 
-- `voice/voice-profile.md` — Tu voz: cómo escribes, qué palabras usas, qué evitas, 3 registros (A formal / B divulgativo / C cercano)
-- `icp/icp.md` — Tu cliente ideal: dolores, lenguaje que usa, triggers de compra
-- `positioning/positioning.md` — Tu ángulo: por qué te eligen a ti y no a otro
+**Exemplo real**: neste repo tens `marketing-copywriting`. Se escreveres *"escreve-me um email frio para um CTO de fintech"*, o Claude ativa essa skill sozinho. Não precisas dizer "usa a skill de copywriting".
 
-Todas las skills `marketing-*` leen estos archivos antes de generar. Sin esto, el output es genérico.
+### Demo em direto
 
-### Demo en vivo
+O Claude mostra:
+1. Lista de todas as skills atuais por categoria (lê `.claude/skills/`)
+2. Para uma skill (ex. `marketing-copywriting`), abre o SKILL.md e mostra o `description:` que o Claude usa para decidir quando a ativar
+3. Faz uma demo: gera 3 versões de post LinkedIn sobre um tema qualquer, **a apontar em que momento a skill foi ativada e porquê**
 
-Claude:
-1. Abre `brand-context/voice/voice-profile.md` (si existe — si no, sugiere generarlo)
-2. Genera un post LinkedIn primero **sin** voice profile, luego **con** voice profile
-3. El alumno ve la diferencia lado a lado
+### A tua vez
 
-### Tu turno
+Pede ao aluno: *"Pede-me algo concreto. Eu digo-te que skill ativei e porquê."* Três rondas. Se a skill não ativou a correta, o aluno aprende a refinar a pergunta.
 
-Si el alumno aún no tiene voice profile:
-- Lanzar la skill `marketing-brand-voice` para generar el suyo (15-20 min)
-- O, si tiene prisa: rellenar manualmente un mini-template con 5 frases típicas suyas
+### Fecho dia 1
 
-### Cierre día 2
-
-> Hoy aprendiste: el sistema escribe en tu voz porque lee brand-context. Mañana: multi-cliente — cómo el mismo OS sirve a varios clientes sin mezclar contextos.
+> Hoje aprendeste: as skills vivem em `.claude/skills/`, o Claude ativa-as sozinho a ler o `description:`. Amanhã: brand context — a peça que faz com que o sistema escreva na TUA voz, não numa genérica.
 
 ---
 
-## Día 3 — Multi-cliente: añadir tu primer cliente
+## Dia 2 — Brand context: voz, ICP, posicionamento
 
-### Concepto
+### Conceito
 
-Si trabajas con varios clientes (o eres operador para varios negocios), cada uno tiene su brand context propio. `clients/<nombre>/` es una copia ligera del OS dedicada a ese cliente.
+**Brand context** é a informação que faz os teus outputs soarem a TI, não a IA genérica. Três peças:
 
-Comando: `/add-client`. Pregunta nombre, vertical (freelance, agencia, formador, consultoría B2B…) y clona la plantilla correspondiente.
+- `voice/voice-profile.md` — A tua voz: como escreves, que palavras usas, o que evitas, 3 registos (A formal / B divulgativo / C próximo)
+- `icp/icp.md` — O teu cliente ideal: dores, linguagem que usa, triggers de compra
+- `positioning/positioning.md` — O teu ângulo: porque te escolhem a ti e não a outro
 
-### Demo en vivo
+Todas as skills `marketing-*` leem estes ficheiros antes de gerar. Sem isto, o output é genérico.
 
-Claude:
-1. Lista las 4 plantillas de cliente en `clients/_templates/`
-2. Ejecuta `/add-client` con un cliente ficticio ("Acme Marketing, agencia")
-3. Muestra la estructura que se creó
+### Demo em direto
 
-### Tu turno
+O Claude:
+1. Abre `brand-context/voice/voice-profile.md` (se existe — se não, sugere gerá-lo)
+2. Gera um post LinkedIn primeiro **sem** voice profile, depois **com** voice profile
+3. O aluno vê a diferença lado a lado
 
-Si el alumno tiene clientes reales:
-- Crear uno real con `/add-client`
-- Configurar su brand-context (puede saltarse si lo hará luego)
+### A tua vez
 
-Si no tiene clientes:
-- Crear uno ficticio para practicar y luego borrarlo
+Se o aluno ainda não tem voice profile:
+- Lançar a skill `marketing-brand-voice` para gerar o dele (15-20 min)
+- Ou, se tem pressa: preencher manualmente um mini-template com 5 frases típicas dele
 
-### Cierre día 3
+### Fecho dia 2
 
-> Hoy aprendiste: cada cliente vive en su propia carpeta sin mezclarse. Mañana: cómo añadir skills y MCPs nuevos al sistema.
-
----
-
-## Día 4 — Catálogo: añadir skills y MCPs nuevos
-
-### Concepto
-
-iAmasters OS viene con **22 skills core** preinstaladas, pero el ecosistema Claude tiene cientos más. Hay tres formas de añadir cosas:
-
-1. **Plugins oficiales de Anthropic** (docx, xlsx, pdf, pptx, etc.) — se instalan vía marketplace, NO se copian al repo (su licencia es source-available).
-2. **Skills de terceros con MIT/Apache** — `/install-skill <github-url>` las vendorea aquí.
-3. **MCP servers** — `/install-mcp <nombre>` los conecta (n8n-mcp, github, notion, supabase…).
-
-### Demo en vivo
-
-Claude:
-1. **Plugins Anthropic**: enseña cómo ejecutar `/plugin install anthropic-skills` desde Claude Code para añadir `docx`, `xlsx`, `pdf`, `pptx`. Resultado: el alumno puede pedir *"léeme este PDF"* y funciona.
-2. **Skill de terceros**: ejemplo con `/install-skill https://github.com/<owner>/<skill>` desde `docs/skills-recommended.md`.
-3. **MCP**: ejemplo con `/install-mcp n8n-mcp` para activar la skill `automation-n8n-builder` que ya tienes en el repo.
-
-### Tu turno
-
-Pide al alumno que instale al menos:
-- Los plugins Anthropic (docx, xlsx, pdf, pptx) — son universales, todo el mundo los necesita
-- Un MCP que tenga sentido para su stack (sugerir en función de lo que vimos en día 2-3)
-
-### Cierre día 4
-
-> Hoy aprendiste: el OS crece contigo. Mañana, el día final: flujo end-to-end real, de reunión a propuesta enviada.
+> Hoje aprendeste: o sistema escreve na tua voz porque lê o brand-context. Amanhã: multi-cliente — como o mesmo OS serve vários clientes sem misturar contextos.
 
 ---
 
-## Día 5 — Flujo end-to-end: de reunión a propuesta
+## Dia 3 — Multi-cliente: adicionar o teu primeiro cliente
 
-### Concepto
+### Conceito
 
-Hoy juntas todo lo aprendido. Caso real: tuviste una reunión con un cliente nuevo, tienes la transcripción, y necesitas entregar una propuesta esa misma tarde.
+Se trabalhas com vários clientes (ou és operador para vários negócios), cada um tem o seu brand context próprio. `clients/<nome>/` é uma cópia leve do OS dedicada a esse cliente.
 
-Flujo:
-1. **Notas de reunión** → skill `marketing-content-repurposing` o equivalente lee transcript y extrae acuerdos, pendientes y dolores del cliente
-2. **Investigación del cliente** → `strategy-web-research` enriquece con datos públicos (web, LinkedIn, BORME si España…)
-3. **Propuesta** → composición con brand context + voice profile + ICP del cliente
-4. **Email follow-up** → `marketing-email-sequence` redacta el envío inicial
-5. **Visualización compartible** → `tool-visual-explainer` genera el HTML que puedes enviar por WhatsApp
+Comando: `/add-client`. Pergunta nome, vertical (freelance, agência, formador, consultoria B2B…) e clona o template correspondente.
 
-### Demo en vivo
+### Demo em direto
 
-Claude ejecuta el flujo con un caso ficticio (transcripción de reunión sintética, cliente B2B) y genera los 5 artefactos.
+O Claude:
+1. Lista os 4 templates de cliente em `clients/_templates/`
+2. Executa `/add-client` com um cliente fictício ("Acme Marketing, agência")
+3. Mostra a estrutura que se criou
 
-### Tu turno
+### A tua vez
 
-El alumno trae **un caso suyo real** (transcripción de reunión, brief de un cliente, lo que sea) y reproduce el flujo. Claude le ayuda a identificar qué skill aplica en cada paso.
+Se o aluno tem clientes reais:
+- Criar um real com `/add-client`
+- Configurar o brand-context dele (pode saltar e fazê-lo depois)
 
-### Cierre día 5
+Se não tem clientes:
+- Criar um fictício para praticar e depois apagá-lo
 
-> Completado el tour. Ahora sabes:
-> - Cómo viven las skills y cómo se activan solas
-> - Cómo el brand context te da output en tu voz
-> - Cómo servir a varios clientes sin mezclar
-> - Cómo crecer el sistema con plugins, skills y MCPs
-> - Cómo encadenar skills en un flujo real
+### Fecho dia 3
+
+> Hoje aprendeste: cada cliente vive na sua própria pasta sem misturar. Amanhã: como adicionar skills e MCPs novos ao sistema.
+
+---
+
+## Dia 4 — Catálogo: adicionar skills e MCPs novos
+
+### Conceito
+
+O iAmasters OS vem com **22 skills core** pré-instaladas, mas o ecossistema Claude tem centenas mais. Há três formas de adicionar coisas:
+
+1. **Plugins oficiais da Anthropic** (docx, xlsx, pdf, pptx, etc.) — instalam-se via marketplace, NÃO se copiam para o repo (a licença é source-available).
+2. **Skills de terceiros com MIT/Apache** — `/install-skill <github-url>` vendoriza-as aqui.
+3. **MCP servers** — `/install-mcp <nome>` liga-os (n8n-mcp, github, notion, supabase…).
+
+### Demo em direto
+
+O Claude:
+1. **Plugins Anthropic**: mostra como executar `/plugin install anthropic-skills` desde o Claude Code para adicionar `docx`, `xlsx`, `pdf`, `pptx`. Resultado: o aluno pode pedir *"lê-me este PDF"* e funciona.
+2. **Skill de terceiros**: exemplo com `/install-skill https://github.com/<owner>/<skill>` desde `docs/skills-recommended.md`.
+3. **MCP**: exemplo com `/install-mcp n8n-mcp` para ativar a skill `automation-n8n-builder` que já tens no repo.
+
+### A tua vez
+
+Pede ao aluno que instale pelo menos:
+- Os plugins Anthropic (docx, xlsx, pdf, pptx) — são universais, toda a gente precisa
+- Um MCP que faça sentido para a stack dele (sugerir em função do que vimos no dia 2-3)
+
+### Fecho dia 4
+
+> Hoje aprendeste: o OS cresce contigo. Amanhã, o dia final: fluxo end-to-end real, de reunião a proposta enviada.
+
+---
+
+## Dia 5 — Fluxo end-to-end: de reunião a proposta
+
+### Conceito
+
+Hoje juntas tudo o que aprendeste. Caso real: tiveste uma reunião com um cliente novo, tens a transcrição, e precisas entregar uma proposta nessa mesma tarde.
+
+Fluxo:
+1. **Notas de reunião** → skill `marketing-content-repurposing` ou equivalente lê o transcript e extrai acordos, pendentes e dores do cliente
+2. **Investigação do cliente** → `strategy-web-research` enriquece com dados públicos (site, LinkedIn, BORME se Espanha…)
+3. **Proposta** → composição com brand context + voice profile + ICP do cliente
+4. **Email follow-up** → `marketing-email-sequence` redige o envio inicial
+5. **Visualização partilhável** → `tool-visual-explainer` gera o HTML que podes enviar por WhatsApp
+
+### Demo em direto
+
+O Claude executa o fluxo com um caso fictício (transcrição de reunião sintética, cliente B2B) e gera os 5 artefactos.
+
+### A tua vez
+
+O aluno traz **um caso real dele** (transcrição de reunião, brief de um cliente, o que for) e reproduz o fluxo. O Claude ajuda-o a identificar que skill se aplica em cada passo.
+
+### Fecho dia 5
+
+> Tour completado. Agora sabes:
+> - Como vivem as skills e como se ativam sozinhas
+> - Como o brand context te dá output na tua voz
+> - Como servir vários clientes sem misturar
+> - Como crescer o sistema com plugins, skills e MCPs
+> - Como encadear skills num fluxo real
 >
-> Próximo paso: úsalo en producción esta semana con un cliente real. Si algo no encaja, ejecuta `/doctor` o pregunta en la comunidad. Si construyes una skill que te funcione, propónsela al catálogo (ver `docs/skills-recommended.md`).
+> Próximo passo: usa-o em produção esta semana com um cliente real. Se algo não encaixar, executa `/doctor` ou pergunta na comunidade. Se construíres uma skill que te funcione, propõe-na ao catálogo (ver `docs/skills-recommended.md`).
 
 ---
 
 ## Edge cases
 
-- **El alumno salta de día 1 a día 3 directamente**: avisar de que se está saltando piezas, dejarle decidir si seguir.
-- **El alumno ya tiene voice profile generado**: saltar día 2 demo, ir directo a día 3.
-- **El alumno trabaja solo y no tiene clientes**: día 3 puede saltarse o ejecutarse con cliente ficticio.
-- **El alumno no quiere instalar plugins Anthropic**: respetar, indicar qué pierde (skills office), seguir.
+- **O aluno salta do dia 1 para o dia 3 direto**: avisar que está a saltar peças, deixá-lo decidir se segue.
+- **O aluno já tem voice profile gerado**: saltar dia 2 demo, ir direto ao dia 3.
+- **O aluno trabalha sozinho e não tem clientes**: dia 3 pode saltar-se ou executar-se com cliente fictício.
+- **O aluno não quer instalar plugins Anthropic**: respeitar, indicar o que perde (skills office), seguir.
 
-## Cierre
+## Fecho
 
-Cuando se completa día 5, marcar `learn-progress.json`:
+Quando se completa o dia 5, marcar `learn-progress.json`:
 ```json
 {
   "completed_days": [1,2,3,4,5],
-  "completed_at": "<fecha>"
+  "completed_at": "<data>"
 }
 ```
 
-Y avisar al alumno: *"Tour completado. `/aprende` vuelve a estar disponible cuando quieras repasar un día concreto: `/aprende dia-2`."*
+E avisar o aluno: *"Tour completado. `/aprende` volta a estar disponível quando quiseres rever um dia concreto: `/aprende dia-2`."*

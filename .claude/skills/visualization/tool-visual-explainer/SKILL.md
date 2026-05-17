@@ -1,61 +1,61 @@
 ---
 name: tool-visual-explainer
-description: Genera páginas HTML autocontenidas y bonitas que explican visualmente sistemas, código, planes, datos o análisis. Úsalo cuando necesites compartir un output complejo (diagrama, comparativa, recap de proyecto, plan review, tabla larga) o cuando otra skill (welcome-quick-win, six-hats, marketing-positioning) cierre con material que el usuario querrá compartir por WhatsApp/Skool/email. Output: HTML5 sin dependencias externas, móvil-first, paleta sobria con acento naranja iAmasters.
+description: Gera páginas HTML autocontidas e bonitas que explicam visualmente sistemas, código, planos, dados ou análises. Usa-o quando precisares de partilhar um output complexo (diagrama, comparativo, recap de projeto, plan review, tabela longa) ou quando outra skill (welcome-quick-win, six-hats, marketing-positioning) feche com material que o utilizador vai querer partilhar por WhatsApp/Skool/email. Output: HTML5 sem dependências externas, mobile-first, paleta sóbria com acento laranja iAmasters.
 ---
 
 # tool-visual-explainer
 
-> Inspirado en la skill `visual-explainer` de la suite Anthropic + comunidad. Adaptada al patrón iAmasters OS con paleta y branding del repo.
+> Inspirado na skill `visual-explainer` da suite Anthropic + comunidade. Adaptada ao padrão iAmasters OS com paleta e branding do repo.
 
-## Cuándo se invoca
+## Quando se invoca
 
-- Otra skill cierra con un análisis o entregable que el usuario querrá compartir
-- Usuario pide "hazme un HTML de esto", "ponlo bonito para compartir", "exporta esto"
-- Usuario va a presentar el output a otra persona (cliente, socio, asesor, comunidad)
-- Tablas largas (4+ filas, 3+ columnas) — mejor en HTML que ASCII
+- Outra skill fecha com uma análise ou entregável que o utilizador vai querer partilhar
+- O utilizador pede "faz-me um HTML disto", "põe isto bonito para partilhar", "exporta isto"
+- O utilizador vai apresentar o output a outra pessoa (cliente, sócio, conselheiro, comunidade)
+- Tabelas longas (4+ linhas, 3+ colunas) — melhor em HTML do que ASCII
 
-NO se invoca:
-- Para outputs internos que solo lee Claude (sería gasto inútil)
-- Cuando el usuario ya está en una herramienta visual (Notion, Figma, etc.)
-- Para outputs <200 palabras donde markdown plano basta
+NÃO se invoca:
+- Para outputs internos que só o Claude lê (seria gasto inútil)
+- Quando o utilizador já está numa ferramenta visual (Notion, Figma, etc.)
+- Para outputs <200 palavras onde markdown plano chega
 
 ## Process
 
-### Paso 1 · Recibir input
+### Passo 1 · Receber input
 
-La skill recibe (de otra skill o del usuario directamente):
+A skill recebe (de outra skill ou do utilizador diretamente):
 
-- **Título** del documento
-- **Bloques de contenido**: cada bloque tiene tipo (`hero`, `text`, `table`, `list`, `quote`, `metric-card`, `image`, `code`, `cta`)
-- **Metadatos opcionales**: fecha, autor, versión, branding sí/no
-- **Destino del archivo**: ruta relativa al repo (default `projects/visual/<YYYY-MM-DD>-<titulo>.html`)
+- **Título** do documento
+- **Blocos de conteúdo**: cada bloco tem tipo (`hero`, `text`, `table`, `list`, `quote`, `metric-card`, `image`, `code`, `cta`)
+- **Metadados opcionais**: data, autor, versão, branding sim/não
+- **Destino do ficheiro**: path relativo ao repo (default `projects/visual/<YYYY-MM-DD>-<titulo>.html`)
 
-Si la skill se invoca desde otra (ej. `welcome-quick-win`), esos campos vienen pre-poblados.
+Se a skill for invocada a partir de outra (ex. `welcome-quick-win`), esses campos vêm pré-preenchidos.
 
-Si la invoca el usuario directamente, pregunta lo mínimo:
+Se a invocar o utilizador diretamente, pergunta o mínimo:
 
 ```
-¿Qué quieres convertir en HTML compartible?
-  • Pega el contenido (markdown vale)
-  • O dime qué archivo/conversación procesamos
+O que queres converter em HTML partilhável?
+  • Cola o conteúdo (markdown serve)
+  • Ou diz-me que ficheiro/conversa processamos
 ```
 
-### Paso 2 · Validar contenido
+### Passo 2 · Validar conteúdo
 
-Antes de generar:
+Antes de gerar:
 
-- Sin código JS embebido — el HTML debe funcionar en cualquier viewer (WhatsApp, email, Telegram que NO ejecutan JS)
-- Sin dependencias CDN externas — todo inline (CSS embebido, fuentes system)
-- Sin imágenes hosteadas en URL externa salvo si el usuario lo pide explícitamente — preferir SVG inline o emojis Unicode
-- Verificar que ningún bloque tiene contenido > 5KB (si hay un texto enorme, sugerir resumirlo)
+- Sem código JS embutido — o HTML deve funcionar em qualquer viewer (WhatsApp, email, Telegram que NÃO executam JS)
+- Sem dependências CDN externas — tudo inline (CSS embutido, fontes system)
+- Sem imagens hospedadas em URL externa exceto se o utilizador o pedir explicitamente — preferir SVG inline ou emojis Unicode
+- Verificar que nenhum bloco tem conteúdo > 5KB (se houver um texto enorme, sugerir resumi-lo)
 
-### Paso 3 · Generar HTML
+### Passo 3 · Gerar HTML
 
-Usa este esqueleto base. Es deliberadamente simple — no compitas con sitios webs, **prioriza legibilidad y portabilidad**.
+Usa este esqueleto base. É deliberadamente simples — não compitas com websites, **prioriza legibilidade e portabilidade**.
 
 ```html
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,25 +163,25 @@ Usa este esqueleto base. Es deliberadamente simple — no compitas con sitios we
       <div class="meta">{{ subtitle }} · {{ date }}</div>
     </header>
 
-    <!-- Renderiza cada bloque según su tipo -->
+    <!-- Renderiza cada bloco conforme o seu tipo -->
     {{ blocks }}
 
     <footer>
-      Generado por iAmasters OS · <a href="https://iamastersacademy.com">iamastersacademy.com</a>
+      Gerado por iAmasters OS · <a href="https://iamastersacademy.com">iamastersacademy.com</a>
     </footer>
   </div>
 </body>
 </html>
 ```
 
-### Paso 4 · Renderizar bloques
+### Passo 4 · Renderizar blocos
 
-Para cada bloque del input, usa estos templates:
+Para cada bloco do input, usa estes templates:
 
 | Tipo | HTML |
 |---|---|
 | `text` | `<h2>{title}</h2><p>{body}</p>` |
-| `list` | `<h2>{title}</h2><ul>{items as <li>}</ul>` (o `<ol>` si numerada) |
+| `list` | `<h2>{title}</h2><ul>{items as <li>}</ul>` (ou `<ol>` se for numerada) |
 | `table` | `<h2>{title}</h2><table>{thead + tbody}</table>` |
 | `quote` | `<blockquote>{body}</blockquote>` |
 | `metric-card` | `<div class="metric-card"><div class="label">{label}</div><div class="value">{value}</div></div>` |
@@ -189,51 +189,51 @@ Para cada bloque del input, usa estos templates:
 | `cta` | `<div class="cta">{body}</div>` |
 | `image` | `<img src="{src}" alt="{alt}" style="max-width:100%;border-radius:6px;">` (preferir SVG inline) |
 
-### Paso 5 · Guardar y reportar
+### Passo 5 · Guardar e reportar
 
-Guarda en la ruta indicada (default `projects/visual/<YYYY-MM-DD>-<titulo>.html`).
+Guarda no path indicado (default `projects/visual/<YYYY-MM-DD>-<titulo>.html`).
 
-Mensaje al usuario:
-
-```
-✓ HTML generado: projects/visual/<archivo>.html
-
-Tamaño: <X KB>
-
-Para compartir:
-  • Doble-click para abrir en navegador y verificar
-  • Adjuntar a WhatsApp/Telegram/email funciona directo
-  • Si lo subes a un servidor web, va sin tocar (HTML+CSS inline)
-```
-
-### Paso 6 · Cierre y aprendizaje
-
-Si el usuario reporta que el HTML quedó mal (colores, layout, elementos rotos), append en `context/learnings.md` bajo `## tool-visual-explainer`:
+Mensagem para o utilizador:
 
 ```
-- <fecha>: feedback del usuario sobre [aspecto]. Próxima vez: [ajuste].
+✓ HTML gerado: projects/visual/<ficheiro>.html
+
+Tamanho: <X KB>
+
+Para partilhar:
+  • Duplo-clique para abrir no browser e verificar
+  • Anexar a WhatsApp/Telegram/email funciona direto
+  • Se o subires para um servidor web, vai sem tocar (HTML+CSS inline)
+```
+
+### Passo 6 · Fecho e aprendizagem
+
+Se o utilizador reportar que o HTML ficou mal (cores, layout, elementos partidos), append em `context/learnings.md` sob `## tool-visual-explainer`:
+
+```
+- <data>: feedback do utilizador sobre [aspeto]. Próxima vez: [ajuste].
 ```
 
 ## Outputs
 
-- Archivo HTML autocontenido en `projects/visual/<YYYY-MM-DD>-<titulo>.html` (o ruta indicada)
-- Mensaje al usuario con tamaño + instrucciones de compartir
+- Ficheiro HTML autocontido em `projects/visual/<YYYY-MM-DD>-<titulo>.html` (ou path indicado)
+- Mensagem para o utilizador com tamanho + instruções de partilha
 
-## Skills que llama
+## Skills que chama
 
-Ninguna directamente. Esta skill es **invocada por** otras (`welcome-quick-win`, `six-hats`, `marketing-positioning`, `marketing-content-repurposing`, etc.) cuando esas necesitan un output compartible.
+Nenhuma diretamente. Esta skill é **invocada por** outras (`welcome-quick-win`, `six-hats`, `marketing-positioning`, `marketing-content-repurposing`, etc.) quando essas precisam de um output partilhável.
 
 ## Edge cases
 
-- **Contenido > 100KB**: dividir en múltiples HTMLs (uno por sección) o sugerir resumen.
-- **Tabla con >20 filas**: añadir scroll horizontal + considerar paginación visual.
-- **Idioma del contenido distinto a castellano**: respeta el idioma de input. El framework HTML (footer, meta) se mantiene en castellano salvo override.
-- **Usuario quiere paleta distinta a la naranja iAmasters**: aceptar override en input (`brand_color: "#XYZ"`). Default mantiene paleta del OS.
-- **HTML para email**: muchos clientes email rompen estilos. Si destino es email, simplificar (pocos colores, sin gradient en CTA, tipografía estándar) y avisar al usuario.
+- **Conteúdo > 100KB**: dividir em múltiplos HTMLs (um por secção) ou sugerir resumo.
+- **Tabela com >20 linhas**: adicionar scroll horizontal + considerar paginação visual.
+- **Idioma do conteúdo diferente de português**: respeita o idioma do input. O framework HTML (footer, meta) mantém-se em português exceto se for feito override.
+- **Utilizador quer paleta diferente do laranja iAmasters**: aceitar override no input (`brand_color: "#XYZ"`). Default mantém paleta do OS.
+- **HTML para email**: muitos clientes de email partem estilos. Se o destino for email, simplificar (poucas cores, sem gradient no CTA, tipografia standard) e avisar o utilizador.
 
-## Notas de diseño
+## Notas de design
 
-- **Móvil-first**: el HTML se ve más en móviles (compartido por WhatsApp) que en desktop. Probar legibilidad en pantalla 360px ancho.
-- **Sin JS**: aplicaciones de mensajería NO ejecutan JS. Si necesitas interactividad (toggle, accordion), usa `<details>` y `<summary>` (HTML semántico, funciona sin JS).
-- **Paleta iAmasters**: naranja `#ff8c42` (acento principal), morado `#b794f4` (citas/secundario), gris `#fafafa` (fondo). Coherente con README badges.
-- **Sin tracking**: no embebas Google Analytics ni similares. El HTML es del usuario.
+- **Mobile-first**: o HTML é mais visto em móveis (partilhado por WhatsApp) do que em desktop. Testar legibilidade em ecrã 360px de largura.
+- **Sem JS**: as aplicações de mensagens NÃO executam JS. Se precisares de interatividade (toggle, accordion), usa `<details>` e `<summary>` (HTML semântico, funciona sem JS).
+- **Paleta iAmasters**: laranja `#ff8c42` (acento principal), roxo `#b794f4` (citações/secundário), cinzento `#fafafa` (fundo). Coerente com os badges do README.
+- **Sem tracking**: não embutir Google Analytics nem similares. O HTML é do utilizador.

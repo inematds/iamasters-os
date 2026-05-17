@@ -1,104 +1,104 @@
 ---
 name: health-check
-description: Diagnóstico de iAmasters OS con VALIDACIÓN PROFUNDA. v0.6 - no solo comprueba que existan archivos, sino que sean válidos y funcionales (JSON parseable, hooks ejecutables, contenido real >100 chars, etc.). Cruza con ~/.claude/skills/_install-state.json para detectar drift (state dice done pero archivos faltan, o al revés). Devuelve reporte 🟢🟡🔴 con acciones concretas. Soporta auto-fix limitado. Se invoca vía /doctor o cuando otra skill detecta inconsistencia.
+description: Diagnóstico do iAmasters OS com VALIDAÇÃO PROFUNDA. v0.6 - não só verifica que existam ficheiros, mas que sejam válidos e funcionais (JSON parseável, hooks executáveis, conteúdo real >100 chars, etc.). Cruza com ~/.claude/skills/_install-state.json para detetar drift (state diz `done` mas ficheiros faltam, ou ao contrário). Devolve relatório 🟢🟡🔴 com ações concretas. Suporta auto-fix limitado. Invoca-se via /doctor ou quando outra skill deteta inconsistência.
 ---
 
 # health-check
 
-> **Cambio crítico v0.6**: ya no validas "el archivo existe". Validas que el archivo sea **funcionalmente correcto**: JSON parseable, contenido real, hooks ejecutables, contadores razonables.
+> **Mudança crítica v0.6**: já não validas "o ficheiro existe". Validas que o ficheiro seja **funcionalmente correto**: JSON parseável, conteúdo real, hooks executáveis, contadores razoáveis.
 >
-> La fuente de verdad sobre qué debería estar instalado es `~/.claude/skills/_install-state.json`. Si dice que `sinapsis-engine` está `done` pero la validación profunda falla, eso es **drift** y hay que reportarlo (y opcionalmente arreglarlo).
+> A fonte de verdade sobre o que deveria estar instalado é `~/.claude/skills/_install-state.json`. Se diz que `sinapsis-engine` está `done` mas a validação profunda falha, isso é **drift** e há que reportar (e opcionalmente arranjar).
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Usuario ejecuta `/doctor`
-- `meta-start-here` detecta inconsistencia al arrancar sesión
-- Tras `update.sh` para verificar la actualización
-- Usuario reporta "algo no funciona" sin saber qué
-- (NUEVA) `/install` post-fase invoca para validar antes de marcar `done`
+- Utilizador executa `/doctor`
+- `meta-start-here` deteta inconsistência ao arrancar sessão
+- Após `update.sh` para verificar a atualização
+- Utilizador reporta "algo não funciona" sem saber o quê
+- (NOVA) `/install` pós-fase invoca para validar antes de marcar `done`
 
 ## Process
 
-### Paso 0 · Leer fuente de verdad
+### Passo 0 · Ler fonte de verdade
 
-Lee `~/.claude/skills/_install-state.json` con la tool `Read`. Si NO existe:
-- Reporta 🔴 instalación no iniciada
-- Indica al usuario ejecutar `bash scripts/install.sh`
+Lê `~/.claude/skills/_install-state.json` com a tool `Read`. Se NÃO existir:
+- Reporta 🔴 instalação não iniciada
+- Indica ao utilizador para executar `bash scripts/install.sh`
 - Para.
 
-Guarda en memoria mental:
-- Qué fases dice el state que están `done`
+Guarda em memória mental:
+- Que fases o state diz que estão `done`
 - Lista de `completedPhases`
-- Errores recientes en `errors[]`
+- Erros recentes em `errors[]`
 
-### Paso 1 · Verificación entorno (validación profunda)
+### Passo 1 · Verificação ambiente (validação profunda)
 
-| Check | Validación REAL | Severidad si falla |
+| Check | Validação REAL | Severidade se falha |
 |---|---|---|
-| Claude Code CLI / app | `which claude` o env var `CLAUDECODE` / `CLAUDE_DESKTOP` o `~/Applications/Claude.app` | 🔴 si nada detectado |
-| Repo raíz correcto | `CLAUDE.md` + `.claude/` + `vendor/sinapsis/` en `pwd` | 🔴 si falta alguno |
+| Claude Code CLI / app | `which claude` ou env var `CLAUDECODE` / `CLAUDE_DESKTOP` ou `~/Applications/Claude.app` | 🔴 se nada detetado |
+| Repo raiz correto | `CLAUDE.md` + `.claude/` + `vendor/sinapsis/` em `pwd` | 🔴 se faltar algum |
 | Git inicializado | `.git/` existe | 🟡 |
-| `.env` válido | Existe Y no tiene líneas obviamente rotas (no sintaxis tipo `KEY:value`) | 🟡 |
-| Node.js ≥18 | `node --version` parseable, mayor ≥18 | 🔴 (Sinapsis hooks lo requieren) |
-| Python 3 disponible | `python3 --version` o `py -3 --version` o `python --version` con Python 3 | 🟡 |
+| `.env` válido | Existe E não tem linhas obviamente partidas (sem sintaxe tipo `KEY:value`) | 🟡 |
+| Node.js ≥18 | `node --version` parseável, major ≥18 | 🔴 (Sinapsis hooks requerem-no) |
+| Python 3 disponível | `python3 --version` ou `py -3 --version` ou `python --version` com Python 3 | 🟡 |
 
-Usa la tool `Bash` para los `which`/`--version`.
+Usa a tool `Bash` para os `which`/`--version`.
 
-### Paso 2 · Verificación Sinapsis (validación PROFUNDA)
+### Passo 2 · Verificação Sinapsis (validação PROFUNDA)
 
-Esta sección es la que evita "instalaciones fantasma". No te fíes de que el archivo exista — valídalo:
+Esta secção é a que evita "instalações fantasma". Não te fies que o ficheiro existe — valida-o:
 
-| Check | Validación real | Severidad |
+| Check | Validação real | Severidade |
 |---|---|---|
-| `_operator-state.json` parseable | `node -e "JSON.parse(require('fs').readFileSync('~/.claude/skills/_operator-state.json'))"` no falla | 🔴 |
-| `_operator-state.json` tiene campos mínimos | `.operator.name` y `.operator.language` no son null/empty | 🟡 (sin esto el wizard no ha terminado) |
-| `_catalog.json` parseable | mismo | 🟡 |
-| Hooks ejecutables (5 hooks) | `_passive-activator.sh`, `_instinct-activator.sh`, `_session-learner.sh`, `_project-context.sh`, `_eod-gather.sh` existen Y tienen permiso `+x` | 🔴 si falla ≥2, 🟡 si falla 1 |
-| ≥1 SKILL.md instalada | `find ~/.claude/skills -maxdepth 3 -name SKILL.md` devuelve ≥1 resultado | 🔴 |
-| Hooks registrados en settings.json | `~/.claude/settings.json` parseable Y contiene la sección `hooks.PreToolUse` con referencias a `_passive-activator.sh` | 🟡 |
-| Install-gate registrado | `~/.claude/settings.json` contiene `hooks.SessionStart` con referencia a `_install-gate.sh` | 🟡 |
-| **DRIFT check** | Si `_install-state.json.phases.sinapsis-engine.status == "done"` Y alguno de los anteriores falla → **DRIFT** | 🔴 con flag "STATE DRIFT" |
+| `_operator-state.json` parseável | `node -e "JSON.parse(require('fs').readFileSync('~/.claude/skills/_operator-state.json'))"` não falha | 🔴 |
+| `_operator-state.json` tem campos mínimos | `.operator.name` e `.operator.language` não são null/empty | 🟡 (sem isto o wizard não terminou) |
+| `_catalog.json` parseável | mesmo | 🟡 |
+| Hooks executáveis (5 hooks) | `_passive-activator.sh`, `_instinct-activator.sh`, `_session-learner.sh`, `_project-context.sh`, `_eod-gather.sh` existem E têm permissão `+x` | 🔴 se falhar ≥2, 🟡 se falhar 1 |
+| ≥1 SKILL.md instalado | `find ~/.claude/skills -maxdepth 3 -name SKILL.md` devolve ≥1 resultado | 🔴 |
+| Hooks registados em settings.json | `~/.claude/settings.json` parseável E contém a secção `hooks.PreToolUse` com referências a `_passive-activator.sh` | 🟡 |
+| Install-gate registado | `~/.claude/settings.json` contém `hooks.SessionStart` com referência a `_install-gate.sh` | 🟡 |
+| **DRIFT check** | Se `_install-state.json.phases.sinapsis-engine.status == "done"` E algum dos anteriores falha → **DRIFT** | 🔴 com flag "STATE DRIFT" |
 
-Para los checks de hooks ejecutables, usa Bash:
+Para os checks de hooks executáveis, usa Bash:
 ```bash
 for h in _passive-activator.sh _instinct-activator.sh _session-learner.sh _project-context.sh _eod-gather.sh; do
   [ -x "$HOME/.claude/skills/$h" ] && echo "OK $h" || echo "FAIL $h"
 done
 ```
 
-### Paso 3 · Verificación capa OS — brand-context
+### Passo 3 · Verificação camada OS — brand-context
 
-| Check | Validación | Severidad |
+| Check | Validação | Severidade |
 |---|---|---|
-| `brand-context/` existe | sí | 🔴 |
+| `brand-context/` existe | sim | 🔴 |
 | `voice/voice-profile.md` | Existe + >100 chars | 🟡 (skill: `marketing-brand-voice`) |
 | `voice/samples.md` | Existe + >100 chars | 🟡 |
-| Registros A/B/C | Los 3 archivos existen | 🟡 |
+| Registos A/B/C | Os 3 ficheiros existem | 🟡 |
 | `positioning/positioning.md` | Existe + >100 chars | 🟡 |
 | `icp/icp.md` | Existe + >100 chars | 🟡 |
 
-### Paso 4 · Verificación capa OS — context sectorizado (con drift check)
+### Passo 4 · Verificação camada OS — context sectorizado (com drift check)
 
-Para CADA uno de los 4 archivos críticos:
+Para CADA um dos 4 ficheiros críticos:
 
-| Check | Validación | Severidad |
+| Check | Validação | Severidade |
 |---|---|---|
-| `context/me.md` | Existe + >100 chars + contiene `## Nombre` con valor real | 🟡 si vacío (skill: `meta-onboarding-wizard`) |
-| `context/work.md` | Existe + >100 chars + contiene `## Qué hago` | 🟡 |
-| `context/current-priorities.md` | Existe + >100 chars + tiene al menos una prioridad listada | 🟡 |
+| `context/me.md` | Existe + >100 chars + contém `## Nombre` com valor real | 🟡 se vazio (skill: `meta-onboarding-wizard`) |
+| `context/work.md` | Existe + >100 chars + contém `## Qué hago` | 🟡 |
+| `context/current-priorities.md` | Existe + >100 chars + tem pelo menos uma prioridade listada | 🟡 |
 | `context/goals.md` | Existe + >100 chars | 🟡 |
-| `context/team.md` | Existe (puede estar vacío si trabaja solo) | 🟢 |
-| `context/decisions-log.md` | Existe con header canónico | 🟡 auto-fix |
+| `context/team.md` | Existe (pode estar vazio se trabalha sozinho) | 🟢 |
+| `context/decisions-log.md` | Existe com header canónico | 🟡 auto-fix |
 | `context/learnings.md` | Existe | 🟢 auto-fix |
 | `context/soul.md` | Existe + >100 chars | 🟡 |
 
 **DRIFT check para context-files**:
-- Si `state.phases.context-files.status == "done"` PERO alguno de los 4 archivos críticos no existe o tiene <100 chars → reporta 🔴 **STATE DRIFT** + propone fix:
-  > "El state dice que `context-files` está done pero `<archivo>` está vacío/inexistente. Esto indica una marca falsa. Voy a revertir el state a `in-progress` y reactivar el wizard. ¿Continúo?"
+- Se `state.phases.context-files.status == "done"` MAS algum dos 4 ficheiros críticos não existir ou tiver <100 chars → reporta 🔴 **STATE DRIFT** + propõe fix:
+  > "O state diz que `context-files` está `done` mas `<ficheiro>` está vazio/inexistente. Isto indica uma marca falsa. Vou reverter o state para `in-progress` e reativar o wizard. Continuo?"
 
-### Paso 5 · Verificación skills curadas
+### Passo 5 · Verificação skills curadas
 
-Lista skills mínimas (v0.6 Capa 1):
+Lista skills mínimas (v0.6 Camada 1):
 
 ```
 .claude/skills/_meta/meta-skill-creator/SKILL.md
@@ -126,27 +126,27 @@ Lista skills mínimas (v0.6 Capa 1):
 .claude/skills/visualization/tool-visual-explainer/SKILL.md
 ```
 
-Por cada faltante: 🟡 con sugerencia "ejecuta `bash scripts/update.sh` para sincronizar".
+Por cada faltante: 🟡 com sugestão "executa `bash scripts/update.sh` para sincronizar".
 
-### Paso 6 · Verificación settings
+### Passo 6 · Verificação settings
 
-| Check | Validación | Severidad |
+| Check | Validação | Severidade |
 |---|---|---|
-| `.claude/settings.json` del repo parseable | JSON válido | 🔴 |
-| `~/.claude/settings.json` global parseable | JSON válido | 🔴 |
-| Permissions seguras (repo) | No `Bash(*)` ni similares peligrosos en `permissions.allow` | 🟡 |
-| No secrets en settings | No hay strings que parezcan API keys (busca `sk-`, `fc-`, `pk_`) | 🔴 |
+| `.claude/settings.json` do repo parseável | JSON válido | 🔴 |
+| `~/.claude/settings.json` global parseável | JSON válido | 🔴 |
+| Permissions seguras (repo) | Sem `Bash(*)` nem similares perigosos em `permissions.allow` | 🟡 |
+| Sem secrets em settings | Não há strings que pareçam API keys (procura `sk-`, `fc-`, `pk_`) | 🔴 |
 
-### Paso 7 · Verificación API keys (opcionales, en `.env`)
+### Passo 7 · Verificação API keys (opcionais, em `.env`)
 
-| Check | Validación | Severidad |
+| Check | Validação | Severidade |
 |---|---|---|
-| `FIRECRAWL_API_KEY` | Set + empieza por `fc-` + ≥20 chars | 🟡 (sin esto, scraping manual) |
-| Otras keys mencionadas en `.env.example` | Set si están documentadas | 🟢 (informativo) |
+| `FIRECRAWL_API_KEY` | Set + começa por `fc-` + ≥20 chars | 🟡 (sem isto, scraping manual) |
+| Outras keys mencionadas em `.env.example` | Set se estão documentadas | 🟢 (informativo) |
 
-### Paso 8 · Compilar reporte
+### Passo 8 · Compilar relatório
 
-Genera reporte estructurado:
+Gera relatório estruturado:
 
 ```
 # 🩺 iAmasters OS · Health Check v0.6
@@ -211,9 +211,9 @@ State machine: <X>/5 required phases done · <currentPhase>
 3. <acción 3>
 ```
 
-### Paso 9 · Auto-fix limitado
+### Passo 9 · Auto-fix limitado
 
-Solo ofrece auto-fix para problemas reversibles y seguros:
+Só oferece auto-fix para problemas reversíveis e seguros:
 
 ```
 Detecté <N> problemas con fix automático:
@@ -225,9 +225,9 @@ Detecté <N> problemas con fix automático:
 ¿Aplico los fixes? (s/n)
 ```
 
-Si dice "s", aplícalos uno a uno mostrando qué hace cada uno.
+Se disser "s", aplica-os um a um mostrando o que faz cada um.
 
-**Fix de DRIFT** es ESPECIAL — requiere confirmación explícita extra:
+**Fix de DRIFT** é ESPECIAL — requer confirmação explícita extra:
 ```
 🚨 STATE DRIFT detectado en fase "<X>".
 El state dice "done" pero la validación profunda falla.
@@ -238,43 +238,43 @@ re-ejecutar la fase. Esto NO borra archivos — solo cambia el flag.
 ¿Confirmas? (escribe "sí, revertir")
 ```
 
-Si responde literal "sí, revertir": revierte el state. Si dice cualquier otra cosa: NO toques nada.
+Se responder literal "sí, revertir": reverte o state. Se disser qualquer outra coisa: NÃO toques em nada.
 
-### Paso 10 · Cierre
+### Passo 10 · Fecho
 
-- Si todo 🟢: muestra proyectos abiertos (`projects/briefs/*/brief.md` con `status: active`) y propón continuar
-- Si hay 🟡: plan de acción priorizado
-- Si hay 🔴 o DRIFT: bloqueante, sugiere fix antes de seguir
-- Append a `context/learnings.md` SOLO si descubriste algo recurrente (no por cada ejecución)
+- Se tudo 🟢: mostra projetos abertos (`projects/briefs/*/brief.md` com `status: active`) e propõe continuar
+- Se houver 🟡: plano de ação priorizado
+- Se houver 🔴 ou DRIFT: bloqueante, sugere fix antes de continuar
+- Append a `context/learnings.md` SÓ se descobriste algo recorrente (não por cada execução)
 
 ## Outputs
 
-- Reporte en chat (Paso 8)
-- Opcional: HTML compartible vía `tool-visual-explainer` si >5 🟡
-- (Si auto-fix aplicado) archivos creados/permisos modificados
+- Relatório no chat (Passo 8)
+- Opcional: HTML partilhável via `tool-visual-explainer` se >5 🟡
+- (Se auto-fix aplicado) ficheiros criados/permissões modificadas
 
 ## Edge cases
 
-- **Repo abierto pero no es iamasters-os**: detecta ausencia de `vendor/sinapsis/` → "no estás en un repo iamasters-os, este check no aplica"
-- **State file no existe**: reporta como 🔴 fundamental, sugiere `bash scripts/install.sh`
-- **State file corrupto** (JSON inválido): reporta 🔴, sugiere `bash scripts/install.sh --force-reinstall`
-- **Drift en múltiples fases simultáneamente**: lista cada una con su detalle, ofrece revertir todas con UN solo confirmador
-- **Cliente activo en `clients/<X>/`**: validar también su sub-context
+- **Repo aberto mas não é iamasters-os**: deteta ausência de `vendor/sinapsis/` → "não estás num repo iamasters-os, este check não aplica"
+- **State file não existe**: reporta como 🔴 fundamental, sugere `bash scripts/install.sh`
+- **State file corrompido** (JSON inválido): reporta 🔴, sugere `bash scripts/install.sh --force-reinstall`
+- **Drift em múltiplas fases simultaneamente**: lista cada uma com o seu detalhe, oferece reverter todas com UM só confirmador
+- **Cliente ativo em `clients/<X>/`**: validar também o seu sub-context
 
-## Auto-fixes disponibles (resumen)
+## Auto-fixes disponíveis (resumo)
 
-| Fix | Sin preguntar | Requiere "sí" | Requiere "sí, revertir" |
+| Fix | Sem perguntar | Requer "sí" | Requer "sí, revertir" |
 |---|---|---|---|
-| Crear decisions-log.md / learnings.md vacío | — | ✓ | — |
+| Criar decisions-log.md / learnings.md vazio | — | ✓ | — |
 | chmod +x a hooks | — | ✓ | — |
-| Re-registrar install-gate hook | — | ✓ | — |
-| Revertir state drift | — | — | ✓ |
-| Crear `.env` desde `.env.example` | — | ✓ | — |
-| Cualquier fix de Sinapsis instalación | (delegar a `bash scripts/install.sh --resume`) | | |
+| Re-registar install-gate hook | — | ✓ | — |
+| Reverter state drift | — | — | ✓ |
+| Criar `.env` a partir de `.env.example` | — | ✓ | — |
+| Qualquer fix de instalação Sinapsis | (delegar a `bash scripts/install.sh --resume`) | | |
 
 ## Notas operativas
 
-- NO recolectas datos personales ni cambias configuración de comportamiento
-- Output **rápido de leer** — usuario debe entender en 30s el estado general
-- 🟡 NO bloquea uso, 🔴 SÍ bloquea uso, **DRIFT** es 🔴 con tratamiento especial
-- Si reporta >8 🟡 considera generar HTML compartible
+- NÃO recolhes dados pessoais nem mudas configuração de comportamento
+- Output **rápido de ler** — utilizador deve perceber em 30s o estado geral
+- 🟡 NÃO bloqueia uso, 🔴 SIM bloqueia uso, **DRIFT** é 🔴 com tratamento especial
+- Se reportar >8 🟡 considera gerar HTML partilhável

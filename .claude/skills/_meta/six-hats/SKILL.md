@@ -1,151 +1,151 @@
 ---
 name: six-hats
-description: Aplica el método de los 6 sombreros de Edward de Bono para analizar una decisión, problema o estrategia desde 6 perspectivas separadas (proceso, datos, riesgos, oportunidades, creatividad, intuición). Úsalo cuando el usuario pida "analiza X desde varios ángulos", "ayúdame a decidir Y", "qué piensas de Z", o cuando la pregunta requiera estructurar pensamiento sin caer en sesgos. Output: análisis estructurado por sombrero + síntesis con recomendación.
+description: Aplica o método dos 6 chapéus de Edward de Bono para analisar uma decisão, problema ou estratégia a partir de 6 perspetivas separadas (processo, dados, riscos, oportunidades, criatividade, intuição). Usa-o quando o utilizador pedir "analisa X a partir de vários ângulos", "ajuda-me a decidir Y", "o que achas de Z", ou quando a pergunta requeira estruturar pensamento sem cair em vieses. Output: análise estruturada por chapéu + síntese com recomendação.
 ---
 
 # six-hats
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Usuario pide: "analiza desde varios ángulos", "qué piensas de", "ayúdame a decidir", "pros y contras de"
-- Usuario tiene una decisión grande pendiente (lanzar producto, cerrar contrato, contratar persona, abandonar proyecto)
-- Otra skill detecta que la pregunta requiere análisis multi-perspectiva y no resolución directa
-- Usuario menciona explícitamente "6 sombreros" o "De Bono"
+- Utilizador pede: "analisa a partir de vários ângulos", "o que achas de", "ajuda-me a decidir", "prós e contras de"
+- Utilizador tem uma decisão grande pendente (lançar produto, fechar contrato, contratar pessoa, abandonar projeto)
+- Outra skill deteta que a pergunta requer análise multi-perspetiva e não resolução direta
+- Utilizador menciona explicitamente "6 chapéus" ou "De Bono"
 
-## Por qué importa
+## Por que importa
 
-La mayoría de decisiones empresariales se toman mezclando datos + emociones + miedos + creatividad en el mismo párrafo, y se queda en la perspectiva favorita del que decide. Los 6 sombreros **separan los modos de pensamiento** para que cada uno reciba atención completa antes de mezclar. Aplicado bien, evita decisiones unilaterales y descubre ángulos invisibles.
+A maioria das decisões empresariais é tomada misturando dados + emoções + medos + criatividade no mesmo parágrafo, e fica-se pela perspetiva favorita de quem decide. Os 6 chapéus **separam os modos de pensamento** para que cada um receba atenção completa antes de misturar. Aplicado bem, evita decisões unilaterais e descobre ângulos invisíveis.
 
 ## Process
 
-### Paso 1 · Confirmar el problema/decisión a analizar
+### Passo 1 · Confirmar o problema/decisão a analisar
 
-Antes de empezar, asegúrate de tener claro QUÉ se está analizando. Si el usuario es ambiguo:
-
-```
-Vamos a aplicar los 6 sombreros. Para que funcione, necesito que la
-pregunta esté lo más concreta posible. Confirma:
-
-  • ¿Qué decisión o problema vas a analizar?
-  • ¿Qué cambia si la respuesta es A vs B?
-  • ¿Hay restricciones duras (presupuesto, fecha, personas)?
-
-Resume en 2-3 frases.
-```
-
-Espera respuesta clara antes de continuar.
-
-### Paso 2 · Preguntar profundidad deseada
+Antes de começar, certifica-te que tens claro O QUE se está a analisar. Se o utilizador for ambíguo:
 
 ```
-Dos modos:
+Vamos aplicar os 6 chapéus. Para que funcione, preciso que a
+pergunta esteja o mais concreta possível. Confirma:
 
-  [1] Rápido — escribo los 6 sombreros yo mismo (5 min, ~1500 palabras)
-  [2] Profundo — recorremos los 6 juntos, tú aportas en cada uno
-       (15-20 min, mucho más customizado)
+  • Que decisão ou problema vais analisar?
+  • O que muda se a resposta for A vs B?
+  • Há restrições duras (orçamento, data, pessoas)?
 
-¿Cuál prefieres?
+Resume em 2-3 frases.
 ```
 
-Por defecto, si no responde, usa modo [1].
+Espera resposta clara antes de continuar.
 
-### Paso 3 · Recorrer los 6 sombreros EN ORDEN
+### Passo 2 · Perguntar profundidade desejada
 
-**No mezcles sombreros.** Cada uno tiene su sección, vacíalo antes de pasar al siguiente. El orden es deliberado: empezar por proceso (azul) ancla, terminar por intuición (rojo) cierra con la sensación gut.
+```
+Dois modos:
 
-#### 🔵 Azul · Control del proceso
+  [1] Rápido — escrevo os 6 chapéus eu próprio (5 min, ~1500 palavras)
+  [2] Profundo — percorremos os 6 juntos, tu contribuis em cada um
+       (15-20 min, muito mais customizado)
 
-- ¿Cuál es el alcance correcto del análisis? (no abarcar lo no decidible)
-- ¿Cuál es la métrica de éxito? (1-3 KPIs concretos)
-- ¿Qué decisiones quedan fuera de scope?
-- ¿Qué experimento confirmaría la respuesta sin necesidad de pensar más?
+Qual preferes?
+```
 
-#### ⚪ Blanco · Hechos y datos objetivos
+Por defeito, se não responder, usa modo [1].
 
-- Datos verificables: números, fechas, evidencia
-- Lo que se sabe vs lo que se cree saber
-- Los datos que faltan (y cómo conseguirlos rápido)
-- Análogos o casos similares (no opiniones, hechos)
+### Passo 3 · Percorrer os 6 chapéus POR ORDEM
 
-#### ⚫ Negro · Crítica y riesgos
+**Não mistures chapéus.** Cada um tem a sua secção, esvazia-o antes de passar ao seguinte. A ordem é deliberada: começar por processo (azul) ancora, terminar por intuição (vermelho) fecha com a sensação gut.
 
-- Qué puede salir mal y con qué probabilidad
-- Costes ocultos (tiempo, oportunidad, energía, reputación)
-- Worst case scenario (no para asustar, para dimensionar)
-- Asunciones que están dando por sentadas y podrían no ser ciertas
+#### 🔵 Azul · Controlo do processo
 
-#### 🟡 Amarillo · Optimismo y oportunidades
+- Qual é o âmbito correto da análise? (não abarcar o que não é decidível)
+- Qual é a métrica de sucesso? (1-3 KPIs concretos)
+- Que decisões ficam fora de scope?
+- Que experiência confirmaria a resposta sem precisar de pensar mais?
 
-- Mejor caso si todo va bien
-- Quién/qué se beneficia y cómo
-- Efectos de segundo orden positivos (más allá del primer beneficio obvio)
-- Cómo amplifica esto otras áreas del negocio/vida
+#### ⚪ Branco · Factos e dados objetivos
 
-#### 🟢 Verde · Creatividad e ideas nuevas
+- Dados verificáveis: números, datas, evidência
+- O que se sabe vs o que se julga saber
+- Os dados que faltam (e como obtê-los rapidamente)
+- Análogos ou casos semelhantes (não opiniões, factos)
 
-- Lluvia de alternativas (mínimo 5, idealmente 10+)
-- Combinaciones de las dos opciones binarias en una tercera vía
-- Qué haría alguien fuera del sector ante este problema
-- Lo absurdo o lateral (a veces el insight viene de ahí)
+#### ⚫ Preto · Crítica e riscos
 
-#### 🔴 Rojo · Intuición y emociones
+- O que pode correr mal e com que probabilidade
+- Custos ocultos (tempo, oportunidade, energia, reputação)
+- Worst case scenario (não para assustar, para dimensionar)
+- Pressupostos que se estão a dar como certos e podiam não ser
 
-- Sin justificar: ¿qué te dice el cuerpo?
-- ¿Qué opción ENTUSIASMA y cuál DRENA?
-- Si tuvieras que decidir AHORA con 5 segundos, ¿qué dices?
-- Si la respuesta evidente fuese "no" pero algo te empuja a "sí", ¿qué es ese algo?
+#### 🟡 Amarelo · Otimismo e oportunidades
 
-### Paso 4 · Síntesis con recomendación
+- Melhor caso se tudo correr bem
+- Quem/o que beneficia e como
+- Efeitos de segunda ordem positivos (para além do primeiro benefício óbvio)
+- Como amplifica isto outras áreas do negócio/vida
 
-Tras los 6 sombreros, escribe una sección final con:
+#### 🟢 Verde · Criatividade e ideias novas
 
-1. **Decisión recomendada** en 1 frase clara
-2. **Razón principal** (1-2 frases, generalmente combina amarillo + blanco)
-3. **Riesgos a vigilar** (los 2-3 más probables del sombrero negro)
-4. **Plan de acción inmediato** (próximos 3 pasos en orden)
-5. **Cuándo cambiar de opinión** (qué señal nueva haría reconsiderar)
+- Brainstorm de alternativas (mínimo 5, idealmente 10+)
+- Combinações das duas opções binárias numa terceira via
+- O que faria alguém de fora do setor perante este problema
+- O absurdo ou lateral (às vezes o insight vem daí)
 
-### Paso 5 · Output empaquetado
+#### 🔴 Vermelho · Intuição e emoções
 
-Si el análisis es relevante para guardar:
-- Generar archivo en `projects/six-hats/<YYYY-MM-DD>-<tema-corto>.md` con todo el análisis
-- Si el usuario lo va a compartir (con socio, equipo, asesor), invocar `tool-visual-explainer` para empaquetar en HTML compartible
-- Append en `context/decisions-log.md` con la decisión final si efectivamente se toma una
+- Sem justificar: o que te diz o corpo?
+- Que opção ENTUSIASMA e qual DRENA?
+- Se tivesses de decidir AGORA com 5 segundos, o que dizes?
+- Se a resposta evidente fosse "não" mas algo te empurra para "sim", o que é esse algo?
 
-### Paso 6 · Cierre y aprendizaje
+### Passo 4 · Síntese com recomendação
 
-- Si la sesión enseñó algo no obvio sobre cómo el usuario piensa (preferencias, sesgos, valores), append en `context/learnings.md` bajo `## six-hats`
-- Si se identificó una decisión, propón en wrap-up grabarla en `context/decisions-log.md`
+Após os 6 chapéus, escreve uma secção final com:
+
+1. **Decisão recomendada** em 1 frase clara
+2. **Razão principal** (1-2 frases, geralmente combina amarelo + branco)
+3. **Riscos a vigiar** (os 2-3 mais prováveis do chapéu preto)
+4. **Plano de ação imediato** (próximos 3 passos por ordem)
+5. **Quando mudar de opinião** (que sinal novo faria reconsiderar)
+
+### Passo 5 · Output empacotado
+
+Se a análise for relevante para guardar:
+- Gerar ficheiro em `projects/six-hats/<YYYY-MM-DD>-<tema-corto>.md` com toda a análise
+- Se o utilizador a vai partilhar (com sócio, equipa, conselheiro), invocar `tool-visual-explainer` para empacotar em HTML partilhável
+- Append em `context/decisions-log.md` com a decisão final se efetivamente se tomar uma
+
+### Passo 6 · Fecho e aprendizagem
+
+- Se a sessão ensinou algo não óbvio sobre como o utilizador pensa (preferências, vieses, valores), append em `context/learnings.md` em `## six-hats`
+- Se se identificou uma decisão, propõe no wrap-up gravá-la em `context/decisions-log.md`
 
 ## Outputs
 
-- Análisis en chat estructurado por sombrero + síntesis
-- Opcional: archivo `projects/six-hats/<YYYY-MM-DD>-<tema>.md`
-- Opcional: HTML compartible vía `tool-visual-explainer`
-- Opcional: entrada en `context/decisions-log.md` si se toma decisión
+- Análise no chat estruturada por chapéu + síntese
+- Opcional: ficheiro `projects/six-hats/<YYYY-MM-DD>-<tema>.md`
+- Opcional: HTML partilhável via `tool-visual-explainer`
+- Opcional: entrada em `context/decisions-log.md` se se tomar decisão
 
-## Skills que llama
+## Skills que chama
 
-- **`tool-visual-explainer`** (opcional) — para empaquetar análisis en HTML compartible
-- **`decisions-log`** (opcional) — si la sesión cierra con una decisión, registrarla append-only
+- **`tool-visual-explainer`** (opcional) — para empacotar análise em HTML partilhável
+- **`decisions-log`** (opcional) — se a sessão fechar com uma decisão, registá-la append-only
 
 ## Edge cases
 
-- **Pregunta demasiado vaga** ("¿qué hago con mi vida?"): aplica primero el sombrero azul para acotar. Si no se acota, sugiere usar otra skill (mentoría, no análisis).
-- **Pregunta puramente operativa** ("¿qué color de botón uso?"): los 6 sombreros son overkill. Sugiere decidir directamente o usar A/B test.
-- **Usuario está emocionalmente cargado** (acaba de perder cliente, contrato roto): NO aplicar inmediatamente, pedir 24h de cooldown — el sombrero rojo en caliente sesga el resto.
-- **Decisión ya tomada**: el usuario quiere validación, no análisis. Aplica solo sombrero negro (riesgos) para hacer "premortem". No simules análisis abierto si no lo es.
-- **Tiempo limitado** (<5 min disponibles): usa la versión "Rápido" y escribe los 6 sombreros directo, sin esperar input por sombrero.
+- **Pergunta demasiado vaga** ("o que faço com a minha vida?"): aplica primeiro o chapéu azul para delimitar. Se não se delimita, sugere usar outra skill (mentoria, não análise).
+- **Pergunta puramente operativa** ("que cor de botão uso?"): os 6 chapéus são overkill. Sugere decidir diretamente ou usar A/B test.
+- **Utilizador está emocionalmente carregado** (acabou de perder cliente, contrato roto): NÃO aplicar imediatamente, pedir 24h de cooldown — o chapéu vermelho em quente enviesa o resto.
+- **Decisão já tomada**: o utilizador quer validação, não análise. Aplica só chapéu preto (riscos) para fazer "premortem". Não simules análise aberta se não o é.
+- **Tempo limitado** (<5 min disponíveis): usa a versão "Rápido" e escreve os 6 chapéus diretos, sem esperar input por chapéu.
 
 ## Examples
 
-Ver `references/examples.md` para 2 ejemplos completos:
-1. "¿Lanzo el curso ahora o espero al Q4?" (decisión binaria con datos)
-2. "¿Contrato a esta persona o sigo solo 3 meses más?" (decisión emocional con datos blandos)
+Ver `references/examples.md` para 2 exemplos completos:
+1. "Lanço o curso agora ou espero pelo Q4?" (decisão binária com dados)
+2. "Contrato esta pessoa ou continuo sozinho mais 3 meses?" (decisão emocional com dados moles)
 
 ## Notas operativas
 
-- **NO uses los 6 sombreros para todo.** Es overkill para decisiones <30 min de impacto. Reserva para decisiones que importan.
-- **El sombrero rojo va al final, no al principio.** Si lo metes al inicio, los datos posteriores se sesgan a justificar la intuición. Al final, contrasta con lo aprendido.
-- **Sombrero verde con mínimo 5 ideas siempre.** Si solo se te ocurren 2, no estás en modo verde de verdad — sigues evaluando, no creando.
-- **No mezcles sombreros en la misma frase.** Si una idea es "esto es buena oportunidad PERO con riesgo de X", separa: amarillo dice oportunidad, negro dice riesgo. Cada uno en su sitio.
+- **NÃO uses os 6 chapéus para tudo.** É overkill para decisões <30 min de impacto. Reserva para decisões que importam.
+- **O chapéu vermelho vai no fim, não no início.** Se o meteres no início, os dados posteriores enviesam-se a justificar a intuição. No fim, contrasta com o aprendido.
+- **Chapéu verde com mínimo 5 ideias sempre.** Se só te ocorrem 2, não estás em modo verde a sério — continuas a avaliar, não a criar.
+- **Não mistures chapéus na mesma frase.** Se uma ideia é "isto é boa oportunidade MAS com risco de X", separa: amarelo diz oportunidade, preto diz risco. Cada um no seu sítio.

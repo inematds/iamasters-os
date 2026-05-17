@@ -1,32 +1,32 @@
 ---
-description: Lanza la entrevista profunda de 22-25 dimensiones que termina de configurar el contexto del operador. Idempotente — retoma donde quedó la última vez.
+description: Lança a entrevista profunda de 22-25 dimensões que termina de configurar o contexto do operador. Idempotente — retoma onde ficou da última vez.
 ---
 
 # /deep-dive
 
-Lanza la skill `meta-deep-dive`, que profundiza el contexto del operador en 22-25 áreas que el wizard inicial no cubrió: ritmos personales, salud financiera del negocio, equipo, decisiones pendientes, metas a 3 años, miedos, métricas y definición personal de éxito.
+Lança a skill `meta-deep-dive`, que aprofunda o contexto do operador em 22-25 áreas que o wizard inicial não cobriu: ritmos pessoais, saúde financeira do negócio, equipa, decisões pendentes, metas a 3 anos, medos, métricas e definição pessoal de sucesso.
 
-## Cuándo ejecutarla
+## Quando executar
 
-- Después de instalar iAmasters OS (el wizard inicial te lo recomienda)
-- Cuando el sistema te avise en `/start-here` que está pendiente
-- Cuando los outputs del sistema empiecen a sentirse genéricos y quieras profundizar
-- Tras un cambio importante en tu negocio o vida personal (relanzarla refresca el contexto)
+- Depois de instalar o iAmasters OS (o wizard inicial recomenda-te)
+- Quando o sistema te avisar em `/start-here` que está pendente
+- Quando os outputs do sistema começarem a sentir-se genéricos e quiseres aprofundar
+- Após uma mudança importante no teu negócio ou vida pessoal (relançar refresca o contexto)
 
-## Cómo funciona
+## Como funciona
 
-- Tarda ~25-30 minutos
-- Es conversacional, no formulario — las preguntas se adaptan a tus respuestas
-- Idempotente — si la pausas, retomas donde quedaste
-- Branching condicional — si trabajas solo, el bloque equipo se reduce a 2 preguntas
+- Demora ~25-30 minutos
+- É conversacional, não formulário — as perguntas adaptam-se às tuas respostas
+- Idempotente — se a pausares, retomas onde ficaste
+- Branching condicional — se trabalhas sozinho, o bloco equipa reduz-se a 2 perguntas
 
 ## Process
 
-1. Si `~/.claude/skills/_operator-state.json` tiene `needsOnboarding: true` → **no ejecutar**. Avisa al usuario: *"Primero pasamos por el onboarding inicial. Ejecuta lo que te dijo Claude al instalar."*
-2. Si `deepDiveCompleted: true` y el usuario no pidió explícitamente refinar → **avisa**: *"Ya completaste el deep-dive. Si quieres refinar respuestas concretas, dime cuáles."*
-3. Si `deepDiveProgress` existe (pausa anterior) → invoca `meta-deep-dive` en modo retomar.
-4. En cualquier otro caso → invoca `meta-deep-dive` en modo arranque.
+1. Se `~/.claude/skills/_operator-state.json` tem `needsOnboarding: true` → **não executar**. Avisa o utilizador: *"Primeiro passamos pelo onboarding inicial. Executa o que o Claude te disse ao instalar."*
+2. Se `deepDiveCompleted: true` e o utilizador não pediu explicitamente para refinar → **avisa**: *"Já completaste o deep-dive. Se queres refinar respostas concretas, diz-me quais."*
+3. Se `deepDiveProgress` existe (pausa anterior) → invoca `meta-deep-dive` em modo retomar.
+4. Em qualquer outro caso → invoca `meta-deep-dive` em modo arranque.
 
 ## Output
 
-Al terminar, los archivos `context/me.md`, `soul.md`, `work.md`, `team.md`, `current-priorities.md`, `goals.md` quedan ampliados con secciones nuevas. `operator-state.deepDiveCompleted: true`.
+Ao terminar, os ficheiros `context/me.md`, `soul.md`, `work.md`, `team.md`, `current-priorities.md`, `goals.md` ficam ampliados com secções novas. `operator-state.deepDiveCompleted: true`.

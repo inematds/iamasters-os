@@ -1,122 +1,122 @@
-# Dimensiones · Express (8 críticas)
+# Dimensões · Express (8 críticas)
 
-Esta es la "definición de done" del wizard inicial. Cada dimensión debe quedar capturada con **dato sólido** (no genérica, no "todavía no", no vacía).
-
----
-
-## Bloque A · Persona
-
-### 1. Identidad básica
-
-**Qué tiene que quedar capturado:**
-- Nombre del operador (cómo prefiere que le llamen)
-- Frase profesional autodefinida (1 línea, en sus palabras)
-
-**Ejemplo de dato sólido:**
-> "Marta Sánchez. Consultora de IA para PYMEs de servicios — automatizo procesos sin que su equipo tenga que aprender a programar."
-
-**Señales de respuesta débil que piden profundizar:**
-- "Soy emprendedor" (¿en qué?)
-- "Trabajo con IA" (¿haciendo qué con IA?)
-- "Ayudo a la gente" (¿a quién y con qué?)
-
-### 2. Ubicación + idioma
-
-**Qué tiene que quedar capturado:**
-- Ciudad + país (para timezone y referencias culturales)
-- Idioma principal de trabajo (inferido si no se dice)
-
-**Ejemplo de dato sólido:**
-> "Madrid, España. Trabajo en castellano principalmente, algunos clientes en inglés."
+Esta é a "definição de done" do wizard inicial. Cada dimensão deve ficar capturada com **dado sólido** (não genérica, não "ainda não", não vazia).
 
 ---
 
-## Bloque B · Negocio
+## Bloco A · Persona
 
-### 3. Negocio principal
+### 1. Identidade básica
 
-**Qué tiene que quedar capturado:**
-- Nombre del negocio (si tiene)
-- Qué hace concretamente (servicio o producto que vende)
-- Vertical / sector si aplica
+**O que tem de ficar capturado:**
+- Nome do operador (como prefere ser chamado)
+- Frase profissional autodefinida (1 linha, nas suas palavras)
 
-**Ejemplo de dato sólido:**
-> "Sintaxis Lab. Implemento sistemas de OCR + automatización en empresas de logística, transporte y distribución. Proyecto típico: 8 semanas, 14-25K€."
+**Exemplo de dado sólido:**
+> "Marta Sánchez. Consultora de IA para PME de serviços — automatizo processos sem que a equipa tenha de aprender a programar."
 
-**Señales de respuesta débil:**
-- "Consultoría" (¿de qué tipo?)
-- "Vendo formación" (¿sobre qué tema?)
-- "Es complicado de explicar" (= necesita profundización con ejemplo concreto)
+**Sinais de resposta fraca que pedem aprofundamento:**
+- "Sou empreendedor" (em quê?)
+- "Trabalho com IA" (a fazer o quê com IA?)
+- "Ajudo as pessoas" (a quem e com quê?)
 
-### 4. Modelo de ingresos
+### 2. Localização + idioma
 
-**Qué tiene que quedar capturado:**
-- Cómo entra el dinero (servicios / productos / suscripciones / mix)
-- Si tiene varias fuentes, distribución aproximada (no exacta)
+**O que tem de ficar capturado:**
+- Cidade + país (para timezone e referências culturais)
+- Idioma principal de trabalho (inferido se não for dito)
 
-**Ejemplo de dato sólido:**
-> "80% proyectos puntuales de implementación. 20% mantenimiento mensual recurrente. Cero formación de momento."
+**Exemplo de dado sólido:**
+> "Lisboa, Portugal. Trabalho em português principalmente, alguns clientes em inglês."
+
+---
+
+## Bloco B · Negócio
+
+### 3. Negócio principal
+
+**O que tem de ficar capturado:**
+- Nome do negócio (se tiver)
+- O que faz concretamente (serviço ou produto que vende)
+- Vertical / sector se se aplicar
+
+**Exemplo de dado sólido:**
+> "Sintaxis Lab. Implemento sistemas de OCR + automação em empresas de logística, transporte e distribuição. Projeto típico: 8 semanas, 14-25K€."
+
+**Sinais de resposta fraca:**
+- "Consultoria" (de que tipo?)
+- "Vendo formação" (sobre que tema?)
+- "É complicado de explicar" (= precisa de aprofundamento com exemplo concreto)
+
+### 4. Modelo de receita
+
+**O que tem de ficar capturado:**
+- Como entra o dinheiro (serviços / produtos / subscrições / mix)
+- Se tiver várias fontes, distribuição aproximada (não exata)
+
+**Exemplo de dado sólido:**
+> "80% projetos pontuais de implementação. 20% manutenção mensal recorrente. Zero formação por agora."
 
 ### 5. Cliente ideal
 
-**Qué tiene que quedar capturado:**
-- Sector, tamaño, momento en que llegan
-- Algún rasgo diferenciador (no genérico)
+**O que tem de ficar capturado:**
+- Sector, dimensão, momento em que chegam
+- Algum traço diferenciador (não genérico)
 
-**Ejemplo de dato sólido:**
-> "Director de PYME, 50-200 empleados, sector tradicional (transporte, distribución, manufactura). Llega cuando algún proceso manual le está costando horas extras al equipo o errores caros."
+**Exemplo de dado sólido:**
+> "Diretor de PME, 50-200 colaboradores, sector tradicional (transporte, distribuição, indústria). Chega quando algum processo manual lhe está a custar horas extra à equipa ou erros caros."
 
-**Señales de respuesta débil:**
-- "Cualquier empresa" (no)
-- "B2B" (no es un ICP)
-- "Gente que quiere automatizar" (¿qué tipo de gente?)
+**Sinais de resposta fraca:**
+- "Qualquer empresa" (não)
+- "B2B" (não é um ICP)
+- "Gente que quer automatizar" (que tipo de gente?)
 
-### 6. Stack diario
+### 6. Stack diário
 
-**Qué tiene que quedar capturado:**
-- Las 4-6 herramientas que usa cada día (no la lista exhaustiva)
-- Mención especial si usa Claude/IA, n8n, CRM concreto
+**O que tem de ficar capturado:**
+- As 4-6 ferramentas que usa todos os dias (não a lista exaustiva)
+- Menção especial se usa Claude/IA, n8n, CRM concreto
 
-**Ejemplo de dato sólido:**
+**Exemplo de dado sólido:**
 > "Google Workspace, Notion, Cal.com, Stripe, n8n, Claude Code, GitHub."
 
 ---
 
-## Bloque D · Foco
+## Bloco D · Foco
 
-### 7. Foco del mes (prioridades)
+### 7. Foco do mês (prioridades)
 
-**Qué tiene que quedar capturado:**
-- 1-3 prioridades concretas del mes en curso
-- Si tiene cuello de botella claro, captúralo también
+**O que tem de ficar capturado:**
+- 1-3 prioridades concretas do mês em curso
+- Se tiver gargalo claro, captura-o também
 
-**Ejemplo de dato sólido:**
-> "Mayo 2026: (1) Cerrar proyecto con Logística del Norte. (2) Lanzar página de servicios renovada. (3) Buscar perfil técnico junior para apoyo. Cuello: hago todas las propuestas comerciales yo, no escalo."
+**Exemplo de dado sólido:**
+> "Maio 2026: (1) Fechar projeto com Logística do Norte. (2) Lançar página de serviços renovada. (3) Procurar perfil técnico júnior para apoio. Gargalo: faço todas as propostas comerciais eu, não escalo."
 
-**Señales de respuesta débil:**
-- "Crecer" (¿en qué métrica?)
-- "Más clientes" (¿cuántos? ¿de qué tipo?)
-- "Lo de siempre" (= no hay foco real, vale la pena profundizar 1 vez)
+**Sinais de resposta fraca:**
+- "Crescer" (em que métrica?)
+- "Mais clientes" (quantos? de que tipo?)
+- "O do costume" (= não há foco real, vale a pena aprofundar 1 vez)
 
-### 8. Objetivo 12 meses
+### 8. Objetivo a 12 meses
 
-**Qué tiene que quedar capturado:**
-- Objetivo concreto a 12 meses (revenue, producto, equipo, lo que sea)
-- Idealmente con número o hito verificable
+**O que tem de ficar capturado:**
+- Objetivo concreto a 12 meses (revenue, produto, equipa, o que for)
+- Idealmente com número ou marco verificável
 
-**Ejemplo de dato sólido:**
-> "12 meses: facturar 180K€ (vs 120K actuales), contratar 1 perfil técnico, soltar el 50% de la operativa comercial."
+**Exemplo de dado sólido:**
+> "12 meses: faturar 180K€ (vs 120K atuais), contratar 1 perfil técnico, largar 50% da operativa comercial."
 
-**Señales de respuesta débil:**
-- "Que vaya bien" (no es objetivo)
-- "Crecer mucho" (¿cuánto es mucho?)
-- "Lo veré cuando llegue" (vale, ahí tienes la primera dimensión a profundizar en deep-dive)
+**Sinais de resposta fraca:**
+- "Que corra bem" (não é objetivo)
+- "Crescer muito" (quanto é muito?)
+- "Verei quando chegar" (ok, aí tens a primeira dimensão a aprofundar em deep-dive)
 
 ---
 
-## Plantillas de output
+## Templates de output
 
-Estos son los headers canónicos para los archivos sectorizados. El wizard escribe el contenido derivado de la conversación dentro.
+Estes são os headers canónicos para os ficheiros sectorizados. O wizard escreve o conteúdo derivado da conversa lá dentro.
 
 ### `context/me.md`
 
@@ -171,12 +171,12 @@ Estos son los headers canónicos para los archivos sectorizados. El wizard escri
 ```markdown
 # Current priorities
 
-> Este archivo cambia mensualmente. Edítalo cuando tu foco cambie.
+> Este ficheiro muda mensalmente. Edita-o quando o teu foco mudar.
 
-## Foco del mes (<mes año>)
+## Foco do mês (<mês ano>)
 
-1. <prioridad 1>
-2. <prioridad 2>
+1. <prioridade 1>
+2. <prioridade 2>
 3. <prioridad 3>
 
 ## Cuello de botella actual

@@ -1,37 +1,37 @@
 ---
-description: Crea cliente nuevo desde template vertical o vacío. Multi-cliente del OS.
+description: Cria cliente novo desde template vertical ou vazio. Multi-cliente do OS.
 ---
 
 # /add-client
 
-Crea un nuevo cliente en `clients/<nombre>/` con su propio brand-context, context y projects.
+Cria um novo cliente em `clients/<nome>/` com o seu próprio brand-context, context e projects.
 
 ## Process
 
-1. Pregunta nombre del cliente (kebab-case): ej. `acme-corp`
-2. Pregunta vertical (si quieres template):
+1. Pergunta o nome do cliente (kebab-case): ex. `acme-corp`
+2. Pergunta o vertical (se quiseres template):
    - `freelance-ia` — operador IA solo
-   - `agencia-marketing` — pequeña agencia
+   - `agencia-marketing` — agência pequena
    - `formador-online` — coach/educador
    - `consultoria-b2b` — consultor B2B
-   - `vacio` — empezar desde cero
-3. Ejecuta: `bash scripts/add-client.sh <nombre> <vertical>`
-4. Output: estructura creada en `clients/<nombre>/`
+   - `vacio` — começar de zero
+3. Executa: `bash scripts/add-client.sh <nome> <vertical>`
+4. Output: estrutura criada em `clients/<nome>/`
 
 ## Notas
 
-- El cliente hereda `CLAUDE.md` raíz del repo (aplica a todos por defecto)
-- Puedes añadir `clients/<nombre>/CLAUDE.md` con overrides específicos
-- Las skills se copian del root al cliente; no se heredan, sí se sincronizan en `bash scripts/update.sh`
-- `cd clients/<nombre> && claude` para trabajar dentro del workspace del cliente
+- O cliente herda o `CLAUDE.md` raiz do repo (aplica-se a todos por defeito)
+- Podes adicionar `clients/<nome>/CLAUDE.md` com overrides específicos
+- As skills copiam-se da raiz para o cliente; não se herdam, mas sincronizam-se com `bash scripts/update.sh`
+- `cd clients/<nome> && claude` para trabalhar dentro do workspace do cliente
 
-## Implementación
+## Implementação
 
-> En v0.1.0 este comando es un wrapper a `bash scripts/add-client.sh`.
-> En v0.3.0 se integra con templates rellenos de los 4 verticales.
+> Na v0.1.0 este comando é um wrapper para `bash scripts/add-client.sh`.
+> Na v0.3.0 integra-se com templates preenchidos dos 4 verticais.
 
 ```
 bash scripts/add-client.sh
 ```
 
-Si `scripts/add-client.sh` no existe aún, créalo con plantilla mínima (solo crea estructura de carpetas + `.gitkeep`).
+Se `scripts/add-client.sh` ainda não existe, cria-o com template mínimo (só cria estrutura de pastas + `.gitkeep`).

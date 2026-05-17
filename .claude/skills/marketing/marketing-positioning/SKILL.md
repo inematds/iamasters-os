@@ -1,47 +1,47 @@
 ---
 name: marketing-positioning
-description: Construye o refina el posicionamiento del operador. Analiza competidores (con tool-firecrawl-scraper), identifica hueco de mercado, propone 3-5 ángulos de posicionamiento y deja al operador elegir. Output a brand-context/positioning/positioning.md. Se invoca tras brand-voice o cuando el operador siente que el mensaje no diferencia.
+description: Constrói ou refina o posicionamento do operador. Analisa concorrentes (com tool-firecrawl-scraper), identifica buraco de mercado, propõe 3-5 ângulos de posicionamento e deixa o operador escolher. Output para brand-context/positioning/positioning.md. É invocada após brand-voice ou quando o operador sente que a mensagem não diferencia.
 ---
 
 # marketing-positioning
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Tras `marketing-brand-voice` en el flujo de onboarding
-- Operador dice: "no diferencio bien", "todos dicen lo mismo que yo", "ayúdame a posicionarme"
-- Cambio de mercado o lanzamiento de producto nuevo
+- Após `marketing-brand-voice` no fluxo de onboarding
+- Operador diz: "não diferencio bem", "todos dizem o mesmo que eu", "ajuda-me a posicionar-me"
+- Mudança de mercado ou lançamento de produto novo
 
 ## Process
 
-### Paso 1 · Recopilar inputs
+### Passo 1 · Recolher inputs
 
-Si NO existe `brand-context/positioning/positioning.md`:
-- Modo: construcción desde cero
+Se NÃO existir `brand-context/positioning/positioning.md`:
+- Modo: construção do zero
 
-Si existe pero el operador pidió refinarlo:
-- Leer el actual y modo: refinamiento
+Se existir mas o operador pediu refiná-lo:
+- Ler o atual e modo: refinamento
 
-Pregunta al operador (4-5 preguntas):
+Pergunta ao operador (4-5 perguntas):
 
-1. **¿Qué problema resuelves?** (1 frase, claro)
-2. **¿Para quién exactamente?** (perfil del cliente, no "todos")
-3. **¿Qué alternativas tienen ya?** (otras soluciones, agencias, productos, DIY)
-4. **¿Qué haces tú diferente?** (sin "es que somos los mejores")
-5. **¿Cuál es tu unfair advantage?** (algo que solo tú o pocos tienen)
+1. **Que problema resolves?** (1 frase, claro)
+2. **Para quem exatamente?** (perfil do cliente, não "todos")
+3. **Que alternativas têm já?** (outras soluções, agências, produtos, DIY)
+4. **O que fazes tu diferente?** (sem "é que somos os melhores")
+5. **Qual é o teu unfair advantage?** (algo que só tu ou poucos têm)
 
-### Paso 2 · Investigar competidores (opcional)
+### Passo 2 · Investigar concorrentes (opcional)
 
-Pregunta: "¿Tienes 3-5 competidores cuyas webs analicemos?"
+Pergunta: "Tens 3-5 concorrentes cujas webs possamos analisar?"
 
-Si sí:
-- Invoca `tool-firecrawl-scraper` con sus URLs
-- Extraer su positioning declarado: hero headline, sub-headline, "for who" sections
-- Analizar patrones repetidos (ej. "todos dicen 'la solución todo-en-uno'")
+Se sim:
+- Invoca `tool-firecrawl-scraper` com as URLs
+- Extrair o positioning declarado deles: hero headline, sub-headline, "for who" sections
+- Analisar padrões repetidos (ex. "todos dizem 'a solução tudo-em-um'")
 
-Si no:
-- Saltar a Paso 3 con la info que tengas del operador
+Se não:
+- Saltar para o Passo 3 com a info que tens do operador
 
-### Paso 3 · Análisis del hueco
+### Passo 3 · Análise do buraco
 
 Construir matriz de positioning:
 
@@ -50,136 +50,136 @@ Construir matriz de positioning:
                 |                          |
 Tech-heavy  ----+--------------------------+----
                 |                          |
-                | (competidor A)           |
+                | (concorrente A)          |
                 |                          |
 Human-heavy ----+--------------------------+----
                 |                          |
-                | (competidor B)           | (TÚ)
+                | (concorrente B)          | (TU)
                 |                          |
 ```
 
-Identificar: ¿dónde están todos? ¿dónde hay hueco? ¿dónde puedes tú estar coherentemente con tu voice + advantage?
+Identificar: onde é que estão todos? onde há buraco? onde podes tu estar coerentemente com a tua voice + advantage?
 
-### Paso 4 · Generar 3-5 ángulos
+### Passo 4 · Gerar 3-5 ângulos
 
-Para cada ángulo:
+Para cada ângulo:
 
-**Estructura del ángulo**:
-- **Headline statement** (1 frase): "Para [ICP], [tu marca] es [categoría] que [diferencial], a diferencia de [competidor genérico]."
-- **Por qué este ángulo funciona**: (2-3 razones basadas en análisis)
-- **Riesgos de este ángulo**: (qué te encierra, qué clientes pierdes)
-- **Evidencia**: ¿qué del operador apoya este ángulo? (su experiencia, sus skills, sus casos)
+**Estrutura do ângulo**:
+- **Headline statement** (1 frase): "Para [ICP], [a tua marca] é [categoria] que [diferencial], ao contrário de [concorrente genérico]."
+- **Porque é que este ângulo funciona**: (2-3 razões baseadas em análise)
+- **Riscos deste ângulo**: (o que te encerra, que clientes perdes)
+- **Evidência**: o que do operador apoia este ângulo? (a sua experiência, as suas skills, os seus casos)
 
-Ejemplo de ángulos para un operador IA freelancer:
+Exemplo de ângulos para um operador IA freelancer:
 
-**Ángulo 1 — Anti-vendehumos práctico**:
-> "Para empresarios de pyme que han probado IA y se han quemado, soy el operador que monta sistemas que sí aterrizan, sin demos espectaculares y con métricas reales de ahorro."
+**Ângulo 1 — Anti-vende-banha prático**:
+> "Para empresários de PME que já provaram IA e se queimaram, sou o operador que monta sistemas que aterram a sério, sem demos espetaculares e com métricas reais de poupança."
 
-**Ángulo 2 — IA + procesos, no IA suelta**:
-> "Para gestoría/agencia que automatiza tareas pero no procesos completos, soy quien entra dentro de la operativa y monta agentes que sustituyen al becario que no tienen."
+**Ângulo 2 — IA + processos, não IA solta**:
+> "Para contabilístico/agência que automatiza tarefas mas não processos completos, sou quem entra dentro da operativa e monta agentes que substituem o estagiário que não têm."
 
-**Ángulo 3 — La voz castellana de Claude Code**:
-> "Para operadores hispanohablantes que aprenden Claude Code en inglés y se pierden, soy el primer recurso completo en castellano con casos reales de comunidad."
+**Ângulo 3 — A voz portuguesa do Claude Code**:
+> "Para operadores lusófonos que aprendem Claude Code em inglês e se perdem, sou o primeiro recurso completo em português com casos reais de comunidade."
 
-### Paso 5 · Recomendación + decisión del operador
+### Passo 5 · Recomendação + decisão do operador
 
-Mostrar los 3-5 ángulos al operador con análisis. Recomendar 1 o 2 con justificación clara.
+Mostrar os 3-5 ângulos ao operador com análise. Recomendar 1 ou 2 com justificação clara.
 
-Preguntar: "¿Con cuál te quedas? ¿O quieres mezclar dos?"
+Perguntar: "Com qual ficas? Ou queres misturar dois?"
 
-Si el operador no decide: ofrecer hacer un mini test (escribir 1 LinkedIn post en cada ángulo y ver cuál le sale más natural / le encaja mejor con la voz).
+Se o operador não decidir: oferecer fazer um mini teste (escrever 1 LinkedIn post em cada ângulo e ver qual lhe sai mais natural / encaixa melhor com a voz).
 
-### Paso 6 · Generar `positioning.md`
+### Passo 6 · Gerar `positioning.md`
 
 ```markdown
 # Positioning — [Marca]
 
-> Generado: YYYY-MM-DD
-> Última revisión: YYYY-MM-DD
+> Gerado: YYYY-MM-DD
+> Última revisão: YYYY-MM-DD
 
 ## Statement principal
 
-> Para [ICP], [marca] es [categoría] que [diferencial], a diferencia de [alternativa].
+> Para [ICP], [marca] é [categoria] que [diferencial], ao contrário de [alternativa].
 
-## Para quién (ICP en una frase)
+## Para quem (ICP numa frase)
 
-[ICP statement compacto. La definición completa está en brand-context/icp/icp.md]
+[ICP statement compacto. A definição completa está em brand-context/icp/icp.md]
 
-## Categoría
+## Categoria
 
-[En qué casilla mental quieres que te metan: ej. "operador IA freelance especialista en gestorías" no "consultoría de IA"]
+[Em que casa mental queres que te metam: ex. "operador IA freelance especialista em contabilísticos" e não "consultoria de IA"]
 
 ## Diferencial
 
-[2-3 cosas concretas, verificables, que te distinguen]
+[2-3 coisas concretas, verificáveis, que te distinguem]
 
 1. ...
 2. ...
 3.
 
-## Alternativas que tu cliente considera
+## Alternativas que o teu cliente considera
 
-| Alternativa | Por qué no funciona para él |
+| Alternativa | Porque não funciona para ele |
 |---|---|
-| Agencia grande de IA | Demasiado caro, demos sin aterrizar, no entiende su sector |
-| Becario con ChatGPT | No escala, no integra con sus apps, no garantiza calidad |
-| DIY (lo hacemos nosotros) | Sin tiempo, sin expertise, no hay quién lo mantenga |
+| Agência grande de IA | Demasiado cara, demos sem aterrar, não percebe o setor dele |
+| Estagiário com ChatGPT | Não escala, não integra com as apps dele, não garante qualidade |
+| DIY (fazemos nós) | Sem tempo, sem expertise, não há quem o mantenha |
 
-## Tu unfair advantage
+## O teu unfair advantage
 
-[Lo que solo tú o muy pocos tenéis. Puede ser experiencia, network, asset, capacidad técnica + comercial juntas, idioma, vertical específico]
+[O que só tu ou muito poucos têm. Pode ser experiência, network, asset, capacidade técnica + comercial juntas, idioma, vertical específico]
 
-## Mensaje en 3 longitudes
+## Mensagem em 3 comprimentos
 
-### Long (LinkedIn about, web hero, propuesta)
-[2-3 frases con el statement + advantage + por qué confiar]
+### Long (LinkedIn about, web hero, proposta)
+[2-3 frases com o statement + advantage + porquê confiar]
 
 ### Mid (X bio, email signature, intro de podcast)
-[1 frase con el statement compacto]
+[1 frase com o statement compacto]
 
 ### Short (tagline, slug)
-["[Categoría] para [ICP-clave]"]
+["[Categoria] para [ICP-chave]"]
 
-## Riesgos del posicionamiento elegido
+## Riscos do posicionamento escolhido
 
-- ¿Qué clientes potenciales pierdes con este ángulo? (válido, focalizar tiene coste)
-- ¿Qué pasa si tu mercado cambia? (plan B)
-- ¿Qué te encierra?
+- Que clientes potenciais perdes com este ângulo? (válido, focalizar tem custo)
+- O que acontece se o teu mercado mudar? (plano B)
+- O que te encerra?
 
-## Cuándo revisar
+## Quando rever
 
-- Cada 6 meses (revisión rutinaria)
-- Cuando aparezca competidor nuevo que copie tu ángulo
-- Cuando tu mercado se mueva (M&A, regulación, nueva tecnología)
-- Cuando sientas que el mensaje no resuena (engagement cae sin causa)
+- Cada 6 meses (revisão de rotina)
+- Quando aparecer concorrente novo que copie o teu ângulo
+- Quando o teu mercado se mexer (M&A, regulação, nova tecnologia)
+- Quando sentires que a mensagem não ressoa (engagement cai sem causa)
 ```
 
-### Paso 7 · Cierre
+### Passo 7 · Cierre
 
 - Guardar `brand-context/positioning/positioning.md`
-- Append en `context/learnings.md`:
+- Append em `context/learnings.md`:
   ```
   ## marketing-positioning
-  - YYYY-MM-DD: ángulo elegido X. Riesgos identificados: Y.
+  - YYYY-MM-DD: ângulo escolhido X. Riscos identificados: Y.
   ```
-- Sugerir al operador re-revisar `brand-context/icp/icp.md` (si no encaja con nuevo positioning, hay desalineación)
-- Sugerir actualizar bio/about en LinkedIn/web con el mensaje en sus 3 longitudes (no hacerlo automático — eso es comunicación externa)
+- Sugerir ao operador re-rever `brand-context/icp/icp.md` (se não encaixar com o novo positioning, há desalinhamento)
+- Sugerir atualizar bio/about no LinkedIn/web com a mensagem nos seus 3 comprimentos (não fazer automático — isso é comunicação externa)
 
 ## Outputs
 
 - `brand-context/positioning/positioning.md`
 - Append a `context/learnings.md`
 
-## Skills que llama
+## Skills que chama
 
-- `tool-firecrawl-scraper` (opcional, paso 2)
+- `tool-firecrawl-scraper` (opcional, passo 2)
 
 ## Edge cases
 
-- **Operador no quiere "encerrarse"**: explicar que no posicionarse es posicionarse mal. Si insiste, generar positioning más amplio con disclaimer "low differentiation, expect higher CAC".
-- **Mercado super saturado**: el ángulo viable suele ser hyper-niche. Forzar concretar el ICP a un sub-vertical específico.
-- **Operador es tech bueno pero comm malo**: el positioning correcto puede ser "white-label tech para agencias", no servir a clientes finales.
-- **Operador es solo bueno en una vertical**: positioning vertical-first ("Operador IA para clínicas dentales") es legítimo y suele convertir mejor que horizontal.
+- **Operador não se quer "encerrar"**: explicar que não se posicionar é posicionar-se mal. Se insistir, gerar positioning mais amplo com disclaimer "low differentiation, expect higher CAC".
+- **Mercado super saturado**: o ângulo viável costuma ser hyper-niche. Forçar concretar o ICP a um sub-vertical específico.
+- **Operador é tech bom mas comm mau**: o positioning correto pode ser "white-label tech para agências", não servir a clientes finais.
+- **Operador só é bom numa vertical**: positioning vertical-first ("Operador IA para clínicas dentárias") é legítimo e costuma converter melhor que horizontal.
 
 ## Examples
 

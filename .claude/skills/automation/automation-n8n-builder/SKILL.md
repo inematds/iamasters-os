@@ -1,160 +1,160 @@
 ---
 name: automation-n8n-builder
-description: Crea, valida y despliega workflows de n8n desde Claude Code usando el MCP n8n-mcp. Úsala cuando el usuario diga "crea un workflow en n8n", "monta un n8n que haga X", "convierte esta idea en automatización", "diseña un flujo n8n", o describa una secuencia de pasos automatizables (recibir webhook → procesar → enviar a Slack, scheduler diario que lee de Google Sheets, etc.). Activable también con frases como "auto­matización", "n8n", "workflow", "trigger". NO uses esta skill para migrar workflows existentes de n8n a Claude — para eso usa automation-n8n-to-claude.
+description: Cria, valida e faz deploy de workflows de n8n a partir do Claude Code usando o MCP n8n-mcp. Usa-a quando o utilizador disser "cria um workflow em n8n", "monta um n8n que faça X", "converte esta ideia em automação", "desenha um fluxo n8n", ou descrever uma sequência de passos automatizáveis (receber webhook → processar → enviar para Slack, scheduler diário que lê de Google Sheets, etc.). Ativável também com frases como "automação", "n8n", "workflow", "trigger". NÃO uses esta skill para migrar workflows existentes de n8n para Claude — para isso usa automation-n8n-to-claude.
 author: IA Masters Academy
 version: 1.0.0
-tags: [n8n, mcp, automatizacion, workflow, builder, claude-code]
+tags: [n8n, mcp, automacao, workflow, builder, claude-code]
 ---
 
-# automation-n8n-builder — Constructor de workflows n8n desde Claude
+# automation-n8n-builder — Construtor de workflows n8n a partir do Claude
 
-> Esta skill convierte una descripción en lenguaje natural ("quiero que cuando llegue un lead por formulario lo meta en Sheets y avise por Slack") en un workflow n8n funcional, validado y desplegado.
-
----
-
-## Prerequisitos
-
-1. **MCP `n8n-mcp` instalado y configurado** en `.mcp.json` del repo o en `~/.claude/.mcp.json`.
-   Si no lo tiene, sugerir al usuario: `/install-mcp n8n-mcp`.
-2. **Acceso a una instancia n8n** (self-hosted o cloud) con API key en variable de entorno `N8N_API_KEY` y `N8N_BASE_URL`.
-3. **Permisos**: el MCP requiere que el operador pueda crear/editar/desplegar workflows.
-
-Si falta cualquiera de los tres, la skill explica al usuario qué falta antes de continuar.
+> Esta skill converte uma descrição em linguagem natural ("quero que quando chegar um lead por formulário o meta em Sheets e avise por Slack") num workflow n8n funcional, validado e em deploy.
 
 ---
 
-## Flujo de trabajo
+## Pré-requisitos
 
-### Paso 1 · Entender el caso de uso
+1. **MCP `n8n-mcp` instalado e configurado** em `.mcp.json` do repo ou em `~/.claude/.mcp.json`.
+   Se não o tiver, sugerir ao utilizador: `/install-mcp n8n-mcp`.
+2. **Acesso a uma instância n8n** (self-hosted ou cloud) com API key na variável de ambiente `N8N_API_KEY` e `N8N_BASE_URL`.
+3. **Permissões**: o MCP requer que o operador possa criar/editar/fazer deploy de workflows.
 
-Antes de tocar n8n, hacer 3-5 preguntas para clarificar:
+Se faltar qualquer um dos três, a skill explica ao utilizador o que falta antes de continuar.
 
-- ¿Cuál es el **trigger**? (webhook, schedule, evento de app, manual…)
-- ¿Qué **fuentes de datos** intervienen? (Google Sheets, Notion, base de datos, API…)
-- ¿Qué **transformaciones** son necesarias? (filtrar, enriquecer, formatear…)
-- ¿Cuál es el **destino**? (Slack, email, Notion, otra app…)
-- ¿Hay **manejo de errores** necesario? (reintentos, notificaciones de fallo…)
+---
 
-Si la idea es vaga, proponer 2-3 versiones concretas y dejar al usuario elegir.
+## Fluxo de trabalho
 
-### Paso 2 · Diseño visual del flujo
+### Passo 1 · Perceber o caso de uso
 
-Antes de pedir nada al MCP, mostrar al usuario un **diagrama en texto** del workflow propuesto:
+Antes de tocar no n8n, fazer 3-5 perguntas para clarificar:
+
+- Qual é o **trigger**? (webhook, schedule, evento de app, manual…)
+- Que **fontes de dados** intervêm? (Google Sheets, Notion, base de dados, API…)
+- Que **transformações** são necessárias? (filtrar, enriquecer, formatar…)
+- Qual é o **destino**? (Slack, email, Notion, outra app…)
+- Há **tratamento de erros** necessário? (reintentos, notificações de falha…)
+
+Se a ideia for vaga, propor 2-3 versões concretas e deixar o utilizador escolher.
+
+### Passo 2 · Design visual do fluxo
+
+Antes de pedir nada ao MCP, mostrar ao utilizador um **diagrama em texto** do workflow proposto:
 
 ```
 [Webhook: form-submission]
     ↓
-[Filter: si email contiene @empresa.com]
+[Filter: se email contiver @empresa.com]
     ↓
-[Sheets: append row con {nombre, email, fuente, fecha}]
+[Sheets: append row com {nome, email, fonte, data}]
     ↓
-[Slack: notify #leads con "Nuevo lead: {nombre}"]
+[Slack: notify #leads com "Novo lead: {nome}"]
     ↓
-[Error branch: si Slack falla, email a admin]
+[Error branch: se Slack falhar, email para admin]
 ```
 
-Pedir confirmación al usuario antes de construir.
+Pedir confirmação ao utilizador antes de construir.
 
-### Paso 3 · Construir vía MCP
+### Passo 3 · Construir via MCP
 
-Usar las herramientas del MCP `n8n-mcp`:
+Usar as ferramentas do MCP `n8n-mcp`:
 
-- `search_nodes` para encontrar nodos relevantes
-- `get_node` para inspeccionar parámetros de un nodo concreto
-- `n8n_create_workflow` para crear el workflow vacío
-- `n8n_update_partial_workflow` para añadir nodos uno a uno con sus conexiones
-- `n8n_validate_workflow` para verificar que el grafo es válido
+- `search_nodes` para encontrar nodes relevantes
+- `get_node` para inspecionar parâmetros de um node concreto
+- `n8n_create_workflow` para criar o workflow vazio
+- `n8n_update_partial_workflow` para adicionar nodes um a um com as suas ligações
+- `n8n_validate_workflow` para verificar que o grafo é válido
 
-Construir el workflow incrementalmente, no de golpe. Tras cada nodo añadido, mostrar progreso al usuario.
+Construir o workflow incrementalmente, não de uma vez. Após cada node adicionado, mostrar progresso ao utilizador.
 
-### Paso 4 · Validar antes de desplegar
+### Passo 4 · Validar antes de fazer deploy
 
-Ejecutar `n8n_validate_workflow` y revisar:
+Executar `n8n_validate_workflow` e rever:
 
-- Todos los nodos tienen credenciales asignadas (o aviso si faltan)
-- Las conexiones entre nodos son coherentes
-- Los expressions (`{{$json.field}}`) referencian campos que existen
-- El trigger está configurado correctamente
+- Todos os nodes têm credenciais atribuídas (ou aviso se faltarem)
+- As ligações entre nodes são coerentes
+- As expressions (`{{$json.field}}`) referenciam campos que existem
+- O trigger está configurado corretamente
 
-Si hay errores → mostrarlos al usuario, proponer fixes, no desplegar todavía.
+Se houver erros → mostrá-los ao utilizador, propor fixes, não fazer deploy ainda.
 
-### Paso 5 · Test en modo prueba
+### Passo 5 · Teste em modo prova
 
-Antes de activar:
+Antes de ativar:
 
-- `n8n_test_workflow` con un payload de ejemplo
-- Mostrar al usuario el resultado de cada nodo
-- Si algún nodo falla, proponer fix o ajustar el diseño
+- `n8n_test_workflow` com um payload de exemplo
+- Mostrar ao utilizador o resultado de cada node
+- Se algum node falhar, propor fix ou ajustar o design
 
-### Paso 6 · Activar y entregar
+### Passo 6 · Ativar e entregar
 
-Una vez validado:
+Uma vez validado:
 
-- Activar el workflow (`active: true`)
-- Devolver al usuario:
-  - URL del workflow en n8n
-  - Resumen de qué hace y cuándo se dispara
-  - Cómo monitorizar las ejecuciones (`n8n_executions`)
-  - Sugerencia de mejoras futuras (logs, alertas, etc.)
-
----
-
-## Patrones comunes
-
-### Patrón 1 — Webhook → Procesar → Notificar
-
-Para captación de leads, formularios, integraciones de CRM ligeras.
-
-Nodos clave: `Webhook` (trigger) → `Code` / `Set` (transformar) → `Slack` / `Email` (notificar) → `Respond to Webhook` (200 OK).
-
-### Patrón 2 — Schedule → Leer → Reportar
-
-Para reportes diarios/semanales, recordatorios, backups.
-
-Nodos clave: `Schedule Trigger` → `HTTP Request` / `Database` (leer datos) → `Code` (formatear) → `Slack` / `Email` (entregar).
-
-### Patrón 3 — Evento de app → Enriquecer → Persistir
-
-Para mantener bases de datos en sync, enriquecer leads con datos externos.
-
-Nodos clave: `Trigger de app` (Notion, Airtable, etc.) → `HTTP Request` (Clearbit, BORME, etc.) → `Set` (componer) → `Sheets` / `Postgres` (escribir).
-
-### Patrón 4 — Multi-canal con fallback
-
-Para mensajería crítica que NO puede fallar.
-
-Nodos clave: `IF` (rama principal) → `Try` (canal A: Slack) → `On error` (canal B: email) → `On error` (canal C: WhatsApp).
+- Ativar o workflow (`active: true`)
+- Devolver ao utilizador:
+  - URL do workflow no n8n
+  - Resumo do que faz e quando dispara
+  - Como monitorizar as execuções (`n8n_executions`)
+  - Sugestão de melhorias futuras (logs, alertas, etc.)
 
 ---
 
-## Coordinación con otras skills
+## Padrões comuns
 
-- **Si el usuario tiene un workflow ya en n8n y quiere migrar a Claude** → usar `automation-n8n-to-claude` en su lugar.
-- **Si el usuario describe la automatización en términos de marketing** (envíos masivos, secuencias) → recomendar primero `marketing-email-sequence` para diseñar la secuencia, luego esta skill para construirla en n8n.
-- **Si la automatización requiere scraping** → combinar con `tool-firecrawl-scraper` antes de meterlo en n8n (puede tener sentido hacerlo todo en Claude en lugar de n8n).
+### Padrão 1 — Webhook → Processar → Notificar
+
+Para captação de leads, formulários, integrações de CRM ligeiras.
+
+Nodes-chave: `Webhook` (trigger) → `Code` / `Set` (transformar) → `Slack` / `Email` (notificar) → `Respond to Webhook` (200 OK).
+
+### Padrão 2 — Schedule → Ler → Reportar
+
+Para relatórios diários/semanais, lembretes, backups.
+
+Nodes-chave: `Schedule Trigger` → `HTTP Request` / `Database` (ler dados) → `Code` (formatar) → `Slack` / `Email` (entregar).
+
+### Padrão 3 — Evento de app → Enriquecer → Persistir
+
+Para manter bases de dados em sync, enriquecer leads com dados externos.
+
+Nodes-chave: `Trigger de app` (Notion, Airtable, etc.) → `HTTP Request` (Clearbit, BORME, etc.) → `Set` (compor) → `Sheets` / `Postgres` (escrever).
+
+### Padrão 4 — Multi-canal com fallback
+
+Para mensagens críticas que NÃO podem falhar.
+
+Nodes-chave: `IF` (ramo principal) → `Try` (canal A: Slack) → `On error` (canal B: email) → `On error` (canal C: WhatsApp).
 
 ---
 
-## Cuándo NO usar n8n
+## Coordenação com outras skills
 
-Antes de construir el workflow, valorar honestamente si **n8n es la herramienta adecuada**. Casos en los que conviene plantear alternativa:
+- **Se o utilizador já tem um workflow no n8n e quer migrar para Claude** → usar `automation-n8n-to-claude` em vez desta.
+- **Se o utilizador descreve a automação em termos de marketing** (envios massivos, sequências) → recomendar primeiro `marketing-email-sequence` para desenhar a sequência, depois esta skill para a construir no n8n.
+- **Se a automação requer scraping** → combinar com `tool-firecrawl-scraper` antes de a meter no n8n (pode fazer sentido fazer tudo em Claude em vez de n8n).
 
-- **El usuario quiere "una skill que haga X cada día"** → mejor un cron job + skill Claude directa (más simple, no requiere infra n8n).
-- **El flujo es 100% texto** (resumir, reescribir, traducir) → Claude lo hace nativo, no necesita orquestador.
-- **El usuario solo quiere conectar 2 SaaS conocidos** (Sheets ↔ Slack) → Zapier o Make pueden ser más rápidos de configurar.
+---
 
-Decir honestamente *"esto se puede montar en n8n, pero te recomendaría X porque…"* es parte del trabajo de la skill. No empujar n8n por inercia.
+## Quando NÃO usar n8n
+
+Antes de construir o workflow, avaliar honestamente se **n8n é a ferramenta adequada**. Casos em que convém colocar alternativa:
+
+- **O utilizador quer "uma skill que faça X todos os dias"** → melhor um cron job + skill Claude direta (mais simples, não requer infra n8n).
+- **O fluxo é 100% texto** (resumir, reescrever, traduzir) → o Claude fá-lo de forma nativa, não precisa de orquestrador.
+- **O utilizador só quer ligar 2 SaaS conhecidos** (Sheets ↔ Slack) → Zapier ou Make podem ser mais rápidos de configurar.
+
+Dizer honestamente *"isto pode-se montar em n8n, mas recomendaria X porque…"* faz parte do trabalho da skill. Não empurrar n8n por inércia.
 
 ---
 
 ## Output esperado
 
-Al cerrar:
+Ao fechar:
 
-- Workflow n8n desplegado y activo
-- Documentación mínima del workflow en `projects/automations/<fecha>-<nombre>/README.md` con:
-  - Diagrama del flujo
-  - Trigger y schedule (si aplica)
-  - Credenciales que requiere
-  - Cómo testarlo
-  - Cómo monitorizar
+- Workflow n8n com deploy e ativo
+- Documentação mínima do workflow em `projects/automations/<data>-<nome>/README.md` com:
+  - Diagrama do fluxo
+  - Trigger e schedule (se aplicar)
+  - Credenciais que requer
+  - Como o testar
+  - Como monitorizar

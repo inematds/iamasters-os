@@ -1,77 +1,77 @@
 ---
 name: strategy-web-research
-description: Searches multiple web sources, synthesizes findings, and produces cited research reports using delegated subagents. Use when the user asks to research a topic online, search the web, look something up, find current information, compare options, or produce a research report.
+description: Pesquisa em múltiplas fontes web, sintetiza descobertas e produz relatórios de research com citações usando subagentes delegados. Usa quando o utilizador pedir para investigar um tópico online, pesquisar na web, procurar algo, encontrar informação atual, comparar opções ou produzir um relatório de research.
 ---
 
-# Web Research Skill
+# Skill de Web Research
 
-## Research Process
+## Processo de Research
 
-### Step 1: Create and Save Research Plan
+### Passo 1: Criar e Guardar o Plano de Research
 
-Before delegating to subagents, you MUST:
+Antes de delegar a subagentes, DEVES:
 
-1. **Create a research folder** - Organize all research files in a dedicated folder relative to the current working directory:
+1. **Criar uma pasta de research** - Organiza todos os ficheiros de research numa pasta dedicada relativa ao diretório de trabalho atual:
    ```
-   mkdir research_[topic_name]
+   mkdir research_[nome_topico]
    ```
-   This keeps files organized and prevents clutter in the working directory.
+   Isto mantém os ficheiros organizados e evita desordem no diretório de trabalho.
 
-2. **Analyze the research question** - Break it down into distinct, non-overlapping subtopics
+2. **Analisar a pergunta de research** - Decompõe-na em subtópicos distintos e sem sobreposição
 
-3. **Write a research plan file** - Use the `write_file` tool to create `research_[topic_name]/research_plan.md` containing:
-   - The main research question
-   - 2-5 specific subtopics to investigate
-   - Expected information from each subtopic
-   - How results will be synthesized
+3. **Escrever um ficheiro de plano de research** - Usa a tool `write_file` para criar `research_[nome_topico]/research_plan.md` contendo:
+   - A pergunta principal de research
+   - 2-5 subtópicos específicos a investigar
+   - Informação esperada de cada subtópico
+   - Como os resultados serão sintetizados
 
-**Planning Guidelines:**
-- **Simple fact-finding**: 1-2 subtopics
-- **Comparative analysis**: 1 subtopic per comparison element (max 3)
-- **Complex investigations**: 3-5 subtopics
+**Diretrizes de Planeamento:**
+- **Fact-finding simples**: 1-2 subtópicos
+- **Análise comparativa**: 1 subtópico por elemento de comparação (máx 3)
+- **Investigações complexas**: 3-5 subtópicos
 
-### Step 2: Delegate to Research Subagents
+### Passo 2: Delegar a Subagentes de Research
 
-For each subtopic in your plan:
+Para cada subtópico no teu plano:
 
-1. **Use the `task` tool** to spawn a research subagent with:
-   - Clear, specific research question (no acronyms)
-   - Instructions to write findings to a file: `research_[topic_name]/findings_[subtopic].md`
-   - Budget: 3-5 web searches maximum
+1. **Usa a tool `task`** para lançar um subagente de research com:
+   - Pergunta de research clara e específica (sem acrónimos)
+   - Instruções para escrever as descobertas num ficheiro: `research_[nome_topico]/findings_[subtopico].md`
+   - Budget: 3-5 pesquisas web no máximo
 
-2. **Run up to 3 subagents in parallel** for efficient research
+2. **Correr até 3 subagentes em paralelo** para um research eficiente
 
-**Subagent Instructions Template:**
+**Template de Instruções para Subagente:**
 ```
-Research [SPECIFIC TOPIC]. Use the web_search tool to gather information.
-After completing your research, use write_file to save your findings to research_[topic_name]/findings_[subtopic].md.
-Include key facts, relevant quotes, and source URLs.
-Use 3-5 web searches maximum.
+Pesquisa [TÓPICO ESPECÍFICO]. Usa a tool web_search para reunir informação.
+Após completar o teu research, usa write_file para guardar as descobertas em research_[nome_topico]/findings_[subtopico].md.
+Inclui factos-chave, citações relevantes e URLs das fontes.
+Usa 3-5 pesquisas web no máximo.
 ```
 
-### Step 3: Synthesize Findings
+### Passo 3: Sintetizar Descobertas
 
-After all subagents complete:
+Depois de todos os subagentes completarem:
 
-1. **Review the findings files** that were saved locally:
-   - First run `list_files research_[topic_name]` to see what files were created
-   - Then use `read_file` with the **file paths** (e.g., `research_[topic_name]/findings_*.md`)
-   - **Important**: Use `read_file` for LOCAL files only, not URLs
+1. **Reviar os ficheiros de descobertas** que foram guardados localmente:
+   - Primeiro corre `list_files research_[nome_topico]` para ver que ficheiros foram criados
+   - Depois usa `read_file` com os **paths dos ficheiros** (ex.: `research_[nome_topico]/findings_*.md`)
+   - **Importante**: Usa `read_file` apenas para ficheiros LOCAIS, não para URLs
 
-2. **Synthesize the information** - Create a comprehensive response that:
-   - Directly answers the original question
-   - Integrates insights from all subtopics
-   - Cites specific sources with URLs (from the findings files)
-   - Identifies any gaps or limitations
+2. **Sintetizar a informação** - Cria uma resposta abrangente que:
+   - Responda diretamente à pergunta original
+   - Integre insights de todos os subtópicos
+   - Cite fontes específicas com URLs (a partir dos ficheiros de descobertas)
+   - Identifique quaisquer lacunas ou limitações
 
-3. **Write final report** (optional) - Use `write_file` to create `research_[topic_name]/research_report.md` if requested
+3. **Escrever o relatório final** (opcional) - Usa `write_file` para criar `research_[nome_topico]/research_report.md` se for pedido
 
-**Note**: If you need to fetch additional information from URLs, use the `fetch_url` tool, not `read_file`.
+**Nota**: Se precisares de obter informação adicional de URLs, usa a tool `fetch_url`, não `read_file`.
 
-## Best Practices
+## Boas Práticas
 
-- **Plan before delegating** - Always write research_plan.md first
-- **Clear subtopics** - Ensure each subagent has distinct, non-overlapping scope
-- **File-based communication** - Have subagents save findings to files, not return them directly
-- **Systematic synthesis** - Read all findings files before creating final response
-- **Stop appropriately** - Don't over-research; 3-5 searches per subtopic is usually sufficient
+- **Planear antes de delegar** - Escreve sempre o research_plan.md primeiro
+- **Subtópicos claros** - Garante que cada subagente tem um âmbito distinto e sem sobreposição
+- **Comunicação baseada em ficheiros** - Faz com que os subagentes guardem as descobertas em ficheiros, não que as devolvam diretamente
+- **Síntese sistemática** - Lê todos os ficheiros de descobertas antes de criar a resposta final
+- **Parar de forma apropriada** - Não faças research a mais; 3-5 pesquisas por subtópico costuma chegar

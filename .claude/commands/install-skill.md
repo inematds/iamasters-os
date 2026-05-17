@@ -1,121 +1,121 @@
 ---
-description: Instala una skill desde URL de GitHub con validación local previa. Anti-inflación: verifica estructura antes de globalizar.
+description: Instala uma skill desde URL de GitHub com validação local prévia. Anti-inflação: verifica estrutura antes de globalizar.
 ---
 
 # /install-skill
 
-Instala una skill externa desde GitHub al repo local con validación previa de estructura.
+Instala uma skill externa desde GitHub no repo local com validação prévia de estrutura.
 
 ## Uso
 
 ```
 /install-skill <github-url>
-/install-skill <nombre-skill-opcional>
+/install-skill <nome-skill-opcional>
 ```
 
-Ejemplos:
+Exemplos:
 - `/install-skill https://github.com/scrapes/skills/humanizer`
 - `/install-skill https://github.com/anthropics/skills/copywriting`
-- `/install-skill cognito` (atajo a skill local en `_optional/`)
+- `/install-skill cognito` (atalho para skill local em `_optional/`)
 
-## Modo "atajo opcional" (sin URL)
+## Modo "atalho opcional" (sem URL)
 
-Si el argumento NO es URL sino un nombre simple (ej. `cognito`):
+Se o argumento NÃO é URL mas um nome simples (ex. `cognito`):
 
-1. Buscar la skill en `.claude/skills/_meta/_optional/<nombre>/`.
-2. Si existe:
-   - Mover a `.claude/skills/_meta/<nombre>/`
-   - Update CLAUDE.md skills registry (sección `_meta/` +1, `_optional/` -1)
-   - Mensaje: *"Skill `<nombre>` activada. Reinicia Claude Code para que cargue."*
-3. Si NO existe → error: *"No hay skill opcional `<nombre>`. Skills disponibles en `_optional/`: <lista>."*
+1. Procurar a skill em `.claude/skills/_meta/_optional/<nome>/`.
+2. Se existe:
+   - Mover para `.claude/skills/_meta/<nome>/`
+   - Atualizar CLAUDE.md skills registry (secção `_meta/` +1, `_optional/` -1)
+   - Mensagem: *"Skill `<nome>` ativada. Reinicia o Claude Code para que carregue."*
+3. Se NÃO existe → erro: *"Não há skill opcional `<nome>`. Skills disponíveis em `_optional/`: <lista>."*
 
-Para desactivar una skill (moverla de vuelta a `_optional/`): editar manualmente o pedir al operador.
+Para desativar uma skill (movê-la de volta para `_optional/`): editar manualmente ou pedir ao operador.
 
 ## Process
 
-### Paso 1 · Validar URL
-- ¿Es URL de GitHub válida?
-- ¿Apunta a una carpeta o archivo `SKILL.md`?
+### Passo 1 · Validar URL
+- É URL de GitHub válida?
+- Aponta para uma pasta ou ficheiro `SKILL.md`?
 
-### Paso 2 · Descargar a temporal
+### Passo 2 · Descarregar para temporário
 
-Ejecuta `bash scripts/validate-skill.sh <url>`. El script:
-1. Crea carpeta temporal en `/tmp/iamasters-os-skill-validate-<hash>/`
-2. Clona la URL completa o usa `git archive` para descargar solo la subcarpeta
-3. Lista archivos descargados
+Executa `bash scripts/validate-skill.sh <url>`. O script:
+1. Cria pasta temporária em `/tmp/iamasters-os-skill-validate-<hash>/`
+2. Clona a URL completa ou usa `git archive` para descarregar só a subpasta
+3. Lista ficheiros descarregados
 
-### Paso 3 · Validar estructura
+### Passo 3 · Validar estrutura
 
-El script valida:
+O script valida:
 
-**Obligatorio**:
-- `SKILL.md` existe en la raíz de la skill
-- YAML frontmatter presente (líneas 1-3 con `---`)
-- Campo `name` presente y kebab-case
+**Obrigatório**:
+- `SKILL.md` existe na raiz da skill
+- YAML frontmatter presente (linhas 1-3 com `---`)
+- Campo `name` presente e kebab-case
 - Campo `description` presente, ≥50 chars, ≤500 chars
-- `description` contiene al menos un verbo de intención (crea, genera, analiza, extrae, etc.)
+- `description` contém pelo menos um verbo de intenção (cria, gera, analisa, extrai, etc.)
 
-**Recomendado** (warnings, no bloquean):
-- `references/` carpeta presente si SKILL.md > 2500 caracteres
-- `examples.md` presente en references si hay
-- Skill no contiene `eval()` o ejecución de código sin sandbox
-- No hay rutas `/etc/`, `~/`, paths absolutos sospechosos
-- No hay credenciales hardcoded (regex API keys, tokens)
+**Recomendado** (warnings, não bloqueiam):
+- Pasta `references/` presente se SKILL.md > 2500 caracteres
+- `examples.md` presente em references se houver
+- Skill não contém `eval()` ou execução de código sem sandbox
+- Não há paths `/etc/`, `~/`, paths absolutos suspeitos
+- Não há credenciais hardcoded (regex API keys, tokens)
 
-**Bloqueantes** (rechazo automático):
-- No hay SKILL.md
+**Bloqueantes** (rejeição automática):
+- Não há SKILL.md
 - YAML frontmatter mal formado
 - description < 30 chars (insuficiente)
-- description duplica nombre de skill ya instalada localmente
-- Scripts `.sh` con `rm -rf /` o similares destructivos sin justificación
+- description duplica nome de skill já instalada localmente
+- Scripts `.sh` com `rm -rf /` ou similares destrutivos sem justificação
 
-### Paso 4 · Mostrar resultado al operador
+### Passo 4 · Mostrar resultado ao operador
 
 ```markdown
-## Validación de skill
+## Validação de skill
 
 **URL**: https://github.com/scrapes/skills/humanizer
-**Skill**: tool-humanizer (¡atención: ya tienes una skill local con ese nombre!)
-**Tamaño**: SKILL.md 2.1KB, references 4.5KB, scripts 0KB
+**Skill**: tool-humanizer (atenção: já tens uma skill local com esse nome!)
+**Tamanho**: SKILL.md 2.1KB, references 4.5KB, scripts 0KB
 
-### Validaciones
+### Validações
 - ✅ SKILL.md presente
-- ✅ YAML frontmatter correcto
-- ✅ description 187 chars (en rango)
-- ⚠️ Conflicto: ya existe `.claude/skills/tools/tool-humanizer/`
-- ✅ Sin código ejecutable peligroso
-- ✅ Sin credenciales hardcoded
+- ✅ YAML frontmatter correto
+- ✅ description 187 chars (no intervalo)
+- ⚠️ Conflito: já existe `.claude/skills/tools/tool-humanizer/`
+- ✅ Sem código executável perigoso
+- ✅ Sem credenciais hardcoded
 
-### Acción a tomar
+### Ação a tomar
 
 [1] Cancelar
-[2] Reemplazar tu local (con backup automático)
-[3] Instalar como tool-humanizer-v2 (renombrar)
-[4] Ver diff vs tu versión local
+[2] Substituir a tua local (com backup automático)
+[3] Instalar como tool-humanizer-v2 (renomear)
+[4] Ver diff vs a tua versão local
 ```
 
-### Paso 5 · Instalación local
+### Passo 5 · Instalação local
 
-Si el operador acepta:
-1. Si existe local: backup en `.backup/<timestamp>/.claude/skills/...`
-2. Copiar a `.claude/skills/<categoria>/<nombre>/`
-3. Si la categoría es ambigua, preguntar al operador donde categorizar (`_meta` / `marketing` / `tools` / etc.)
-4. Update `synapsis/skills-catalog.json` con nueva entrada
-5. Update `CLAUDE.md` skills registry
+Se o operador aceita:
+1. Se existe local: backup em `.backup/<timestamp>/.claude/skills/...`
+2. Copiar para `.claude/skills/<categoria>/<nome>/`
+3. Se a categoria é ambígua, perguntar ao operador onde categorizar (`_meta` / `marketing` / `tools` / etc.)
+4. Atualizar `synapsis/skills-catalog.json` com nova entrada
+5. Atualizar `CLAUDE.md` skills registry
 
-### Paso 6 · Test de activación
+### Passo 6 · Teste de ativação
 
-Tras instalar:
-- Reiniciar Claude Code (Ctrl+C × 2 + claude)
-- Probar prompt que debería activar la skill (basado en su description)
-- Si activa correctamente: confirmar instalación
-- Si no activa: ofrecer (a) editar description, (b) renombrar, (c) desinstalar
+Após instalar:
+- Reiniciar o Claude Code (Ctrl+C × 2 + claude)
+- Testar prompt que deveria ativar a skill (baseado na description)
+- Se ativa corretamente: confirmar instalação
+- Se não ativa: oferecer (a) editar description, (b) renomear, (c) desinstalar
 
-### Paso 7 · Cierre
+### Passo 7 · Fecho
 
-- Mostrar al operador qué se instaló y dónde
-- Sugerir ejecutar `/wrap-up` para que el cambio quede registrado
-- Append en `context/learnings.md` si la skill aporta valor diferencial:
+- Mostrar ao operador o que se instalou e onde
+- Sugerir executar `/wrap-up` para que a mudança fique registada
+- Append em `context/learnings.md` se a skill traz valor diferencial:
   ```
   ## install-skill
   - YYYY-MM-DD: instalada <skill> de <url>. Útil para <caso>.
@@ -123,11 +123,11 @@ Tras instalar:
 
 ## Edge cases
 
-- **Repo privado en GitHub**: pide al operador token o que la haga pública temporalmente
-- **Skill duplica funcionalidad de una local**: avisar y dejar al operador decidir si fusionar o mantener ambas
-- **Skill con dependencias** (otra skill no instalada): avisar y preguntar si instalar dependencias también
-- **Skill huge** (>50KB): warning sobre token consumption — sugerir leer SKILL.md primero
+- **Repo privado no GitHub**: pedir ao operador token ou que a torne pública temporariamente
+- **Skill duplica funcionalidade de uma local**: avisar e deixar o operador decidir se fundir ou manter ambas
+- **Skill com dependências** (outra skill não instalada): avisar e perguntar se instalar dependências também
+- **Skill huge** (>50KB): warning sobre token consumption — sugerir ler SKILL.md primeiro
 
-## Implementación
+## Implementação
 
-Este comando llama a `bash scripts/validate-skill.sh <url>` que hace todo el trabajo.
+Este comando chama `bash scripts/validate-skill.sh <url>` que faz todo o trabalho.

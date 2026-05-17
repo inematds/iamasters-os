@@ -1,200 +1,200 @@
 ---
 name: marketing-icp
-description: Define el Ideal Customer Profile en detalle: dolor exacto, lenguaje que usa, buying triggers, anti-ICP. Combina interview con análisis de competidores (qué clientes tienen) y de testimonios reales del operador. Output a brand-context/icp/icp.md. Se invoca después de positioning o cuando el operador no sabe a quién venderle.
+description: Define o Ideal Customer Profile em detalhe: dor exata, linguagem que usa, buying triggers, anti-ICP. Combina interview com análise de concorrentes (que clientes têm) e de testemunhos reais do operador. Output para brand-context/icp/icp.md. É invocada depois de positioning ou quando o operador não sabe a quem vender.
 ---
 
 # marketing-icp
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Después de `marketing-positioning` (positioning sin ICP claro = humo)
-- Operador dice: "no sé a quién vender", "mi cliente actual no es ideal"
-- Antes de cualquier campaña paid (sin ICP no segmentas)
-- Cuando vas a escribir copy de landing/email y necesitas precisión
+- Depois de `marketing-positioning` (positioning sem ICP claro = fumo)
+- Operador diz: "não sei a quem vender", "o meu cliente atual não é ideal"
+- Antes de qualquer campanha paid (sem ICP não segmentas)
+- Quando vais escrever copy de landing/email e precisas de precisão
 
 ## Process
 
-### Paso 1 · Recopilar inputs
+### Passo 1 · Recolher inputs
 
-Lee `brand-context/positioning/positioning.md` (si existe).
+Lê `brand-context/positioning/positioning.md` (se existir).
 
-Pregunta al operador (6 preguntas):
+Pergunta ao operador (6 perguntas):
 
-1. **¿Tienes 3-5 clientes actuales o pasados que sean "buenos"?** (clientes que pagaron sin pelear, recomendaron, repitieron). Dame nombre, sector, tamaño y por qué los consideras buenos.
+1. **Tens 3-5 clientes atuais ou passados que sejam "bons"?** (clientes que pagaram sem regatear, recomendaram, repetiram). Dá-me nome, setor, dimensão e porque é que os consideras bons.
 
-2. **¿Tienes 1-3 clientes que sean "malos"?** (que se quejaron mucho, no pagaron, churnearon en 30 días, te succionaron tiempo). Dame nombre, sector y por qué fallaron.
+2. **Tens 1-3 clientes que sejam "maus"?** (que se queixaram muito, não pagaram, fizeram churn em 30 dias, te sugaram tempo). Dá-me nome, setor e porque é que falharam.
 
-3. **¿Cómo te encontraron los buenos?** (Instagram, recomendación, búsqueda, evento, frío...)
+3. **Como é que os bons te encontraram?** (Instagram, recomendação, pesquisa, evento, frio...)
 
-4. **¿Qué dolor concreto tenían cuando te contactaron?** (no "querían más eficiencia" sino "estaban perdiendo 20h/semana en X")
+4. **Que dor concreta tinham quando te contactaram?** (não "queriam mais eficiência" mas "estavam a perder 20h/semana em X")
 
-5. **¿Qué objeción tuvieron antes de comprar?** (precio, riesgo, "ya probé antes", confianza, timing)
+5. **Que objeção tiveram antes de comprar?** (preço, risco, "já tentei antes", confiança, timing)
 
-6. **¿Qué quieren tus mejores clientes que NO les das?** (límites de tu servicio actual)
+6. **O que é que os teus melhores clientes querem que NÃO lhes dás?** (limites do teu serviço atual)
 
-### Paso 2 · Análisis de patrones
+### Passo 2 · Análise de padrões
 
-Cruzar las respuestas:
+Cruzar as respostas:
 
-**Patrones positivos** (qué tienen en común los buenos clientes):
-- Sector / industria
-- Tamaño (revenue, headcount)
-- Madurez digital
-- Quien decide (rol del comprador)
-- Cómo te encontraron (canal de adquisición que repiten)
-- Dolor compartido (no genérico)
-- Lenguaje que usan al describir el problema
+**Padrões positivos** (o que têm em comum os bons clientes):
+- Setor / indústria
+- Dimensão (revenue, headcount)
+- Maturidade digital
+- Quem decide (rol do comprador)
+- Como te encontraram (canal de aquisição que se repete)
+- Dor partilhada (não genérica)
+- Linguagem que usam ao descrever o problema
 
-**Patrones negativos** (qué tienen los malos):
-- ¿Buscan algo distinto a lo que ofreces?
-- ¿No tienen el dolor de verdad (lo "deberían tener" según vendor)?
-- ¿Esperan magia / sin trabajar?
-- ¿No tienen budget real?
-- ¿Toman decisiones por comité / muy lento?
+**Padrões negativos** (o que têm os maus):
+- Procuram algo distinto do que ofereces?
+- Não têm a dor a sério (deveriam tê-la segundo vendor)?
+- Esperam magia / sem trabalhar?
+- Não têm budget real?
+- Tomam decisões por comité / muito lento?
 
-### Paso 3 · Construir ICP detallado
+### Passo 3 · Construir ICP detalhado
 
 ```markdown
 # ICP — [Marca]
 
-> Generado: YYYY-MM-DD
+> Gerado: YYYY-MM-DD
 
 ## Demográfico / Firmográfico
 
-- **Sector**: [específico, ej. "gestorías y asesorías fiscales con 3-15 empleados"]
-- **Tamaño**: [revenue range, ej. "150K-1.5M EUR/año"]
-- **Headcount**: [rango, ej. "2-15 personas"]
-- **Geografía**: [España + LATAM, o más específico]
-- **Madurez digital**: [bajo / medio / alto. Más útil si es específico: "ya usan algún SaaS, no son anti-tech, pero no tienen IT in-house"]
+- **Setor**: [específico, ex. "contabilísticos e gabinetes fiscais com 3-15 colaboradores"]
+- **Dimensão**: [revenue range, ex. "150K-1.5M EUR/ano"]
+- **Headcount**: [intervalo, ex. "2-15 pessoas"]
+- **Geografia**: [Portugal + Espanha + LATAM, ou mais específico]
+- **Maturidade digital**: [baixo / médio / alto. Mais útil se for específico: "já usam algum SaaS, não são anti-tech, mas não têm IT in-house"]
 
-## Quien decide
+## Quem decide
 
-- **Rol del comprador**: [Founder / CEO / Office Manager / IT / ...]
-- **Quien vetea**: [si hay aprobación de socio o partner]
-- **Tiempo medio de decisión**: [2 semanas / 2 meses / 6 meses]
+- **Rol do comprador**: [Founder / CEO / Office Manager / IT / ...]
+- **Quem veta**: [se há aprovação de sócio ou partner]
+- **Tempo médio de decisão**: [2 semanas / 2 meses / 6 meses]
 
-## Dolor concreto (en SU lenguaje, no en el tuyo)
+## Dor concreta (na SUA linguagem, não na tua)
 
-> "Cita textual de cómo lo describen ellos cuando te llaman"
+> "Citação textual de como o descrevem quando te ligam"
 
-Síntomas observables (no abstractos):
-- "Pierden X horas/semana en Y"
-- "Tienen N personas haciendo tareas que un agente podría hacer"
-- "Los clientes esperan respuestas de 2 días, ahora tardan 5"
+Sintomas observáveis (não abstratos):
+- "Perdem X horas/semana em Y"
+- "Têm N pessoas a fazer tarefas que um agente podia fazer"
+- "Os clientes esperam respostas de 2 dias, agora demoram 5"
 
-Coste real del dolor (€):
-- Pérdida directa: [tiempo facturable perdido]
-- Coste de oportunidad: [proyectos no atendidos]
-- Coste reputacional: [clientes que churnean por mal servicio]
+Custo real da dor (€):
+- Perda direta: [tempo faturável perdido]
+- Custo de oportunidade: [projetos não atendidos]
+- Custo reputacional: [clientes que fazem churn por mau serviço]
 
 ## Buying triggers
 
-¿Qué evento les hace pasar de "deberíamos hacer algo" a "necesito hablar con alguien YA"?
+Que evento os faz passar de "devíamos fazer algo" a "preciso de falar com alguém JÁ"?
 
-- Pierden cliente importante por falta de capacidad
-- Empleado clave pide aumento o se va
-- Cliente top les dice "o automatizáis o me voy"
-- Lanzan producto/servicio nuevo y el equipo no escala
-- Auditoría / regulación nueva (RGPD, IA Act, etc.)
+- Perdem cliente importante por falta de capacidade
+- Colaborador-chave pede aumento ou vai-se embora
+- Cliente top diz-lhes "ou automatizam ou eu vou-me"
+- Lançam produto/serviço novo e a equipa não escala
+- Auditoria / regulação nova (RGPD, IA Act, etc.)
 
-## Lenguaje que usan
+## Linguagem que usam
 
-Palabras EN su mundo (úsalas en tu copy):
+Palavras DO seu mundo (usa-as no teu copy):
 - ...
 
-Palabras prohibidas (no las usan, no las entienden, las desconfían):
+Palavras proibidas (não as usam, não as percebem, desconfiam delas):
 - "agéntico", "agente conversacional", "LLM", "RAG"
-- "stack", "deploy", "API", "webhook" (a menos que sean técnicos)
+- "stack", "deploy", "API", "webhook" (a menos que sejam técnicos)
 
-## Objeciones típicas + respuesta
+## Objeções típicas + resposta
 
-| Objeción | Respuesta breve |
+| Objeção | Resposta breve |
 |---|---|
-| "Es muy caro" | Coste vs ROI: el dolor cuesta X€/mes, esto se amortiza en N meses |
-| "Ya lo intentamos con [otro]" | Pregunta qué falló. Probablemente falló sin tu enfoque. |
-| "No tenemos tiempo para implementarlo" | Por eso tu servicio incluye implementación, no es "te dejo la herramienta" |
-| "¿Y si la IA falla?" | Mostrar control humano, validación antes de acciones, opción de off |
-| "No sé si servirá para nuestro caso" | Pre-análisis gratuito de 30 min para confirmar fit |
+| "É muito caro" | Custo vs ROI: a dor custa X€/mês, isto amortiza-se em N meses |
+| "Já tentámos com [outro]" | Pergunta o que falhou. Provavelmente falhou sem a tua abordagem. |
+| "Não temos tempo para o implementar" | Por isso o teu serviço inclui implementação, não é "deixo-te a ferramenta" |
+| "E se a IA falhar?" | Mostrar controlo humano, validação antes de ações, opção de off |
+| "Não sei se servirá para o nosso caso" | Pré-análise gratuita de 30 min para confirmar fit |
 
-## Canales donde están
+## Canais onde estão
 
-¿Dónde consume contenido / busca soluciones?
+Onde é que consome conteúdo / procura soluções?
 
-- LinkedIn: ¿activo? ¿qué grupos sigue?
-- YouTube: ¿qué canales del sector?
-- Newsletter / podcasts del sector
-- Eventos: cuáles atiende
-- Búsqueda Google: keywords que prueba ("automatizar [su sector]", "ahorrar tiempo [su tarea]")
+- LinkedIn: ativo? que grupos segue?
+- YouTube: que canais do setor?
+- Newsletter / podcasts do setor
+- Eventos: quais frequenta
+- Pesquisa Google: keywords que prova ("automatizar [o seu setor]", "poupar tempo [a sua tarefa]")
 
 ## Anti-ICP
 
-Cliente que parece bueno pero NO debes aceptar:
-- Síntoma 1
-- Síntoma 2
-- Síntoma 3
+Cliente que parece bom mas NÃO deves aceitar:
+- Sintoma 1
+- Sintoma 2
+- Sintoma 3
 
-Razones por las que decir NO:
+Razões para dizer NÃO:
 - ...
 
 ## Customer Journey
 
-1. **Awareness**: ¿cómo se enteran de que existe esto? (LinkedIn de Angel, recomendación, evento)
-2. **Consideration**: ¿qué buscan / leen para evaluar? (case studies, demos, conversación)
-3. **Decision**: ¿qué cierra el deal? (llamada con caso real similar, prueba gratuita acotada, contrato corto inicial)
-4. **Onboarding**: ¿cómo arranca el proyecto?
-5. **Expansion**: ¿qué upsells aceptan después?
+1. **Awareness**: como é que ficam a saber que isto existe? (LinkedIn de Angel, recomendação, evento)
+2. **Consideration**: o que procuram / leem para avaliar? (case studies, demos, conversa)
+3. **Decision**: o que fecha o deal? (chamada com caso real semelhante, prova gratuita acotada, contrato curto inicial)
+4. **Onboarding**: como arranca o projeto?
+5. **Expansion**: que upsells aceitam depois?
 
-## Validación
+## Validação
 
-Frases para validar este ICP en próxima llamada:
-- "¿Pierdes alrededor de [X horas/semana] en [Y tarea]?"
-- "¿Si pudieras tener [Z resuelto] te ahorraría [N€/mes]?"
-- "¿Has intentado antes con [tipo de solución]? ¿Qué falló?"
+Frases para validar este ICP na próxima chamada:
+- "Perdes à volta de [X horas/semana] em [Y tarefa]?"
+- "Se pudesses ter [Z resolvido] pouparias [N€/mês]?"
+- "Já tentaste antes com [tipo de solução]? O que falhou?"
 
-Si la persona responde "no" o "más o menos" a 2+ preguntas → no es ICP, es prospect tibio.
+Se a pessoa responder "não" ou "mais ou menos" a 2+ perguntas → não é ICP, é prospect morno.
 
-## Cuándo revisar este ICP
+## Quando rever este ICP
 
-- Cada 3 meses con datos nuevos (10+ clientes nuevos)
-- Cuando cambies positioning
-- Cuando entres a vertical nuevo
-- Cuando observes drift (cierras a clientes muy distintos del descrito)
+- Cada 3 meses com dados novos (10+ clientes novos)
+- Quando mudares o positioning
+- Quando entrares em vertical novo
+- Quando observares drift (fechas a clientes muito diferentes do descrito)
 ```
 
-### Paso 4 · Validación cruzada
+### Passo 4 · Validação cruzada
 
-Pregunta al operador:
-- "Mira la sección 'Lenguaje que usan'. ¿Reconoces estas palabras de tus llamadas?"
-- "Mira 'Buying triggers'. ¿Cuál de estos viste en al menos 2 clientes?"
-- "Mira 'Anti-ICP'. ¿Hay algún síntoma que no incluyera y deberías?"
+Pergunta ao operador:
+- "Olha para a secção 'Linguagem que usam'. Reconheces estas palavras das tuas chamadas?"
+- "Olha para 'Buying triggers'. Qual destes viste em pelo menos 2 clientes?"
+- "Olha para 'Anti-ICP'. Há algum sintoma que não tenha incluído e devesse?"
 
-Refinar hasta que el operador diga "sí, así es exactamente".
+Refinar até o operador dizer "sim, é exatamente assim".
 
-### Paso 5 · Cierre
+### Passo 5 · Cierre
 
 - Guardar `brand-context/icp/icp.md`
-- Append en `context/learnings.md`
-- Sugerir actualizar copy de landing / email sequences / bio con el lenguaje del ICP detectado
+- Append em `context/learnings.md`
+- Sugerir atualizar copy de landing / email sequences / bio com a linguagem do ICP detetada
 
 ## Outputs
 
 - `brand-context/icp/icp.md`
 - Append a `context/learnings.md`
 
-## Skills que llama
+## Skills que chama
 
-Ninguna. Es introspectiva + análisis de datos del operador.
+Nenhuma. É introspetiva + análise de dados do operador.
 
-(Optional: si el operador menciona muchos clientes, podría llamar `tool-firecrawl-scraper` para enriquecer datos de cada cliente desde sus webs).
+(Opcional: se o operador mencionar muitos clientes, podia chamar `tool-firecrawl-scraper` para enriquecer dados de cada cliente a partir das suas webs).
 
 ## Edge cases
 
-- **Operador no tiene clientes aún (pre-revenue)**: ICP es hipotético. Marcar `confidence: low` y planear validación con 5 entrevistas a prospects en 30 días.
-- **Operador tiene 100+ clientes muy variados**: segmentar en 2-3 ICPs distintos en lugar de forzar 1.
-- **Cliente "bueno" no responde al perfil del positioning**: investigar por qué. Puede que el positioning esté mal o que el cliente sea outlier.
+- **Operador ainda não tem clientes (pre-revenue)**: ICP é hipotético. Marcar `confidence: low` e planear validação com 5 entrevistas a prospects em 30 dias.
+- **Operador tem 100+ clientes muito variados**: segmentar em 2-3 ICPs distintos em vez de forçar 1.
+- **Cliente "bom" não corresponde ao perfil do positioning**: investigar porquê. Pode ser que o positioning esteja mal ou que o cliente seja outlier.
 
 ## Examples
 
 Ver `references/examples.md` para 2 ICPs completos:
-1. Operador IA freelance servicio a gestorías españolas
-2. Agencia marketing especializada en formadores online
+1. Operador IA freelance serviço a contabilísticos portugueses
+2. Agência de marketing especializada em formadores online

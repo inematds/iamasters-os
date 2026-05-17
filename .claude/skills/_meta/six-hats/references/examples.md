@@ -1,117 +1,117 @@
-# Ejemplos de six-hats
+# Exemplos de six-hats
 
-## Ejemplo 1 · "¿Lanzo el curso ahora o espero al Q4?"
+## Exemplo 1 · "Lanço o curso agora ou espero pelo Q4?"
 
-**Contexto del usuario**: formador online con curso casi listo. Tiene 1.500 contactos en lista, no ha lanzado nada en 4 meses. Q3 (julio-septiembre) tiene baja actividad por verano. Q4 (octubre-diciembre) es el mejor para infoproductos pero requiere más preparación.
+**Contexto do utilizador**: formador online com curso quase pronto. Tem 1.500 contactos na lista, não lançou nada há 4 meses. Q3 (julho-setembro) tem baixa atividade por causa do verão. Q4 (outubro-dezembro) é o melhor para infoprodutos mas requer mais preparação.
 
-**🔵 Azul**: Decisión binaria. Métrica: revenue del lanzamiento + healthy pipeline para próximo. Fuera de scope: cambiar el producto.
+**🔵 Azul**: Decisão binária. Métrica: revenue do lançamento + pipeline saudável para o próximo. Fora de scope: mudar o produto.
 
-**⚪ Blanco**:
-- Lista de 1.500 contactos, último contacto hace 4 meses. Tasa apertura típica decae 30-50% con silencio prolongado.
-- Septiembre 2025: facturación inforpoductos en España +18% vs julio (estacionalidad clara)
-- Curso lleva 6 meses en construcción. Coste hundido alto.
-- Competidor directo lanzó el suyo en marzo, todavía está activo en redes.
+**⚪ Branco**:
+- Lista de 1.500 contactos, último contacto há 4 meses. A taxa de abertura típica cai 30-50% com silêncio prolongado.
+- Setembro 2025: faturação de infoprodutos em Espanha +18% vs julho (sazonalidade clara)
+- Curso leva 6 meses em construção. Custo afundado alto.
+- Concorrente direto lançou o seu em março, continua ativo nas redes.
 
-**⚫ Negro**:
-- Lanzar ahora con lista fría: open rate 15-20% en lugar de 35-45% si calientas antes
-- Revenue posible bajo (€8-12K) vs Q4 (€20-30K) basado en estacionalidad
-- Si lanzas ahora y va mediocre, los testimoniales para Q4 son "tibios"
-- Si esperas, riesgo de seguir procrastinando 4 meses más
+**⚫ Preto**:
+- Lançar agora com lista fria: open rate 15-20% em vez de 35-45% se aqueceres antes
+- Revenue possível baixo (€8-12K) vs Q4 (€20-30K) com base na sazonalidade
+- Se lançares agora e correr mediano, os testemunhos para Q4 são "mornos"
+- Se esperares, risco de continuar a procrastinar mais 4 meses
 
-**🟡 Amarillo**:
-- Q4 launch con preparación: secuencia de calentamiento agosto-septiembre + masterclass gratis octubre = más conversión
-- Q3 puede ser "soft launch" beta cerrado (50 alumnos, precio reducido) → testimoniales reales para Q4
-- El competidor que lanzó en marzo ya enseñó al mercado lo que es; tú llegas con producto más afinado
+**🟡 Amarelo**:
+- Launch Q4 com preparação: sequência de aquecimento agosto-setembro + masterclass gratuita em outubro = mais conversão
+- Q3 pode ser "soft launch" beta fechado (50 alunos, preço reduzido) → testemunhos reais para Q4
+- O concorrente que lançou em março já ensinou ao mercado o que é; tu chegas com produto mais afinado
 
-**🟢 Verde** (10 ideas):
-1. Soft launch agosto, precio €197, 30 plazas, sin marketing público
-2. Webinar gratis julio para validar interés
-3. Pre-venta julio con descuento 50% → cobras antes de tener ánimo decaído
-4. Cohorte alumni Q4 con descuento por venir de Q3
-5. Lanzamiento conjunto con un afiliado del nicho
-6. Versión mini en julio (curso de €47) → upsell al completo en octubre
-7. Pivot: cambiar nombre/posicionamiento, lanzar en Q4 como "renovado"
-8. Vender en directo en un evento físico antes que online
-9. Ofrecer 1-on-1 mentoría 5 personas por €1000 en julio (revenue alto, 0 marketing)
-10. Hibridar: lanzar Q3 a la lista existente + Q4 al público frío con precio mayor
+**🟢 Verde** (10 ideias):
+1. Soft launch agosto, preço €197, 30 vagas, sem marketing público
+2. Webinar gratuito julho para validar interesse
+3. Pré-venda julho com desconto 50% → recebes antes de perder o ânimo
+4. Cohorte alumni Q4 com desconto por vir do Q3
+5. Lançamento conjunto com um afiliado do nicho
+6. Versão mini em julho (curso de €47) → upsell para o completo em outubro
+7. Pivot: mudar nome/posicionamento, lançar no Q4 como "renovado"
+8. Vender ao vivo num evento físico antes de online
+9. Oferecer mentoria 1-on-1 a 5 pessoas por €1000 em julho (revenue alto, 0 marketing)
+10. Hibridar: lançar Q3 à lista existente + Q4 ao público frio com preço maior
 
-**🔴 Rojo**:
-- Lanzar ahora ENTUSIASMA porque rompe el bloqueo y trae cash
-- Esperar a Q4 DRENA porque significa 4 meses más sin producto fuera
-- Si tuvieras que decidir en 5 segundos: "lanzo Q3 a la lista, Q4 voy al frío"
+**🔴 Vermelho**:
+- Lançar agora ENTUSIASMA porque quebra o bloqueio e traz cash
+- Esperar pelo Q4 DRENA porque significa mais 4 meses sem produto cá fora
+- Se tivesses de decidir em 5 segundos: "lanço Q3 à lista, Q4 vou ao frio"
 
-**Síntesis**:
+**Síntese**:
 
-> Decisión recomendada: **Soft launch Q3 (agosto, precio €197, lista existente, sin marketing público) + lanzamiento grande Q4 al público frío con precio mayor.**
+> Decisão recomendada: **Soft launch Q3 (agosto, preço €197, lista existente, sem marketing público) + lançamento grande Q4 ao público frio com preço maior.**
 >
-> Razón: capturas el revenue de la lista que ya tienes (que se enfría cada semana), generas testimoniales reales para el lanzamiento Q4, y rompes el bloqueo psicológico sin canibalizar la estacionalidad fuerte.
+> Razão: capturas o revenue da lista que já tens (que arrefece a cada semana), geras testemunhos reais para o lançamento Q4, e quebras o bloqueio psicológico sem canibalizar a sazonalidade forte.
 >
-> Riesgos a vigilar:
-> 1. Si Q3 va peor de lo esperado, no usar como excusa para retrasar Q4
-> 2. Plazas limitadas (30) deben respetarse — si vendes 80, NO ampliar (escasez es real)
-> 3. Comunicación cohorte Q3 vs Q4 debe ser clara desde día 1 (no parece bait & switch)
+> Riscos a vigiar:
+> 1. Se o Q3 correr pior do que esperado, não usar como desculpa para atrasar o Q4
+> 2. Vagas limitadas (30) têm de ser respeitadas — se venderes 80, NÃO ampliar (a escassez é real)
+> 3. Comunicação cohorte Q3 vs Q4 tem de ser clara desde o dia 1 (não pode parecer bait & switch)
 >
-> Plan inmediato:
-> 1. Email 1 a la lista esta semana — "vengo del silencio, tengo algo, abrimos pre-aviso"
-> 2. Página de venta minimalista en 3 días (no perder más tiempo en diseño)
-> 3. Abrir pre-venta a 30 plazas con fecha límite de 7 días
+> Plano imediato:
+> 1. Email 1 à lista esta semana — "venho do silêncio, tenho algo, abrimos pré-aviso"
+> 2. Página de venda minimalista em 3 dias (não perder mais tempo em design)
+> 3. Abrir pré-venda a 30 vagas com prazo de 7 dias
 >
-> Cambiar de opinión si: open rate del email 1 <15% (lista demasiado fría) → entonces Q3 = solo calentar, Q4 = único lanzamiento.
+> Mudar de opinião se: open rate do email 1 <15% (lista demasiado fria) → então Q3 = só aquecer, Q4 = único lançamento.
 
 ---
 
-## Ejemplo 2 · "¿Contrato a esta persona o sigo solo 3 meses más?"
+## Exemplo 2 · "Contrato esta pessoa ou continuo sozinho mais 3 meses?"
 
-**Contexto**: emprendedor solopreneur, MRR €18K, viene candidata muy buena pero coste mensual €2.5K. Bebés en casa de 6 meses. Cansancio acumulado.
+**Contexto**: empreendedor solopreneur, MRR €18K, aparece uma candidata muito boa mas custo mensal €2.5K. Bebés em casa de 6 meses. Cansaço acumulado.
 
-**🔵 Azul**: Decisión emocional con datos blandos. Métrica: % horas Angel hace tareas de €100/h vs €25/h. Fuera de scope: contratar a otra persona distinta.
+**🔵 Azul**: Decisão emocional com dados moles. Métrica: % de horas que o Angel faz tarefas de €100/h vs €25/h. Fora de scope: contratar outra pessoa diferente.
 
-**⚪ Blanco**:
-- MRR €18K. Margen bruto ~80%. Margen post-contratación si €2.5K = ~67%.
-- Candidata con 4 referencias, dos contactadas, ambas positivas
-- Estimado horas/semana liberadas: 15-20 (basado en tareas que actualmente Angel hace y delegaría)
-- Cash en cuenta: 6 meses de runway sin nuevos clientes
+**⚪ Branco**:
+- MRR €18K. Margem bruta ~80%. Margem pós-contratação se €2.5K = ~67%.
+- Candidata com 4 referências, duas contactadas, ambas positivas
+- Estimado de horas/semana libertadas: 15-20 (com base nas tarefas que o Angel atualmente faz e delegaria)
+- Cash em conta: 6 meses de runway sem clientes novos
 
-**⚫ Negro**:
-- Coste oportunidad si la candidata no funciona: €7.5K + 3 meses de fricción
-- Onboarding: primeras 6-8 semanas Angel pierde tiempo, no gana
-- Si MRR baja en próximos 3 meses (pasa siempre con churn estacional), aprieta
-- Solopreneurs que contratan demasiado pronto se vuelven "managers de 1 persona"
+**⚫ Preto**:
+- Custo oportunidade se a candidata não funcionar: €7.5K + 3 meses de fricção
+- Onboarding: nas primeiras 6-8 semanas o Angel perde tempo, não ganha
+- Se o MRR descer nos próximos 3 meses (acontece sempre com churn sazonal), aperta
+- Solopreneurs que contratam cedo demais tornam-se "managers de 1 pessoa"
 
-**🟡 Amarillo**:
-- 15-20 horas semanales liberadas → puedes dedicarlas a contenido (motor de captación)
-- Bebés crecen, querrías estar más disponible — esta contratación también es decisión familiar
-- Si funciona, esta persona puede crecer al rol senior en 12 meses, no contratas dos veces
-- Modelo de delegación bueno = blueprint para futuras contrataciones
+**🟡 Amarelo**:
+- 15-20 horas semanais libertadas → podes dedicá-las a conteúdo (motor de captação)
+- Os bebés crescem, quererias estar mais disponível — esta contratação também é decisão familiar
+- Se funcionar, esta pessoa pode crescer para o cargo sénior em 12 meses, não contratas duas vezes
+- Bom modelo de delegação = blueprint para contratações futuras
 
 **🟢 Verde**:
-1. Contratar 3 meses prueba (no permanente todavía)
-2. Contratar parcial (20h/semana) y subir si funciona
-3. Contratar a un freelance equivalente por proyecto en lugar de plantilla
-4. Contratar con compromiso variable (€1.5K fijo + €1K bonus por objetivos)
-5. Esperar 3 meses pero ahora hacer triaje brutal de tareas (qué eliminar)
-6. Probar con virtual assistant (€500/mes) antes de subir
-7. Pareja Angel + esta candidata vs Angel + esta candidata + un VA junior
+1. Contratar 3 meses à experiência (não permanente ainda)
+2. Contratar parcial (20h/semana) e subir se funcionar
+3. Contratar um freelance equivalente por projeto em vez de quadro
+4. Contratar com compromisso variável (€1.5K fixo + €1K bónus por objetivos)
+5. Esperar 3 meses mas agora fazer triagem brutal de tarefas (o que eliminar)
+6. Experimentar com virtual assistant (€500/mês) antes de subir
+7. Par Angel + esta candidata vs Angel + esta candidata + um VA júnior
 
-**🔴 Rojo**:
-- Contratar EMOCIONA porque cambia la calidad de vida personal
-- Esperar 3 meses DRENA porque imagina los próximos 3 meses iguales a los anteriores
-- Cuerpo dice: "ya basta de hacerlo solo"
+**🔴 Vermelho**:
+- Contratar EMOCIONA porque muda a qualidade de vida pessoal
+- Esperar 3 meses DRENA porque imagina os próximos 3 meses iguais aos anteriores
+- O corpo diz: "já chega de fazer isto sozinho"
 
-**Síntesis**:
+**Síntese**:
 
-> Decisión recomendada: **Contratar con periodo de prueba 3 meses, modelo €2K fijo + €500 bonus por objetivos definidos en mes 1.**
+> Decisão recomendada: **Contratar com período de experiência de 3 meses, modelo €2K fixo + €500 bónus por objetivos definidos no mês 1.**
 >
-> Razón: el coste oportunidad de seguir solo es alto (no solo en revenue: en calidad de vida y energía con bebés en casa), las referencias son sólidas, y el modelo de prueba 3 meses con bonus mitiga el riesgo financiero sin perder a la candidata buena.
+> Razão: o custo oportunidade de continuar sozinho é alto (não só em revenue: em qualidade de vida e energia com bebés em casa), as referências são sólidas, e o modelo de experiência 3 meses com bónus mitiga o risco financeiro sem perder a candidata boa.
 >
-> Riesgos a vigilar:
-> 1. Onboarding 6-8 semanas: bloquea calendario y define documentación que aún no existe
-> 2. Si MRR baja por estacionalidad, evitar pánico — el cash da 6 meses
-> 3. Tu rol cambia (de hacedor a delegador) — costará psicológicamente más de lo previsto
+> Riscos a vigiar:
+> 1. Onboarding 6-8 semanas: bloqueia o calendário e define documentação que ainda não existe
+> 2. Se o MRR descer por sazonalidade, evitar pânico — o cash dá 6 meses
+> 3. O teu papel muda (de fazedor a delegador) — vai custar psicologicamente mais do que previsto
 >
-> Plan inmediato:
-> 1. Acordar con candidata modelo prueba 3 meses + bonus
-> 2. Definir 3 objetivos medibles para el bonus de mes 1 antes de empezar
-> 3. Bloquear 4h esta semana para escribir SOPs de las 5 tareas que más vas a delegar
+> Plano imediato:
+> 1. Acordar com a candidata o modelo de experiência 3 meses + bónus
+> 2. Definir 3 objetivos mensuráveis para o bónus do mês 1 antes de começar
+> 3. Bloquear 4h esta semana para escrever SOPs das 5 tarefas que mais vais delegar
 >
-> Cambiar de opinión si: en 4-6 semanas la candidata no internaliza la marca o el equipo no cuaja → corte limpio en mes 3, no extender por inercia.
+> Mudar de opinião se: em 4-6 semanas a candidata não internaliza a marca ou a equipa não engrena → corte limpo no mês 3, não estender por inércia.

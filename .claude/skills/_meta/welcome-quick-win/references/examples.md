@@ -1,66 +1,66 @@
-# Ejemplos de welcome-quick-win
+# Exemplos de welcome-quick-win
 
-## Ejemplo 1 · Freelancer con LinkedIn público (caso ideal)
+## Exemplo 1 · Freelancer com LinkedIn público (caso ideal)
 
-**Input usuario**: `https://linkedin.com/in/maria-lopez-data`
+**Input do utilizador**: `https://linkedin.com/in/maria-lopez-data`
 
-**Paso 2 (Firecrawl)**: extrae headline ("Data scientist · Ayudo a SaaS B2B a entender por qué churnean sus clientes"), about, últimos 3 posts.
+**Passo 2 (Firecrawl)**: extrai headline ("Data scientist · Ajudo SaaS B2B a perceber porque é que os clientes fazem churn"), about, últimos 3 posts.
 
-**Paso 3 (positioning)**:
-- Quién: Data scientist freelance
-- Para quién: SaaS B2B con problemas de retención
-- Problema: no saben por qué churnean clientes
-- Diferencial: combina análisis cuantitativo + entrevistas cualitativas
-- Score: 7/10. Oportunidad: el "para quién" es claro pero el diferencial podría ser más concreto (mencionar resultado típico, no método).
+**Passo 3 (positioning)**:
+- Quem: Data scientist freelance
+- Para quem: SaaS B2B com problemas de retenção
+- Problema: não sabem porque é que os clientes fazem churn
+- Diferencial: combina análise quantitativa + entrevistas qualitativas
+- Score: 7/10. Oportunidade: o "para quem" é claro mas o diferencial podia ser mais concreto (mencionar resultado típico, não método).
 
-**Paso 4 (3 hooks LinkedIn)**:
-1. "El churn no se arregla con encuestas. Se arregla saliendo a hablar con los que ya se fueron."
-2. "Llevo 3 meses analizando churn de SaaS. Solo 2 de 12 empresas saben realmente por qué pierden clientes."
-3. "Si tu equipo de Customer Success no puede nombrar las 3 razones top de churn, no tienes un problema de retención. Tienes un problema de visibilidad."
+**Passo 4 (3 hooks LinkedIn)**:
+1. "O churn não se resolve com inquéritos. Resolve-se a falar com os que já se foram embora."
+2. "Levo 3 meses a analisar churn de SaaS. Só 2 em cada 12 empresas sabem mesmo porque perdem clientes."
+3. "Se a tua equipa de Customer Success não consegue nomear as 3 razões principais de churn, não tens um problema de retenção. Tens um problema de visibilidade."
 
-**Paso 5 (plan semana)**:
+**Passo 5 (plano da semana)**:
 
-| # | Acción | Tiempo | Output |
+| # | Ação | Tempo | Output |
 |---:|---|---|---|
-| 1 | Publicar el hook 1 en LinkedIn (lunes) | 30 min | 1 post + medir engagement 48h |
-| 2 | Listar 5 SaaS B2B (ICP) y mandar DM con un insight | 1h | 5 conversaciones abiertas |
-| 3 | Reescribir el headline LinkedIn para que mencione resultado típico ("ayudo a bajar churn 20-30%") | 15 min | Headline nuevo publicado |
+| 1 | Publicar o hook 1 no LinkedIn (segunda-feira) | 30 min | 1 post + medir engagement 48h |
+| 2 | Listar 5 SaaS B2B (ICP) e enviar DM com um insight | 1h | 5 conversas abertas |
+| 3 | Reescrever o headline do LinkedIn para mencionar resultado típico ("ajudo a baixar churn 20-30%") | 15 min | Headline novo publicado |
 
-**Paso 6 (HTML)**: archivo en `projects/welcome/2026-05-08-tu-primer-entregable.html` con paleta naranja iAmasters, bonito, móvil-first.
+**Passo 6 (HTML)**: ficheiro em `projects/welcome/2026-05-08-tu-primer-entregable.html` com paleta laranja iAmasters, bonito, mobile-first.
 
-**Paso 7**: usuario copia el link al HTML, lo pega en grupo WhatsApp comunidad. Wow.
+**Passo 7**: o utilizador copia o link do HTML, cola-o no grupo de WhatsApp da comunidade. Wow.
 
 ---
 
-## Ejemplo 2 · Empresario sin web propia (fallback párrafo)
+## Exemplo 2 · Empresário sem site próprio (fallback parágrafo)
 
-**Input usuario**: "no tengo nada público"
+**Input do utilizador**: "não tenho nada público"
 
-**Bot pregunta**: "Cuéntame en 3-5 frases qué haces, para quién, y cuál es tu diferencial."
+**Bot pergunta**: "Conta-me em 3-5 frases o que fazes, para quem, e qual é o teu diferencial."
 
-**Usuario responde**:
-> "Tengo una clínica dental en Valencia. 3 dentistas y 2 higienistas. La mayoría de pacientes son familias del barrio que llevan años con nosotros. El diferencial: tratamos a los niños sin trauma porque tenemos sala lúdica y dentista pediátrico. Quiero captar más familias jóvenes."
+**Utilizador responde**:
+> "Tenho uma clínica dentária em Valência. 3 dentistas e 2 higienistas. A maioria dos pacientes são famílias do bairro que estão connosco há anos. O diferencial: tratamos as crianças sem trauma porque temos sala lúdica e dentista pediátrico. Quero captar mais famílias jovens."
 
-**Paso 3 (positioning)** (sin Firecrawl, basado en párrafo):
-- Quién: Clínica dental familiar en Valencia
-- Para quién: Familias del barrio, especialmente con niños
-- Problema: niños tienen miedo al dentista y los padres lo posponen
-- Diferencial: sala lúdica + dentista pediátrico = experiencia sin trauma
-- Score: 6/10. Oportunidad: tener web/Instagram con video de la sala lúdica multiplicaría conversión.
+**Passo 3 (positioning)** (sem Firecrawl, baseado em parágrafo):
+- Quem: Clínica dentária familiar em Valência
+- Para quem: Famílias do bairro, especialmente com crianças
+- Problema: as crianças têm medo do dentista e os pais adiam
+- Diferencial: sala lúdica + dentista pediátrico = experiência sem trauma
+- Score: 6/10. Oportunidade: ter site/Instagram com vídeo da sala lúdica multiplicaria a conversão.
 
-**Paso 4 (3 hooks LinkedIn)** — adaptados a contexto local (no LinkedIn corporate, post estilo orgánico para Instagram que también funciona en LinkedIn):
-1. "Tu hijo no tiene miedo al dentista. Tiene miedo al sillón frío y al ruido del torno."
-2. "Llevamos 8 años atendiendo a las mismas familias. Ahora son los padres los que nos traen a sus nietos."
-3. "El 80% de los adultos con fobia dental tuvieron una mala experiencia antes de los 10 años. La buena noticia: se puede evitar."
+**Passo 4 (3 hooks LinkedIn)** — adaptados ao contexto local (não LinkedIn corporate, post estilo orgânico para Instagram que também funciona no LinkedIn):
+1. "O teu filho não tem medo do dentista. Tem medo da cadeira fria e do barulho do berbequim."
+2. "Há 8 anos a tratar das mesmas famílias. Agora são os pais que nos trazem os netos."
+3. "80% dos adultos com fobia dentária tiveram uma má experiência antes dos 10 anos. A boa notícia: pode evitar-se."
 
-**Paso 5 (plan semana)**:
+**Passo 5 (plano da semana)**:
 
-| # | Acción | Tiempo | Output |
+| # | Ação | Tempo | Output |
 |---:|---|---|---|
-| 1 | Grabar video de 30s de la sala lúdica con niño cliente (con permiso) | 1h | Reel Instagram + Story |
-| 2 | Pedir 3 reseñas Google a familias clientes habituales | 30 min | 3 reseñas nuevas |
-| 3 | Crear post "5 trucos para que los niños no tengan miedo del dentista" | 1h | 1 post Instagram + reels |
+| 1 | Gravar vídeo de 30s da sala lúdica com criança cliente (com autorização) | 1h | Reel Instagram + Story |
+| 2 | Pedir 3 avaliações Google a famílias clientes habituais | 30 min | 3 avaliações novas |
+| 3 | Criar post "5 truques para que as crianças não tenham medo do dentista" | 1h | 1 post Instagram + reels |
 
-**Paso 6 (HTML)**: archivo igual, formato genérico funciona.
+**Passo 6 (HTML)**: ficheiro igual, formato genérico funciona.
 
-**Paso 7**: usuario imprime el HTML para compartir con su equipo en la próxima reunión semanal de la clínica.
+**Passo 7**: o utilizador imprime o HTML para partilhar com a equipa na próxima reunião semanal da clínica.

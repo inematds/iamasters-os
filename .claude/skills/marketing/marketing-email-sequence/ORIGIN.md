@@ -1,23 +1,23 @@
-# Origen de esta skill
+# Origem desta skill
 
-Esta skill viene del repositorio externo:
+Esta skill vem do repositório externo:
 
-- **Repositorio**: [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills)
+- **Repositório**: [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills)
 - **Skill original**: `skills/email-sequence/`
 - **Autor**: Corey Haines
-- **Licencia**: MIT (ver `LICENSE` en esta carpeta)
-- **Versión vendoreada**: 1.1.0
-- **Fecha de vendoreo**: 2026-05-13
+- **Licença**: MIT (ver `LICENSE` nesta pasta)
+- **Versão vendorizada**: 1.1.0
+- **Data de vendoreio**: 2026-05-13
 
-## Cambios respecto al original
+## Mudanças face ao original
 
-- Renombrada `email-sequence` → `marketing-email-sequence` (convención iAmasters OS)
+- Renomeada `email-sequence` → `marketing-email-sequence` (convenção iAmasters OS)
 - LICENSE original conservado intacto
 
-## Cómo se actualiza
+## Como se atualiza
 
-Cuando el upstream publique cambios:
-1. Clonar el repo origen.
-2. Hacer diff con la versión vendoreada actual.
-3. Si los cambios son relevantes, actualizar SKILL.md y references/ conservando el rename del `name:`.
-4. Bump de versión + entry en CHANGELOG.md raíz.
+Quando o upstream publicar mudanças:
+1. Clonar o repo de origem.
+2. Fazer diff com a versão vendorizada atual.
+3. Se as mudanças forem relevantes, atualizar SKILL.md e references/ conservando o rename do `name:`.
+4. Bump de versão + entry no CHANGELOG.md raiz.

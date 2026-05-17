@@ -1,40 +1,40 @@
 ---
 name: meta-wrap-up
-description: Cierre de sesión iAmasters OS. Genera daily summary con qué se hizo, qué quedó pendiente y propuesta para mañana. Sincroniza skills-catalog si hubo cambios. Actualiza CLAUDE.md skills registry. Hace commit Git si el usuario lo aprueba. Se invoca por /wrap-up al final de cualquier sesión productiva.
+description: Fecho de sessão iAmasters OS. Gera daily summary com o que se fez, o que ficou pendente e proposta para amanhã. Sincroniza skills-catalog se houve alterações. Atualiza CLAUDE.md skills registry. Faz commit Git se o utilizador aprovar. Invoca-se por /wrap-up no fim de qualquer sessão produtiva.
 ---
 
 # meta-wrap-up
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Usuario dice: "wrap up", "cierra sesión", "resumen del día", "/wrap-up"
-- Skill detecta que la sesión va a terminar (token usage > 80% sostenido)
+- Utilizador diz: "wrap up", "fecha sessão", "resumo do dia", "/wrap-up"
+- Skill deteta que a sessão vai terminar (token usage > 80% sustentado)
 
-NO se invoca automáticamente al cerrar Claude Code (Ctrl+C) — el usuario debe pedirlo explícitamente o el comando `/wrap-up` debe correrlo.
+NÃO se invoca automaticamente ao fechar Claude Code (Ctrl+C) — o utilizador deve pedi-lo explicitamente ou o comando `/wrap-up` deve corrê-lo.
 
 ## Process
 
-### Paso 1 · Recap de la sesión
+### Passo 1 · Recap da sessão
 
 Resumir mentalmente:
-- ¿Qué se completó? (deliverables generados, archivos modificados)
-- ¿Qué quedó a medias? (proyectos en briefs/ con status: active)
-- ¿Qué se aprendió? (skills que fallaron, decisiones que se tomaron, gotchas)
+- O que se completou? (deliverables gerados, ficheiros modificados)
+- O que ficou a meio? (projetos em briefs/ com status: active)
+- O que se aprendeu? (skills que falharam, decisões que se tomaram, gotchas)
 
-### Paso 2 · Sync de skills
+### Passo 2 · Sync de skills
 
-Comprobar `.claude/.skills-pending.json`:
-- Si hay flag de cambios → leer `.claude/skills/` recursivamente
-- Detectar skills nuevas (en filesystem pero no en `synapsis/skills-catalog.json`)
-- Detectar skills retiradas (en catálogo pero no en filesystem)
-- Update `synapsis/skills-catalog.json` con cambios
-- Limpiar `.skills-pending.json`
+Verificar `.claude/.skills-pending.json`:
+- Se houver flag de alterações → ler `.claude/skills/` recursivamente
+- Detetar skills novas (no filesystem mas não em `synapsis/skills-catalog.json`)
+- Detetar skills retiradas (no catálogo mas não no filesystem)
+- Update `synapsis/skills-catalog.json` com alterações
+- Limpar `.skills-pending.json`
 
-### Paso 3 · Update CLAUDE.md skills registry
+### Passo 3 · Update CLAUDE.md skills registry
 
-Localizar bloque entre `<!-- skills-registry-start -->` y `<!-- skills-registry-end -->`.
+Localizar bloco entre `<!-- skills-registry-start -->` e `<!-- skills-registry-end -->`.
 
-Generar tabla:
+Gerar tabela:
 ```markdown
 | Categoría | Skill | Estado | Tokens |
 |---|---|---|---|
@@ -43,21 +43,21 @@ Generar tabla:
 | ... | ... | ... | ... |
 ```
 
-Reemplazar contenido entre marcadores.
+Substituir conteúdo entre marcadores.
 
-### Paso 4 · Append learnings (si los hay)
+### Passo 4 · Append learnings (se houver)
 
-Si durante la sesión:
-- Una skill falló y se descubrió por qué → append en `context/learnings.md` bajo `## <skill-name>`:
+Se durante a sessão:
+- Uma skill falhou e descobriu-se porquê → append em `context/learnings.md` em `## <skill-name>`:
   ```
-  - YYYY-MM-DD: <skill> falló porque <razón>. Fix aplicado: <qué>. Próxima vez recordar: <lección>.
+  - YYYY-MM-DD: <skill> falhou porque <razão>. Fix aplicado: <o quê>. Próxima vez lembrar: <lição>.
   ```
-- Se descubrió un patrón repetible → proponer al usuario crear skill o pasive rule
-- Se cambió alguna decisión estratégica → escribir en `~/.claude/skills/_operator-state.json` `strategicDecisions[]`
+- Descobriu-se um padrão repetível → propor ao utilizador criar skill ou passive rule
+- Mudou alguma decisão estratégica → escrever em `~/.claude/skills/_operator-state.json` `strategicDecisions[]`
 
-### Paso 5 · Generar daily summary
+### Passo 5 · Gerar daily summary
 
-Crear/actualizar `synapsis/daily-summaries/<TODAY>.md`:
+Criar/atualizar `synapsis/daily-summaries/<TODAY>.md`:
 
 ```markdown
 # EOD — YYYY-MM-DD
@@ -90,64 +90,64 @@ Crear/actualizar `synapsis/daily-summaries/<TODAY>.md`:
 > "Una frase para mañana: 'Ayer X. Pendiente Y. Empezar por Z.'"
 ```
 
-Si ya hay sessions previas hoy → append la sesión nueva, regenerar "For tomorrow" y "Quick resume" combinando.
+Se já houver sessões prévias hoje → append a sessão nova, regerar "For tomorrow" e "Quick resume" combinando.
 
-### Paso 6 · Detectar proyectos a archivar
+### Passo 6 · Detetar projetos para arquivar
 
-Si algún `projects/briefs/<X>/brief.md` tiene `status: done` y han pasado 7+ días:
-- Proponer al usuario mover a `projects/_archived/` (no borrar)
+Se algum `projects/briefs/<X>/brief.md` tiver `status: done` e passaram 7+ dias:
+- Propor ao utilizador mover para `projects/_archived/` (não apagar)
 
-### Paso 7 · Commit Git (con aprobación)
+### Passo 7 · Commit Git (com aprovação)
 
-Si hay cambios en el repo:
+Se houver alterações no repo:
 - `git status` para listar
-- Mostrar al usuario los cambios resumidos
-- Proponer mensaje commit (conventional, en inglés):
-  - `feat(skills): add <skill-name>` si añadió skill
-  - `docs(brand-context): update voice profile` si modificó brand
-  - `chore(wrap-up): EOD <fecha>` para sync general
-- **Esperar aprobación explícita** ("sí", "commit") — NO commitear sin OK
-- Tras commit, mostrar hash y status final
+- Mostrar ao utilizador as alterações resumidas
+- Propor mensagem commit (conventional, em inglês):
+  - `feat(skills): add <skill-name>` se adicionou skill
+  - `docs(brand-context): update voice profile` se modificou brand
+  - `chore(wrap-up): EOD <fecha>` para sync geral
+- **Esperar aprovação explícita** ("sim", "commit") — NÃO comitar sem OK
+- Após commit, mostrar hash e status final
 
-NO push automático. Push lo decide el usuario.
+NÃO push automático. Push é decidido pelo utilizador.
 
-### Paso 8 · Trigger Sinapsis EOD (si aplica)
+### Passo 8 · Trigger Sinapsis EOD (se aplicável)
 
-Si hay `/eod` command de Sinapsis instalado y es la última sesión del día (>17:00 hora local):
-- Sugerir al usuario invocar `/eod` para que Sinapsis haga su gather multi-proyecto
+Se houver `/eod` command de Sinapsis instalado e for a última sessão do dia (>17:00 hora local):
+- Sugerir ao utilizador invocar `/eod` para que Sinapsis faça o seu gather multi-projeto
 
-NO ejecutar `/eod` automáticamente — es una invitación.
+NÃO executar `/eod` automaticamente — é um convite.
 
-### Paso 9 · Despedida
+### Passo 9 · Despedida
 
-> "Sesión cerrada. Daily summary guardado en `synapsis/daily-summaries/{{TODAY}}.md`.
-> Mañana al abrir Claude Code aquí, te recordaré: '{{quick-resume}}'.
+> "Sessão fechada. Daily summary guardado em `synapsis/daily-summaries/{{TODAY}}.md`.
+> Amanhã ao abrir Claude Code aqui, vou lembrar-te: '{{quick-resume}}'.
 >
-> {{si commit hecho}}: Commit {{hash}} creado.
-> {{si proyectos abiertos}}: Tienes {{N}} proyectos activos esperando.
+> {{se commit feito}}: Commit {{hash}} criado.
+> {{se projetos abertos}}: Tens {{N}} projetos ativos à espera.
 >
-> Hasta mañana. 👋"
+> Até amanhã. 👋"
 
 ## Outputs
 
-- `synapsis/daily-summaries/<TODAY>.md` — actualizado/creado
-- `synapsis/skills-catalog.json` — sincronizado si hubo skill changes
-- `CLAUDE.md` — skills registry actualizado
-- `context/learnings.md` — append si aplica
-- Git commit (con aprobación)
+- `synapsis/daily-summaries/<TODAY>.md` — atualizado/criado
+- `synapsis/skills-catalog.json` — sincronizado se houve skill changes
+- `CLAUDE.md` — skills registry atualizado
+- `context/learnings.md` — append se aplicável
+- Git commit (com aprovação)
 
-## Skills que llama
+## Skills que chama
 
-Ninguna directamente. Es ritual de cierre puro.
+Nenhuma diretamente. É ritual de fecho puro.
 
-Excepción: si detecta patrón repetido sin skill creada (3+ sesiones haciendo X manualmente), sugiere invocar `meta-skill-creator` en próxima sesión. No la lanza.
+Exceção: se detetar padrão repetido sem skill criada (3+ sessões a fazer X à mão), sugere invocar `meta-skill-creator` na próxima sessão. Não a lança.
 
 ## Edge cases
 
-- **Usuario hace `/wrap-up` a media tarea sin nada productivo**: aceptable, daily summary registra la sesión incluso si fue exploratoria.
-- **Repo está dirty pero el usuario no quiere commit**: respetarlo, anotar en daily summary que hay cambios sin commitear.
-- **Conflicto al actualizar CLAUDE.md skills registry** (usuario lo modificó manualmente entre medias): mostrar diff, preguntar qué versión mantener.
-- **Sesión muy corta (<5 min)**: omitir daily summary entry, solo limpiar pending flags. No vale la pena bloat.
+- **Utilizador faz `/wrap-up` a meio de tarefa sem nada produtivo**: aceitável, daily summary regista a sessão mesmo que tenha sido exploratória.
+- **Repo está dirty mas o utilizador não quer commit**: respeitar, anotar no daily summary que há alterações sem commitar.
+- **Conflito ao atualizar CLAUDE.md skills registry** (utilizador modificou-o à mão entretanto): mostrar diff, perguntar que versão manter.
+- **Sessão muito curta (<5 min)**: omitir entry no daily summary, só limpar pending flags. Não vale a pena bloat.
 
 ## Examples
 

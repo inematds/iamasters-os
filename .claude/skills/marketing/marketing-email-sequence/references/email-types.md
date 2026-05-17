@@ -1,515 +1,515 @@
-# Email Types Reference
+# Referência de Tipos de Email
 
-A comprehensive guide to lifecycle and campaign emails. Use this as an audit checklist and implementation reference.
+Guia abrangente para emails de lifecycle e de campanha. Usa isto como checklist de auditoria e referência de implementação.
 
-## Contents
-- Onboarding Emails (new users series, new customers series, key onboarding step reminder, new user invite)
-- Retention Emails (upgrade to paid, upgrade to higher plan, ask for review, offer support proactively, product usage report, NPS survey, referral program)
-- Billing Emails (switch to annual, failed payment recovery, cancellation survey, upcoming renewal reminder)
-- Usage Emails (daily/weekly/monthly summary, key event or milestone notifications)
-- Win-Back Emails (expired trials, cancelled customers)
-- Campaign Emails (monthly roundup/newsletter, seasonal promotions, product updates, industry news roundup, pricing update)
-- Email Audit Checklist (onboarding, retention, billing, usage, win-back, campaigns)
+## Conteúdos
+- Emails de Onboarding (série de novos utilizadores, série de novos clientes, lembrete de passo crítico de onboarding, convite de novo utilizador)
+- Emails de Retenção (upgrade para pago, upgrade para plano superior, pedir avaliação, oferecer suporte de forma proativa, relatório de utilização do produto, inquérito NPS, programa de referrals)
+- Emails de Billing (mudar para anual, recuperação de pagamento falhado, inquérito de cancelamento, lembrete de renovação próxima)
+- Emails de Utilização (resumo diário/semanal/mensal, notificações de eventos-chave ou milestones)
+- Emails de Win-Back (trials expirados, clientes cancelados)
+- Emails de Campanha (roundup mensal/newsletter, promoções sazonais, atualizações de produto, roundup de notícias da indústria, atualização de preços)
+- Checklist de Auditoria de Email (onboarding, retenção, billing, utilização, win-back, campanhas)
 
-## Onboarding Emails
+## Emails de Onboarding
 
-### New Users Series
-**Trigger**: User signs up (free or trial)
-**Goal**: Activate user, drive to aha moment
-**Typical sequence**: 5-7 emails over 14 days
+### Série de Novos Utilizadores
+**Trigger**: Utilizador faz signup (gratuito ou trial)
+**Objetivo**: Ativar o utilizador, levar ao momento "aha"
+**Sequência típica**: 5-7 emails ao longo de 14 dias
 
-- Email 1: Welcome + single next step (immediate)
-- Email 2: Quick win / getting started (day 1)
-- Email 3: Key feature highlight (day 3)
-- Email 4: Success story / social proof (day 5)
-- Email 5: Check-in + offer help (day 7)
-- Email 6: Advanced tip (day 10)
-- Email 7: Upgrade prompt or next milestone (day 14)
+- Email 1: Boas-vindas + um único passo seguinte (imediato)
+- Email 2: Quick win / como começar (dia 1)
+- Email 3: Destaque de funcionalidade-chave (dia 3)
+- Email 4: História de sucesso / prova social (dia 5)
+- Email 5: Check-in + oferta de ajuda (dia 7)
+- Email 6: Dica avançada (dia 10)
+- Email 7: Prompt de upgrade ou próximo milestone (dia 14)
 
-**Key metrics**: Activation rate, feature adoption
-
----
-
-### New Customers Series
-**Trigger**: User converts to paid
-**Goal**: Reinforce purchase decision, drive adoption, reduce early churn
-**Typical sequence**: 3-5 emails over 14 days
-
-- Email 1: Thank you + what's next (immediate)
-- Email 2: Getting full value — setup checklist (day 2)
-- Email 3: Pro tips for paid features (day 5)
-- Email 4: Success story from similar customer (day 7)
-- Email 5: Check-in + introduce support resources (day 14)
-
-**Key point**: Different from new user series—they've committed. Focus on reinforcement and expansion, not conversion.
+**Métricas-chave**: Taxa de ativação, adoção de funcionalidades
 
 ---
 
-### Key Onboarding Step Reminder
-**Trigger**: User hasn't completed critical setup step after X time
-**Goal**: Nudge completion of high-value action
-**Format**: Single email or 2-3 email mini-sequence
+### Série de Novos Clientes
+**Trigger**: Utilizador converte para pago
+**Objetivo**: Reforçar a decisão de compra, impulsionar a adoção, reduzir churn precoce
+**Sequência típica**: 3-5 emails ao longo de 14 dias
 
-**Example triggers**:
-- Hasn't connected integration after 48 hours
-- Hasn't invited team member after 3 days
-- Hasn't completed profile after 24 hours
+- Email 1: Obrigado + o que vem a seguir (imediato)
+- Email 2: Obter valor total — checklist de setup (dia 2)
+- Email 3: Dicas pro para funcionalidades pagas (dia 5)
+- Email 4: História de sucesso de cliente parecido (dia 7)
+- Email 5: Check-in + apresentar recursos de suporte (dia 14)
 
-**Copy approach**:
-- Remind them what they started
-- Explain why this step matters
-- Make it easy (direct link to complete)
-- Offer help if stuck
+**Ponto-chave**: Diferente da série de novos utilizadores — estes já se comprometeram. Foco em reforço e expansão, não em conversão.
 
 ---
 
-### New User Invite
-**Trigger**: Existing user invites teammate
-**Goal**: Activate the invited user
-**Recipient**: The person being invited
+### Lembrete de Passo Crítico de Onboarding
+**Trigger**: Utilizador não completou passo crítico de setup após X tempo
+**Objetivo**: Empurrar a conclusão de uma ação de alto valor
+**Formato**: Email único ou mini-sequência de 2-3 emails
 
-- Email 1: You've been invited (immediate)
-- Email 2: Reminder if not accepted (day 2)
-- Email 3: Final reminder (day 5)
+**Exemplos de triggers**:
+- Não ligou a integração após 48 horas
+- Não convidou membro da equipa após 3 dias
+- Não completou o perfil após 24 horas
 
-**Copy approach**:
-- Personalize with inviter's name
-- Explain what they're joining
-- Single CTA to accept invite
-- Social proof optional
-
----
-
-## Retention Emails
-
-### Upgrade to Paid
-**Trigger**: Free user shows engagement, or trial ending
-**Goal**: Convert free to paid
-**Typical sequence**: 3-5 emails
-
-**Trigger options**:
-- Time-based (trial day 10, 12, 14)
-- Behavior-based (hit usage limit, used premium feature)
-- Engagement-based (highly active free user)
-
-**Sequence structure**:
-- Value summary: What they've accomplished
-- Feature comparison: What they're missing
-- Social proof: Who else upgraded
-- Urgency: Trial ending, limited offer
-- Final: Last chance + easy path
+**Abordagem de copy**:
+- Recorda o que começou
+- Explica porque é que este passo importa
+- Facilita (link direto para completar)
+- Oferece ajuda se estiver preso
 
 ---
 
-### Upgrade to Higher Plan
-**Trigger**: User approaching plan limits or using features available on higher tier
-**Goal**: Upsell to next tier
-**Format**: Single email or 2-3 email sequence
+### Convite de Novo Utilizador
+**Trigger**: Utilizador existente convida um colega de equipa
+**Objetivo**: Ativar o utilizador convidado
+**Destinatário**: A pessoa que está a ser convidada
 
-**Trigger examples**:
-- 80% of seat limit reached
-- 90% of storage/usage limit
-- Tried to use higher-tier feature
-- Power user behavior patterns
+- Email 1: Foste convidado (imediato)
+- Email 2: Lembrete se não aceitou (dia 2)
+- Email 3: Lembrete final (dia 5)
 
-**Copy approach**:
-- Acknowledge their growth (positive framing)
-- Show what next tier unlocks
-- Quantify value vs. cost
-- Easy upgrade path
+**Abordagem de copy**:
+- Personaliza com o nome de quem convida
+- Explica a que se está a juntar
+- CTA único para aceitar o convite
+- Prova social opcional
 
 ---
 
-### Ask for Review
-**Trigger**: Customer milestone (30/60/90 days, key achievement, support resolution)
-**Goal**: Generate social proof on G2, Capterra, app stores
-**Format**: Single email
+## Emails de Retenção
 
-**Best timing**:
-- After positive support interaction
-- After achieving measurable result
-- After renewal
-- NOT after billing issues or bugs
+### Upgrade para Pago
+**Trigger**: Utilizador gratuito mostra engagement, ou trial a acabar
+**Objetivo**: Converter de gratuito para pago
+**Sequência típica**: 3-5 emails
 
-**Copy approach**:
-- Thank them for being a customer
-- Mention specific value/milestone if possible
-- Explain why reviews matter (help others decide)
-- Direct link to review platform
-- Keep it short—this is an ask
+**Opções de trigger**:
+- Baseado em tempo (trial dia 10, 12, 14)
+- Baseado em comportamento (atingiu limite de utilização, usou funcionalidade premium)
+- Baseado em engagement (utilizador gratuito muito ativo)
 
----
-
-### Offer Support Proactively
-**Trigger**: Signs of struggle (drop in usage, failed actions, error encounters)
-**Goal**: Save at-risk user, improve experience
-**Format**: Single email
-
-**Trigger examples**:
-- Usage dropped significantly week-over-week
-- Multiple failed attempts at action
-- Viewed help docs repeatedly
-- Stuck at same onboarding step
-
-**Copy approach**:
-- Genuine concern tone
-- Specific: "I noticed you..." (if data allows)
-- Offer direct help (not just link to docs)
-- Personal from support or CSM
-- No sales pitch—pure help
+**Estrutura da sequência**:
+- Resumo de valor: O que conseguiu até agora
+- Comparação de funcionalidades: O que está a perder
+- Prova social: Quem mais fez upgrade
+- Urgência: Trial a acabar, oferta limitada
+- Final: Última oportunidade + caminho fácil
 
 ---
 
-### Product Usage Report
-**Trigger**: Time-based (weekly, monthly, quarterly)
-**Goal**: Demonstrate value, drive engagement, reduce churn
-**Format**: Single email, recurring
+### Upgrade para Plano Superior
+**Trigger**: Utilizador a aproximar-se dos limites do plano ou a usar funcionalidades disponíveis no tier superior
+**Objetivo**: Upsell para o próximo tier
+**Formato**: Email único ou sequência de 2-3 emails
 
-**What to include**:
-- Key metrics/activity summary
-- Comparison to previous period
-- Achievements/milestones
-- Suggestions for improvement
-- Light CTA to explore more
+**Exemplos de trigger**:
+- 80% do limite de seats atingido
+- 90% do limite de armazenamento/utilização
+- Tentou usar uma funcionalidade do tier superior
+- Padrões de comportamento de power user
 
-**Examples**:
-- "You saved X hours this month"
-- "Your team completed X projects"
-- "You're in the top X% of users"
-
-**Key point**: Make them feel good and remind them of value delivered.
+**Abordagem de copy**:
+- Reconhece o crescimento (enquadramento positivo)
+- Mostra o que o próximo tier desbloqueia
+- Quantifica valor vs. custo
+- Caminho de upgrade fácil
 
 ---
 
-### NPS Survey
-**Trigger**: Time-based (quarterly) or event-based (post-milestone)
-**Goal**: Measure satisfaction, identify promoters and detractors
-**Format**: Single email
+### Pedir Avaliação
+**Trigger**: Milestone do cliente (30/60/90 dias, conquista importante, resolução de suporte)
+**Objetivo**: Gerar prova social em G2, Capterra, app stores
+**Formato**: Email único
 
-**Best practices**:
-- Keep it simple: Just the NPS question initially
-- Follow-up form for "why" based on score
-- Personal sender (CEO, founder, CSM)
-- Tell them how you'll use feedback
+**Melhor timing**:
+- Após interação positiva de suporte
+- Após alcançar resultado mensurável
+- Após renovação
+- NÃO após problemas de billing ou bugs
 
-**Follow-up based on score**:
-- Promoters (9-10): Thank + ask for review/referral
-- Passives (7-8): Ask what would make it a 10
-- Detractors (0-6): Personal outreach to understand issues
-
----
-
-### Referral Program
-**Trigger**: Customer milestone, promoter NPS score, or campaign
-**Goal**: Generate referrals
-**Format**: Single email or periodic reminders
-
-**Good timing**:
-- After positive NPS response
-- After customer achieves result
-- After renewal
-- Seasonal campaigns
-
-**Copy approach**:
-- Remind them of their success
-- Explain the referral offer clearly
-- Make sharing easy (unique link)
-- Show what's in it for them AND referee
+**Abordagem de copy**:
+- Agradece por ser cliente
+- Menciona valor/milestone específico se possível
+- Explica porque é que as avaliações importam (ajudam outros a decidir)
+- Link direto para a plataforma de avaliação
+- Mantém curto — isto é um pedido
 
 ---
 
-## Billing Emails
+### Oferecer Suporte de Forma Proativa
+**Trigger**: Sinais de dificuldade (queda na utilização, ações falhadas, encontros com erros)
+**Objetivo**: Salvar utilizador em risco, melhorar experiência
+**Formato**: Email único
 
-### Switch to Annual
-**Trigger**: Monthly subscriber at renewal time or campaign
-**Goal**: Convert monthly to annual (improve LTV, reduce churn)
-**Format**: Single email or 2-email sequence
+**Exemplos de trigger**:
+- Utilização caiu significativamente semana sobre semana
+- Várias tentativas falhadas de uma ação
+- Consultou docs de ajuda repetidamente
+- Preso no mesmo passo de onboarding
 
-**Value proposition**:
-- Calculate exact savings
-- Additional benefits (if any)
-- Lock in current price messaging
-- Easy one-click switch
-
-**Best timing**:
-- Around monthly renewal date
-- End of year / new year
-- After 3-6 months of loyalty
-- Price increase announcement (lock in old rate)
-
----
-
-### Failed Payment Recovery
-**Trigger**: Payment fails
-**Goal**: Recover revenue, retain customer
-**Typical sequence**: 3-4 emails over 7-14 days
-
-**Sequence structure**:
-- Email 1 (Day 0): Friendly notice, update payment link
-- Email 2 (Day 3): Reminder, service may be interrupted
-- Email 3 (Day 7): Urgent, account will be suspended
-- Email 4 (Day 10-14): Final notice, what they'll lose
-
-**Copy approach**:
-- Assume it's an accident (card expired, etc.)
-- Clear, direct, no guilt
-- Single CTA to update payment
-- Explain what happens if not resolved
-
-**Key metrics**: Recovery rate, time to recovery
+**Abordagem de copy**:
+- Tom de preocupação genuína
+- Específico: "Reparei que..." (se os dados permitirem)
+- Oferece ajuda direta (não apenas um link para docs)
+- Pessoal, vindo do suporte ou CSM
+- Sem pitch comercial — pura ajuda
 
 ---
 
-### Cancellation Survey
-**Trigger**: User cancels subscription
-**Goal**: Learn why, opportunity to save
-**Format**: Single email (immediate)
+### Relatório de Utilização do Produto
+**Trigger**: Baseado em tempo (semanal, mensal, trimestral)
+**Objetivo**: Demonstrar valor, impulsionar engagement, reduzir churn
+**Formato**: Email único, recorrente
 
-**Options**:
-- In-app survey at cancellation (better completion)
-- Follow-up email if they skip in-app
-- Personal outreach for high-value accounts
+**O que incluir**:
+- Resumo de métricas-chave/atividade
+- Comparação com o período anterior
+- Conquistas/milestones
+- Sugestões de melhoria
+- CTA leve para explorar mais
 
-**Questions to ask**:
-- Primary reason for cancelling
-- What could we have done better
-- Would anything change your mind
-- Can we help with transition
+**Exemplos**:
+- "Poupaste X horas este mês"
+- "A tua equipa completou X projetos"
+- "Estás no top X% de utilizadores"
 
-**Winback opportunity**: Based on reason, offer targeted save (discount, pause, downgrade, training).
-
----
-
-### Upcoming Renewal Reminder
-**Trigger**: X days before renewal (14 or 30 days typical)
-**Goal**: No surprise charges, opportunity to expand
-**Format**: Single email
-
-**What to include**:
-- Renewal date and amount
-- What's included in renewal
-- How to update payment/plan
-- Changes to pricing/features (if any)
-- Optional: Upsell opportunity
-
-**Required for**: Annual subscriptions, high-value contracts
+**Ponto-chave**: Fá-los sentir-se bem e recorda-lhes do valor entregue.
 
 ---
 
-## Usage Emails
+### Inquérito NPS
+**Trigger**: Baseado em tempo (trimestral) ou baseado em evento (pós-milestone)
+**Objetivo**: Medir satisfação, identificar promoters e detractors
+**Formato**: Email único
 
-### Daily/Weekly/Monthly Summary
-**Trigger**: Time-based
-**Goal**: Drive engagement, demonstrate value
-**Format**: Single email, recurring
+**Boas práticas**:
+- Mantém simples: apenas a pergunta NPS inicialmente
+- Formulário de follow-up para o "porquê" com base no score
+- Sender pessoal (CEO, fundador, CSM)
+- Diz-lhes como vais usar o feedback
 
-**Content by frequency**:
-- **Daily**: Notifications, quick stats (for high-engagement products)
-- **Weekly**: Activity summary, highlights, suggestions
-- **Monthly**: Comprehensive report, achievements, ROI if calculable
-
-**Structure**:
-- Key metrics at a glance
-- Notable achievements
-- Activity breakdown
-- Suggestions / what to try next
-- CTA to dive deeper
-
-**Personalization**: Must be relevant to their actual usage. Empty reports are worse than no report.
+**Follow-up com base no score**:
+- Promoters (9-10): Agradece + pede avaliação/referral
+- Passives (7-8): Pergunta o que tornaria num 10
+- Detractors (0-6): Outreach pessoal para perceber problemas
 
 ---
 
-### Key Event or Milestone Notifications
-**Trigger**: Specific achievement or event
-**Goal**: Celebrate, drive continued engagement
-**Format**: Single email per event
+### Programa de Referrals
+**Trigger**: Milestone do cliente, score NPS de promoter, ou campanha
+**Objetivo**: Gerar referrals
+**Formato**: Email único ou lembretes periódicos
 
-**Milestone examples**:
-- First [action] completed
-- 10th/100th [thing] created
-- Goal achieved
-- Team collaboration milestone
-- Usage streak
+**Bom timing**:
+- Após resposta positiva ao NPS
+- Após o cliente atingir resultado
+- Após renovação
+- Campanhas sazonais
 
-**Copy approach**:
-- Celebration tone
-- Specific achievement
-- Context (compared to others, compared to before)
-- What's next / next milestone
-
----
-
-## Win-Back Emails
-
-### Expired Trials
-**Trigger**: Trial ended without conversion
-**Goal**: Convert or re-engage
-**Typical sequence**: 3-4 emails over 30 days
-
-**Sequence structure**:
-- Email 1 (Day 1 post-expiry): Trial ended, here's what you're missing
-- Email 2 (Day 7): What held you back? (gather feedback)
-- Email 3 (Day 14): Incentive offer (discount, extended trial)
-- Email 4 (Day 30): Final reach-out, door is open
-
-**Segmentation**: Different approach based on trial engagement level:
-- High engagement: Focus on removing friction to convert
-- Low engagement: Offer fresh start, more onboarding help
-- No engagement: Ask what happened, offer demo/call
+**Abordagem de copy**:
+- Recorda do sucesso
+- Explica a oferta de referral claramente
+- Facilita a partilha (link único)
+- Mostra o que ganha ele E o referido
 
 ---
 
-### Cancelled Customers
-**Trigger**: Time after cancellation (30, 60, 90 days)
-**Goal**: Win back churned customers
-**Typical sequence**: 2-3 emails spread over 90 days
+## Emails de Billing
 
-**Sequence structure**:
-- Email 1 (Day 30): What's new since you left
-- Email 2 (Day 60): We've addressed [common reason]
-- Email 3 (Day 90): Special offer to return
+### Mudar para Anual
+**Trigger**: Subscritor mensal na altura de renovação ou campanha
+**Objetivo**: Converter mensal para anual (melhorar LTV, reduzir churn)
+**Formato**: Email único ou sequência de 2 emails
 
-**Copy approach**:
-- No guilt, no desperation
-- Genuine updates and improvements
-- Personalize based on cancellation reason if known
-- Make return easy
+**Proposta de valor**:
+- Calcula a poupança exata
+- Benefícios adicionais (se houver)
+- Mensagem de fixar o preço atual
+- Switch fácil em um clique
 
-**Key point**: They're more likely to return if their reason was addressed.
-
----
-
-## Campaign Emails
-
-### Monthly Roundup / Newsletter
-**Trigger**: Time-based (monthly)
-**Goal**: Engagement, brand presence, content distribution
-**Format**: Single email, recurring
-
-**Content mix**:
-- Product updates and tips
-- Customer stories
-- Educational content
-- Company news
-- Industry insights
-
-**Best practices**:
-- Consistent send day/time
-- Scannable format
-- Mix of content types
-- One primary CTA focus
-- Unsubscribe is okay—keeps list healthy
+**Melhor timing**:
+- Perto da data de renovação mensal
+- Final de ano / ano novo
+- Após 3-6 meses de lealdade
+- Anúncio de aumento de preço (fixar a tarifa antiga)
 
 ---
 
-### Seasonal Promotions
-**Trigger**: Calendar events (Black Friday, New Year, etc.)
-**Goal**: Drive conversions with timely offer
-**Format**: Campaign burst (2-4 emails)
+### Recuperação de Pagamento Falhado
+**Trigger**: Pagamento falha
+**Objetivo**: Recuperar receita, reter cliente
+**Sequência típica**: 3-4 emails ao longo de 7-14 dias
 
-**Common opportunities**:
-- New Year (fresh start, annual planning)
-- End of fiscal year (budget spending)
+**Estrutura da sequência**:
+- Email 1 (Dia 0): Aviso amigável, link para atualizar pagamento
+- Email 2 (Dia 3): Lembrete, o serviço pode ser interrompido
+- Email 3 (Dia 7): Urgente, a conta será suspensa
+- Email 4 (Dia 10-14): Aviso final, o que vão perder
+
+**Abordagem de copy**:
+- Assume que é um acidente (cartão expirado, etc.)
+- Claro, direto, sem culpa
+- CTA único para atualizar pagamento
+- Explica o que acontece se não for resolvido
+
+**Métricas-chave**: Taxa de recuperação, tempo até recuperação
+
+---
+
+### Inquérito de Cancelamento
+**Trigger**: Utilizador cancela subscrição
+**Objetivo**: Aprender porquê, oportunidade de salvar
+**Formato**: Email único (imediato)
+
+**Opções**:
+- Inquérito in-app no cancelamento (maior taxa de conclusão)
+- Email de follow-up se saltarem o in-app
+- Outreach pessoal para contas de alto valor
+
+**Perguntas a fazer**:
+- Razão principal do cancelamento
+- O que poderíamos ter feito melhor
+- Algo mudaria a tua decisão
+- Podemos ajudar com a transição
+
+**Oportunidade de winback**: Com base na razão, oferece uma alternativa específica (desconto, pausa, downgrade, formação).
+
+---
+
+### Lembrete de Renovação Próxima
+**Trigger**: X dias antes da renovação (típico: 14 ou 30 dias)
+**Objetivo**: Sem cobranças surpresa, oportunidade de expandir
+**Formato**: Email único
+
+**O que incluir**:
+- Data e montante da renovação
+- O que está incluído na renovação
+- Como atualizar pagamento/plano
+- Alterações a preços/funcionalidades (se houver)
+- Opcional: Oportunidade de upsell
+
+**Obrigatório para**: Subscrições anuais, contratos de alto valor
+
+---
+
+## Emails de Utilização
+
+### Resumo Diário/Semanal/Mensal
+**Trigger**: Baseado em tempo
+**Objetivo**: Impulsionar engagement, demonstrar valor
+**Formato**: Email único, recorrente
+
+**Conteúdo por frequência**:
+- **Diário**: Notificações, stats rápidas (para produtos de alto engagement)
+- **Semanal**: Resumo de atividade, destaques, sugestões
+- **Mensal**: Relatório abrangente, conquistas, ROI se calculável
+
+**Estrutura**:
+- Métricas-chave de relance
+- Conquistas notáveis
+- Detalhe de atividade
+- Sugestões / o que experimentar a seguir
+- CTA para aprofundar
+
+**Personalização**: Tem de ser relevante para a utilização real. Relatórios vazios são piores do que não ter relatório.
+
+---
+
+### Notificações de Eventos-Chave ou Milestones
+**Trigger**: Conquista ou evento específico
+**Objetivo**: Celebrar, impulsionar engagement contínuo
+**Formato**: Email único por evento
+
+**Exemplos de milestone**:
+- Primeira [ação] completada
+- 10º/100º [item] criado
+- Objetivo atingido
+- Milestone de colaboração de equipa
+- Streak de utilização
+
+**Abordagem de copy**:
+- Tom de celebração
+- Conquista específica
+- Contexto (comparado com outros, comparado com antes)
+- O que vem a seguir / próximo milestone
+
+---
+
+## Emails de Win-Back
+
+### Trials Expirados
+**Trigger**: Trial terminou sem conversão
+**Objetivo**: Converter ou reengajar
+**Sequência típica**: 3-4 emails ao longo de 30 dias
+
+**Estrutura da sequência**:
+- Email 1 (Dia 1 pós-expiração): Trial terminou, eis o que estás a perder
+- Email 2 (Dia 7): O que te impediu? (recolhe feedback)
+- Email 3 (Dia 14): Oferta de incentivo (desconto, trial estendido)
+- Email 4 (Dia 30): Último contacto, a porta está aberta
+
+**Segmentação**: Abordagem diferente conforme o nível de engagement no trial:
+- Alto engagement: Foco em remover fricção para converter
+- Baixo engagement: Oferece um recomeço, mais ajuda de onboarding
+- Sem engagement: Pergunta o que aconteceu, oferece demo/call
+
+---
+
+### Clientes Cancelados
+**Trigger**: Tempo após cancelamento (30, 60, 90 dias)
+**Objetivo**: Recuperar clientes que fizeram churn
+**Sequência típica**: 2-3 emails ao longo de 90 dias
+
+**Estrutura da sequência**:
+- Email 1 (Dia 30): O que há de novo desde que saíste
+- Email 2 (Dia 60): Resolvemos [razão comum]
+- Email 3 (Dia 90): Oferta especial para voltar
+
+**Abordagem de copy**:
+- Sem culpa, sem desespero
+- Atualizações e melhorias genuínas
+- Personaliza com base na razão do cancelamento, se conhecida
+- Facilita o regresso
+
+**Ponto-chave**: É mais provável que voltem se a razão tiver sido resolvida.
+
+---
+
+## Emails de Campanha
+
+### Roundup Mensal / Newsletter
+**Trigger**: Baseado em tempo (mensal)
+**Objetivo**: Engagement, presença de marca, distribuição de conteúdo
+**Formato**: Email único, recorrente
+
+**Mix de conteúdo**:
+- Atualizações e dicas de produto
+- Histórias de clientes
+- Conteúdo educativo
+- Notícias da empresa
+- Insights da indústria
+
+**Boas práticas**:
+- Dia/hora de envio consistente
+- Formato fácil de scanear
+- Mix de tipos de conteúdo
+- Um CTA primário em foco
+- Unsubscribes são ok — mantêm a lista saudável
+
+---
+
+### Promoções Sazonais
+**Trigger**: Eventos de calendário (Black Friday, Ano Novo, etc.)
+**Objetivo**: Impulsionar conversões com oferta oportuna
+**Formato**: Rajada de campanha (2-4 emails)
+
+**Oportunidades comuns**:
+- Ano Novo (recomeço, planeamento anual)
+- Fim de ano fiscal (gasto de orçamento)
 - Black Friday / Cyber Monday
-- Industry-specific seasons
-- Back to school / work
+- Épocas específicas da indústria
+- Regresso às aulas / ao trabalho
 
-**Sequence structure**:
-- Announcement: Offer reveal
-- Reminder: Midway through promotion
-- Last chance: Final hours
-
----
-
-### Product Updates
-**Trigger**: New feature release
-**Goal**: Adoption, engagement, demonstrate momentum
-**Format**: Single email per major release
-
-**What to include**:
-- What's new (clear and simple)
-- Why it matters (benefit, not just feature)
-- How to use it (direct link)
-- Who asked for it (community acknowledgment)
-
-**Segmentation**: Consider targeting based on relevance:
-- Users who would benefit most
-- Users who requested feature
-- Power users first (for beta feel)
+**Estrutura da sequência**:
+- Anúncio: Revelar a oferta
+- Lembrete: A meio da promoção
+- Última oportunidade: Horas finais
 
 ---
 
-### Industry News Roundup
-**Trigger**: Time-based (weekly or monthly)
-**Goal**: Thought leadership, engagement, brand value
-**Format**: Curated newsletter
+### Atualizações de Produto
+**Trigger**: Lançamento de nova funcionalidade
+**Objetivo**: Adoção, engagement, demonstrar momentum
+**Formato**: Email único por lançamento principal
 
-**Content**:
-- Curated news and links
-- Your take / commentary
-- What it means for readers
-- How your product helps
+**O que incluir**:
+- O que há de novo (claro e simples)
+- Porque importa (benefício, não apenas funcionalidade)
+- Como usar (link direto)
+- Quem pediu (reconhecimento da comunidade)
 
-**Best for**: B2B products where customers care about industry trends.
+**Segmentação**: Considera segmentar com base na relevância:
+- Utilizadores que mais beneficiam
+- Utilizadores que pediram a funcionalidade
+- Power users primeiro (sensação de beta)
 
 ---
 
-### Pricing Update
-**Trigger**: Price change announcement
-**Goal**: Transparent communication, minimize churn
-**Format**: Single email (or sequence for major changes)
+### Roundup de Notícias da Indústria
+**Trigger**: Baseado em tempo (semanal ou mensal)
+**Objetivo**: Thought leadership, engagement, valor de marca
+**Formato**: Newsletter curada
+
+**Conteúdo**:
+- Notícias e links curados
+- A tua opinião / comentário
+- O que significa para os leitores
+- Como o teu produto ajuda
+
+**Melhor para**: Produtos B2B onde os clientes se preocupam com tendências da indústria.
+
+---
+
+### Atualização de Preços
+**Trigger**: Anúncio de mudança de preço
+**Objetivo**: Comunicação transparente, minimizar churn
+**Formato**: Email único (ou sequência para mudanças grandes)
 
 **Timeline**:
-- Announce 30-60 days before change
-- Reminder 14 days before
-- Final notice 7 days before
+- Anunciar 30-60 dias antes da mudança
+- Lembrete 14 dias antes
+- Aviso final 7 dias antes
 
-**Copy approach**:
-- Clear, direct, transparent
-- Explain the why (value delivered, costs increased)
-- Grandfather if possible (lock in old rate)
-- Give options (annual lock-in, downgrade)
+**Abordagem de copy**:
+- Claro, direto, transparente
+- Explica o porquê (valor entregue, custos aumentaram)
+- Grandfather se possível (fixar tarifa antiga)
+- Dá opções (compromisso anual, downgrade)
 
-**Important**: Honesty and advance notice build trust even when price increases.
+**Importante**: Honestidade e aviso antecipado constroem confiança mesmo quando o preço aumenta.
 
 ---
 
-## Email Audit Checklist
+## Checklist de Auditoria de Email
 
-Use this to audit your current email program:
+Usa isto para auditar o teu programa de email atual:
 
 ### Onboarding
-- [ ] New users series
-- [ ] New customers series
-- [ ] Key onboarding step reminders
-- [ ] New user invite sequence
+- [ ] Série de novos utilizadores
+- [ ] Série de novos clientes
+- [ ] Lembretes de passos críticos de onboarding
+- [ ] Sequência de convite de novo utilizador
 
-### Retention
-- [ ] Upgrade to paid sequence
-- [ ] Upgrade to higher plan triggers
-- [ ] Ask for review (timed properly)
-- [ ] Proactive support outreach
-- [ ] Product usage reports
-- [ ] NPS survey
-- [ ] Referral program emails
+### Retenção
+- [ ] Sequência de upgrade para pago
+- [ ] Triggers de upgrade para plano superior
+- [ ] Pedir avaliação (com timing adequado)
+- [ ] Outreach proativo de suporte
+- [ ] Relatórios de utilização do produto
+- [ ] Inquérito NPS
+- [ ] Emails do programa de referrals
 
 ### Billing
-- [ ] Switch to annual campaign
-- [ ] Failed payment recovery sequence
-- [ ] Cancellation survey
-- [ ] Upcoming renewal reminders
+- [ ] Campanha de mudança para anual
+- [ ] Sequência de recuperação de pagamento falhado
+- [ ] Inquérito de cancelamento
+- [ ] Lembretes de renovação próxima
 
-### Usage
-- [ ] Daily/weekly/monthly summaries
-- [ ] Key event notifications
-- [ ] Milestone celebrations
+### Utilização
+- [ ] Resumos diários/semanais/mensais
+- [ ] Notificações de eventos-chave
+- [ ] Celebrações de milestone
 
 ### Win-Back
-- [ ] Expired trial sequence
-- [ ] Cancelled customer sequence
+- [ ] Sequência de trial expirado
+- [ ] Sequência de cliente cancelado
 
-### Campaigns
-- [ ] Monthly roundup / newsletter
-- [ ] Seasonal promotion calendar
-- [ ] Product update announcements
-- [ ] Pricing update communications
+### Campanhas
+- [ ] Roundup mensal / newsletter
+- [ ] Calendário de promoções sazonais
+- [ ] Anúncios de atualizações de produto
+- [ ] Comunicações de atualização de preços

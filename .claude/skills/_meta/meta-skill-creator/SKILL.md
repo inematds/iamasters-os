@@ -1,175 +1,175 @@
 ---
 name: meta-skill-creator
-description: Crea skills nuevas para iAmasters OS siguiendo el patrón canónico. Úsalo cuando el usuario pida "crea una skill que...", "necesito una skill para...", o cuando detectes en wrap-up que un patrón repetido debe convertirse en skill. Genera SKILL.md con YAML frontmatter, references/ con knowledge separado, scripts/ si requiere ejecución, y registra la skill en el catálogo. Inspirado en anthropic-skills:skill-creator pero adaptado al patrón iAmasters OS.
+description: Cria skills novas para o iAmasters OS seguindo o padrão canónico. Usa-o quando o utilizador pedir "cria uma skill que...", "preciso de uma skill para...", ou quando detetares no wrap-up que um padrão repetido deve passar a skill. Gera SKILL.md com YAML frontmatter, references/ com knowledge separado, scripts/ se exigir execução, e regista a skill no catálogo. Inspirado em anthropic-skills:skill-creator mas adaptado ao padrão iAmasters OS.
 ---
 
 # meta-skill-creator
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Usuario dice: "crea una skill", "necesito una skill para X", "haz una skill que..."
-- Wrap-up detecta un patrón que se ha repetido 3+ sesiones y propone graduar a skill
-- Otro skill detecta un sub-proceso reutilizable y sugiere extraerlo
+- Utilizador diz: "cria uma skill", "preciso de uma skill para X", "faz uma skill que..."
+- Wrap-up deteta um padrão que se repetiu em 3+ sessões e propõe graduar a skill
+- Outra skill deteta um sub-processo reutilizável e sugere extraí-lo
 
-## Contrato de calidad
+## Contrato de qualidade
 
-Una skill iAmasters OS BIEN hecha cumple SIEMPRE:
+Uma skill iAmasters OS BEM feita cumpre SEMPRE:
 
-1. **YAML frontmatter completo y específico** — `name` (kebab-case con prefijo de categoría), `description` que contiene cuándo se invoca y qué hace en una frase ≥50 chars
-2. **Progressive disclosure** — el SKILL.md NO contiene todo el conocimiento; references/ guarda lo extenso
-3. **Steps numerados y testables** — cada paso debe ser verificable
-4. **Skill collaboration explícita** — si invoca otras skills, las nombra y explica cuándo
-5. **Output verifier gate** si genera contenido entregable al usuario/cliente
-6. **Learnings hook** — al final del proceso, registra lo aprendido en `context/learnings.md`
-7. **Idioma**: SKILL.md en castellano, code/JSON en inglés
+1. **YAML frontmatter completo e específico** — `name` (kebab-case com prefixo de categoria), `description` que contém quando se invoca e o que faz numa frase ≥50 caracteres
+2. **Progressive disclosure** — o SKILL.md NÃO contém todo o conhecimento; references/ guarda o que é extenso
+3. **Passos numerados e testáveis** — cada passo deve ser verificável
+4. **Skill collaboration explícita** — se invoca outras skills, nomeia-as e explica quando
+5. **Output verifier gate** se gera conteúdo entregável ao utilizador/cliente
+6. **Learnings hook** — no fim do processo, regista o aprendido em `context/learnings.md`
+7. **Idioma**: SKILL.md em português, code/JSON em inglês
 
-## Process — pasos para crear una skill
+## Process — passos para criar uma skill
 
-### Paso 1 · Recopilar requisitos
+### Passo 1 · Recolher requisitos
 
-Pregunta al usuario (usa AskUserQuestion si Claude Code está disponible):
+Pergunta ao utilizador (usa AskUserQuestion se Claude Code estiver disponível):
 
-1. **Nombre y categoría**: ¿en qué categoría va? (`marketing`, `operations`, `strategy`, `tools`, `visualization`, `_meta`). Genera nombre kebab-case con prefijo: `marketing-blog-writer`, `tool-pdf-extractor`, `_meta/meta-X`.
-2. **Cuándo se invoca**: 1-2 frases. ¿Qué dirá el usuario para activarla? ¿Hay otra skill que la llame?
-3. **Qué hace exactamente**: 3-5 puntos del proceso paso a paso.
-4. **Inputs**: ¿qué necesita? Argumentos, archivos, MCPs, brand-context, otras skills.
-5. **Outputs**: ¿qué produce? Archivo en `projects/<skill>/<fecha>-<titulo>/`, edit en archivos existentes, mensaje al usuario.
-6. **Skills que llama**: ¿se apoya en otras? (`tool-humanizer`, `tool-output-verifier`, etc.)
-7. **¿Necesita scripts?**: ¿Python o bash para tareas pesadas? Si sí, ¿qué hace cada script?
+1. **Nome e categoria**: em que categoria entra? (`marketing`, `operations`, `strategy`, `tools`, `visualization`, `_meta`). Gera nome kebab-case com prefixo: `marketing-blog-writer`, `tool-pdf-extractor`, `_meta/meta-X`.
+2. **Quando é invocada**: 1-2 frases. O que dirá o utilizador para a ativar? Há outra skill que a chama?
+3. **O que faz exatamente**: 3-5 pontos do processo passo a passo.
+4. **Inputs**: do que precisa? Argumentos, ficheiros, MCPs, brand-context, outras skills.
+5. **Outputs**: o que produz? Ficheiro em `projects/<skill>/<data>-<titulo>/`, edit em ficheiros existentes, mensagem ao utilizador.
+6. **Skills que chama**: apoia-se noutras? (`tool-humanizer`, `tool-output-verifier`, etc.)
+7. **Precisa de scripts?**: Python ou bash para tarefas pesadas? Se sim, o que faz cada script?
 
-### Paso 2 · Validar el nombre y descripción
+### Passo 2 · Validar o nome e descrição
 
-La descripción debe pasar 3 tests:
+A descrição deve passar 3 testes:
 
-- **Test de activación**: ¿un Claude Code que solo lee la descripción sabría cuándo usarla? Debe contener verbos de intención del usuario ("crea", "analiza", "extrae", "genera").
-- **Test de longitud**: 50–500 chars. Si menos, es ambigua. Si más, está inflando.
-- **Test de unicidad**: lee `synapsis/skills-catalog.json`. Si hay otra skill con descripción parecida, riesgo de canibalización (Claude no sabrá cuál elegir). Diferéncialas o fusiónalas.
+- **Teste de ativação**: um Claude Code que só lê a descrição saberia quando a usar? Deve conter verbos de intenção do utilizador ("cria", "analisa", "extrai", "gera").
+- **Teste de comprimento**: 50–500 chars. Se menos, é ambígua. Se mais, está inflada.
+- **Teste de unicidade**: lê `synapsis/skills-catalog.json`. Se houver outra skill com descrição parecida, há risco de canibalização (Claude não saberá qual escolher). Diferencia-as ou funde-as.
 
-Si falla algún test, refina con el usuario antes de continuar.
+Se algum teste falhar, refina com o utilizador antes de continuar.
 
-### Paso 3 · Generar la estructura de carpetas
+### Passo 3 · Gerar a estrutura de pastas
 
 ```
-.claude/skills/<categoria>/<nombre>/
-├── SKILL.md                    # Proceso principal (este patrón)
+.claude/skills/<categoria>/<nome>/
+├── SKILL.md                    # Processo principal (este padrão)
 ├── references/                 # Knowledge separado
-│   ├── examples.md             # 2-3 ejemplos de uso real
-│   ├── checklist.md            # (opcional) Validaciones
-│   └── (otros docs según skill)
-└── scripts/                    # (opcional) Si requiere ejecutables
-    └── <nombre>.py             # o .sh
+│   ├── examples.md             # 2-3 exemplos de uso real
+│   ├── checklist.md            # (opcional) Validações
+│   └── (outros docs conforme skill)
+└── scripts/                    # (opcional) Se requer executáveis
+    └── <nome>.py               # ou .sh
 ```
 
-NO crees `references/` ni `scripts/` si la skill no los necesita. Mantén lo mínimo.
+NÃO cries `references/` nem `scripts/` se a skill não precisar deles. Mantém o mínimo.
 
-### Paso 4 · Escribir el SKILL.md siguiendo plantilla
+### Passo 4 · Escrever o SKILL.md seguindo o template
 
-Lee `references/skill-template.md` (incluido en esta skill) y úsalo de base. Estructura obligatoria:
+Lê `references/skill-template.md` (incluído nesta skill) e usa-o de base. Estrutura obrigatória:
 
 ```markdown
 ---
-name: <prefijo-categoria>-<nombre>
-description: <cuando se invoca + que hace, 50-500 chars>
+name: <prefixo-categoria>-<nome>
+description: <quando se invoca + o que faz, 50-500 chars>
 ---
 
-# <nombre humano de la skill>
+# <nome humano da skill>
 
-## Cuándo se invoca
-- (3-5 bullets de patrones de invocación del usuario o de otras skills)
+## Quando é invocada
+- (3-5 bullets de padrões de invocação do utilizador ou de outras skills)
 
 ## Process
-### Paso 1 · <verbo>
-(qué hacer, herramientas a usar, archivos a tocar)
+### Passo 1 · <verbo>
+(o que fazer, ferramentas a usar, ficheiros a tocar)
 
-### Paso 2 · <verbo>
+### Passo 2 · <verbo>
 ...
 
-### Paso N · Cierre y aprendizaje
-- Si generaste output: invoca `tool-output-verifier` antes de entregar
-- Append en `context/learnings.md` bajo `## <skill-name>` con la lección si la sesión enseñó algo
-- Si la skill modifica algún archivo del repo, propón commit en wrap-up
+### Passo N · Fecho e aprendizagem
+- Se geraste output: invoca `tool-output-verifier` antes de entregar
+- Append em `context/learnings.md` sob `## <skill-name>` com a lição se a sessão ensinou algo
+- Se a skill modifica algum ficheiro do repo, propõe commit no wrap-up
 
 ## Outputs
-- Archivos generados en `projects/<skill>/<YYYY-MM-DD>-<titulo>/`
-- Lista exacta de qué genera (file_a.md, file_b.json, etc)
+- Ficheiros gerados em `projects/<skill>/<YYYY-MM-DD>-<titulo>/`
+- Lista exacta do que gera (file_a.md, file_b.json, etc)
 
-## Skills que llama
-- (lista de skills invocadas con cuándo y por qué)
+## Skills que chama
+- (lista de skills invocadas com quando e porquê)
 
 ## Edge cases
-- Qué hacer si X falla
-- Qué hacer si el usuario no da Y
+- O que fazer se X falhar
+- O que fazer se o utilizador não der Y
 
 ## Examples
-Ver `references/examples.md` para 2-3 ejemplos completos.
+Ver `references/examples.md` para 2-3 exemplos completos.
 ```
 
-### Paso 5 · Generar references/
+### Passo 5 · Gerar references/
 
-**`references/examples.md`** (siempre): 2-3 ejemplos completos de invocación + output esperado. Sin estos ejemplos la skill no sabe distinguir bien casos.
+**`references/examples.md`** (sempre): 2-3 exemplos completos de invocação + output esperado. Sem estes exemplos a skill não consegue distinguir bem os casos.
 
-**`references/checklist.md`** (si hay validación QA): pasos de checklist para validar el output antes de cerrar.
+**`references/checklist.md`** (se houver validação QA): passos de checklist para validar o output antes de fechar.
 
-**`references/<otros>.md`** (si hay knowledge extenso): templates, marcos, listas. Solo se cargan cuando el SKILL.md los referencia desde un paso concreto.
+**`references/<outros>.md`** (se houver knowledge extenso): templates, frameworks, listas. Só são carregados quando o SKILL.md os referencia a partir de um passo concreto.
 
-### Paso 6 · Generar scripts/ si aplica
+### Passo 6 · Gerar scripts/ se aplicável
 
-Solo si la skill tiene tareas que NO debería resolver Claude (web scraping pesado, OCR, transcripción, formato batch, etc.).
+Só se a skill tiver tarefas que NÃO deveria resolver Claude (web scraping pesado, OCR, transcrição, formato batch, etc.).
 
 Cada script:
-- Documentación en cabecera (qué hace, args, ejemplo de uso)
+- Documentação no cabeçalho (o que faz, args, exemplo de uso)
 - `set -e` para bash, `try/except` para python
-- Outputs predecibles (stdout JSON o archivo en path conocido)
-- Sin secrets hardcoded (lee de `.env`)
+- Outputs previsíveis (stdout JSON ou ficheiro em path conhecido)
+- Sem secrets hardcoded (lê de `.env`)
 
-### Paso 7 · Registrar la skill
+### Passo 7 · Registar a skill
 
-1. Añade entrada en `synapsis/skills-catalog.json` (estructura: `{id, name, category, description, status:"active", tokens_estimate, created}`).
-2. Mide `tokens_estimate` aproximadamente: `chars(SKILL.md) / 4`.
-3. Si la skill colabora con otras, añade en `references` de las otras la mención cruzada.
-4. Append en `CLAUDE.md` raíz, sección "Skills registry", entrada nueva.
+1. Adiciona entrada em `synapsis/skills-catalog.json` (estrutura: `{id, name, category, description, status:"active", tokens_estimate, created}`).
+2. Mede `tokens_estimate` aproximadamente: `chars(SKILL.md) / 4`.
+3. Se a skill colabora com outras, adiciona em `references` das outras a menção cruzada.
+4. Append em `CLAUDE.md` raiz, secção "Skills registry", entrada nova.
 
-### Paso 8 · Test mínimo
+### Passo 8 · Teste mínimo
 
-Antes de declarar la skill terminada:
+Antes de declarar a skill terminada:
 
-1. Cierra Claude Code (Ctrl+C × 2) y vuelve a abrir.
-2. Pregunta algo que debería activar la skill ("crea X" según invocation patterns).
-3. Verifica que Claude la elige y la sigue paso a paso sin saltarse fases.
-4. Si no se activa: refina la descripción (Paso 2).
-5. Si se activa pero hace cosas mal: refina los pasos del proceso.
+1. Fecha Claude Code (Ctrl+C × 2) e volta a abrir.
+2. Pergunta algo que devia ativar a skill ("cria X" segundo invocation patterns).
+3. Verifica que Claude a escolhe e segue passo a passo sem saltar fases.
+4. Se não se ativar: refina a descrição (Passo 2).
+5. Se ativar mas fizer coisas mal: refina os passos do processo.
 
-### Paso 9 · Cierre y aprendizaje
+### Passo 9 · Fecho e aprendizagem
 
-- Append en `context/learnings.md` bajo `## meta-skill-creator`:
-  - Fecha + resumen 1-line: "creada skill X — próxima vez recordar que Y"
-- Si esta es la 3ª+ vez que creas una skill similar, propón al usuario crear una **meta-skill** o **template** para acelerar (graduar el patrón).
+- Append em `context/learnings.md` em `## meta-skill-creator`:
+  - Data + resumo 1-line: "criada skill X — próxima vez recordar que Y"
+- Se esta é a 3ª+ vez que crias uma skill semelhante, propõe ao utilizador criar uma **meta-skill** ou **template** para acelerar (graduar o padrão).
 
 ## Outputs
 
-- Carpeta `.claude/skills/<categoria>/<nombre>/` con SKILL.md + references/ (+ scripts/ opcional)
-- Entrada en `synapsis/skills-catalog.json`
-- Entrada en `CLAUDE.md` raíz (skills registry)
-- Append en `context/learnings.md`
+- Pasta `.claude/skills/<categoria>/<nome>/` com SKILL.md + references/ (+ scripts/ opcional)
+- Entrada em `synapsis/skills-catalog.json`
+- Entrada em `CLAUDE.md` raiz (skills registry)
+- Append em `context/learnings.md`
 
-## Skills que llama
+## Skills que chama
 
-- **`tool-output-verifier`** — al validar el SKILL.md generado antes de declararlo final (chequea formato YAML, longitud descripción, presencia de Process, etc.)
+- **`tool-output-verifier`** — ao validar o SKILL.md gerado antes de declará-lo final (verifica formato YAML, comprimento da descrição, presença de Process, etc.)
 
 ## Edge cases
 
-- **Si el usuario describe una skill demasiado genérica** ("una skill que escriba bien"): pide concreción. ¿Para qué plataforma? ¿Qué tono? ¿Output dónde?
-- **Si ya existe una skill parecida**: muestra ambas descripciones, ofrece (a) ampliar la existente, (b) diferenciar la nueva, (c) cancelar.
-- **Si la skill propuesta es demasiado pequeña** (1 paso): puede que sea mejor un slash command. Sugiere comando en `.claude/commands/<nombre>.md`.
-- **Si no hay categoría obvia**: propón crear nueva categoría solo si va a tener 3+ skills. Si es solo 1, encájala donde mejor calce.
+- **Se o utilizador descrever uma skill demasiado genérica** ("uma skill que escreva bem"): pede concretude. Para que plataforma? Que tom? Output onde?
+- **Se já existir uma skill parecida**: mostra ambas as descrições, oferece (a) ampliar a existente, (b) diferenciar a nova, (c) cancelar.
+- **Se a skill proposta for demasiado pequena** (1 passo): pode ser melhor um slash command. Sugere comando em `.claude/commands/<nome>.md`.
+- **Se não houver categoria óbvia**: propõe criar nova categoria só se for ter 3+ skills. Se for só 1, encaixa-a onde melhor encaixar.
 
 ## Examples
 
-Ver `references/examples.md` para 3 ejemplos:
-1. Crear `marketing-blog-writer` (skill compleja con references)
-2. Crear `tool-pdf-summarizer` (skill que usa script Python)
-3. Crear `_meta/meta-changelog-bumper` (skill simple sin references)
+Ver `references/examples.md` para 3 exemplos:
+1. Criar `marketing-blog-writer` (skill complexa com references)
+2. Criar `tool-pdf-summarizer` (skill que usa script Python)
+3. Criar `_meta/meta-changelog-bumper` (skill simples sem references)
 
-## Plantilla canónica
+## Template canónico
 
-Ver `references/skill-template.md` para copiar-pegar el esqueleto base.
+Ver `references/skill-template.md` para copiar-colar o esqueleto base.

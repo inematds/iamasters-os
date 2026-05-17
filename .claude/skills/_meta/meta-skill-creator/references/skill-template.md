@@ -1,85 +1,85 @@
-# Plantilla canónica para SKILL.md
+# Template canónico para SKILL.md
 
-> Copia este archivo como punto de partida cuando crees una nueva skill.
-> Reemplaza los `{{placeholders}}` y borra las secciones que no apliquen.
+> Copia este ficheiro como ponto de partida quando criares uma skill nova.
+> Substitui os `{{placeholders}}` e apaga as secções que não se apliquem.
 
 ```markdown
 ---
-name: {{prefijo-categoria}}-{{nombre-kebab}}
-description: {{Cuándo se invoca, qué hace. 50-500 chars. Verbos de intención: crea, genera, analiza, extrae, audita...}}
+name: {{prefixo-categoria}}-{{nome-kebab}}
+description: {{Quando se invoca, o que faz. 50-500 chars. Verbos de intenção: cria, gera, analisa, extrai, audita...}}
 ---
 
-# {{Nombre humano de la skill}}
+# {{Nome humano da skill}}
 
-## Cuándo se invoca
-- {{Patrón 1: lo que dice el usuario}}
-- {{Patrón 2: skill X la llama tras hacer Y}}
-- {{Patrón 3: hook detecta Z y propone esta skill}}
+## Quando é invocada
+- {{Padrão 1: o que diz o utilizador}}
+- {{Padrão 2: skill X chama-a depois de fazer Y}}
+- {{Padrão 3: hook deteta Z e propõe esta skill}}
 
 ## Process
 
-### Paso 1 · {{Verbo}}
-{{Qué hacer, qué tools/archivos tocar, qué validar}}
+### Passo 1 · {{Verbo}}
+{{O que fazer, que tools/ficheiros tocar, o que validar}}
 
-- **Tool**: Read / Edit / Write / Bash / Skill (si invoca otra)
-- **Inputs esperados**: {{lo que necesita}}
-- **Validación**: {{cómo saber que el paso salió bien}}
+- **Tool**: Read / Edit / Write / Bash / Skill (se invoca outra)
+- **Inputs esperados**: {{o que precisa}}
+- **Validação**: {{como saber que o passo correu bem}}
 
-### Paso 2 · {{Verbo}}
+### Passo 2 · {{Verbo}}
 {{...}}
 
-### Paso N · Cierre
+### Passo N · Fecho
 
-- Si generaste output entregable → invoca `tool-output-verifier` con `score-only: true`
-- Si la sesión enseñó algo nuevo → append en `context/learnings.md`:
+- Se geraste output entregável → invoca `tool-output-verifier` com `score-only: true`
+- Se a sessão ensinou algo novo → append em `context/learnings.md`:
   ```
-  ## {{nombre-skill}}
-  - YYYY-MM-DD: {{lección 1-line}}
+  ## {{nome-skill}}
+  - YYYY-MM-DD: {{lição 1-line}}
   ```
-- Si modificaste skills/ del repo → propón commit en próximo `/wrap-up`
+- Se modificaste skills/ do repo → propõe commit no próximo `/wrap-up`
 
 ## Outputs
 
-- {{Archivo 1 en projects/.../...}}
-- {{Edit en archivo existente}}
-- {{Mensaje al usuario con resumen}}
+- {{Ficheiro 1 em projects/.../...}}
+- {{Edit em ficheiro existente}}
+- {{Mensagem ao utilizador com resumo}}
 
-## Skills que llama (si aplica)
+## Skills que chama (se aplicável)
 
-- **`{{otra-skill}}`** — para {{qué}}, en el paso {{N}}
+- **`{{outra-skill}}`** — para {{quê}}, no passo {{N}}
 
 ## Edge cases
 
-- {{Si X falta → qué}}
-- {{Si Y falla → fallback a Z}}
+- {{Se X faltar → o quê}}
+- {{Se Y falhar → fallback para Z}}
 
 ## Examples
 
 Ver `references/examples.md` para casos completos.
 ```
 
-## Reglas no-negociables
+## Regras não-negociáveis
 
-1. **YAML frontmatter al principio**, sin línea en blanco antes de `---`.
-2. **Description en una sola línea** dentro del YAML (no multi-línea con `>`).
-3. **Steps numerados y verbos en imperativo** ("Crear...", "Validar...", no "Crearás...").
-4. **Sin código pesado en SKILL.md** — los snippets largos van a `references/` o `scripts/`.
-5. **Idioma castellano** en SKILL.md, **inglés en code/JSON/commits**.
-6. **Sin info privada** del operador — los ejemplos usan placeholders genéricos ("Empresa Demo SL", "cliente@ejemplo.com").
+1. **YAML frontmatter no início**, sem linha em branco antes de `---`.
+2. **Description numa única linha** dentro do YAML (não multi-linha com `>`).
+3. **Steps numerados e verbos no imperativo** ("Criar...", "Validar...", não "Criarás...").
+4. **Sem código pesado no SKILL.md** — os snippets longos vão para `references/` ou `scripts/`.
+5. **Idioma português** no SKILL.md, **inglês em code/JSON/commits**.
+6. **Sem informação privada** do operador — os exemplos usam placeholders genéricos ("Empresa Demo SL", "cliente@ejemplo.com").
 
-## Antipatrones que NO debes repetir
+## Antipadrões que NÃO deves repetir
 
-| Antipatrón | Por qué es malo | Cómo arreglarlo |
+| Antipadrão | Porque é mau | Como corrigir |
 |---|---|---|
-| Description vaga ("Crea contenido") | No se activa correctamente, canibalismo entre skills | Verbo + qué + cuándo: "Crea posts de LinkedIn de 200 chars con hook + CTA usando brand voice" |
-| Todo el conocimiento en SKILL.md | Bloat de contexto cuando se carga | Mover knowledge a `references/<topic>.md` y referenciarlos desde steps |
-| Sin examples | Claude alucina casos | Mínimo 2 ejemplos completos en `references/examples.md` |
-| Pasos sin verificación | Rompe en silencio | Cada paso con criterio "cómo sé que salió bien" |
-| Skill que hace 5 cosas distintas | Ambigua, difícil de mantener | Trocear en 5 skills + 1 orquestadora si necesario |
-| Sin learnings hook | Skills no aprenden | Append a `context/learnings.md` al cierre |
+| Description vaga ("Cria conteúdo") | Não ativa corretamente, canibalismo entre skills | Verbo + o quê + quando: "Cria posts de LinkedIn de 200 chars com hook + CTA usando brand voice" |
+| Todo o conhecimento no SKILL.md | Bloat de contexto quando se carrega | Mover knowledge para `references/<topic>.md` e referenciá-los nos steps |
+| Sem examples | O Claude alucina casos | Mínimo 2 exemplos completos em `references/examples.md` |
+| Passos sem verificação | Quebra em silêncio | Cada passo com critério "como sei que correu bem" |
+| Skill que faz 5 coisas distintas | Ambígua, difícil de manter | Dividir em 5 skills + 1 orquestradora se necessário |
+| Sem hook de learnings | As skills não aprendem | Append em `context/learnings.md` no fecho |
 
 ## Token budget recomendado
 
 - SKILL.md: 800-2500 tokens (~3000-10000 chars)
-- references/ por archivo: 300-1500 tokens
-- Si superas 2500 tokens en SKILL.md, mueve secciones a references/.
+- references/ por ficheiro: 300-1500 tokens
+- Se passares dos 2500 tokens no SKILL.md, move secções para references/.

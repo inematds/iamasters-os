@@ -1,24 +1,24 @@
 ---
-description: Cierre de sesión iAmasters OS. Genera daily summary, sincroniza skills, propone commit.
+description: Fecho de sessão iAmasters OS. Gera daily summary, sincroniza skills, propõe commit.
 ---
 
 # /wrap-up
 
-Invoca la skill `meta-wrap-up` que vive en `.claude/skills/_meta/meta-wrap-up/SKILL.md`.
+Invoca a skill `meta-wrap-up` que vive em `.claude/skills/_meta/meta-wrap-up/SKILL.md`.
 
-## Qué hace
+## O que faz
 
-1. Recapitula la sesión (qué se hizo, qué quedó)
-2. Sincroniza `synapsis/skills-catalog.json` si hubo cambios en `.claude/skills/`
-3. Actualiza el skills registry de `CLAUDE.md`
-4. Append a `context/learnings.md` si hubo aprendizajes
-5. Genera/actualiza `synapsis/daily-summaries/<TODAY>.md`
-6. Detecta proyectos a archivar (status: done > 7 días)
-7. Propone Git commit (espera aprobación)
-8. Sugiere `/eod` Sinapsis si es final del día
+1. Recapitula a sessão (o que se fez, o que ficou)
+2. Sincroniza `synapsis/skills-catalog.json` se houve mudanças em `.claude/skills/`
+3. Atualiza o skills registry do `CLAUDE.md`
+4. Append em `context/learnings.md` se houve aprendizagens
+5. Gera/atualiza `synapsis/daily-summaries/<TODAY>.md`
+6. Deteta projetos a arquivar (status: done > 7 dias)
+7. Propõe Git commit (espera aprovação)
+8. Sugere `/eod` Sinapsis se é fim do dia
 
 ## Comando
 
-Carga e invoca la skill `meta-wrap-up`. Sigue el proceso de su SKILL.md paso a paso.
+Carrega e invoca a skill `meta-wrap-up`. Segue o processo do SKILL.md passo a passo.
 
-NO hace push automático ni commit sin aprobación explícita.
+NÃO faz push automático nem commit sem aprovação explícita.

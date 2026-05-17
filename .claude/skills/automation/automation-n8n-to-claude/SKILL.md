@@ -1,431 +1,431 @@
 ---
 name: automation-n8n-to-claude
-description: "Migra workflows de n8n/Make al ecosistema Claude Code. Analiza JSONs, mapea nodos, propone implementacion (skills, crons, web apps, dashboards) y detecta mejoras. Usa cuando el usuario pegue un JSON de n8n o mencione migrar automatizaciones."
+description: "Migra workflows de n8n/Make para o ecossistema Claude Code. Analisa JSONs, mapeia nodes, propõe implementação (skills, crons, web apps, dashboards) e deteta melhorias. Usa quando o utilizador colar um JSON de n8n ou mencionar migrar automações."
 author: iAmasters Automations
 version: 3.0.0
-tags: [n8n, make, automatizacion, migracion, workflow, claude-code, no-code]
+tags: [n8n, make, automacao, migracao, workflow, claude-code, no-code]
 tokens_estimate: 3500
 ---
 
-# n8n-to-claude v3.0 — Asesor de Migración de Automatizaciones
+# n8n-to-claude v3.0 — Conselheiro de Migração de Automações
 
-> Ayuda a cualquier persona a migrar sus workflows de n8n (o Make) al ecosistema Claude Code,
-> independientemente de su nivel tecnico. Analiza, prioriza, planifica e implementa.
-
----
-
-## IMPORTANTE — Audiencia
-
-Los usuarios de esta skill son mayoritariamente **perfiles no-code**: han automatizado con n8n o Make
-configurando nodos visualmente, pero no tienen experiencia programando.
-
-Por eso:
-- **NUNCA uses jerga tecnica sin explicarla** — si dices "API route", explica que es "el punto donde
-  la aplicacion recibe o envia datos". Si dices "cron", di "tarea programada automatica".
-- **Usa analogias con n8n** — "es como el nodo Schedule Trigger pero sin necesitar n8n"
-- **En modo Aprendizaje, explica desde cero** — no asumir conocimientos de programacion
-- **En modo Construccion, genera todo el codigo** — el usuario no tiene que entender el codigo,
-  solo tiene que poder ejecutarlo con instrucciones claras
+> Ajuda qualquer pessoa a migrar os seus workflows de n8n (ou Make) para o ecossistema Claude Code,
+> independentemente do seu nível técnico. Analisa, prioriza, planeia e implementa.
 
 ---
 
-## Deteccion de modo
+## IMPORTANTE — Audiência
 
-Detectar automaticamente cual de estos 4 escenarios aplica:
+Os utilizadores desta skill são maioritariamente **perfis no-code**: automatizaram com n8n ou Make
+configurando nodes visualmente, mas não têm experiência a programar.
 
-| Situacion | Modo a usar |
+Por isso:
+- **NUNCA uses jargão técnico sem o explicar** — se disseres "API route", explica que é "o ponto onde
+  a aplicação recebe ou envia dados". Se disseres "cron", diz "tarefa programada automática".
+- **Usa analogias com n8n** — "é como o node Schedule Trigger mas sem precisar de n8n"
+- **No modo Aprendizagem, explica desde zero** — não assumas conhecimentos de programação
+- **No modo Construção, gera todo o código** — o utilizador não tem de perceber o código,
+  só tem de o conseguir executar com instruções claras
+
+---
+
+## Deteção de modo
+
+Detetar automaticamente qual destes 4 cenários se aplica:
+
+| Situação | Modo a usar |
 |---|---|
-| Usuario pega 1 JSON de n8n | **ANALISIS** |
-| Usuario pega 2+ JSONs de n8n | **PORTFOLIO** |
-| Usuario describe un workflow sin JSON | **DESCRIPCION** (entrevista) |
-| Usuario menciona "aprender", "entender", "como funciona" | Activar eje **APRENDIZAJE** |
-| Usuario menciona "hazlo", "implementa", "crealo" | Activar eje **CONSTRUCCION** |
+| Utilizador cola 1 JSON de n8n | **ANÁLISE** |
+| Utilizador cola 2+ JSONs de n8n | **PORTFOLIO** |
+| Utilizador descreve um workflow sem JSON | **DESCRIÇÃO** (entrevista) |
+| Utilizador menciona "aprender", "perceber", "como funciona" | Ativar eixo **APRENDIZAGEM** |
+| Utilizador menciona "fá-lo", "implementa", "cria-o" | Ativar eixo **CONSTRUÇÃO** |
 
-Si no hay indicacion del eje, al final de cualquier analisis preguntar:
-> "¿Quieres que lo implemente directamente, o prefieres que te explique primero como funcionaria?"
+Se não houver indicação do eixo, no fim de qualquer análise perguntar:
+> "Queres que o implemente diretamente, ou preferes que te explique primeiro como funcionaria?"
 
 ---
 
-## MODO ANALISIS — Un solo workflow
+## MODO ANÁLISE — Um único workflow
 
-### A1. Leer el JSON
+### A1. Ler o JSON
 
-Extraer:
-- `nodes[]` — cada nodo: nombre, tipo, parametros, credenciales, si esta desactivado
-- `connections{}` — como se conectan los nodos entre si
-- `pinData{}` — datos de ejemplo reales (revelan el contexto del negocio)
+Extrair:
+- `nodes[]` — cada node: nome, tipo, parâmetros, credenciais, se está desativado
+- `connections{}` — como se ligam os nodes entre si
+- `pinData{}` — dados de exemplo reais (revelam o contexto do negócio)
 
-Ignorar: nodos `stickyNote` y nodos con `disabled: true` (mencionarlos pero no migrarlos).
+Ignorar: nodes `stickyNote` e nodes com `disabled: true` (mencioná-los mas não os migrar).
 
-Detectar el trigger principal:
+Detetar o trigger principal:
 
-| Nodo trigger | Significa |
+| Node trigger | Significa |
 |---|---|
-| `scheduleTrigger` | Se ejecuta solo en horario fijo |
-| `webhook` sin responseMode | Espera que alguien le "llame" desde fuera |
-| `webhook` con responseMode | Devuelve datos o una pagina web |
-| `manualTrigger` | Solo para pruebas — el workflow real necesita otro trigger |
-| `emailTrigger` | Se activa cuando llega un email |
+| `scheduleTrigger` | Executa-se sozinho num horário fixo |
+| `webhook` sem responseMode | Espera que alguém o "chame" desde fora |
+| `webhook` com responseMode | Devolve dados ou uma página web |
+| `manualTrigger` | Só para testes — o workflow real precisa de outro trigger |
+| `emailTrigger` | Ativa-se quando chega um email |
 
-**🔴 Seguridad — siempre:** Si cualquier parametro contiene tokens, passwords o API keys escritas directamente en el workflow → reportar como critico antes de continuar.
+**🔴 Segurança — sempre:** Se qualquer parâmetro contiver tokens, passwords ou API keys escritas diretamente no workflow → reportar como crítico antes de continuar.
 
-**🔴 Produccion — siempre:** Si el workflow tiene credenciales reales configuradas, intervalos cortos (< 1 dia) o pinData con datos reales → asumir que esta en produccion activa y recomendar estrategia de migracion paralela.
-
----
-
-### A2. Entender que hace
-
-Determinar en lenguaje simple:
-
-1. **Que hace este workflow** — resumen en 2-3 frases para alguien no tecnico
-2. **Como se activa** — solo, cuando algo pasa, o a mano
-3. **Que servicios usa** — lista de apps/APIs externas
-4. **Usa IA** — si/no, y para que tarea concreta
-5. **Guarda datos** — si/no, y donde
-6. **Envia notificaciones** — si/no, y por que canal
-7. **Esta en produccion** — si/no (por las senales del paso A1)
+**🔴 Produção — sempre:** Se o workflow tiver credenciais reais configuradas, intervalos curtos (< 1 dia) ou pinData com dados reais → assumir que está em produção ativa e recomendar estratégia de migração paralela.
 
 ---
 
-### A3. Traducir nodos a equivalentes
+### A2. Perceber o que faz
 
-| Nodo n8n | Equivalente en Claude Code | Explicacion simple |
+Determinar em linguagem simples:
+
+1. **O que faz este workflow** — resumo em 2-3 frases para alguém não técnico
+2. **Como se ativa** — sozinho, quando algo acontece, ou à mão
+3. **Que serviços usa** — lista de apps/APIs externas
+4. **Usa IA** — sim/não, e para que tarefa concreta
+5. **Guarda dados** — sim/não, e onde
+6. **Envia notificações** — sim/não, e por que canal
+7. **Está em produção** — sim/não (pelos sinais do passo A1)
+
+---
+
+### A3. Traduzir nodes para equivalentes
+
+| Node n8n | Equivalente em Claude Code | Explicação simples |
 |---|---|---|
-| `scheduleTrigger` | Tarea programada (cron) | "Como el Schedule Trigger pero sin n8n" |
-| `webhook` (recibe datos) | Punto de recepcion (API route) | "Una 'puerta' que escucha mensajes de otras apps" |
-| `webhook` (devuelve pagina) | Pagina web (Next.js page) | "Una pagina que se genera dinamicamente" |
-| `httpRequest` | Llamada a API con `fetch()` | "Como el nodo HTTP Request pero en codigo" |
-| `textClassifier` | Claude API clasificando | "Claude lee y decide la categoria — mas preciso" |
-| `chainLlm` / `agent` | Claude API razonando | "Claude piensa y genera la respuesta" |
-| `lmChatOpenRouter` | OpenRouter o Claude API | "El mismo modelo pero sin pasar por n8n" |
-| `gmail` | Gmail API directa | "Conexion directa a Gmail sin intermediarios" |
-| `googleSheets` | Google Sheets API | "Lee/escribe en Sheets directamente" |
-| `notion` | Notion API o MCP de Notion | "Conexion directa a Notion" |
-| `code` (JavaScript) | Funcion en archivo separado | "El mismo codigo pero en un archivo organizado" |
-| `set` / `editFields` | Variables en codigo | "Asignar valores, igual que antes pero en codigo" |
-| `if` / `filter` | Condicion `if/else` | "La misma logica de bifurcacion pero en codigo" |
-| `merge` | Combinar con `Promise.all()` | "Esperar a que terminen varias tareas y unir resultados" |
-| `splitInBatches` | Bucle `for` con pausa | "Procesar uno a uno con tiempo entre cada uno" |
+| `scheduleTrigger` | Tarefa programada (cron) | "Como o Schedule Trigger mas sem n8n" |
+| `webhook` (recebe dados) | Ponto de receção (API route) | "Uma 'porta' que escuta mensagens de outras apps" |
+| `webhook` (devolve página) | Página web (Next.js page) | "Uma página que se gera dinamicamente" |
+| `httpRequest` | Chamada a API com `fetch()` | "Como o node HTTP Request mas em código" |
+| `textClassifier` | Claude API a classificar | "O Claude lê e decide a categoria — mais preciso" |
+| `chainLlm` / `agent` | Claude API a raciocinar | "O Claude pensa e gera a resposta" |
+| `lmChatOpenRouter` | OpenRouter ou Claude API | "O mesmo modelo mas sem passar por n8n" |
+| `gmail` | Gmail API direta | "Ligação direta ao Gmail sem intermediários" |
+| `googleSheets` | Google Sheets API | "Lê/escreve no Sheets diretamente" |
+| `notion` | Notion API ou MCP de Notion | "Ligação direta ao Notion" |
+| `code` (JavaScript) | Função em ficheiro separado | "O mesmo código mas num ficheiro organizado" |
+| `set` / `editFields` | Variáveis em código | "Atribuir valores, igual que antes mas em código" |
+| `if` / `filter` | Condição `if/else` | "A mesma lógica de bifurcação mas em código" |
+| `merge` | Combinar com `Promise.all()` | "Esperar que terminem várias tarefas e juntar resultados" |
+| `splitInBatches` | Ciclo `for` com pausa | "Processar um a um com tempo entre cada um" |
 | `wait` | Pausa `setTimeout` | "Esperar X segundos antes de continuar" |
-| `aggregate` | Reducir con `.reduce()` | "Juntar todos los resultados en uno" |
-| `html` | Plantilla HTML o componente | "La misma pagina pero sin depender de n8n" |
-| `evolutionApi` | Evolution API via fetch | "La misma conexion WhatsApp pero directa" |
-| `slack` | Slack API via fetch | "Enviar mensajes a Slack directamente" |
-| `dataTable` (interno n8n) | Base de datos Supabase o archivo | "Guardar los datos de forma permanente" |
-| `manualTrigger` | Ignorar | Solo era para pruebas |
-| `stickyNote` | Ignorar | Solo eran notas visuales |
+| `aggregate` | Reduzir com `.reduce()` | "Juntar todos os resultados num só" |
+| `html` | Template HTML ou componente | "A mesma página mas sem depender de n8n" |
+| `evolutionApi` | Evolution API via fetch | "A mesma ligação WhatsApp mas direta" |
+| `slack` | Slack API via fetch | "Enviar mensagens para o Slack diretamente" |
+| `dataTable` (interno n8n) | Base de dados Supabase ou ficheiro | "Guardar os dados de forma permanente" |
+| `manualTrigger` | Ignorar | Só era para testes |
+| `stickyNote` | Ignorar | Eram só notas visuais |
 
-Si un nodo no aparece en la tabla → investigar que hace y proponer equivalente marcado como **mapeo personalizado**.
-
----
-
-### A4. Proponer arquitectura
-
-Primero, el arbol de decision:
-
-```
-¿El workflow genera una pagina web o dashboard?
-  SI  → Aplicacion web (Next.js)
-  NO  → Continuar
-
-¿Se ejecuta en horario fijo o de forma continua?
-  SI  → Tarea programada automatica
-  NO  → Continuar
-
-¿Solo se usa bajo demanda o de forma manual?
-  SI  → Skill de Claude Code invocable
-  NO  → Continuar
-
-¿Necesita recibir datos de otras apps en tiempo real?
-  SI  → Necesita estar publicado en internet (Vercel/cloud)
-  NO  → Puede funcionar en el ordenador local
-```
+Se um node não aparecer na tabela → investigar o que faz e propor equivalente marcado como **mapeamento personalizado**.
 
 ---
 
-Las **4 arquitecturas** posibles, explicadas sin jerga:
+### A4. Propor arquitetura
 
-**[1] Script automatico** — Para workflows simples que se ejecutan solos
-```
-Lo que hace: Un archivo con la logica + una tarea programada que lo ejecuta
-Analogia n8n: Como tu workflow de n8n pero sin necesitar n8n corriendo
-Mejor para: 1 workflow, uso personal, sin interfaz visual
-```
+Primeiro, a árvore de decisão:
 
-**[2] Skill de Claude Code** — Para tareas que se hacen a mano
 ```
-Lo que hace: Un comando que puedes invocar en Claude cuando quieras
-Analogia n8n: Como ejecutar manualmente tu workflow de n8n, pero desde Claude
-Mejor para: Analisis, generacion de contenido, tareas puntuales
-```
+O workflow gera uma página web ou dashboard?
+  SIM → Aplicação web (Next.js)
+  NÃO → Continuar
 
-**[3] Modulo de aplicacion web** — Para workflows con pantalla o datos que ver
-```
-Lo que hace: Una pagina en el navegador donde ves los resultados + la logica detras
-Analogia n8n: Como si n8n tuviera un dashboard bonito integrado
-Mejor para: Dashboards, moderacion de comentarios, clasificacion de emails
-```
+Executa-se em horário fixo ou de forma contínua?
+  SIM → Tarefa programada automática
+  NÃO → Continuar
 
-**[4] Mission Control (todo unificado)** — Para 3+ workflows relacionados
-```
-Lo que hace: Una aplicacion web completa con una seccion por cada workflow
-Analogia n8n: Todos tus workflows de n8n en una sola pantalla, sin n8n
-Mejor para: Quien quiere migrar todo y tener una vista unificada
-Cuando NO usarlo: Si los workflows no tienen relacion entre si — mejor separarlos
+Só se usa a pedido ou de forma manual?
+  SIM → Skill de Claude Code invocável
+  NÃO → Continuar
+
+Precisa de receber dados de outras apps em tempo real?
+  SIM → Precisa de estar publicado na internet (Vercel/cloud)
+  NÃO → Pode funcionar no computador local
 ```
 
 ---
 
-Opciones de donde ejecutarlo:
+As **4 arquiteturas** possíveis, explicadas sem jargão:
 
-| Opcion | Como funciona | Ideal para |
+**[1] Script automático** — Para workflows simples que se executam sozinhos
+```
+O que faz: Um ficheiro com a lógica + uma tarefa programada que o executa
+Analogia n8n: Como o teu workflow de n8n mas sem precisar de n8n a correr
+Melhor para: 1 workflow, uso pessoal, sem interface visual
+```
+
+**[2] Skill de Claude Code** — Para tarefas que se fazem à mão
+```
+O que faz: Um comando que podes invocar no Claude quando quiseres
+Analogia n8n: Como executar manualmente o teu workflow de n8n, mas a partir do Claude
+Melhor para: Análises, geração de conteúdo, tarefas pontuais
+```
+
+**[3] Módulo de aplicação web** — Para workflows com ecrã ou dados para ver
+```
+O que faz: Uma página no browser onde vês os resultados + a lógica por trás
+Analogia n8n: Como se o n8n tivesse um dashboard bonito integrado
+Melhor para: Dashboards, moderação de comentários, classificação de emails
+```
+
+**[4] Mission Control (tudo unificado)** — Para 3+ workflows relacionados
+```
+O que faz: Uma aplicação web completa com uma secção por cada workflow
+Analogia n8n: Todos os teus workflows de n8n num só ecrã, sem n8n
+Melhor para: Quem quer migrar tudo e ter uma vista unificada
+Quando NÃO usar: Se os workflows não tiverem relação entre si — melhor separá-los
+```
+
+---
+
+Opções de onde o executar:
+
+| Opção | Como funciona | Ideal para |
 |---|---|---|
-| **En tu ordenador** | Se ejecuta en local, siempre activo con pm2 | Uso personal, privacidad, sin costes extra |
-| **En internet (Vercel)** | Publicado online, accesible desde cualquier lugar | Multiusuario, webhooks de terceros, acceso remoto |
-| **En internet — plan gratuito** | Vercel gratis + servicio externo para tareas frecuentes | Quien no quiere pagar, con crons poco frecuentes |
+| **No teu computador** | Executa-se em local, sempre ativo com pm2 | Uso pessoal, privacidade, sem custos extra |
+| **Na internet (Vercel)** | Publicado online, acessível de qualquer lugar | Multi-utilizador, webhooks de terceiros, acesso remoto |
+| **Na internet — plano gratuito** | Vercel grátis + serviço externo para tarefas frequentes | Quem não quer pagar, com crons pouco frequentes |
 
-⚠️ **Vercel gratis tiene un limite**: Las tareas automaticas que se ejecutan mas de 1 vez al dia requieren plan de pago ($20/mes). Para quienes usan Vercel gratis y necesitan ejecuciones frecuentes (cada 5min, cada hora), recomend usar un servicio gratuito externo como cron-job.org que "llame" a la aplicacion.
-
----
-
-### A5. Detectar mejoras
-
-Solo reportar las que apliquen. Ordenadas por impacto.
-
-**🔴 Critico — Seguridad:**
-- API keys o tokens escritos directamente en el workflow → Siempre deben estar en un archivo `.env` separado que nunca se comparte
-- Tokens que expiran (Instagram, Meta) sin logica de renovacion → Implementar renovacion automatica
-- Credenciales en URLs → Moverlas a cabeceras de autorizacion
-
-**🟡 Importante — Eficiencia:**
-- Usa un servicio de pago para algo con alternativa gratuita (ej: Apify para transcripciones de YouTube cuando YouTube ofrece subtitulos gratis)
-- Modelo de IA caro para una tarea simple de clasificacion → Los modelos pequeños (Haiku, Flash) clasifican igual de bien y cuestan 10x menos
-- Varias llamadas a IA donde una sola bastaria → Consolidar en un unico prompt
-
-**🟡 Importante — Fiabilidad:**
-- Sin manejo de errores → Si falla un paso, todo se detiene. Agregar recuperacion de errores para que continue con el siguiente item
-- Sin control de duplicados → Puede procesar el mismo dato varias veces. Verificar si ya fue procesado antes de actuar
-- Procesamiento uno a uno cuando podria ir en paralelo → Hacer varias cosas a la vez cuando no dependen entre si
-
-**🟢 Mejora — Simplicidad:**
-- N nodos identicos con configuracion diferente → Un bucle sobre una lista de configuraciones (ej: 14 nodos para 14 canales → 1 bucle con 14 elementos en una lista)
-- Logica enredada entre muchos nodos → Simplificar a logica directa
-- Workflow que hace demasiadas cosas → Dividir en workflows mas pequenos con una responsabilidad cada uno
+⚠️ **Vercel grátis tem um limite**: As tarefas automáticas que se executam mais do que 1 vez por dia requerem plano pago ($20/mês). Para quem usa Vercel grátis e precisa de execuções frequentes (cada 5min, cada hora), recomenda-se usar um serviço gratuito externo como cron-job.org que "chame" a aplicação.
 
 ---
 
-### Estrategia de migracion paralela (solo si esta en produccion)
+### A5. Detetar melhorias
 
-Si el workflow parece estar en produccion activa, anadir siempre:
+Reportar só as que se aplicam. Ordenadas por impacto.
+
+**🔴 Crítico — Segurança:**
+- API keys ou tokens escritas diretamente no workflow → Devem sempre estar num ficheiro `.env` separado que nunca se partilha
+- Tokens que expiram (Instagram, Meta) sem lógica de renovação → Implementar renovação automática
+- Credenciais em URLs → Movê-las para cabeçalhos de autorização
+
+**🟡 Importante — Eficiência:**
+- Usa um serviço pago para algo com alternativa gratuita (ex: Apify para transcrições de YouTube quando o YouTube oferece legendas grátis)
+- Modelo de IA caro para uma tarefa simples de classificação → Os modelos pequenos (Haiku, Flash) classificam igual de bem e custam 10x menos
+- Várias chamadas a IA onde uma só bastaria → Consolidar num único prompt
+
+**🟡 Importante — Fiabilidade:**
+- Sem tratamento de erros → Se um passo falhar, tudo pára. Adicionar recuperação de erros para que continue com o item seguinte
+- Sem controlo de duplicados → Pode processar o mesmo dado várias vezes. Verificar se já foi processado antes de atuar
+- Processamento um a um quando poderia ir em paralelo → Fazer várias coisas ao mesmo tempo quando não dependem entre si
+
+**🟢 Melhoria — Simplicidade:**
+- N nodes idênticos com configuração diferente → Um ciclo sobre uma lista de configurações (ex: 14 nodes para 14 canais → 1 ciclo com 14 elementos numa lista)
+- Lógica emaranhada entre muitos nodes → Simplificar para lógica direta
+- Workflow que faz demasiadas coisas → Dividir em workflows mais pequenos com uma responsabilidade cada um
+
+---
+
+### Estratégia de migração paralela (só se estiver em produção)
+
+Se o workflow parecer estar em produção ativa, acrescentar sempre:
 
 ```
-⚠️ Este workflow parece estar en produccion activa.
-Recomiendo no apagar n8n hasta validar que la nueva version funciona igual.
+⚠️ Este workflow parece estar em produção ativa.
+Recomendo não desligar o n8n até validar que a nova versão funciona igual.
 
-Plan sugerido:
-1. Construir la version nueva en paralelo (sin tocar n8n)
-2. Ejecutar ambas versiones durante 3-5 dias comparando resultados
-3. Cuando la nueva version da los mismos resultados → apagar n8n
-4. Que validar: que los datos guardados son identicos, que las notificaciones llegan igual, que no hay duplicados
+Plano sugerido:
+1. Construir a versão nova em paralelo (sem tocar no n8n)
+2. Executar ambas as versões durante 3-5 dias a comparar resultados
+3. Quando a nova versão der os mesmos resultados → desligar o n8n
+4. Que validar: que os dados guardados são idênticos, que as notificações chegam igual, que não há duplicados
 ```
 
 ---
 
-## MODO PORTFOLIO — Multiples workflows
+## MODO PORTFOLIO — Múltiplos workflows
 
-Cuando el usuario pega 2 o mas JSONs. Procesar todos antes de responder.
+Quando o utilizador cola 2 ou mais JSONs. Processar todos antes de responder.
 
-### P1. Analizar cada workflow (pasos A1-A3 para cada uno)
+### P1. Analisar cada workflow (passos A1-A3 para cada um)
 
-Crear internamente una tabla con:
-- Nombre del workflow
-- Que hace (1 frase)
+Criar internamente uma tabela com:
+- Nome do workflow
+- O que faz (1 frase)
 - Tipo (cron / evento / manual / UI)
-- Complejidad (baja / media / alta)
-- Servicios que usa
-- Esta en produccion (si/no)
-- Puntuacion de migracion (ver P2)
+- Complexidade (baixa / média / alta)
+- Serviços que usa
+- Está em produção (sim/não)
+- Pontuação de migração (ver P2)
 
-### P2. Puntuar cada workflow para priorizar
+### P2. Pontuar cada workflow para priorizar
 
-Calcular una puntuacion de "migrar primero" basada en:
+Calcular uma pontuação de "migrar primeiro" baseada em:
 
-| Factor | Puntos |
+| Fator | Pontos |
 |---|---|
-| Complejidad baja | +3 |
-| Complejidad media | +1 |
-| Complejidad alta | -1 |
-| No esta en produccion | +2 |
-| Esta en produccion | -1 (migrar con cuidado) |
-| Usa IA (puede mejorar con Claude) | +2 |
-| Tiene credenciales hardcodeadas | +3 (urgente arreglar) |
-| Muchos nodos duplicados (simplificacion obvia) | +2 |
-| Depende de otro workflow de la lista | -1 (migrar despues del que depende) |
+| Complexidade baixa | +3 |
+| Complexidade média | +1 |
+| Complexidade alta | -1 |
+| Não está em produção | +2 |
+| Está em produção | -1 (migrar com cuidado) |
+| Usa IA (pode melhorar com Claude) | +2 |
+| Tem credenciais hardcoded | +3 (urgente corrigir) |
+| Muitos nodes duplicados (simplificação óbvia) | +2 |
+| Depende de outro workflow da lista | -1 (migrar depois daquele de que depende) |
 
-### P3. Detectar solapamientos
+### P3. Detetar sobreposições
 
-Buscar entre todos los workflows:
-- Los que usan las mismas APIs → pueden compartir la conexion
-- Los que guardan datos en el mismo sitio → pueden compartir la base de datos
-- Los que envian notificaciones por el mismo canal → pueden consolidarse
-- Logica identica en varios → puede convertirse en una funcion compartida
+Procurar entre todos os workflows:
+- Os que usam as mesmas APIs → podem partilhar a ligação
+- Os que guardam dados no mesmo sítio → podem partilhar a base de dados
+- Os que enviam notificações pelo mesmo canal → podem consolidar-se
+- Lógica idêntica em vários → pode converter-se numa função partilhada
 
-### P4. Proponer arquitectura global
+### P4. Propor arquitetura global
 
-Segun lo encontrado, recomendar:
+Conforme o encontrado, recomendar:
 
-**Si los workflows son independientes y sin relacion** → Migrarlos por separado como scripts/tareas independientes
+**Se os workflows são independentes e sem relação** → Migrá-los em separado como scripts/tarefas independentes
 
-**Si comparten datos o APIs pero sin UI** → Migrarlos como modulos de un mismo proyecto con logica compartida
+**Se partilham dados ou APIs mas sem UI** → Migrá-los como módulos de um mesmo projeto com lógica partilhada
 
-**Si hay 3+ workflows relacionados y se beneficiarian de una interfaz** → Mission Control unificado
+**Se há 3+ workflows relacionados e beneficiariam de uma interface** → Mission Control unificado
 
-### P5. Generar y guardar el roadmap
+### P5. Gerar e guardar o roadmap
 
-Crear el archivo `migration-roadmap.md` en el directorio actual con este contenido:
+Criar o ficheiro `migration-roadmap.md` no diretório atual com este conteúdo:
 
 ```markdown
-# Roadmap de Migración — {fecha}
+# Roadmap de Migração — {data}
 
-## Resumen
-- Total workflows analizados: N
-- Recomendacion general: {arquitectura recomendada}
-- Tiempo estimado total: {estimacion}
+## Resumo
+- Total workflows analisados: N
+- Recomendação geral: {arquitetura recomendada}
+- Tempo estimado total: {estimativa}
 
 ## Mapa de workflows
 
-| # | Workflow | Que hace | Tipo | Complejidad | Produccion | Puntuacion |
+| # | Workflow | O que faz | Tipo | Complexidade | Produção | Pontuação |
 |---|---|---|---|---|---|---|
 | 1 | ... | ... | ... | ... | ... | ... |
 
-## Solapamientos detectados
-{lista de coincidencias entre workflows}
+## Sobreposições detetadas
+{lista de coincidências entre workflows}
 
-## Plan por fases
+## Plano por fases
 
-### Fase 1 — Quick wins (empezar aqui)
-{workflows con puntuacion alta, complejidad baja}
-- [ ] Workflow X — {razon por la que es facil}
-- [ ] Workflow Y — {razon}
+### Fase 1 — Quick wins (começar aqui)
+{workflows com pontuação alta, complexidade baixa}
+- [ ] Workflow X — {razão pela qual é fácil}
+- [ ] Workflow Y — {razão}
 
-### Fase 2 — Workflows medios
-{workflows con complejidad media}
+### Fase 2 — Workflows médios
+{workflows com complexidade média}
 - [ ] Workflow Z
 
-### Fase 3 — Workflows complejos o en produccion critica
-{workflows delicados, migrar con estrategia paralela}
-- [ ] Workflow W — ⚠️ En produccion, migrar en paralelo
+### Fase 3 — Workflows complexos ou em produção crítica
+{workflows delicados, migrar com estratégia paralela}
+- [ ] Workflow W — ⚠️ Em produção, migrar em paralelo
 
-## Credenciales con problemas detectados
-{lista de workflows con tokens hardcodeados — arreglar antes de migrar}
+## Credenciais com problemas detetados
+{lista de workflows com tokens hardcoded — corrigir antes de migrar}
 
-## Arquitectura recomendada
-{descripcion de como encajaria todo junto}
+## Arquitetura recomendada
+{descrição de como encaixaria tudo junto}
 ```
 
-Guardar el archivo y decirle al usuario:
-> "He guardado el plan en `migration-roadmap.md`. Puedes pedirme que lo consulte en cualquier momento para retomar desde donde lo dejamos."
+Guardar o ficheiro e dizer ao utilizador:
+> "Guardei o plano em `migration-roadmap.md`. Podes pedir-me para o consultar a qualquer momento para retomar de onde ficámos."
 
 ---
 
-## MODO DESCRIPCION — Sin JSON
+## MODO DESCRIÇÃO — Sem JSON
 
-Cuando el usuario no tiene el JSON pero describe su workflow. Hacer estas preguntas en orden, de una en una (no todas a la vez):
+Quando o utilizador não tem o JSON mas descreve o seu workflow. Fazer estas perguntas por ordem, uma de cada vez (não todas ao mesmo tempo):
 
-1. "¿Que desencadena el workflow? ¿Se ejecuta solo en un horario, cuando pasa algo concreto, o lo arrancas tu manualmente?"
+1. "O que desencadeia o workflow? Executa-se sozinho num horário, quando algo concreto acontece, ou arrancas tu manualmente?"
 
-2. "¿De donde viene la informacion que procesa? ¿De un email, una web, una hoja de calculo, un formulario...?"
+2. "De onde vem a informação que processa? De um email, de uma web, de uma folha de cálculo, de um formulário...?"
 
-3. "¿Que hace con esa informacion? Descríbelo como si se lo explicaras a alguien que no sabe de tecnologia."
+3. "O que faz com essa informação? Descreve-o como se o explicasses a alguém que não percebe de tecnologia."
 
-4. "¿Usa algun tipo de inteligencia artificial en algun paso? ¿Para clasificar, resumir, generar texto...?"
+4. "Usa algum tipo de inteligência artificial em algum passo? Para classificar, resumir, gerar texto...?"
 
-5. "¿Donde va el resultado final? ¿Se guarda en algún sitio, se envia por email, WhatsApp, Slack...?"
+5. "Onde vai o resultado final? Guarda-se nalgum sítio, envia-se por email, WhatsApp, Slack...?"
 
-6. "¿Con que frecuencia se ejecuta este workflow?"
+6. "Com que frequência se executa este workflow?"
 
-Con las respuestas, reconstruir la logica y continuar como si fuera un MODO ANALISIS normal, avisando:
-> "Basandome en lo que me has descrito, esto es lo que entiendo que hace tu workflow: [resumen]. ¿Es correcto antes de continuar?"
+Com as respostas, reconstruir a lógica e continuar como se fosse um MODO ANÁLISE normal, avisando:
+> "Com base no que me descreveste, isto é o que percebo que faz o teu workflow: [resumo]. Está correto antes de continuar?"
 
 ---
 
-## EJE APRENDIZAJE vs CONSTRUCCION
+## EIXO APRENDIZAGEM vs CONSTRUÇÃO
 
-Este eje se puede combinar con cualquier modo (Analisis, Portfolio, Descripcion).
+Este eixo pode combinar-se com qualquer modo (Análise, Portfolio, Descrição).
 
-### Modo Aprendizaje
+### Modo Aprendizagem
 
-Activar cuando el usuario quiere entender, no solo recibir el resultado.
+Ativar quando o utilizador quer perceber, não só receber o resultado.
 
-En este modo:
-- **Explicar el "por que"** de cada decision arquitectonica, no solo el "que"
-- **Usar analogias con n8n**: "esto seria como si el nodo X de n8n pudiera hacer Y directamente"
-- **Evitar codigo en las explicaciones iniciales** — primero el concepto, luego el codigo si lo pide
-- **Guiar paso a paso**: "Primero entendamos como funciona X, luego veremos como se construye"
-- **Preguntar si se entiende** antes de pasar al siguiente concepto
+Neste modo:
+- **Explicar o "porquê"** de cada decisão arquitetónica, não só o "quê"
+- **Usar analogias com n8n**: "isto seria como se o node X de n8n pudesse fazer Y diretamente"
+- **Evitar código nas explicações iniciais** — primeiro o conceito, depois o código se o pedir
+- **Guiar passo a passo**: "Primeiro percebamos como funciona X, depois vemos como se constrói"
+- **Perguntar se se percebeu** antes de passar ao conceito seguinte
 
-Ejemplo de respuesta en modo aprendizaje:
+Exemplo de resposta no modo aprendizagem:
 ```
-En n8n, el nodo Schedule Trigger le dice a n8n "ejecuta esto cada hora".
-En Claude Code, hacemos lo mismo pero sin depender de n8n: usamos algo llamado
-"tarea programada" que le dice al sistema operativo de tu ordenador (o al servidor)
-que ejecute un script en el horario que indiques. El resultado es exactamente
-el mismo, pero ya no necesitas tener n8n encendido para que funcione.
+No n8n, o node Schedule Trigger diz ao n8n "executa isto a cada hora".
+Em Claude Code, fazemos o mesmo mas sem depender do n8n: usamos algo chamado
+"tarefa programada" que diz ao sistema operativo do teu computador (ou ao servidor)
+para executar um script no horário que indicares. O resultado é exatamente
+o mesmo, mas já não precisas de ter o n8n ligado para que funcione.
 ```
 
-### Modo Construccion
+### Modo Construção
 
-Activar cuando el usuario quiere implementacion directa.
+Ativar quando o utilizador quer implementação direta.
 
-En este modo:
-- **Generar todo el codigo necesario** sin esperar confirmacion
-- **Incluir instrucciones de setup paso a paso**, pensadas para alguien no tecnico:
-  - Que instalar (con los comandos exactos)
-  - Que archivos crear y donde
-  - Como configurar las variables de entorno
-  - Como arrancarlo y verificar que funciona
-- **Anticipar problemas comunes** y como resolverlos
-- **No explicar el codigo en detalle** — solo lo justo para que pueda arrancarlo
+Neste modo:
+- **Gerar todo o código necessário** sem esperar confirmação
+- **Incluir instruções de setup passo a passo**, pensadas para alguém não técnico:
+  - O que instalar (com os comandos exatos)
+  - Que ficheiros criar e onde
+  - Como configurar as variáveis de ambiente
+  - Como o arrancar e verificar que funciona
+- **Antecipar problemas comuns** e como os resolver
+- **Não explicar o código em detalhe** — só o suficiente para que o consiga arrancar
 
 ---
 
-## Formato de output — MODO ANALISIS
+## Formato de output — MODO ANÁLISE
 
 ```
-## {Nombre del workflow}
+## {Nome do workflow}
 
-**Que hace:** {2-3 frases en lenguaje simple, sin jerga}
-**Como se activa:** {horario fijo / cuando pasa X / manualmente}
-**Servicios que usa:** {lista}
-**Usa IA:** {si — para que / no}
-**Guarda datos:** {si — donde / no}
-**Estado:** {⚠️ Parece estar en produccion / Parece ser de pruebas}
-
----
-
-### Como quedaria en Claude Code
-
-**Arquitectura recomendada:** {Script / Skill / Modulo web / Mission Control}
-**Donde ejecutarlo:** {En tu ordenador / En internet (Vercel) / En internet gratis + cron externo}
-
-{Descripcion en 3-5 frases de como funcionaria, con analogias a n8n}
-
-{Si esta en produccion: incluir bloque de estrategia de migracion paralela}
+**O que faz:** {2-3 frases em linguagem simples, sem jargão}
+**Como se ativa:** {horário fixo / quando acontece X / manualmente}
+**Serviços que usa:** {lista}
+**Usa IA:** {sim — para quê / não}
+**Guarda dados:** {sim — onde / não}
+**Estado:** {⚠️ Parece estar em produção / Parece ser de testes}
 
 ---
 
-### Mejoras que detecte
-{Solo las que aplican, con nivel 🔴/🟡/🟢 y explicacion en lenguaje simple}
+### Como ficaria em Claude Code
+
+**Arquitetura recomendada:** {Script / Skill / Módulo web / Mission Control}
+**Onde o executar:** {No teu computador / Na internet (Vercel) / Na internet grátis + cron externo}
+
+{Descrição em 3-5 frases de como funcionaria, com analogias ao n8n}
+
+{Se está em produção: incluir bloco de estratégia de migração paralela}
 
 ---
 
-### Opciones
-[A] {recomendada — con razon en 1 frase} ← Recomendado
-[B] {alternativa si existe}
+### Melhorias que detetei
+{Só as que se aplicam, com nível 🔴/🟡/🟢 e explicação em linguagem simples}
 
 ---
 
-¿Lo implemento directamente o prefieres que te explique primero como funcionaria?
+### Opções
+[A] {recomendada — com razão em 1 frase} ← Recomendado
+[B] {alternativa se existir}
+
+---
+
+Implemento-o diretamente ou preferes que te explique primeiro como funcionaria?
 ```
 
 ---
@@ -433,40 +433,40 @@ En este modo:
 ## Formato de output — MODO PORTFOLIO
 
 ```
-## Analisis de tus {N} workflows
+## Análise dos teus {N} workflows
 
-{Tabla resumen de todos los workflows con puntuacion}
+{Tabela resumo de todos os workflows com pontuação}
 
 ---
 
-### Lo que encontre en comun
-{solapamientos detectados}
+### O que encontrei em comum
+{sobreposições detetadas}
 
-### Mi recomendacion general
-{arquitectura global recomendada + razon en 2-3 frases}
+### A minha recomendação geral
+{arquitetura global recomendada + razão em 2-3 frases}
 
-### Por donde empezar
+### Por onde começar
 **Esta semana (quick wins):** Workflow X, Workflow Y
-**Despues:** Workflow Z
-**Con cuidado (en produccion):** Workflow W
+**Depois:** Workflow Z
+**Com cuidado (em produção):** Workflow W
 
 ---
 
-He guardado el plan detallado en `migration-roadmap.md`.
-Cuando quieras empezar con el primero, dimelo y lo implementamos.
+Guardei o plano detalhado em `migration-roadmap.md`.
+Quando quiseres começar com o primeiro, diz-me e implementamo-lo.
 ```
 
 ---
 
-## Reglas
+## Regras
 
-1. **Siempre en español** — a no ser que el usuario escriba en otro idioma, en cuyo caso responder en el mismo idioma
-2. **Lenguaje accesible** — si usas un termino tecnico, explicalo entre parentesis la primera vez
-3. **Credenciales hardcodeadas** — siempre reportarlas, es lo primero antes de cualquier analisis
-4. **JSON invalido** → "Esto no parece un workflow de n8n. Necesito un JSON que contenga `nodes` y `connections`."
-5. **Nodo sin mapeo** → Investigar y proponer equivalente marcado como "mapeo personalizado — requiere verificar"
-6. **No gastar dinero ni hacer comunicacion externa** sin instruccion explicita del usuario
-7. **Antes de implementar**, confirmar el approach — salvo que el usuario haya dicho explicitamente "implementa" o este en Modo Construccion
-8. **Si hay UI o dashboard** → Preguntar si ya existe un proyecto activo antes de proponer crear uno nuevo
-9. **Si hay 3+ workflows** → Detectar automaticamente si conviene Mission Control y preguntar antes de proponerlo
-10. **Siempre al final** → Ofrecer la eleccion entre Aprendizaje y Construccion si el usuario no lo ha indicado
+1. **Sempre em português** — exceto se o utilizador escrever noutra língua, caso em que se responde na mesma língua
+2. **Linguagem acessível** — se usares um termo técnico, explica-o entre parênteses na primeira vez
+3. **Credenciais hardcoded** — reporta-as sempre, é o primeiro antes de qualquer análise
+4. **JSON inválido** → "Isto não parece um workflow de n8n. Preciso de um JSON que contenha `nodes` e `connections`."
+5. **Node sem mapeamento** → Investigar e propor equivalente marcado como "mapeamento personalizado — requer verificação"
+6. **Não gastar dinheiro nem fazer comunicação externa** sem instrução explícita do utilizador
+7. **Antes de implementar**, confirmar a abordagem — exceto se o utilizador tiver dito explicitamente "implementa" ou estiver no Modo Construção
+8. **Se houver UI ou dashboard** → Perguntar se já existe um projeto ativo antes de propor criar um novo
+9. **Se houver 3+ workflows** → Detetar automaticamente se convém Mission Control e perguntar antes de o propor
+10. **Sempre no fim** → Oferecer a escolha entre Aprendizagem e Construção se o utilizador não a tiver indicado

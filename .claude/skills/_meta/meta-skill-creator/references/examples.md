@@ -1,85 +1,85 @@
-# Ejemplos completos de skill creation
+# Exemplos completos de skill creation
 
-## Ejemplo 1 · Skill compleja con references — `marketing-blog-writer`
+## Exemplo 1 · Skill complexa com references — `marketing-blog-writer`
 
-**Situación**: el usuario quiere una skill que genere posts de blog SEO-optimizados desde una idea + el brand context.
+**Situação**: o utilizador quer uma skill que gere posts de blog SEO-otimizados a partir de uma ideia + o brand context.
 
-### Conversación
+### Conversa
 
-**Usuario**: "Crea una skill que escriba blogs SEO desde un título"
+**Utilizador**: "Cria uma skill que escreva blogs SEO a partir de um título"
 
 **Claude (meta-skill-creator)**:
-- Categoría sugerida: `marketing` → nombre `marketing-blog-writer`
-- Descripción candidata: "Genera posts de blog SEO-optimizados de 1200-1800 palabras desde un título o idea, usando brand-voice del operador, con keywords detectados, hook narrativo, CTA al final, y meta description. Invoca tool-output-verifier antes de entregar."
-- Pasa los 3 tests (activación / longitud 240 chars / única).
-- ¿Skills colabora con? `tool-output-verifier` (gate), opcional `tool-firecrawl-scraper` (si pide investigar competidores).
-- ¿Scripts? No. Todo Claude.
+- Categoria sugerida: `marketing` → nome `marketing-blog-writer`
+- Descrição candidata: "Gera posts de blog SEO-otimizados de 1200-1800 palavras a partir de um título ou ideia, usando brand-voice do operador, com keywords detetadas, hook narrativo, CTA no final, e meta description. Invoca tool-output-verifier antes de entregar."
+- Passa os 3 testes (ativação / comprimento 240 chars / única).
+- Que skills colabora com? `tool-output-verifier` (gate), opcional `tool-firecrawl-scraper` (se pedir para investigar concorrentes).
+- Scripts? Não. Tudo Claude.
 
-### Estructura generada
+### Estrutura gerada
 
 ```
 .claude/skills/marketing/marketing-blog-writer/
 ├── SKILL.md
 └── references/
-    ├── examples.md           (2-3 blog posts de ejemplo)
-    ├── seo-checklist.md      (H1/H2 jerarquía, density, alt-text)
-    └── hook-frameworks.md    (5 patrones de hook narrativo)
+    ├── examples.md           (2-3 blog posts de exemplo)
+    ├── seo-checklist.md      (hierarquia H1/H2, density, alt-text)
+    └── hook-frameworks.md    (5 padrões de hook narrativo)
 ```
 
-### SKILL.md resultante (resumen)
+### SKILL.md resultante (resumo)
 
 ```markdown
 ---
 name: marketing-blog-writer
-description: Genera posts de blog SEO-optimizados de 1200-1800 palabras desde título o idea. Usa brand-voice del operador, detecta keywords, aplica hook narrativo, CTA al final, meta description. Invoca tool-output-verifier antes de entregar.
+description: Gera posts de blog SEO-otimizados de 1200-1800 palavras a partir de título ou ideia. Usa brand-voice do operador, deteta keywords, aplica hook narrativo, CTA no fim, meta description. Invoca tool-output-verifier antes de entregar.
 ---
 
 # Marketing Blog Writer
 
-## Cuándo se invoca
-- Usuario dice: "escribe un blog sobre X", "necesito un post de blog SEO"
-- Skill marketing-content-repurposing la llama tras procesar transcript de YouTube
+## Quando é invocada
+- Utilizador diz: "escreve um blog sobre X", "preciso de um post de blog SEO"
+- Skill marketing-content-repurposing chama-a depois de processar transcript de YouTube
 
 ## Process
-### Paso 1 · Validar inputs
-- Título o idea: obligatorio
-- Audiencia: leer brand-context/icp/icp.md si no se especifica
-- Tono: leer brand-context/voice/voice-profile.md
+### Passo 1 · Validar inputs
+- Título ou ideia: obrigatório
+- Audiência: ler brand-context/icp/icp.md se não se especificar
+- Tom: ler brand-context/voice/voice-profile.md
 
-### Paso 2 · Investigar keywords
-- Si firecrawl disponible → invoca tool-firecrawl-scraper en 3 competidores top
-- Si no → keywords manuales basados en brand-context/positioning
+### Passo 2 · Investigar keywords
+- Se firecrawl disponível → invoca tool-firecrawl-scraper em 3 concorrentes top
+- Se não → keywords manuais baseadas em brand-context/positioning
 
-### Paso 3 · Generar outline
+### Passo 3 · Gerar outline
 - Hook (ver references/hook-frameworks.md)
-- 3-5 H2 con H3 anidados según jerarquía SEO
-- CTA contextual al ICP
+- 3-5 H2 com H3 aninhados segundo hierarquia SEO
+- CTA contextual ao ICP
 
-### Paso 4 · Redactar
-- Aplicar voice-profile (registro B divulgativo por defecto, ajustable)
+### Passo 4 · Redigir
+- Aplicar voice-profile (registo B divulgativo por defeito, ajustável)
 - 1200-1800 words
-- Insertar keywords naturalmente
+- Inserir keywords naturalmente
 
-### Paso 5 · Verificar
-- invoca tool-output-verifier con focus: blog-seo
-- Si score < 7/10, revisar y reintentar paso 4
+### Passo 5 · Verificar
+- invoca tool-output-verifier com focus: blog-seo
+- Se score < 7/10, rever e retentar passo 4
 
-### Paso 6 · Cierre
-- Output a projects/marketing-blog-writer/YYYY-MM-DD-<slug>/
-- Genera: post.md + meta.md (title-tag, meta-description, OG image suggestion)
-- Append learnings si hay aprendizaje
+### Passo 6 · Fecho
+- Output para projects/marketing-blog-writer/YYYY-MM-DD-<slug>/
+- Gera: post.md + meta.md (title-tag, meta-description, OG image suggestion)
+- Append learnings se houver aprendizagem
 
 ## Outputs
-- projects/marketing-blog-writer/<fecha>-<slug>/post.md
-- projects/marketing-blog-writer/<fecha>-<slug>/meta.md
+- projects/marketing-blog-writer/<data>-<slug>/post.md
+- projects/marketing-blog-writer/<data>-<slug>/meta.md
 
-## Skills que llama
-- tool-output-verifier (gate obligatorio)
-- tool-firecrawl-scraper (opcional, en paso 2)
+## Skills que chama
+- tool-output-verifier (gate obrigatório)
+- tool-firecrawl-scraper (opcional, no passo 2)
 
 ## Edge cases
-- Si no hay brand-voice → usar registro B "neutro divulgativo" + warning al usuario
-- Si firecrawl no responde → continuar sin investigación competitiva, marcar en meta.md
+- Se não houver brand-voice → usar registo B "neutro divulgativo" + warning ao utilizador
+- Se firecrawl não responder → continuar sem investigação competitiva, marcar em meta.md
 
 ## Examples
 Ver references/examples.md
@@ -87,13 +87,13 @@ Ver references/examples.md
 
 ---
 
-## Ejemplo 2 · Skill con script Python — `tool-pdf-summarizer`
+## Exemplo 2 · Skill com script Python — `tool-pdf-summarizer`
 
-**Situación**: necesitas resumir PDFs largos (200+ páginas) sin gastar contexto.
+**Situação**: precisas de resumir PDFs longos (200+ páginas) sem gastar contexto.
 
-**Decisión clave**: extracción del PDF con script (rápido, no consume tokens), resumen con Claude (calidad).
+**Decisão-chave**: extração do PDF com script (rápido, não consome tokens), resumo com Claude (qualidade).
 
-### Estructura
+### Estrutura
 
 ```
 .claude/skills/tools/tool-pdf-summarizer/
@@ -104,103 +104,103 @@ Ver references/examples.md
     └── examples.md
 ```
 
-### Flujo
+### Fluxo
 
-1. Usuario pide resumir PDF
-2. SKILL.md ejecuta `bash` → `python3 scripts/extract.py <pdf-path>` → devuelve texto en stdout o archivo temporal
-3. Claude lee el texto extraído (en bloques si es largo, usando subagent si supera 50K tokens)
-4. Genera resumen estructurado
-5. Cleanup del temporal
-6. Output a `projects/tool-pdf-summarizer/YYYY-MM-DD-<nombre>/resumen.md`
+1. Utilizador pede para resumir PDF
+2. SKILL.md executa `bash` → `python3 scripts/extract.py <pdf-path>` → devolve texto em stdout ou ficheiro temporário
+3. Claude lê o texto extraído (em blocos se for longo, usando subagent se passar dos 50K tokens)
+4. Gera resumo estruturado
+5. Cleanup do temporário
+6. Output para `projects/tool-pdf-summarizer/YYYY-MM-DD-<nome>/resumo.md`
 
-### Por qué script y no todo Claude
+### Porquê script e não tudo Claude
 
-- PDFs de 200 páginas = ~50K tokens solo para leer
-- Script Python con PyPDF2 hace lo mismo en <2 segundos sin tokens
-- Claude solo procesa el texto extraído (puede usar subagent para chunks)
+- PDFs de 200 páginas = ~50K tokens só para ler
+- Script Python com PyPDF2 faz o mesmo em <2 segundos sem tokens
+- Claude só processa o texto extraído (pode usar subagent para chunks)
 
 ---
 
-## Ejemplo 3 · Skill simple sin references — `_meta/meta-changelog-bumper`
+## Exemplo 3 · Skill simples sem references — `_meta/meta-changelog-bumper`
 
-**Situación**: cada vez que cierras release, hay que actualizar CHANGELOG.md con los commits desde la versión anterior. Es repetitivo y mecánico.
+**Situação**: cada vez que fechas um release, é preciso atualizar o CHANGELOG.md com os commits desde a versão anterior. É repetitivo e mecânico.
 
-### Decisión
+### Decisão
 
-- ¿Skill o slash command? → Slash command (`/bump-changelog`) sería más rápido si solo hace 1 cosa.
-- Pero queremos que se invoque desde otras skills (release flow), así que **skill simple sin references**.
+- Skill ou slash command? → Slash command (`/bump-changelog`) seria mais rápido se só fizesse 1 coisa.
+- Mas queremos que seja invocada a partir de outras skills (release flow), por isso **skill simples sem references**.
 
-### Estructura
+### Estrutura
 
 ```
 .claude/skills/_meta/meta-changelog-bumper/
 └── SKILL.md
 ```
 
-Sin references/ porque no hay knowledge a separar. SKILL.md ~600 chars total.
+Sem references/ porque não há knowledge a separar. SKILL.md ~600 chars no total.
 
 ### SKILL.md
 
 ```markdown
 ---
 name: meta-changelog-bumper
-description: Actualiza CHANGELOG.md con los commits desde la última tag de versión. Detecta cambios por categoría (Added/Changed/Fixed/Removed) usando keywords de conventional commits. Invocada por release skill o manualmente.
+description: Atualiza CHANGELOG.md com os commits desde a última tag de versão. Deteta alterações por categoria (Added/Changed/Fixed/Removed) usando keywords de conventional commits. Invocada por release skill ou manualmente.
 ---
 
 # meta-changelog-bumper
 
-## Cuándo se invoca
-- Usuario dice: "actualiza el changelog"
-- Skill de release la llama tras crear nueva tag
+## Quando é invocada
+- Utilizador diz: "atualiza o changelog"
+- Skill de release chama-a depois de criar nova tag
 
 ## Process
-### Paso 1 · Detectar última versión
+### Passo 1 · Detetar última versão
 - bash: git describe --tags --abbrev=0
-- Si no hay tags: empezar desde primer commit
+- Se não houver tags: começar desde primeiro commit
 
-### Paso 2 · Listar commits desde esa tag
+### Passo 2 · Listar commits desde essa tag
 - bash: git log <last-tag>..HEAD --oneline
 
-### Paso 3 · Clasificar
+### Passo 3 · Classificar
 - feat: → Added
 - fix: → Fixed
 - refactor:/style:/perf: → Changed
-- BREAKING CHANGE: o !: → marcar como ⚠️
+- BREAKING CHANGE: ou !: → marcar como ⚠️
 - removed:/deprecated: → Removed
 
-### Paso 4 · Generar entrada
-- Insertar al inicio de CHANGELOG.md después de la sección [Unreleased]
+### Passo 4 · Gerar entrada
+- Inserir no início de CHANGELOG.md depois da secção [Unreleased]
 - Formato Keep a Changelog 1.1.0
-- Fecha del día
+- Data do dia
 
-### Paso 5 · Cierre
-- Mostrar diff al usuario antes de guardar
-- Pedir aprobación
-- No commit automático (lo hace release skill)
+### Passo 5 · Fecho
+- Mostrar diff ao utilizador antes de guardar
+- Pedir aprovação
+- Sem commit automático (fá-lo a release skill)
 
 ## Outputs
 - Edit a CHANGELOG.md
 
 ## Edge cases
-- Si no hay commits desde última tag: avisar y no editar
-- Si hay BREAKING CHANGE: añadir warning visible
+- Se não houver commits desde última tag: avisar e não editar
+- Se houver BREAKING CHANGE: adicionar warning visível
 
 ## Examples
-- Llamada: "actualiza el changelog"
-- Output esperado: ## v0.2.0 - 2026-05-07 con secciones Added/Changed/Fixed
+- Chamada: "atualiza o changelog"
+- Output esperado: ## v0.2.0 - 2026-05-07 com secções Added/Changed/Fixed
 ```
 
 ---
 
-## Lecciones de estos 3 ejemplos
+## Lições destes 3 exemplos
 
-| Aspecto | marketing-blog-writer | tool-pdf-summarizer | meta-changelog-bumper |
+| Aspeto | marketing-blog-writer | tool-pdf-summarizer | meta-changelog-bumper |
 |---|---|---|---|
-| Tamaño SKILL.md | 1500 tokens | 700 tokens | 400 tokens |
-| references/ | Sí (3 archivos) | Sí (1 archivo) | No |
-| scripts/ | No | Sí (Python) | No |
-| Llama otras skills | 2 | 0 | 0 |
-| Tipo | Compleja | Híbrida (script+LLM) | Simple |
-| ¿Mejor como slash command? | No, requiere proceso largo | No | Posiblemente sí, pero queremos invocarlo desde otras |
+| Tamanho SKILL.md | 1500 tokens | 700 tokens | 400 tokens |
+| references/ | Sim (3 ficheiros) | Sim (1 ficheiro) | Não |
+| scripts/ | Não | Sim (Python) | Não |
+| Chama outras skills | 2 | 0 | 0 |
+| Tipo | Complexa | Híbrida (script+LLM) | Simples |
+| Melhor como slash command? | Não, requer processo longo | Não | Possivelmente sim, mas queremos invocá-la a partir de outras |
 
-**Conclusión**: la complejidad de la skill se ajusta a la tarea. No infles ni reduzcas — escala con el problema.
+**Conclusão**: a complexidade da skill ajusta-se à tarefa. Não inches nem reduzas — escala com o problema.

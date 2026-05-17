@@ -1,161 +1,161 @@
 ---
 name: marketing-content-repurposing
-description: Convierte una pieza fuente (video YouTube, podcast, transcript reunión, blog largo) en 5-8 piezas multiplataforma respetando brand voice. Output paquete con LinkedIn post + X thread + email newsletter + Instagram caption + clips ideas + headlines blog. Invoca marketing-copywriting por cada pieza y tool-output-verifier como gate.
+description: Converte uma peça fonte (vídeo YouTube, podcast, transcript de reunião, blog longo) em 5-8 peças multiplataforma a respeitar brand voice. Output pacote com LinkedIn post + X thread + email newsletter + Instagram caption + clips ideas + headlines blog. Invoca marketing-copywriting por cada peça e tool-output-verifier como gate.
 ---
 
 # marketing-content-repurposing
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Usuario dice: "repurpose este video", "saca contenido de este podcast", "del último Café Camaleónico, sácame X piezas"
-- Tras una clase / talk / video largo, automatizar la distribución
-- Skill `strategy-trending-research` la sugiere cuando detecta un tema valioso del operador para amplificar
+- Utilizador diz: "repurpose este vídeo", "tira conteúdo deste podcast", "do último Café Camaleónico, tira-me X peças"
+- Após uma aula / talk / vídeo longo, automatizar a distribuição
+- Skill `strategy-trending-research` sugere-a quando deteta um tema valioso do operador para amplificar
 
 ## Process
 
-### Paso 1 · Identificar fuente
+### Passo 1 · Identificar fonte
 
-Tipos soportados v0.2:
-- **Video YouTube** (URL) → invoca `tool-youtube-transcript` (futura skill) o pide al usuario el transcript
-- **Audio local** (MP3/WAV) → no soportado v0.2, pedir transcript manual
-- **Transcript pegado en chat** (texto)
-- **Blog post extenso** (URL o pegado) → invoca `tool-firecrawl-scraper`
-- **Reunión / call** (transcript Zoom/Fathom)
+Tipos suportados v0.2:
+- **Vídeo YouTube** (URL) → invoca `tool-youtube-transcript` (skill futura) ou pede ao utilizador o transcript
+- **Áudio local** (MP3/WAV) → não suportado v0.2, pedir transcript manual
+- **Transcript colado no chat** (texto)
+- **Blog post extenso** (URL ou colado) → invoca `tool-firecrawl-scraper`
+- **Reunião / call** (transcript Zoom/Fathom)
 
-Pregunta al operador:
-- ¿Qué fuente?
-- ¿Qué plataformas quieres priorizar?
-- ¿Qué frecuencia? (1 paquete completo / spread en 2 semanas)
+Pergunta ao operador:
+- Que fonte?
+- Que plataformas queres priorizar?
+- Que frequência? (1 pacote completo / spread em 2 semanas)
 
-### Paso 2 · Análisis de la fuente
+### Passo 2 · Análise da fonte
 
-Leer transcript completo (si > 50K tokens, usar subagent para leer en chunks).
+Ler transcript completo (se > 50K tokens, usar subagent para ler em chunks).
 
-Extraer:
-- **3-5 ideas core** (las que tienen más sustancia)
-- **Citas memorables** (frases que se sostienen solas)
-- **Stats / números** (datos concretos mencionados)
-- **Story hooks** (anécdotas que se pueden extraer)
-- **Counterintuitive points** (puntos que contradicen consenso)
-- **Action items** (consejos accionables)
+Extrair:
+- **3-5 ideias core** (as que têm mais substância)
+- **Citações memoráveis** (frases que se sustentam sozinhas)
+- **Stats / números** (dados concretos mencionados)
+- **Story hooks** (anedotas que se podem extrair)
+- **Counterintuitive points** (pontos que contradizem o consenso)
+- **Action items** (conselhos acionáveis)
 
-Salida intermedia (no se entrega):
+Saída intermédia (não se entrega):
 ```markdown
-## Análisis de fuente
+## Análise de fonte
 
-### Ideas core
+### Ideias core
 1. ...
 2. ...
 
-### Citas memorables
-- "..." (timecode si video)
+### Citações memoráveis
+- "..." (timecode se vídeo)
 
 ### Stats
-- "47% de empresas..." (timecode)
+- "47% das empresas..." (timecode)
 
 ### Story hooks
-- "Cuando estaba con el cliente X..."
+- "Quando estava com o cliente X..."
 
 ### Counterintuitive points
-- "Lo opuesto a lo que dice el consenso es: ..."
+- "O oposto do que diz o consenso é: ..."
 
 ### Action items
 - ...
 ```
 
-### Paso 3 · Mapear a plataformas
+### Passo 3 · Mapear para plataformas
 
-Cada idea → plataforma(s) que mejor encajan:
+Cada ideia → plataforma(s) que melhor encaixam:
 
-| Idea | LinkedIn | X thread | Newsletter | Instagram | Reel/Short | Blog post |
+| Ideia | LinkedIn | X thread | Newsletter | Instagram | Reel/Short | Blog post |
 |---|:-:|:-:|:-:|:-:|:-:|:-:|
-| Idea 1 (insight contraintuitivo) | ✅ | ✅ | ✅ | | ✅ | |
-| Idea 2 (story personal) | ✅ | | ✅ | ✅ | ✅ | |
-| Idea 3 (stats) | ✅ | ✅ | | ✅ | | |
-| Idea 4 (action item) | | | ✅ | ✅ | | ✅ |
-| Idea 5 (cita) | ✅ | ✅ | | ✅ | ✅ | |
+| Ideia 1 (insight contraintuitivo) | ✅ | ✅ | ✅ | | ✅ | |
+| Ideia 2 (story pessoal) | ✅ | | ✅ | ✅ | ✅ | |
+| Ideia 3 (stats) | ✅ | ✅ | | ✅ | | |
+| Ideia 4 (action item) | | | ✅ | ✅ | | ✅ |
+| Ideia 5 (citação) | ✅ | ✅ | | ✅ | ✅ | |
 
-### Paso 4 · Generar piezas
+### Passo 4 · Gerar peças
 
 Para cada plataforma, invocar `marketing-copywriting`:
 
 ```
 marketing-copywriting:
-  brief: "[Idea core mapeada]"
+  brief: "[Ideia core mapeada]"
   platform: "linkedin"
   purpose: "thought-leadership"
-  source-context: "[Resumen 1-line de la fuente]"
+  source-context: "[Resumo 1-line da fonte]"
 ```
 
 Repetir para LinkedIn post, X thread, Newsletter, Instagram caption, Reel hook + script breve, Blog headline + outline.
 
-### Paso 5 · Validar coherencia entre piezas
+### Passo 5 · Validar coerência entre peças
 
-Las piezas no deben ser idénticas (es repurposing, no duplicación):
+As peças não devem ser idênticas (é repurposing, não duplicação):
 - LinkedIn: storytelling completo, 1500 chars
 - X thread: stats + counter-intuitive, 5-7 tweets
 - Newsletter: action items + insight, 300 words
-- Instagram: cita + visual, 200 chars caption
+- Instagram: citação + visual, 200 chars caption
 - Reel: hook 5s + payoff visual, 30s script
-- Blog: deep-dive de 1 idea, headline + outline 5 H2
+- Blog: deep-dive de 1 ideia, headline + outline 5 H2
 
-Comprobar que cada pieza:
-- Pasa el gate (`tool-output-verifier`)
-- No repite estructura idéntica de las otras
-- Aporta UN ángulo distinto del mismo tema
+Comprovar que cada peça:
+- Passa o gate (`tool-output-verifier`)
+- Não repete estrutura idêntica das outras
+- Aporta UM ângulo distinto do mesmo tema
 
-### Paso 6 · Generar paquete entregable
+### Passo 6 · Gerar pacote entregável
 
 ```
-projects/marketing-content-repurposing/<YYYY-MM-DD>-<slug-fuente>/
-├── source-analysis.md          # análisis paso 2
-├── platform-map.md             # mapeo paso 3
-├── linkedin-post.md            # variación final + 2 alternativas
+projects/marketing-content-repurposing/<YYYY-MM-DD>-<slug-fonte>/
+├── source-analysis.md          # análise passo 2
+├── platform-map.md             # mapeamento passo 3
+├── linkedin-post.md            # variação final + 2 alternativas
 ├── x-thread.md                 # tweets numerados
-├── newsletter-section.md       # sección lista para insertar
-├── instagram-caption.md        # con sugerencias de visual
+├── newsletter-section.md       # secção pronta a inserir
+├── instagram-caption.md        # com sugestões de visual
 ├── reel-script.md              # hook 5s + script 30s
 ├── blog-outline.md             # headline + 5 H2 + intro
-├── content-calendar.md         # propuesta de qué publicar cuándo
-└── metadata.json               # source, scores, fechas
+├── content-calendar.md         # proposta do que publicar quando
+└── metadata.json               # source, scores, datas
 ```
 
-`content-calendar.md` propuesta:
-- Día 1: LinkedIn post (engagement primer impulso)
-- Día 2: X thread (refuerza)
-- Día 3: Instagram caption (visual del tema)
-- Día 4: Reel (cierra ciclo redes)
-- Día 5: Newsletter (consolidación + email list)
-- Día 7+: Blog post completo
+`content-calendar.md` proposta:
+- Dia 1: LinkedIn post (engagement primeiro impulso)
+- Dia 2: X thread (reforça)
+- Dia 3: Instagram caption (visual do tema)
+- Dia 4: Reel (fecha ciclo redes)
+- Dia 5: Newsletter (consolidação + email list)
+- Dia 7+: Blog post completo
 
-### Paso 7 · Cierre
+### Passo 7 · Cierre
 
-- Mostrar paquete al operador con preview
-- Pedir confirmación de cuáles publicar (o ajustes)
-- Append en `context/learnings.md` bajo `## marketing-content-repurposing`
-- Si la fuente fue particularmente rica → sugerir guardar referencia para reusar más adelante
+- Mostrar pacote ao operador com preview
+- Pedir confirmação de quais publicar (ou ajustes)
+- Append em `context/learnings.md` sob `## marketing-content-repurposing`
+- Se a fonte foi particularmente rica → sugerir guardar referência para reutilizar mais adiante
 
 ## Outputs
 
-Paquete completo en `projects/marketing-content-repurposing/<fecha>-<slug>/` con 8-10 archivos.
+Pacote completo em `projects/marketing-content-repurposing/<data>-<slug>/` com 8-10 ficheiros.
 
-## Skills que llama
+## Skills que chama
 
-- `tool-firecrawl-scraper` (si fuente es URL)
-- `tool-youtube-transcript` (si fuente es YouTube — skill futura, manual mientras tanto)
-- `marketing-copywriting` (una invocación por plataforma)
+- `tool-firecrawl-scraper` (se fonte for URL)
+- `tool-youtube-transcript` (se fonte for YouTube — skill futura, manual entretanto)
+- `marketing-copywriting` (uma invocação por plataforma)
 - `tool-output-verifier` (transitivo via copywriting)
 
 ## Edge cases
 
-- **Fuente muy corta** (<500 words): repurpose tiene poco material. Generar 2-3 piezas máximo, no forzar 8.
-- **Fuente sin sustancia** (charla genérica sin insights): avisar al operador "esta fuente no da para repurpose, sugerencia: graba algo más concreto".
-- **Idioma de fuente ≠ idioma de outputs**: traducir + adaptar al voice profile en idioma destino. Avisar de coste calidad.
-- **Fuente con info confidencial** (cliente, datos sensibles): hacer pasada de sanitización antes de generar piezas. Pedir confirmación al operador.
-- **Operador pide solo 1 plataforma**: no es repurposing, derivar a `marketing-copywriting` directamente.
+- **Fonte muito curta** (<500 words): repurpose tem pouco material. Gerar 2-3 peças no máximo, não forçar 8.
+- **Fonte sem substância** (conversa genérica sem insights): avisar o operador "esta fonte não dá para repurpose, sugestão: grava algo mais concreto".
+- **Idioma da fonte ≠ idioma dos outputs**: traduzir + adaptar ao voice profile no idioma destino. Avisar do custo qualidade.
+- **Fonte com info confidencial** (cliente, dados sensíveis): fazer uma passagem de sanitização antes de gerar peças. Pedir confirmação ao operador.
+- **Operador pede só 1 plataforma**: não é repurposing, derivar a `marketing-copywriting` diretamente.
 
 ## Examples
 
 Ver `references/examples.md` para 2 casos:
-1. Repurpose video YouTube de 25 min sobre Claude Code → 8 piezas
-2. Repurpose transcript reunión cliente sobre case study → 5 piezas con sanitización
+1. Repurpose vídeo YouTube de 25 min sobre Claude Code → 8 peças
+2. Repurpose transcript reunião cliente sobre case study → 5 peças com sanitização

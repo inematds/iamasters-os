@@ -1,10 +1,10 @@
 ---
-description: Instala MCP server en .mcp.json del proyecto desde la lista curada o URL custom. Configura permisos y env vars.
+description: Instala MCP server em .mcp.json do projeto desde a lista curada ou URL custom. Configura permissões e env vars.
 ---
 
 # /install-mcp
 
-Instala un MCP server (Model Context Protocol) en este proyecto.
+Instala um MCP server (Model Context Protocol) neste projeto.
 
 ## Uso
 
@@ -13,7 +13,7 @@ Instala un MCP server (Model Context Protocol) en este proyecto.
 /install-mcp <name>
 ```
 
-Ejemplos:
+Exemplos:
 - `/install-mcp context7`
 - `/install-mcp supabase`
 - `/install-mcp github`
@@ -27,29 +27,29 @@ Lista completa: ver `docs/mcps-curated.md`.
 
 ## Process
 
-### Paso 1 · Validar input
+### Passo 1 · Validar input
 
-Si el nombre está en la lista curada (`docs/mcps-curated.md`):
-- Cargar la configuración recomendada
-- Verificar prerequisitos (env vars necesarias, plan API)
+Se o nome está na lista curada (`docs/mcps-curated.md`):
+- Carregar a configuração recomendada
+- Verificar prerequisitos (env vars necessárias, plano API)
 
-Si es URL custom:
-- Avisar al usuario sobre risk (no validado por iAmasters)
-- Pedir confirmación
-- Inspeccionar repo para detectar package.json o setup.json del MCP
+Se é URL custom:
+- Avisar o utilizador sobre risco (não validado pela iAmasters)
+- Pedir confirmação
+- Inspecionar repo para detetar package.json ou setup.json do MCP
 
-### Paso 2 · Comprobar `.mcp.json`
+### Passo 2 · Verificar `.mcp.json`
 
 ```bash
 cat .mcp.json 2>/dev/null
 ```
 
-Si no existe → crear nuevo
-Si existe → leer para detectar conflictos (mismo MCP ya instalado)
+Se não existe → criar novo
+Se existe → ler para detetar conflitos (mesmo MCP já instalado)
 
-### Paso 3 · Configurar entrada
+### Passo 3 · Configurar entrada
 
-Estructura típica de `.mcp.json`:
+Estrutura típica de `.mcp.json`:
 
 ```json
 {
@@ -70,41 +70,41 @@ Estructura típica de `.mcp.json`:
 }
 ```
 
-### Paso 4 · Verificar variables de entorno
+### Passo 4 · Verificar variáveis de ambiente
 
-Si el MCP requiere `$VARS`:
-- Comprobar `.env` (sin commitear)
-- Si faltan vars → preguntar al operador o derivar al doc del MCP
+Se o MCP requer `$VARS`:
+- Verificar `.env` (sem commitar)
+- Se faltam vars → perguntar ao operador ou derivar para o doc do MCP
 
-### Paso 5 · Permisos
+### Passo 5 · Permissões
 
-Algunos MCPs requieren permisos extra en `.claude/settings.json`. Comprobar:
-- ¿Necesita acceso al sistema de archivos? → añadir `Read` patterns
-- ¿Hace API calls salientes? → revisar deny list de Bash
+Alguns MCPs requerem permissões extra em `.claude/settings.json`. Verificar:
+- Precisa acesso ao sistema de ficheiros? → adicionar `Read` patterns
+- Faz API calls de saída? → rever deny list do Bash
 
-### Paso 6 · Test
+### Passo 6 · Test
 
-Tras instalar:
-- Reiniciar Claude Code (Ctrl+C × 2 + claude)
-- Probar el MCP con prompt simple ("usa el MCP de [nombre] para...")
-- Si activa correctamente: confirmar
-- Si no: revisar logs y derivar a docs del MCP
+Após instalar:
+- Reiniciar o Claude Code (Ctrl+C × 2 + claude)
+- Testar o MCP com prompt simples ("usa o MCP de [nome] para...")
+- Se ativa corretamente: confirmar
+- Se não: rever logs e derivar para os docs do MCP
 
-### Paso 7 · Documentar
+### Passo 7 · Documentar
 
-- Append en `context/learnings.md` bajo `## install-mcp`:
+- Append em `context/learnings.md` debaixo de `## install-mcp`:
   ```
   - YYYY-MM-DD: instalado MCP <name> para <caso>
   ```
-- Update `CLAUDE.md` mencionando MCP activo (sección "Apps externas conectadas")
+- Atualizar `CLAUDE.md` a mencionar MCP ativo (secção "Apps externas ligadas")
 
 ## Edge cases
 
-- **MCP requiere instalación global de un paquete npm**: avisar al operador, dar comando `npm install -g`, NO ejecutar automáticamente
-- **MCP cambia su API**: la lista curada se actualiza con el repo. `git pull` para latest config
-- **MCP custom no validado**: marcar en `.mcp.json` con comentario `_unverified: true`
-- **MCP causa loop infinito o timeout**: removerlo de `.mcp.json` y reportar issue
+- **MCP requer instalação global de um pacote npm**: avisar o operador, dar comando `npm install -g`, NÃO executar automaticamente
+- **MCP muda a API**: a lista curada atualiza-se com o repo. `git pull` para latest config
+- **MCP custom não validado**: marcar em `.mcp.json` com comentário `_unverified: true`
+- **MCP causa loop infinito ou timeout**: removê-lo de `.mcp.json` e reportar issue
 
-## Implementación
+## Implementação
 
-Este comando es interpretativo. Lee `docs/mcps-curated.md` y aplica la configuración recomendada del MCP elegido. Si no está en la lista curada, deriva al instalador genérico con warnings.
+Este comando é interpretativo. Lê `docs/mcps-curated.md` e aplica a configuração recomendada do MCP escolhido. Se não está na lista curada, deriva para o instalador genérico com warnings.

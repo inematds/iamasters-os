@@ -1,22 +1,22 @@
-# Origen de esta skill
+# Origem desta skill
 
-Esta skill viene del repositorio externo:
+Esta skill vem do repositório externo:
 
-- **Repositorio**: [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents)
-- **Ruta original**: `libs/cli/examples/skills/web-research/`
+- **Repositório**: [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents)
+- **Caminho original**: `libs/cli/examples/skills/web-research/`
 - **Autor**: LangChain, Inc.
-- **Licencia**: MIT (ver `LICENSE` en esta carpeta)
-- **Fecha de vendoreo**: 2026-05-13
+- **Licença**: MIT (ver `LICENSE` nesta pasta)
+- **Data de vendoreio**: 2026-05-13
 
-## Cambios respecto al original
+## Mudanças face ao original
 
-- Renombrada `web-research` → `strategy-web-research` (convención iAmasters OS)
+- Renomeada `web-research` → `strategy-web-research` (convenção iAmasters OS)
 - LICENSE original conservado intacto
 
-## Cómo se actualiza
+## Como se atualiza
 
-Cuando el upstream publique cambios:
-1. Clonar el repo origen.
-2. Hacer diff con la versión vendoreada actual.
-3. Si los cambios son relevantes, actualizar SKILL.md conservando el rename del `name:`.
-4. Bump de versión + entry en CHANGELOG.md raíz.
+Quando o upstream publicar mudanças:
+1. Clonar o repo de origem.
+2. Fazer diff com a versão vendorizada atual.
+3. Se as mudanças forem relevantes, atualizar SKILL.md conservando o rename do `name:`.
+4. Bump de versão + entry no CHANGELOG.md raiz.

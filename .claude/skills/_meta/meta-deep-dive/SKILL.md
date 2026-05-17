@@ -1,270 +1,270 @@
 ---
 name: meta-deep-dive
-description: Segunda fase del onboarding tras `meta-onboarding-wizard`. NO es un formulario — es una entrevista conversacional adaptativa que profundiza 22-25 dimensiones residuales sobre la persona (ritmos, motivadores, comunicación), el negocio (salud financiera, diferencial, fricciones), el equipo (dinámica, delegación, clientes top/tóxicos) y el foco (decisiones pendientes, metas 3 años, miedos, métricas, definición de éxito). Aplica reglas de profundización y técnicas conversacionales — nunca lista plana de preguntas. Cubre con branching condicional (si trabaja solo, salta bloque equipo). Termina cuando todas las dimensiones aplicables tienen dato sólido. Idempotente — retoma donde quedó.
+description: Segunda fase do onboarding após `meta-onboarding-wizard`. NÃO é um formulário — é uma entrevista conversacional adaptativa que aprofunda 22-25 dimensões residuais sobre a pessoa (ritmos, motivadores, comunicação), o negócio (saúde financeira, diferencial, fricções), a equipa (dinâmica, delegação, clientes top/tóxicos) e o foco (decisões pendentes, metas a 3 anos, medos, métricas, definição de sucesso). Aplica regras de aprofundamento e técnicas conversacionais — nunca lista plana de perguntas. Cobre com branching condicional (se trabalha sozinho, salta o bloco equipa). Termina quando todas as dimensões aplicáveis têm dado sólido. Idempotente — retoma onde ficou.
 ---
 
 # meta-deep-dive
 
-> Segunda fase del onboarding. Profundiza al operador. El sistema ya funciona tras el wizard inicial, pero te conoce superficialmente. Esto es lo que convierte outputs "decentes" en outputs que parecen tuyos de verdad.
+> Segunda fase do onboarding. Aprofunda o operador. O sistema já funciona após o wizard inicial, mas conhece-te superficialmente. Isto é o que converte outputs "decentes" em outputs que parecem teus de verdade.
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Usuario ejecuta `/deep-dive` explícitamente
-- `meta-start-here` sugiere ejecutarla si `operator-state.deepDiveCompleted === false` y han pasado >12h desde el wizard inicial
-- Usuario retoma una deep-dive a medias (`operator-state.deepDiveProgress` indica dimensiones cubiertas)
+- Utilizador executa `/deep-dive` explicitamente
+- `meta-start-here` sugere executá-la se `operator-state.deepDiveCompleted === false` e passaram >12h desde o wizard inicial
+- Utilizador retoma um deep-dive a meio (`operator-state.deepDiveProgress` indica dimensões cobertas)
 
-NO se invoca:
-- Si `operator-state.needsOnboarding === true` → primero lanzar `meta-onboarding-wizard`
-- Si `operator-state.deepDiveCompleted === true` y no hay petición explícita
+NÃO se invoca:
+- Se `operator-state.needsOnboarding === true` → primeiro lançar `meta-onboarding-wizard`
+- Se `operator-state.deepDiveCompleted === true` e não há pedido explícito
 
-## Filosofía
+## Filosofia
 
-Misma que el wizard inicial: **no es un formulario, es conversación adaptativa**. Las preguntas las decides en cada turno según la respuesta anterior. Lo que está fijo son las **dimensiones a cubrir** y las **reglas de profundización**.
+A mesma que o wizard inicial: **não é um formulário, é conversa adaptativa**. As perguntas decides-las em cada turno conforme a resposta anterior. O que está fixo são as **dimensões a cobrir** e as **regras de aprofundamento**.
 
-La diferencia con el wizard inicial: aquí profundizas en áreas que requieren **honestidad y reflexión**, no solo factuales. El operador puede sentirse expuesto. Tu tono es de **entrevistador profesional**, no de coach motivacional.
+A diferença em relação ao wizard inicial: aqui aprofundas em áreas que requerem **honestidade e reflexão**, não só factuais. O operador pode sentir-se exposto. O teu tom é de **entrevistador profissional**, não de coach motivacional.
 
-## Las 22-25 dimensiones a cubrir
+## As 22-25 dimensões a cobrir
 
-Lee [`references/dimensiones-deep.md`](references/dimensiones-deep.md) para el detalle completo de cada una con qué información debe quedar capturada.
+Lê [`references/dimensiones-deep.md`](references/dimensiones-deep.md) para o detalhe completo de cada uma com que informação deve ficar capturada.
 
-| # | Dimensión | Bloque | Archivo destino |
+| # | Dimensão | Bloco | Ficheiro destino |
 |:--|---|---|---|
-| 1 | Horario productivo | A · Persona | `context/me.md` |
-| 2 | Interrupciones principales | A · Persona | `context/me.md` |
-| 3 | Contexto vital relevante | A · Persona | `context/me.md` |
-| 4 | Motivadores profundos | A · Persona | `context/me.md` |
-| 5 | Drenadores | A · Persona | `context/me.md` |
-| 6 | Estilo preferido de comunicación con IA | A · Persona | `context/soul.md` |
-| 7 | Palabras/tonos prohibidos | A · Persona | `context/soul.md` |
-| 8 | Salud financiera (rango facturación) | B · Negocio | `context/work.md` |
-| 9 | Margen aproximado | B · Negocio | `context/work.md` |
-| 10 | Ticket medio | B · Negocio | `context/work.md` |
-| 11 | Diferencial real (no genérico) | B · Negocio | `context/work.md` |
-| 12 | Side projects / negocios paralelos | B · Negocio | `context/work.md` |
-| 13 | Fricciones del modelo | B · Negocio | `context/work.md` |
-| 14 | Tamaño equipo (gate condicional) | C · Equipo | `context/team.md` |
-| 15 | Roles + dinámica del equipo | C · Equipo · si aplica | `context/team.md` |
-| 16 | Comunicación interna | C · Equipo · si aplica | `context/team.md` |
-| 17 | Delegación (qué sí/qué no) | C · Equipo · si aplica | `context/team.md` |
-| 18 | Clientes top (3-5 nombres + facturación aprox) | C · Equipo · siempre | `context/team.md` |
-| 19 | Clientes problemáticos | C · Equipo · siempre | `context/team.md` |
-| 20 | Decisión pendiente | D · Foco | `context/current-priorities.md` |
-| 21 | Meta 3 años profesional | D · Foco | `context/goals.md` |
-| 22 | Meta 3 años vital (no profesional) | D · Foco | `context/goals.md` |
-| 23 | Miedo profesional | D · Foco | `context/goals.md` |
-| 24 | Métrica semanal de seguimiento | D · Foco | `context/goals.md` |
-| 25 | Definición personal de éxito | D · Foco | `context/goals.md` |
+| 1 | Horário produtivo | A · Pessoa | `context/me.md` |
+| 2 | Interrupções principais | A · Pessoa | `context/me.md` |
+| 3 | Contexto vital relevante | A · Pessoa | `context/me.md` |
+| 4 | Motivadores profundos | A · Pessoa | `context/me.md` |
+| 5 | Drenadores | A · Pessoa | `context/me.md` |
+| 6 | Estilo preferido de comunicação com IA | A · Pessoa | `context/soul.md` |
+| 7 | Palavras/tons proibidos | A · Pessoa | `context/soul.md` |
+| 8 | Saúde financeira (faixa de faturação) | B · Negócio | `context/work.md` |
+| 9 | Margem aproximada | B · Negócio | `context/work.md` |
+| 10 | Ticket médio | B · Negócio | `context/work.md` |
+| 11 | Diferencial real (não genérico) | B · Negócio | `context/work.md` |
+| 12 | Side projects / negócios paralelos | B · Negócio | `context/work.md` |
+| 13 | Fricções do modelo | B · Negócio | `context/work.md` |
+| 14 | Tamanho equipa (gate condicional) | C · Equipa | `context/team.md` |
+| 15 | Papéis + dinâmica da equipa | C · Equipa · se aplicável | `context/team.md` |
+| 16 | Comunicação interna | C · Equipa · se aplicável | `context/team.md` |
+| 17 | Delegação (o que sim/o que não) | C · Equipa · se aplicável | `context/team.md` |
+| 18 | Clientes top (3-5 nomes + faturação aprox) | C · Equipa · sempre | `context/team.md` |
+| 19 | Clientes problemáticos | C · Equipa · sempre | `context/team.md` |
+| 20 | Decisão pendente | D · Foco | `context/current-priorities.md` |
+| 21 | Meta 3 anos profissional | D · Foco | `context/goals.md` |
+| 22 | Meta 3 anos vital (não profissional) | D · Foco | `context/goals.md` |
+| 23 | Medo profissional | D · Foco | `context/goals.md` |
+| 24 | Métrica semanal de seguimento | D · Foco | `context/goals.md` |
+| 25 | Definição pessoal de sucesso | D · Foco | `context/goals.md` |
 
-**Definición de "done"**: cada dimensión aplicable tiene al menos 1 dato sólido (no genérico, no "no sé" sin justificación, no respuesta evasiva).
+**Definição de "done"**: cada dimensão aplicável tem pelo menos 1 dado sólido (não genérico, não "não sei" sem justificação, não resposta evasiva).
 
-**Tiempo objetivo**: 25-30 minutos. Si tarda más, algo va mal con la profundización.
+**Tempo objetivo**: 25-30 minutos. Se demorar mais, algo vai mal com o aprofundamento.
 
-## Reglas de profundización (mismas que el wizard)
+## Regras de aprofundamento (mesmas que o wizard)
 
-Lee [`references/tecnicas-conversacionales.md`](references/tecnicas-conversacionales.md) para el repertorio completo.
+Lê [`references/tecnicas-conversacionales.md`](references/tecnicas-conversacionales.md) para o repertório completo.
 
-Resumen:
-- Respuesta corta/abstracta → 1 follow-up con técnica (ejemplo concreto, 5 whys ligero, inversión, espejo, anclaje temporal).
-- Máximo 2 niveles de profundidad por dimensión.
-- Respuesta rica → salta a siguiente dimensión.
-- Usuario muestra fatiga → acelera o propone parar.
+Resumo:
+- Resposta curta/abstrata → 1 follow-up com técnica (exemplo concreto, 5 whys leve, inversão, espelho, ancoragem temporal).
+- Máximo 2 níveis de profundidade por dimensão.
+- Resposta rica → salta para a dimensão seguinte.
+- Utilizador mostra fadiga → acelera ou propõe parar.
 
-## Anti-formulario (prohibido)
+## Anti-formulário (proibido)
 
-Las mismas reglas que el wizard inicial. Lee [`references/tecnicas-conversacionales.md`](references/tecnicas-conversacionales.md) sección "Lo que NO es técnica conversacional".
+As mesmas regras que o wizard inicial. Lê [`references/tecnicas-conversacionales.md`](references/tecnicas-conversacionales.md) secção "O que NÃO é técnica conversacional".
 
-Especialmente importante en deep-dive (porque hay dimensiones emocionales):
-- ❌ "Qué interesante", "buena respuesta" → suena a coach malo.
-- ❌ Tono terapéutico ("¿cómo te hace sentir?") — no eres su terapeuta.
-- ❌ Juicio implícito si el usuario admite algo (cliente tóxico, miedo, contradicción).
-- ❌ Anunciar bloques o numerar dimensiones al usuario.
+Especialmente importante no deep-dive (porque há dimensões emocionais):
+- ❌ "Que interessante", "boa resposta" → soa a coach mau.
+- ❌ Tom terapêutico ("como te faz sentir?") — não és o terapeuta dele.
+- ❌ Juízo implícito se o utilizador admite algo (cliente tóxico, medo, contradição).
+- ❌ Anunciar blocos ou numerar dimensões ao utilizador.
 
 ## Process
 
-### Paso 1 · Apertura
+### Passo 1 · Abertura
 
-Comprueba `operator-state.deepDiveProgress`:
-- Si NO existe (primera vez): apertura completa.
-- Si EXISTE: retoma con apertura corta indicando dónde se quedó.
+Verifica `operator-state.deepDiveProgress`:
+- Se NÃO existir (primeira vez): abertura completa.
+- Se EXISTIR: retoma com abertura curta indicando onde ficou.
 
-**Apertura completa** (primera vez):
-
-```
-Vamos al deep-dive.
-
-Lo de la otra vez fue lo mínimo para arrancar. Esto profundiza
-otras 20-25 áreas que cambian mucho los outputs del sistema:
-cómo trabajas, cómo te ganas la vida, tu equipo si lo tienes,
-tus metas a 3 años, tus miedos profesionales.
-
-Tarda ~25 minutos. Es honesto — algunas preguntas son
-incómodas. Si no quieres contestar alguna, dilo y paso. Si
-quieres parar a la mitad, también — la próxima vez retomamos
-donde estés.
-
-¿Listo? Empezamos por cómo trabajas tú, antes de meternos en
-el negocio.
-```
-
-**Apertura retomando** (segunda+ sesión):
+**Abertura completa** (primeira vez):
 
 ```
-Volvemos al deep-dive. La última vez nos quedamos en
-<dimensión última cubierta>. Quedan ~<N> dimensiones (~<min> min).
+Vamos ao deep-dive.
 
-Si quieres pausar de nuevo, dilo cuando quieras. ¿Continuamos?
+O da outra vez foi o mínimo para arrancar. Isto aprofunda
+outras 20-25 áreas que mudam muito os outputs do sistema:
+como trabalhas, como ganhas a vida, a tua equipa se a tiveres,
+as tuas metas a 3 anos, os teus medos profissionais.
+
+Demora ~25 minutos. É honesto — algumas perguntas são
+incómodas. Se não quiseres responder a alguma, diz e salto. Se
+quiseres parar a meio, também — da próxima vez retomamos
+onde estiveres.
+
+Pronto? Começamos por como trabalhas tu, antes de entrarmos no
+negócio.
 ```
 
-### Paso 2 · Entrevista adaptativa
-
-Recorre las dimensiones aplicables en este orden (NO lo anuncies):
-
-**Bloque A · Persona profunda** (dimensiones 1-7)
-- 1 Horario productivo → "¿En qué horario del día rindes mejor? ¿Mañana, tarde, noche, mix?"
-- 2 Interrupciones → "¿Qué te interrumpe más en tu día a día? ¿Clientes, equipo, familia, distracciones propias?"
-- 3 Contexto vital → "¿Hay algo de tu contexto vital ahora mismo que el sistema deba tener en cuenta? Hijos pequeños, salud, mudanza, viajes... lo que afecte tu energía. Si no quieres, también vale 'no aplica'."
-- 4 Motivadores → "Más allá del dinero, ¿qué te motiva profesionalmente? Sé concreto si puedes."
-- 5 Drenadores → "¿Qué tipo de tareas te drenan al punto de evitarlas?"
-- 6 Estilo IA → "¿Cómo prefieres que te hable la IA? Directa sin rodeos, conversacional, formal, con humor..."
-- 7 Palabras prohibidas → "¿3-5 palabras, frases o tonos que NUNCA debería usar en outputs tuyos? Corporate-speak, modismos que odias, lo que sea."
-
-**Bloque B · Negocio profundo** (dimensiones 8-13)
-- 8 Salud financiera → "¿Cuánto facturas aproximadamente al mes? Rango está bien. Esto cambia mucho qué te puede recomendar el sistema, por eso pregunto."
-- 9 Margen → "¿Margen bruto aproximado? Bajo, medio, alto."
-- 10 Ticket medio → "¿Cuál es tu ticket medio por cliente o por venta?"
-- 11 Diferencial real → "¿En qué eres realmente diferente de tu competencia? No genérico — algo concreto que te llevarías al pitch comercial."
-- 12 Side projects → "¿Tienes negocios secundarios o proyectos paralelos? Aunque sean side projects sin revenue."
-- 13 Fricciones → "¿Qué parte de tu modelo te gustaría cambiar pero no has cambiado todavía? ¿Por qué no?"
-
-**Bloque C · Equipo y clientes** (dimensiones 14-19)
-- 14 Tamaño equipo → "¿Cuántas personas hay en tu día a día? Tú solo / 1-3 / 4-10 / más de 10."
-- **Si "solo"**: salta dimensiones 15-17. Pasa directo a 18-19.
-- **Si tiene equipo**: dimensiones 15-17.
-  - 15 Roles → "Pásame a las personas clave. Para cada una: nombre, qué hace, en qué es fuerte, dónde flojea. Sin filtros."
-  - 16 Comunicación → "¿Cómo os comunicáis? Slack, WhatsApp, reuniones semanales, async..."
-  - 17 Delegación → "¿Qué partes del negocio están delegadas hoy y qué te niegas a delegar? ¿Por qué te cuesta?"
-- 18 Clientes top → "¿Tus 3-5 clientes/proyectos más importantes ahora mismo? Nombre + facturación aproximada."
-- 19 Clientes problemáticos → "¿Hay clientes tóxicos o problemáticos a los que aguantas por dinero? Honestidad."
-
-**Bloque D · Foco profundo** (dimensiones 20-25)
-- 20 Decisión pendiente → "¿Qué decisión importante tienes pendiente de tomar ahora mismo?"
-- 21 Meta 3 años pro → "Mírate dentro de 3 años. ¿Qué te imaginas profesionalmente? Sin presión."
-- 22 Meta 3 años vital → "Misma pregunta pero personal/vital. Familia, salud, lifestyle, lo que no es trabajo."
-- 23 Miedo profesional → "¿Cuál es tu mayor miedo profesional ahora mismo?"
-- 24 Métrica semanal → "¿Qué métrica miras semanalmente para saber si vas bien?"
-- 25 Definición de éxito → "¿Cómo defines éxito personal en los próximos 12 meses, más allá de los KPIs?"
-
-Para cada respuesta, aplica las **reglas de profundización** y las **técnicas conversacionales**. Respeta los **anti-patrones**.
-
-### Paso 3 · Checkpoints cada 7 dimensiones
-
-Tras dimensiones 7, 13, 19 — checkpoint corto:
+**Abertura retomando** (segunda+ sessão):
 
 ```
-Has hecho <bloque>. Quedan <N> dimensiones más, ~<min> min.
+Voltamos ao deep-dive. Da última vez ficámos em
+<última dimensão coberta>. Faltam ~<N> dimensões (~<min> min).
 
-¿Continuamos o lo dejamos aquí y mañana retomamos?
+Se quiseres pausar outra vez, diz quando quiseres. Continuamos?
 ```
 
-Si dice "seguimos" → continúa.
-Si dice "para" → guarda progreso, cierra con apertura retomable.
+### Passo 2 · Entrevista adaptativa
 
-### Paso 4 · Escritura de archivos
+Percorre as dimensões aplicáveis por esta ordem (NÃO o anuncies):
 
-Solo cuando termina (o cuando para a mitad), escribe los archivos sectorizados.
+**Bloco A · Pessoa profunda** (dimensões 1-7)
+- 1 Horário produtivo → "Em que horário do dia rendes melhor? Manhã, tarde, noite, mix?"
+- 2 Interrupções → "O que te interrompe mais no dia a dia? Clientes, equipa, família, distrações próprias?"
+- 3 Contexto vital → "Há algo no teu contexto vital neste momento que o sistema deva ter em conta? Filhos pequenos, saúde, mudança de casa, viagens... o que afete a tua energia. Se não quiseres, também vale 'não aplica'."
+- 4 Motivadores → "Para além do dinheiro, o que te motiva profissionalmente? Sê concreto se conseguires."
+- 5 Drenadores → "Que tipo de tarefas te drenam ao ponto de as evitares?"
+- 6 Estilo IA → "Como preferes que a IA te fale? Direta sem rodeios, conversacional, formal, com humor..."
+- 7 Palavras proibidas → "3-5 palavras, frases ou tons que NUNCA deveria usar em outputs teus? Corporate-speak, modismos que detestas, o que for."
 
-**Importante**: el deep-dive **completa** los archivos sectorizados existentes, **no los reemplaza**. Lee el archivo actual, añade las secciones nuevas según `references/dimensiones-deep.md`, conserva lo que el wizard inicial dejó.
+**Bloco B · Negócio profundo** (dimensões 8-13)
+- 8 Saúde financeira → "Quanto faturas aproximadamente ao mês? Um intervalo está bem. Isto muda muito o que o sistema te pode recomendar, por isso pergunto."
+- 9 Margem → "Margem bruta aproximada? Baixa, média, alta."
+- 10 Ticket médio → "Qual é o teu ticket médio por cliente ou por venda?"
+- 11 Diferencial real → "Em que és realmente diferente da tua concorrência? Não genérico — algo concreto que levarias para o pitch comercial."
+- 12 Side projects → "Tens negócios secundários ou projetos paralelos? Mesmo que sejam side projects sem revenue."
+- 13 Fricções → "Que parte do teu modelo gostarias de mudar mas ainda não mudaste? Porquê?"
 
-Archivos afectados:
-- `context/me.md` — secciones de horario, interrupciones, contexto vital, motivadores, drenadores
-- `context/soul.md` — sección "Cómo me hablas tú" + "Palabras prohibidas"
-- `context/work.md` — secciones financieras, diferencial, side projects, fricciones
-- `context/team.md` — estructura, roles, comunicación, delegación, clientes top/tóxicos
-- `context/current-priorities.md` — sección "Decisiones abiertas"
-- `context/goals.md` — meta 3 años pro/vital, miedo, métrica, definición éxito
+**Bloco C · Equipa e clientes** (dimensões 14-19)
+- 14 Tamanho equipa → "Quantas pessoas há no teu dia a dia? Tu sozinho / 1-3 / 4-10 / mais de 10."
+- **Se "sozinho"**: salta dimensões 15-17. Passa direto a 18-19.
+- **Se tiver equipa**: dimensões 15-17.
+  - 15 Papéis → "Passa-me as pessoas chave. Para cada uma: nome, o que faz, em que é forte, onde falha. Sem filtros."
+  - 16 Comunicação → "Como comunicam? Slack, WhatsApp, reuniões semanais, async..."
+  - 17 Delegação → "Que partes do negócio estão delegadas hoje e o que te recusas a delegar? Porque te custa?"
+- 18 Clientes top → "Os teus 3-5 clientes/projetos mais importantes neste momento? Nome + faturação aproximada."
+- 19 Clientes problemáticos → "Há clientes tóxicos ou problemáticos que aguentas por dinheiro? Honestidade."
 
-### Paso 5 · Cierre
+**Bloco D · Foco profundo** (dimensões 20-25)
+- 20 Decisão pendente → "Que decisão importante tens pendente de tomar neste momento?"
+- 21 Meta 3 anos pro → "Olha-te daqui a 3 anos. O que imaginas profissionalmente? Sem pressão."
+- 22 Meta 3 anos vital → "Mesma pergunta mas pessoal/vital. Família, saúde, lifestyle, o que não é trabalho."
+- 23 Medo profissional → "Qual é o teu maior medo profissional neste momento?"
+- 24 Métrica semanal → "Que métrica olhas semanalmente para saber se vais bem?"
+- 25 Definição de sucesso → "Como defines sucesso pessoal nos próximos 12 meses, para além dos KPIs?"
 
-Si completó el 100%:
+Para cada resposta, aplica as **regras de aprofundamento** e as **técnicas conversacionais**. Respeita os **anti-padrões**.
+
+### Passo 3 · Checkpoints a cada 7 dimensões
+
+Após dimensões 7, 13, 19 — checkpoint curto:
+
+```
+Fizeste <bloco>. Faltam <N> dimensões, ~<min> min.
+
+Continuamos ou deixamos por aqui e amanhã retomamos?
+```
+
+Se disser "seguimos" → continua.
+Se disser "para" → guarda progresso, fecha com abertura retomável.
+
+### Passo 4 · Escrita de ficheiros
+
+Só quando termina (ou quando para a meio), escreve os ficheiros sectorizados.
+
+**Importante**: o deep-dive **completa** os ficheiros sectorizados existentes, **não os substitui**. Lê o ficheiro atual, adiciona as secções novas conforme `references/dimensiones-deep.md`, preserva o que o wizard inicial deixou.
+
+Ficheiros afetados:
+- `context/me.md` — secções de horário, interrupções, contexto vital, motivadores, drenadores
+- `context/soul.md` — secção "Como me falas tu" + "Palavras proibidas"
+- `context/work.md` — secções financeiras, diferencial, side projects, fricções
+- `context/team.md` — estrutura, papéis, comunicação, delegação, clientes top/tóxicos
+- `context/current-priorities.md` — secção "Decisões abertas"
+- `context/goals.md` — meta 3 anos pro/vital, medo, métrica, definição sucesso
+
+### Passo 5 · Fecho
+
+Se completou 100%:
 
 ```
 Deep-dive completo.
 
-El sistema ahora te conoce profundamente. Los outputs van a salir
-con tu voz, tu criterio y tu contexto real — no genéricos.
+O sistema agora conhece-te profundamente. Os outputs vão sair
+com a tua voz, o teu critério e o teu contexto real — não genéricos.
 
-He actualizado:
+Atualizei:
   ✓ context/me.md — ritmos, motivadores, contexto vital
-  ✓ context/soul.md — cómo te hablo y palabras que evito
-  ✓ context/work.md — salud financiera, diferencial, fricciones
-  <si aplica> ✓ context/team.md — equipo, comunicación, delegación
-  ✓ context/team.md — clientes top y problemáticos
-  ✓ context/current-priorities.md — decisión pendiente
-  ✓ context/goals.md — metas 3 años, miedo, métricas, éxito
+  ✓ context/soul.md — como te falo e palavras que evito
+  ✓ context/work.md — saúde financeira, diferencial, fricções
+  <se aplicar> ✓ context/team.md — equipa, comunicação, delegação
+  ✓ context/team.md — clientes top e problemáticos
+  ✓ context/current-priorities.md — decisão pendente
+  ✓ context/goals.md — metas 3 anos, medo, métricas, sucesso
 
-A partir de aquí: úsalo. Si en algún momento las respuestas no
-te suenan a ti, ejecuta `/deep-dive refine` y refinamos lo que
-chirríe.
+A partir daqui: usa-o. Se em algum momento as respostas não
+soarem a ti, executa `/deep-dive refine` e refinamos o que
+desafinar.
 ```
 
 Marca `operator-state.deepDiveCompleted: true`.
 
-Si se quedó a medias:
+Se ficou a meio:
 
 ```
-Pausa registrada. Llevas <N> de 25 dimensiones cubiertas.
+Pausa registada. Tens <N> de 25 dimensões cobertas.
 
-Cuando quieras retomar:  /deep-dive
+Quando quiseres retomar:  /deep-dive
 
-Te lo sugeriré también desde /start-here hasta que lo cierres.
+Vou sugerir-te também a partir de /start-here até o fechares.
 ```
 
-Guarda `operator-state.deepDiveProgress: <N>` y `deepDiveLastDimension: <id>`.
+Guarda `operator-state.deepDiveProgress: <N>` e `deepDiveLastDimension: <id>`.
 
-### Paso 6 · Append al daily summary
+### Passo 6 · Append ao daily summary
 
-En `~/.claude/skills/_daily-summaries/<TODAY>.md`:
+Em `~/.claude/skills/_daily-summaries/<TODAY>.md`:
 
 ```
-## Deep-dive · sesión <N>
-- Dimensiones cubiertas hoy: <lista>
+## Deep-dive · sessão <N>
+- Dimensões cobertas hoje: <lista>
 - Estado: <completo | parcial>
-- Archivos actualizados: <lista>
+- Ficheiros atualizados: <lista>
 ```
 
-NO appends en `context/learnings.md` (esto no es feedback de skill).
+NÃO appends em `context/learnings.md` (isto não é feedback de skill).
 
 ## Outputs
 
 - `context/me.md` ampliado
-- `context/soul.md` con estilo personal del operador
-- `context/work.md` ampliado con datos financieros y diferencial
-- `context/team.md` rellenado (o consolidado si trabaja solo)
-- `context/current-priorities.md` con decisión pendiente
-- `context/goals.md` ampliado con metas 3 años, miedo, métricas, éxito
-- `operator-state.deepDiveCompleted: true` (si completo)
-- `operator-state.deepDiveProgress: <N>` (si parcial)
+- `context/soul.md` com estilo pessoal do operador
+- `context/work.md` ampliado com dados financeiros e diferencial
+- `context/team.md` preenchido (ou consolidado se trabalha sozinho)
+- `context/current-priorities.md` com decisão pendente
+- `context/goals.md` ampliado com metas 3 anos, medo, métricas, sucesso
+- `operator-state.deepDiveCompleted: true` (se completo)
+- `operator-state.deepDiveProgress: <N>` (se parcial)
 
 ## Edge cases
 
-- **Usuario abandona en medio de un follow-up**: guarda hasta la última dimensión cerrada. NO marca la dimensión en curso como capturada si solo tiene el primer intento débil.
-- **Usuario nivel técnico cero, asustado por dimensiones financieras (8-10)**: ofrécele rangos en vez de cifras exactas: "Si te incomoda el número exacto, dame un rango: bajo / medio / alto, te vale igual."
-- **Usuario no tiene equipo pero menciona colaboradores externos** (freelances, contratistas): captúralos en `team.md` con nota "Equipo externo / colaboradores".
-- **Usuario admite cliente tóxico pero pide no anotarlo por nombre**: respeta. Anota "<Cliente tipo X — tóxico por motivo Y>" sin nombre concreto.
-- **Usuario contradicción entre dimensiones** (ej. dice motivador = libertad, drenador = cliente que da libertad): no debates. Apunta ambas y deja al usuario que reflexione después leyendo `me.md`.
-- **Usuario completa deep-dive demasiado rápido (<10 min)**: probablemente respondió por encima. Cierra el wizard, pero anota en daily summary "deep-dive express — refinar en sesión futura".
+- **Utilizador abandona a meio de um follow-up**: guarda até à última dimensão fechada. NÃO marca a dimensão em curso como capturada se só tiver a primeira tentativa fraca.
+- **Utilizador nível técnico zero, assustado por dimensões financeiras (8-10)**: oferece-lhe intervalos em vez de cifras exatas: "Se te incomoda o número exato, dá-me um intervalo: baixo / médio / alto, serve igual."
+- **Utilizador não tem equipa mas menciona colaboradores externos** (freelancers, contratistas): captura-os em `team.md` com nota "Equipa externa / colaboradores".
+- **Utilizador admite cliente tóxico mas pede para não o anotar por nome**: respeita. Anota "<Cliente tipo X — tóxico por motivo Y>" sem nome concreto.
+- **Utilizador contradição entre dimensões** (ex. diz motivador = liberdade, drenador = cliente que dá liberdade): não debates. Aponta ambas e deixa o utilizador refletir depois lendo `me.md`.
+- **Utilizador completa deep-dive demasiado rápido (<10 min)**: provavelmente respondeu por cima. Fecha o wizard, mas anota no daily summary "deep-dive express — refinar em sessão futura".
 
-## Skills relacionadas que llamar después
+## Skills relacionadas para chamar depois
 
-Si el operador menciona en el deep-dive un problema concreto, sugiere skill al cerrar:
+Se o operador mencionar no deep-dive um problema concreto, sugere skill ao fechar:
 
-- Confusión con ICP → `marketing-icp`
-- Falta de claridad en voice profile → `marketing-brand-voice`
-- Decisión pendiente compleja → `six-hats`
-- Cuello de botella operacional → `marketing-content-repurposing` o automation skills
+- Confusão com ICP → `marketing-icp`
+- Falta de clareza no voice profile → `marketing-brand-voice`
+- Decisão pendente complexa → `six-hats`
+- Bottleneck operacional → `marketing-content-repurposing` ou automation skills
 
-NO ejecutes las skills automáticamente. Solo sugiere al final.
+NÃO executes as skills automaticamente. Só sugere no fim.
 
-## Comando asociado
+## Comando associado
 
-El comando `/deep-dive` invoca esta skill. Ver `.claude/commands/deep-dive.md`.
+O comando `/deep-dive` invoca esta skill. Ver `.claude/commands/deep-dive.md`.

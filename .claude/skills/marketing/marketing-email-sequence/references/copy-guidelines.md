@@ -1,113 +1,113 @@
 # Email Copy Guidelines
 
-## Contents
-- Structure
-- Formatting
-- Tone
-- Length
-- CTA Buttons vs. Links
-- Personalization (merge fields, dynamic content, triggered emails)
-- Segmentation Strategies (by behavior, by stage, by profile)
-- Testing and Optimization (what to test, how to test, metrics to track)
+## Conteúdos
+- Estrutura
+- Formatação
+- Tom
+- Comprimento
+- Botões de CTA vs. Links
+- Personalização (merge fields, conteúdo dinâmico, emails triggered)
+- Estratégias de Segmentação (por comportamento, por fase, por perfil)
+- Testes e Otimização (o que testar, como testar, métricas a acompanhar)
 
-## Structure
+## Estrutura
 
-1. **Hook**: First line grabs attention
-2. **Context**: Why this matters to them
-3. **Value**: The useful content
-4. **CTA**: What to do next
-5. **Sign-off**: Human, warm close
+1. **Hook**: A primeira linha capta a atenção
+2. **Contexto**: Porque é que isto interessa ao leitor
+3. **Valor**: O conteúdo útil
+4. **CTA**: O que fazer a seguir
+5. **Sign-off**: Fecho humano e caloroso
 
-## Formatting
+## Formatação
 
-- Short paragraphs (1-3 sentences)
-- White space between sections
-- Bullet points for scanability
-- Bold for emphasis (sparingly)
-- Mobile-first (most read on phone)
+- Parágrafos curtos (1-3 frases)
+- Espaço em branco entre secções
+- Bullet points para legibilidade rápida
+- Bold para ênfase (com moderação)
+- Mobile-first (a maioria lê no telemóvel)
 
-## Tone
+## Tom
 
-- Conversational, not formal
-- First-person (I/we) and second-person (you)
-- Active voice
-- Match your brand but lean friendly
-- Read it out loud—does it sound human?
+- Conversacional, não formal
+- Primeira pessoa (eu/nós) e segunda pessoa (tu/você)
+- Voz ativa
+- Coerente com a marca mas a tender para amigável
+- Lê em voz alta — soa humano?
 
-## Length
+## Comprimento
 
-- Shorter is usually better
-- 50-125 words for transactional
-- 150-300 words for educational
-- 300-500 words for story-driven
-- If it's long, it better be good
+- Mais curto é normalmente melhor
+- 50-125 palavras para transacionais
+- 150-300 palavras para educativos
+- 300-500 palavras para os baseados em história
+- Se for longo, é bom que seja muito bom
 
-## CTA Buttons vs. Links
+## Botões de CTA vs. Links
 
-- Buttons: Primary actions, high-visibility
-- Links: Secondary actions, in-text
-- One clear primary CTA per email
-- Button text: Action + outcome
+- Botões: ações primárias, alta visibilidade
+- Links: ações secundárias, dentro do texto
+- Um único CTA primário claro por email
+- Texto do botão: ação + resultado
 
 ---
 
-## Personalization
+## Personalização
 
 ### Merge Fields
-- First name (fallback to "there" or "friend")
-- Company name (B2B)
-- Relevant data (usage, plan, etc.)
+- Primeiro nome (fallback para "olá" ou "amigo/a")
+- Nome da empresa (B2B)
+- Dados relevantes (utilização, plano, etc.)
 
-### Dynamic Content
-- Based on segment
-- Based on behavior
-- Based on stage
+### Conteúdo Dinâmico
+- Com base no segmento
+- Com base no comportamento
+- Com base na fase
 
-### Triggered Emails
-- Action-based sends
-- More relevant than time-based
-- Examples: Feature used, milestone hit, inactivity
-
----
-
-## Segmentation Strategies
-
-### By Behavior
-- Openers vs. non-openers
-- Clickers vs. non-clickers
-- Active vs. inactive
-
-### By Stage
-- Trial vs. paid
-- New vs. long-term
-- Engaged vs. at-risk
-
-### By Profile
-- Industry/role (B2B)
-- Use case / goal
-- Company size
+### Emails Triggered
+- Envios baseados em ação
+- Mais relevantes do que os baseados em tempo
+- Exemplos: funcionalidade usada, milestone atingido, inatividade
 
 ---
 
-## Testing and Optimization
+## Estratégias de Segmentação
 
-### What to Test
-- Subject lines (highest impact)
-- Send times
-- Email length
-- CTA placement and copy
-- Personalization level
-- Sequence timing
+### Por Comportamento
+- Quem abre vs. quem não abre
+- Quem clica vs. quem não clica
+- Ativos vs. inativos
 
-### How to Test
-- A/B test one variable at a time
-- Sufficient sample size
-- Statistical significance
-- Document learnings
+### Por Fase
+- Trial vs. pago
+- Novo vs. de longa data
+- Engaged vs. em risco
 
-### Metrics to Track
-- Open rate (benchmark: 20-40%)
-- Click rate (benchmark: 2-5%)
-- Unsubscribe rate (keep under 0.5%)
-- Conversion rate (specific to sequence goal)
-- Revenue per email (if applicable)
+### Por Perfil
+- Indústria/função (B2B)
+- Use case / objetivo
+- Dimensão da empresa
+
+---
+
+## Testes e Otimização
+
+### O Que Testar
+- Subject lines (maior impacto)
+- Horas de envio
+- Comprimento do email
+- Posição e copy do CTA
+- Nível de personalização
+- Timing da sequência
+
+### Como Testar
+- A/B test a uma variável de cada vez
+- Amostra suficiente
+- Significância estatística
+- Documenta o aprendido
+
+### Métricas a Acompanhar
+- Taxa de abertura (benchmark: 20-40%)
+- Taxa de cliques (benchmark: 2-5%)
+- Taxa de unsubscribe (manter abaixo de 0,5%)
+- Taxa de conversão (específica ao objetivo da sequência)
+- Receita por email (se aplicável)

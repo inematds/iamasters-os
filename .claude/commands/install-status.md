@@ -1,17 +1,17 @@
 ---
-description: Dashboard del estado de instalación iAmasters OS. Lee ~/.claude/skills/_install-state.json y muestra qué fases están done, in-progress, failed o pending. Solo lectura — no modifica nada. Útil cuando el usuario duda de si la instalación está bien o quiere saber por qué algo no funciona.
+description: Dashboard do estado de instalação iAmasters OS. Lê ~/.claude/skills/_install-state.json e mostra que fases estão done, in-progress, failed ou pending. Só leitura — não modifica nada. Útil quando o utilizador duvida que a instalação esteja bem ou quer saber porque algo não funciona.
 ---
 
 # /install-status
 
-Muestra el estado actual de la instalación. Read-only.
+Mostra o estado atual da instalação. Read-only.
 
 ## Process
 
-### Paso 1 · Leer state
+### Passo 1 · Ler state
 
-Lee `~/.claude/skills/_install-state.json`. Si no existe:
-> "iAmasters OS no está instalado en este sistema. Ejecuta desde terminal:
+Lê `~/.claude/skills/_install-state.json`. Se não existe:
+> "iAmasters OS não está instalado neste sistema. Executa desde o terminal:
 >
 > ```bash
 > bash scripts/install.sh
@@ -19,9 +19,9 @@ Lee `~/.claude/skills/_install-state.json`. Si no existe:
 
 Para.
 
-### Paso 2 · Mostrar dashboard
+### Passo 2 · Mostrar dashboard
 
-Formato exacto:
+Formato exato:
 
 ```
 📦 iAmasters OS · Installation status
@@ -42,46 +42,46 @@ Fases:
 Required progress: <X>/5 done
 ```
 
-Iconos por estado:
+Ícones por estado:
 - `done` → ✅
 - `in-progress` → 🟡
 - `failed` → ❌
 - `pending` → ⏳
 - `skipped` → ⏭️
 
-Detalles por fase:
-- `prereqs`: muestra `checks` (versiones detectadas)
-- `sinapsis-engine`: muestra `validation.skills_count` y los primeros 12 chars de checksum si lo hay
-- `context-files`: muestra `filesCreated.length`/4 + lista breve si hay menos de 4
-- `operator-state`: muestra si hay nombre y nivel técnico capturados
-- `welcome-completed`: muestra `deliverablePath` si hay
-- `deep-dive-completed`: muestra `(opcional, no bloqueante)`
+Detalhes por fase:
+- `prereqs`: mostra `checks` (versões detetadas)
+- `sinapsis-engine`: mostra `validation.skills_count` e os primeiros 12 chars do checksum se houver
+- `context-files`: mostra `filesCreated.length`/4 + lista breve se houver menos de 4
+- `operator-state`: mostra se há nome e nível técnico capturados
+- `welcome-completed`: mostra `deliverablePath` se houver
+- `deep-dive-completed`: mostra `(opcional, não bloqueante)`
 
-### Paso 3 · Mostrar errores recientes
+### Passo 3 · Mostrar erros recentes
 
-Si `errors[]` tiene contenido, lista los últimos 3:
+Se `errors[]` tem conteúdo, lista os últimos 3:
 ```
-⚠️  Últimos errores:
+⚠️  Últimos erros:
   - [<phase>] <message>  (<at>)
 ```
 
-### Paso 4 · Acción recomendada
+### Passo 4 · Ação recomendada
 
-Al final, una línea con qué hacer ahora:
+No fim, uma linha com o que fazer agora:
 
-- Si todo `done` (5/5): "Todo en orden. Ejecuta `/start-here` para empezar el día."
-- Si hay alguna `in-progress`: "Continúa con `/install --resume`."
-- Si hay `failed`: "Resuelve el error y luego ejecuta `bash scripts/install.sh --resume`."
-- Si hay solo `pending` después de `prereqs/sinapsis-engine` done: "Continúa el onboarding con `/install`."
-- Si solo `deep-dive-completed` queda: "Las 5 fases obligatorias están hechas. Opcional: `/deep-dive` para profundizar."
+- Se tudo `done` (5/5): "Tudo em ordem. Executa `/start-here` para começar o dia."
+- Se há alguma `in-progress`: "Continua com `/install --resume`."
+- Se há `failed`: "Resolve o erro e depois executa `bash scripts/install.sh --resume`."
+- Se há só `pending` depois de `prereqs/sinapsis-engine` done: "Continua o onboarding com `/install`."
+- Se só `deep-dive-completed` fica: "As 5 fases obrigatórias estão feitas. Opcional: `/deep-dive` para aprofundar."
 
-### Paso 5 · Si el usuario pide HTML compartible
+### Passo 5 · Se o utilizador pede HTML partilhável
 
-Si dice "házmelo en HTML" o "compártemelo", invoca `tool-visual-explainer` con el dashboard de arriba.
+Se diz "faz-me em HTML" ou "partilha-me", invoca `tool-visual-explainer` com o dashboard acima.
 
-## Lo que NO haces
+## O que NÃO fazes
 
-- ❌ Modificar el state file
-- ❌ Ejecutar `install.sh`
-- ❌ Invocar wizard ni otras skills
-- ❌ Tomar acciones — solo informas
+- ❌ Modificar o state file
+- ❌ Executar `install.sh`
+- ❌ Invocar wizard nem outras skills
+- ❌ Tomar ações — só informas

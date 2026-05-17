@@ -1,141 +1,141 @@
 ---
 name: meta-start-here
-description: Ritual de inicio de sesión para iAmasters OS. Carga el contexto necesario (operator-state, user.md, daily summary, learnings, proyectos abiertos), recapitula al operador qué dejó pendiente, y propone tarea del día. Se invoca al primer turno de cada sesión, automáticamente o por /start-here.
+description: Ritual de início de sessão para o iAmasters OS. Carrega o contexto necessário (operator-state, user.md, daily summary, learnings, projetos abertos), recapitula ao operador o que deixou pendente, e propõe tarefa do dia. Invoca-se no primeiro turno de cada sessão, automaticamente ou por /start-here.
 ---
 
 # meta-start-here
 
-## Cuándo se invoca
+## Quando é invocada
 
-- Primer mensaje de cualquier sesión (Claude lee `CLAUDE.md` y detecta esta skill como ritual de entrada)
-- Usuario invoca `/start-here` explícitamente (slash command)
-- Otra skill detecta deriva (ej: `meta-onboarding-wizard` finaliza y deriva aquí)
+- Primeira mensagem de qualquer sessão (Claude lê `CLAUDE.md` e deteta esta skill como ritual de entrada)
+- Utilizador invoca `/start-here` explicitamente (slash command)
+- Outra skill deteta deriva (ex: `meta-onboarding-wizard` finaliza e deriva para aqui)
 
 ## Process
 
-### Paso 1 · Detectar estado del repo
+### Passo 1 · Detetar estado do repo
 
-Lee en orden:
+Lê por esta ordem:
 
 1. `~/.claude/skills/_operator-state.json`
-   - ¿Existe? ¿`needsOnboarding: true`? → derivar a `meta-onboarding-wizard`
-   - ¿`deepDiveCompleted: false` y han pasado >12h desde `onboardingDate`? → marcar flag interno `suggestDeepDive: true` (no derivar — solo recordar en el saludo, ver Paso 4)
-2. `context/me.md` (o `context/user.md` legacy)
-   - ¿Está vacío o sin rellenar? → derivar a `meta-onboarding-wizard`
+   - Existe? `needsOnboarding: true`? → derivar para `meta-onboarding-wizard`
+   - `deepDiveCompleted: false` e passaram >12h desde `onboardingDate`? → marca flag interna `suggestDeepDive: true` (não derives — só lembra no cumprimento, ver Passo 4)
+2. `context/me.md` (ou `context/user.md` legacy)
+   - Está vazio ou por preencher? → derivar para `meta-onboarding-wizard`
 3. `brand-context/voice/voice-profile.md`
-   - ¿No existe o vacío? → sugerir ejecutar `marketing-brand-voice`
+   - Não existe ou vazio? → sugere executar `marketing-brand-voice`
 
-### Paso 2 · Cargar continuidad
+### Passo 2 · Carregar continuidade
 
-Lee `synapsis/daily-summaries/<TODAY>.md` o `<YESTERDAY>.md`:
-- Si hay → resumir el "For tomorrow" en una línea
-- Si no → primera sesión del día
+Lê `synapsis/daily-summaries/<TODAY>.md` ou `<YESTERDAY>.md`:
+- Se houver → resumir o "For tomorrow" numa linha
+- Se não → primeira sessão do dia
 
-Lee `context/learnings.md` (si > 200 chars):
-- Identificar la última lección añadida
+Lê `context/learnings.md` (se > 200 chars):
+- Identificar a última lição adicionada
 
-Lee `synapsis/projects.json` (Sinapsis):
-- Filtrar proyectos con `status: active`
-- Listar máximo 3 más recientes
+Lê `synapsis/projects.json` (Sinapsis):
+- Filtrar projetos com `status: active`
+- Listar no máximo 3 mais recentes
 
-Lee `projects/briefs/*/brief.md`:
-- Filtrar los que tengan YAML frontmatter `status: active` o `phase: in-progress`
+Lê `projects/briefs/*/brief.md`:
+- Filtrar os que tenham YAML frontmatter `status: active` ou `phase: in-progress`
 
-### Paso 3 · Sincronizar skills detectadas
+### Passo 3 · Sincronizar skills detetadas
 
-Comprueba si hay `.claude/.skills-pending.json` (creado por hook `skill-change-detector.sh`):
-- Si sí → actualizar `synapsis/skills-catalog.json` con las skills nuevas
-- Limpiar el flag
+Verifica se há `.claude/.skills-pending.json` (criado pelo hook `skill-change-detector.sh`):
+- Se sim → atualizar `synapsis/skills-catalog.json` com as skills novas
+- Limpar a flag
 
-### Paso 4 · Saludo contextual
+### Passo 4 · Cumprimento contextual
 
-Construir saludo según contexto detectado:
+Construir cumprimento conforme contexto detetado:
 
-**Si hay daily summary de ayer:**
-> "Hola {{nombre}}. Ayer cerraste con: {{summary}}.
-> Para hoy proponías: {{for-tomorrow}}.
-> ¿Sigues con eso, o cambiamos?"
+**Se houver daily summary de ontem:**
+> "Olá {{nome}}. Ontem fechaste com: {{summary}}.
+> Para hoje propunhas: {{for-tomorrow}}.
+> Continuas com isso, ou mudamos?"
 
-**Si hay proyecto activo pero no daily summary:**
-> "Hola {{nombre}}. Tienes el proyecto **{{nombre-proyecto}}** abierto en fase {{fase}}.
-> ¿Continúas con él o vamos a otra cosa?"
+**Se houver projeto ativo mas sem daily summary:**
+> "Olá {{nome}}. Tens o projeto **{{nome-projeto}}** aberto na fase {{fase}}.
+> Continuas com ele ou vamos a outra coisa?"
 
-**Si no hay nada activo:**
-> "Hola {{nombre}}. ¿En qué te ayudo hoy?
+**Se não houver nada ativo:**
+> "Olá {{nome}}. Em que te ajudo hoje?
 >
-> [1] Crear contenido (skills marketing-*)
-> [2] Trabajar con un cliente (`/add-client` o `cd clients/<x>`)
-> [3] Análisis estratégico (skills strategy-*)
-> [4] Tarea libre — dime qué necesitas"
+> [1] Criar conteúdo (skills marketing-*)
+> [2] Trabalhar com um cliente (`/add-client` ou `cd clients/<x>`)
+> [3] Análise estratégica (skills strategy-*)
+> [4] Tarefa livre — diz-me o que precisas"
 
-### Paso 4.5 · Recordatorio de deep-dive (si aplica)
+### Passo 4.5 · Lembrete de deep-dive (se aplicável)
 
-Si en Paso 1 quedó `suggestDeepDive: true`, añade al final del saludo (no antes — el saludo principal va primero):
+Se no Passo 1 ficou `suggestDeepDive: true`, adiciona no fim do cumprimento (não antes — o cumprimento principal vai primeiro):
 
 ```
-PD: aún no has completado el deep-dive del onboarding. El sistema te
-conoce superficialmente. Cuando tengas 25 minutos, ejecuta `/deep-dive`
-y refinamos.
+PS: ainda não completaste o deep-dive do onboarding. O sistema
+conhece-te superficialmente. Quando tiveres 25 minutos, executa `/deep-dive`
+e refinamos.
 ```
 
-Este recordatorio se muestra **cada vez** que el operador arranca, hasta que `deepDiveCompleted: true`. No es intrusivo (solo 1 línea), pero recuerda.
+Este lembrete é mostrado **cada vez** que o operador arranca, até `deepDiveCompleted: true`. Não é intrusivo (só 1 linha), mas lembra.
 
-Si el operador ya completó la deep-dive (`deepDiveCompleted: true`), no menciones nada.
+Se o operador já completou o deep-dive (`deepDiveCompleted: true`), não mencionar nada.
 
-### Paso 5 · Si hay pending tasks de Sinapsis
+### Passo 5 · Se houver pending tasks de Sinapsis
 
-Sinapsis puede tener instincts en draft pendientes de promote. Si en `~/.claude/skills/_instincts-index.json` hay 5+ drafts con `occurrences >= 3`:
-- Mencionar al final del saludo: "(Tienes 5 instincts listos para revisar con `/analyze-session` cuando quieras)"
+Sinapsis pode ter instincts em draft pendentes de promote. Se em `~/.claude/skills/_instincts-index.json` houver 5+ drafts com `occurrences >= 3`:
+- Mencionar no fim do cumprimento: "(Tens 5 instincts prontos para rever com `/analyze-session` quando quiseres)"
 
-### Paso 6 · No hacer más
+### Passo 6 · Não fazer mais
 
-Importante: este ritual NO ejecuta tareas. Solo carga contexto y propone.
-- Si el usuario respondió a la pregunta planteada → continúa con la tarea concreta (otra skill u acción directa).
-- Si no → espera input.
+Importante: este ritual NÃO executa tarefas. Só carrega contexto e propõe.
+- Se o utilizador respondeu à pergunta colocada → continua com a tarefa concreta (outra skill ou ação direta).
+- Se não → espera input.
 
 ## Outputs
 
-- Mensaje al usuario con resumen + propuesta
-- Update interno: `synapsis/skills-catalog.json` si hubo skill changes pending
+- Mensagem ao utilizador com resumo + proposta
+- Update interno: `synapsis/skills-catalog.json` se houve skill changes pending
 
-## Skills que llama
+## Skills que chama
 
-- **`meta-onboarding-wizard`** — si detecta primer arranque
-- **`marketing-brand-voice`** — opcionalmente si falta voice profile
+- **`meta-onboarding-wizard`** — se detetar primeiro arranque
+- **`marketing-brand-voice`** — opcionalmente se faltar voice profile
 
-## Skills que sugiere (sin invocar automáticamente)
+## Skills que sugere (sem invocar automaticamente)
 
-- **`meta-deep-dive`** — si el operador completó el wizard inicial pero no la deep-dive (mostrado como PD al final del saludo, recordatorio diario hasta que se complete)
+- **`meta-deep-dive`** — se o operador completou o wizard inicial mas não o deep-dive (mostrado como PS no fim do cumprimento, lembrete diário até que se complete)
 
 ## Edge cases
 
-- **No hay `.claude/skills/`**: el repo está corrupto o no instalado bien. Avisa al usuario y sugiere `bash scripts/install.sh`.
-- **`operator-state.json` corrupto (JSON mal formado)**: recuperar de backup en `~/.claude/_backup_*` o derivar a re-onboarding.
-- **Daily summary de hace 5+ días**: mejor empezar limpio que arrastrar contexto stale. Saludar como nueva sesión.
+- **Não há `.claude/skills/`**: o repo está corrompido ou mal instalado. Avisa o utilizador e sugere `bash scripts/install.sh`.
+- **`operator-state.json` corrompido (JSON mal formado)**: recuperar de backup em `~/.claude/_backup_*` ou derivar para re-onboarding.
+- **Daily summary de há 5+ dias**: melhor começar limpo do que arrastar contexto stale. Cumprimentar como nova sessão.
 
 ## Examples
 
-**Caso 1 · Continuidad cálida:**
+**Caso 1 · Continuidade calorosa:**
 ```
-Operador: (abre Claude Code en lunes)
-Skill: "Hola Marta. Viernes cerraste con el blog post de Stripe billing (status: pending review).
-        Para hoy proponías: 'pasarlo por output-verifier y publicar'.
-        ¿Sigues con eso?"
-```
-
-**Caso 2 · Sin actividad reciente:**
-```
-Operador: (abre tras 5 días sin abrir)
-Skill: "Hola Marta. Hace tiempo. ¿En qué te ayudo hoy?
-        [1] Crear contenido
-        [2] Trabajar con un cliente (tienes 3: Acme, ContoSL, NorthStar)
-        [3] Análisis estratégico
-        [4] Tarea libre"
+Operador: (abre Claude Code à segunda-feira)
+Skill: "Olá Marta. Sexta-feira fechaste com o blog post de Stripe billing (status: pending review).
+        Para hoje propunhas: 'passá-lo pelo output-verifier e publicar'.
+        Continuas com isso?"
 ```
 
-**Caso 3 · Primer arranque tras instalación:**
+**Caso 2 · Sem atividade recente:**
 ```
-Skill: → detecta needsOnboarding: true
-       → deriva a meta-onboarding-wizard
-       (no muestra saludo propio)
+Operador: (abre depois de 5 dias sem abrir)
+Skill: "Olá Marta. Há algum tempo. Em que te ajudo hoje?
+        [1] Criar conteúdo
+        [2] Trabalhar com um cliente (tens 3: Acme, ContoSL, NorthStar)
+        [3] Análise estratégica
+        [4] Tarefa livre"
+```
+
+**Caso 3 · Primeiro arranque após instalação:**
+```
+Skill: → deteta needsOnboarding: true
+       → deriva para meta-onboarding-wizard
+       (não mostra cumprimento próprio)
 ```

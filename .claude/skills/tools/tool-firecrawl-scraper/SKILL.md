@@ -1,27 +1,27 @@
 ---
 name: tool-firecrawl-scraper
-description: Wrapper de Firecrawl API para scrapear páginas web sin bot blockers. Usado por marketing-brand-voice (extraer voice samples + assets), strategy-competitor-monitor (analizar competidores), y otras skills que necesiten contenido público de URLs. Degradación graceful si no hay API key.
+description: Wrapper de Firecrawl API para fazer scraping a páginas web sem bot blockers. Usado por marketing-brand-voice (extrair voice samples + assets), strategy-competitor-monitor (analisar concorrentes), e outras skills que precisem de conteúdo público de URLs. Degradação graceful se não houver API key.
 ---
 
 # tool-firecrawl-scraper
 
-## Cuándo se invoca
+## Quando se invoca
 
-- `marketing-brand-voice` la llama para scrapear web/LinkedIn/YouTube del operador
-- `strategy-competitor-monitor` la llama para analizar competidores
-- Usuario explícitamente: "scrapea esta URL", "saca el texto de esta web"
+- `marketing-brand-voice` chama-a para fazer scraping a web/LinkedIn/YouTube do operador
+- `strategy-competitor-monitor` chama-a para analisar concorrentes
+- Utilizador explicitamente: "faz scraping a esta URL", "tira o texto desta web"
 
 ## Process
 
-### Paso 1 · Verificar API key
+### Passo 1 · Verificar API key
 
-Lee `.env` (variable `FIRECRAWL_API_KEY`).
+Lê `.env` (variável `FIRECRAWL_API_KEY`).
 
-- **Si existe** → usar Firecrawl API (https://api.firecrawl.dev/v1/scrape)
-- **Si no existe** → degradar a fetch nativo (built-in WebFetch tool de Claude Code) y avisar:
-  > "Sin Firecrawl API key. Algunas webs con bot-blockers no se podrán scrapear. Para activarlo, regístrate en https://www.firecrawl.dev (500 créditos gratis) y añade FIRECRAWL_API_KEY en .env"
+- **Se existir** → usar Firecrawl API (https://api.firecrawl.dev/v1/scrape)
+- **Se não existir** → degradar para fetch nativo (built-in WebFetch tool de Claude Code) e avisar:
+  > "Sem Firecrawl API key. Algumas webs com bot-blockers não poderão ser scraped. Para o ativar, regista-te em https://www.firecrawl.dev (500 créditos grátis) e adiciona FIRECRAWL_API_KEY em .env"
 
-### Paso 2 · Validar input
+### Passo 2 · Validar input
 
 Input:
 ```json
@@ -33,12 +33,12 @@ Input:
 }
 ```
 
-Validaciones:
-- URLs son válidas (regex http(s))
-- No son URLs de archivo grande (.zip, .pdf > 50MB)
-- No son URLs de servicios bloqueados por TOS (linkedin.com requiere session, etc.)
+Validações:
+- URLs são válidas (regex http(s))
+- Não são URLs de ficheiro grande (.zip, .pdf > 50MB)
+- Não são URLs de serviços bloqueados por TOS (linkedin.com requer session, etc.)
 
-### Paso 3 · Scrapear con Firecrawl
+### Passo 3 · Fazer scraping com Firecrawl
 
 Para cada URL:
 
@@ -54,76 +54,76 @@ curl -X POST https://api.firecrawl.dev/v1/scrape \
 ```
 
 Capturar:
-- `data.markdown` — texto principal limpio
-- `data.html` — HTML completo (si extract_assets: true)
+- `data.markdown` — texto principal limpo
+- `data.html` — HTML completo (se extract_assets: true)
 - `data.metadata` — title, description, og:image, etc.
 
-### Paso 4 · Extracción de assets visuales (si extract_assets: true)
+### Passo 4 · Extração de assets visuais (se extract_assets: true)
 
-Del HTML, extraer:
-- Logos: `<img>` con classes/alt que contengan "logo", "brand", o `<link rel="icon">`
-- Colores primarios: parse CSS o extraer de imágenes hero (proximidad a brand)
-- Fuentes: parse CSS `font-family`
-- Imágenes hero: primer `<img>` grande en `<header>` o `<section class="hero">`
+Do HTML, extrair:
+- Logos: `<img>` com classes/alt que contenham "logo", "brand", ou `<link rel="icon">`
+- Cores primárias: parse CSS ou extrair de imagens hero (proximidade a brand)
+- Fontes: parse CSS `font-family`
+- Imagens hero: primeiro `<img>` grande em `<header>` ou `<section class="hero">`
 
-### Paso 5 · Output
+### Passo 5 · Output
 
 **Modo standalone**:
 ```
-projects/tool-firecrawl-scraper/<fecha>-<dominio>/
+projects/tool-firecrawl-scraper/<data>-<dominio>/
 ├── content.md          # markdown principal
 ├── metadata.json       # title, description, OG
-├── assets/             # si extract_assets
+├── assets/             # se extract_assets
 │   ├── logo.<ext>
 │   └── hero.<ext>
-└── colors.json         # paleta detectada
+└── colors.json         # paleta detetada
 ```
 
-**Modo pipeline**: JSON con todo lo anterior.
+**Modo pipeline**: JSON com tudo o anterior.
 
-### Paso 6 · Cierre
+### Passo 6 · Fecho
 
-- Si Firecrawl devuelve error 402 (sin créditos) → avisar al usuario
-- Si error 429 (rate limit) → reintentar tras delay 5s, max 3 veces
-- Si error 500+ → fallback a WebFetch nativo
-- Append en `context/learnings.md` si descubres URL pattern que falla consistentemente
+- Se o Firecrawl devolver erro 402 (sem créditos) → avisar o utilizador
+- Se erro 429 (rate limit) → tentar de novo após delay 5s, máx 3 vezes
+- Se erro 500+ → fallback para WebFetch nativo
+- Append em `context/learnings.md` se descobrires URL pattern que falha consistentemente
 
 ## Outputs
 
-**Standalone**: archivos descritos en Paso 5
-**Pipeline**: JSON al caller
+**Standalone**: ficheiros descritos no Passo 5
+**Pipeline**: JSON para o caller
 
-## Skills que llama
+## Skills que chama
 
-Ninguna. Es tool primitiva.
+Nenhuma. É tool primitiva.
 
 ## Edge cases
 
-- **URL devuelve 401/403 (login required)**: marcar como no-scrapeable. Avisar al usuario que copie/pegue contenido manualmente.
-- **JS-heavy SPA con poco contenido server-side**: Firecrawl maneja esto, pero si falla, fallback no funciona. Avisar.
-- **YouTube URL**: Firecrawl no extrae transcripts. Derivar a `tool-youtube-transcript` (futura skill).
-- **PDF URL**: pasar a `tool-pdf-extractor` (futura skill).
-- **Páginas con paywall**: detectar (HTTP 200 pero contenido < 100 chars del expected). Marcar y reportar.
+- **URL devolve 401/403 (login required)**: marcar como não-scrapável. Avisar o utilizador para copiar/colar conteúdo manualmente.
+- **JS-heavy SPA com pouco conteúdo server-side**: o Firecrawl lida com isto, mas se falhar, o fallback não funciona. Avisar.
+- **YouTube URL**: o Firecrawl não extrai transcripts. Derivar para `tool-youtube-transcript` (skill futura).
+- **PDF URL**: passar para `tool-pdf-extractor` (skill futura).
+- **Páginas com paywall**: detetar (HTTP 200 mas conteúdo < 100 chars do expected). Marcar e reportar.
 
-## Configuración Firecrawl recomendada
+## Configuração Firecrawl recomendada
 
-En `.env`:
+Em `.env`:
 ```
 FIRECRAWL_API_KEY=fc-xxxxx
 FIRECRAWL_TIMEOUT=30000      # ms (30s)
 FIRECRAWL_MAX_RETRIES=3
 ```
 
-Plan recomendado: **Free tier (500 créditos one-time)** o **Hobby ($16/mo, 3000 créditos/mo)**. Para uso intensivo, **Standard ($83/mo)**.
+Plano recomendado: **Free tier (500 créditos one-time)** ou **Hobby ($16/mo, 3000 créditos/mo)**. Para uso intensivo, **Standard ($83/mo)**.
 
 ## Examples
 
 ```bash
-# Operador quiere scrapear su web para brand voice
-Input: { "urls": ["https://miempresa.com"], "format": "markdown", "extract_assets": true }
+# Operador quer fazer scraping à sua web para brand voice
+Input: { "urls": ["https://minhaempresa.com"], "format": "markdown", "extract_assets": true }
 
 # Output:
-# projects/tool-firecrawl-scraper/2026-05-07-miempresa-com/
+# projects/tool-firecrawl-scraper/2026-05-07-minhaempresa-com/
 #   content.md (4500 words extracted)
 #   metadata.json (title, og:image)
 #   assets/logo.svg, hero.jpg

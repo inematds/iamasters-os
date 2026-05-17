@@ -1,17 +1,17 @@
 ---
-description: Health check de iAmasters OS. Verifica entorno, Sinapsis, brand-context, agent-context, skills, settings y propone fixes para todo lo que esté roto. Ejecuta la skill `health-check` y devuelve un reporte 🟢🟡🔴 con acciones concretas.
+description: Health check do iAmasters OS. Verifica ambiente, Sinapsis, brand-context, agent-context, skills, settings e propõe fixes para tudo o que esteja partido. Executa a skill `health-check` e devolve um relatório 🟢🟡🔴 com ações concretas.
 ---
 
-Ejecuta la skill `_meta/health-check` siguiendo todos sus pasos al detalle.
+Executa a skill `_meta/health-check` seguindo todos os passos ao detalhe.
 
-Al terminar, presenta los resultados al usuario en formato:
+Ao terminar, apresenta os resultados ao utilizador no formato:
 
 ```
 🟢 OK — <componente>
-🟡 AVISO — <componente> · <motivo> · acción sugerida
-🔴 ERROR — <componente> · <motivo> · acción concreta para arreglar
+🟡 AVISO — <componente> · <motivo> · ação sugerida
+🔴 ERRO — <componente> · <motivo> · ação concreta para arranjar
 ```
 
-Si hay errores 🔴, propón al usuario ejecutar el fix automático cuando exista. Si el fix requiere comando, muéstralo y pide confirmación antes de correrlo.
+Se houver erros 🔴, propõe ao utilizador executar o fix automático quando existir. Se o fix requer comando, mostra-o e pede confirmação antes de o correr.
 
-Si todo está 🟢, recuerda al usuario qué proyectos tiene abiertos en `projects/briefs/*/brief.md` con `status: active` y propón continuar con uno.
+Se tudo está 🟢, lembra ao utilizador que projetos tem abertos em `projects/briefs/*/brief.md` com `status: active` e propõe continuar com um.

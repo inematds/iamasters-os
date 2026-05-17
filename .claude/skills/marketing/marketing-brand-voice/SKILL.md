@@ -1,59 +1,59 @@
 ---
 name: marketing-brand-voice
 version: 2.0.0
-description: Genera el voice profile completo del operador con 3 registros (A formal, B divulgativo, C cercano). Mecánica de doble ruta (artefactos reales o simulación guiada) que captura voz auténtica incluso si el operador no tiene presencia online. Combina interview directa + Firecrawl scraping de URLs públicas + 5 simulaciones por registro. Output a brand-context/voice/ con 8 archivos: voice-profile.md, samples.md, register-{a,b,c}.md, audit-prompt.md, vocabulary.md, installation.md. Lo invoca el onboarding wizard tras la identidad.
+description: Gera o voice profile completo do operador com 3 registos (A formal, B divulgativo, C próximo). Mecânica de dupla via (artefactos reais ou simulação guiada) que capta voz autêntica mesmo que o operador não tenha presença online. Combina interview direta + Firecrawl scraping de URLs públicas + 5 simulações por registo. Output para brand-context/voice/ com 8 ficheiros: voice-profile.md, samples.md, register-{a,b,c}.md, audit-prompt.md, vocabulary.md, installation.md. É invocada pelo onboarding wizard após a identidade.
 ---
 
 # marketing-brand-voice · v2.0
 
-## Cambios respecto a v1.0
+## Alterações face à v1.0
 
-- **Doble ruta artefactos vs simulación** · por registro · accesible para operadores sin presencia online
-- **15 simulaciones reales** (5 por registro) que capturan voz auténtica
-- **3 archivos nuevos**: `audit-prompt.md`, `vocabulary.md`, `installation.md`
-- Mantiene: Firecrawl auto-scraping, spectrum 0-10, anti-modelo/modelo aspirar, integración OS
+- **Dupla via artefactos vs simulação** · por registo · acessível para operadores sem presença online
+- **15 simulações reais** (5 por registo) que captam voz autêntica
+- **3 ficheiros novos**: `audit-prompt.md`, `vocabulary.md`, `installation.md`
+- Mantém: Firecrawl auto-scraping, spectrum 0-10, anti-modelo/modelo a aspirar, integração OS
 
-## Cuándo se invoca
+## Quando é invocada
 
-- `meta-onboarding-wizard` la llama tras configurar identidad básica
-- Usuario invoca: "configura mi brand voice", "extrae mi voz", "rehaz el voice profile"
-- Cuando se detecta drift en outputs (humanizer baja consistentemente) y se sugiere refinar voice
+- `meta-onboarding-wizard` chama-a depois de configurar a identidade básica
+- Utilizador invoca: "configura o meu brand voice", "extrai a minha voz", "refaz o voice profile"
+- Quando se deteta drift nos outputs (humanizer baixa consistentemente) e se sugere refinar a voz
 
 ## Process
 
-### Paso 1 · Detectar inputs disponibles
+### Passo 1 · Detetar inputs disponíveis
 
-Pregunta al operador (usa AskUserQuestion):
+Pergunta ao operador (usa AskUserQuestion):
 
-1. **Web propia / blog**: URL (opcional)
-2. **LinkedIn personal**: URL (opcional)
-3. **YouTube canal**: URL (opcional, con 5+ vídeos)
+1. **Web própria / blog**: URL (opcional)
+2. **LinkedIn pessoal**: URL (opcional)
+3. **Canal de YouTube**: URL (opcional, com 5+ vídeos)
 4. **Twitter/X**: URL (opcional)
-5. **Documentos propios**: ¿tienes copy ya escrito que represente tu voz? (newsletter, post anclado, etc.) Pega o ruta a archivo
-6. **Voice profile previo**: ¿tienes ya un voice profile de otro lado? Pega lo que quieras integrar
+5. **Documentos próprios**: tens copy já escrito que represente a tua voz? (newsletter, post fixado, etc.) Cola ou indica o path para o ficheiro
+6. **Voice profile prévio**: já tens um voice profile feito noutro lado? Cola o que quiseres integrar
 
-### Paso 2 · Detección de ruta global *(nuevo en v2)*
+### Passo 2 · Deteção de via global *(novo na v2)*
 
-Pregunta clave al operador para decidir cómo capturar la voz:
+Pergunta-chave ao operador para decidir como captar a voz:
 
 ```
-¿Eres una persona activa en redes / escribes mucho online (LinkedIn, Instagram, emails, blog, threads en X)?
+És uma pessoa ativa nas redes / escreves muito online (LinkedIn, Instagram, emails, blog, threads no X)?
 
-(a) Sí, escribo mucho y tengo archivo
-(b) No, escribo poco o nada online
-(c) Mixto · escribo en algunos canales pero no otros
+(a) Sim, escrevo muito e tenho arquivo
+(b) Não, escrevo pouco ou nada online
+(c) Misto · escrevo em alguns canais mas noutros não
 ```
 
-Según respuesta:
-- **(a) → Ruta artefactos global**: en Paso 4 te pedirá material real para cada registro (apoyado por scraping)
-- **(b) → Ruta simulación global**: en Paso 4 hará simulaciones reales por registro · captura voz auténtica
-- **(c) → Ruta híbrida**: decide por cada registro según material disponible
+Conforme resposta:
+- **(a) → Via artefactos global**: no Passo 4 vai pedir material real para cada registo (apoiado por scraping)
+- **(b) → Via simulação global**: no Passo 4 vai fazer simulações reais por registo · capta voz autêntica
+- **(c) → Via híbrida**: decide por cada registo conforme material disponível
 
-Anota la ruta asignada por registro (A, B, C) para usarla en Paso 4.
+Anota a via atribuída por registo (A, B, C) para a usar no Passo 4.
 
-### Paso 3 · Scrapear URLs (si las hay)
+### Passo 3 · Scrapear URLs (se existirem)
 
-Si en Paso 1 se proporcionaron URLs, invocar `tool-firecrawl-scraper`:
+Se no Passo 1 foram fornecidas URLs, invocar `tool-firecrawl-scraper`:
 ```json
 {
   "urls": [...],
@@ -62,162 +62,162 @@ Si en Paso 1 se proporcionaron URLs, invocar `tool-firecrawl-scraper`:
 }
 ```
 
-Output esperado: contenido markdown + assets en `brand-context/assets/`.
+Output esperado: conteúdo markdown + assets em `brand-context/assets/`.
 
-### Paso 4 · Captura por registro · doble ruta *(nuevo en v2)*
+### Passo 4 · Captura por registo · dupla via *(novo na v2)*
 
-Trabaja **un registro cada vez**. Anuncia el bloque, ejecuta la ruta asignada en Paso 2, valida, pasa al siguiente.
-
----
-
-#### Registro A · Profesional / Formal
-
-Anuncia: *"Empezamos por el registro profesional. Es como hablas cuando representas tu marca o cuando hay un cliente potencial al otro lado: LinkedIn, emails formales, propuestas comerciales."*
-
-**Si Ruta artefactos** (o si Paso 3 ya scrapeó LinkedIn):
-- Pide 3-5 posts de LinkedIn (los más representativos, no los virales accidentales)
-- Pide 2-3 emails que ha enviado a clientes potenciales
-- Pide 1-2 propuestas comerciales o documentos formales
-
-**Si Ruta simulación**:
-Lanza las 5 simulaciones de una en una. Espera respuesta antes de pasar a la siguiente:
-
-1. *"Un cliente potencial te escribe por LinkedIn: 'Hola, he visto tu perfil. Trabajamos en un B2B SaaS y queremos integrar IA en nuestro pipeline de ventas. ¿Tienes 20 minutos para que te cuente?' Respóndele."*
-
-2. *"Tienes que mandar un email a un cliente al que le entregaste un proyecto hace 3 meses y no ha vuelto a contratar. Quieres reactivar la relación sin presionar. Escríbelo."*
-
-3. *"Estás escribiendo el primer párrafo de una propuesta comercial. El cliente es una empresa mediana que quiere migrar sus procesos a un sistema agéntico. Escribe el párrafo de apertura."*
-
-4. *"Un post de LinkedIn tipo: vas a explicar por qué la mayoría de las empresas que dicen 'usar IA' en realidad solo usan ChatGPT. 3-5 líneas máximo."*
-
-5. *"Un cliente te pregunta por qué tu propuesta es más cara que la del competidor. Respóndele con calma pero sin justificarte."*
+Trabalha **um registo de cada vez**. Anuncia o bloco, executa a via atribuída no Passo 2, valida, passa ao seguinte.
 
 ---
 
-#### Registro B · Divulgativo
+#### Registo A · Profissional / Formal
 
-Anuncia: *"Ahora el registro divulgativo. Es como hablas cuando enseñas, divulgas o creas contenido para audiencia amplia: Reels, captions de Instagram, posts de blog, newsletters, podcasts, YouTube."*
+Anuncia: *"Começamos pelo registo profissional. É como falas quando representas a tua marca ou quando há um cliente potencial do outro lado: LinkedIn, emails formais, propostas comerciais."*
 
-**Si Ruta artefactos** (o si Paso 3 ya scrapeó Instagram/blog):
+**Se Via artefactos** (ou se o Passo 3 já scrapeou o LinkedIn):
+- Pede 3-5 posts de LinkedIn (os mais representativos, não os virais por acaso)
+- Pede 2-3 emails que tenha enviado a clientes potenciais
+- Pede 1-2 propostas comerciais ou documentos formais
+
+**Se Via simulação**:
+Lança as 5 simulações uma a uma. Espera resposta antes de passar à seguinte:
+
+1. *"Um cliente potencial escreve-te por LinkedIn: 'Olá, vi o teu perfil. Trabalhamos num B2B SaaS e queremos integrar IA no nosso pipeline de vendas. Tens 20 minutos para te contar?' Responde-lhe."*
+
+2. *"Tens de mandar um email a um cliente a quem entregaste um projeto há 3 meses e que não voltou a contratar. Queres reativar a relação sem pressionar. Escreve-o."*
+
+3. *"Estás a escrever o primeiro parágrafo de uma proposta comercial. O cliente é uma empresa de média dimensão que quer migrar os seus processos para um sistema agéntico. Escreve o parágrafo de abertura."*
+
+4. *"Um post de LinkedIn tipo: vais explicar porque é que a maioria das empresas que diz 'usar IA' na verdade só usa ChatGPT. 3-5 linhas no máximo."*
+
+5. *"Um cliente pergunta-te porque é que a tua proposta é mais cara que a do concorrente. Responde-lhe com calma mas sem te justificares."*
+
+---
+
+#### Registo B · Divulgativo
+
+Anuncia: *"Agora o registo divulgativo. É como falas quando ensinas, divulgas ou crias conteúdo para audiência ampla: Reels, captions de Instagram, posts de blog, newsletters, podcasts, YouTube."*
+
+**Se Via artefactos** (ou se o Passo 3 já scrapeou Instagram/blog):
 - 3-5 captions de Instagram
-- 1-2 posts de blog (si los hay)
-- Transcripciones de Reels/TikToks/Shorts representativos
-- 1-2 newsletters propias
+- 1-2 posts de blog (se existirem)
+- Transcrições de Reels/TikToks/Shorts representativos
+- 1-2 newsletters próprias
 
-**Si Ruta simulación**:
+**Se Via simulação**:
 
-1. *"Tienes 90 segundos para grabar un Reel explicando qué es una skill de IA. Escribe lo que dirías a cámara, sin guion, en tu tono natural."*
+1. *"Tens 90 segundos para gravar um Reel a explicar o que é uma skill de IA. Escreve o que dirias à câmara, sem guião, no teu tom natural."*
 
-2. *"Caption de Instagram para acompañar una foto tuya trabajando. Quieres bajar a tierra qué hace alguien que dice 'soy operador IA'. 4-6 líneas."*
+2. *"Caption de Instagram para acompanhar uma foto tua a trabalhar. Queres aterrar o que faz alguém que diz 'sou operador IA'. 4-6 linhas."*
 
-3. *"Empiezas un post de blog titulado 'Por qué el 90% de la gente que dice usar IA en realidad la está usando mal'. Escribe los primeros 3 párrafos."*
+3. *"Começas um post de blog intitulado 'Porque é que 90% das pessoas que dizem usar IA na verdade a estão a usar mal'. Escreve os primeiros 3 parágrafos."*
 
-4. *"Estás en directo en una clase de tu comunidad. Acabas de mostrar una demo de una skill. Cierra el bloque transitando al siguiente tema."*
+4. *"Estás em direto numa aula da tua comunidade. Acabaste de mostrar uma demo de uma skill. Fecha o bloco a transitar para o próximo tema."*
 
-5. *"Le explicas a tu cuñado que no tiene ni idea de tecnología qué es Claude Code. Sin jerga, sin condescendencia. 3-4 frases."*
-
----
-
-#### Registro C · Conversacional / Cercano
-
-Anuncia: *"Último registro. El conversacional. Es como hablas con tu gente cercana: WhatsApp con amigos, DMs, notas de voz, mensajes a tu equipo. Aquí sale tu voz más auténtica."*
-
-**Si Ruta artefactos**:
-- 5-8 mensajes de WhatsApp con amigos cercanos (anonimízalos si hace falta, NO los reformules)
-- Transcripciones de notas de voz que manda
-- DMs de Instagram con gente con confianza
-
-⚠️ Importante: NO pides mensajes que el operador quiera mantener privados. Si duda, mejor ruta simulación.
-
-**Si Ruta simulación**:
-
-1. *"Un amigo te escribe a las 22h: 'tio acabo de ver tu directo, me ha flipado. cuéntame qué hago para empezar'. Respóndele."*
-
-2. *"Estás en un grupo de WhatsApp de amigos. Sale el tema 'la IA va a quitar todos los trabajos'. Mete tu opinión en 2-3 mensajes."*
-
-3. *"Le mandas una nota de voz a tu socio explicándole rápido por qué cambiaste de opinión sobre un cliente. Transcríbela como si la estuvieras hablando."*
-
-4. *"Un amigo te pregunta por WhatsApp si vale la pena montar una agencia de IA ahora. Respondes lo que piensas de verdad."*
-
-5. *"Le escribes a alguien que admiras (un creador, un referente) por DM de Instagram para tomaros un café. Sin parecer fanboy."*
+5. *"Explicas ao teu cunhado que não percebe nada de tecnologia o que é o Claude Code. Sem jargão, sem condescendência. 3-4 frases."*
 
 ---
 
-### Paso 5 · 6 preguntas calibradoras
+#### Registo C · Conversacional / Próximo
 
-Independientemente de URLs y de la ruta de Paso 4, hacer 6 preguntas adicionales que capturan dimensiones que las simulaciones no cubren bien:
+Anuncia: *"Último registo. O conversacional. É como falas com a tua gente próxima: WhatsApp com amigos, DMs, notas de voz, mensagens à equipa. Aqui sai a tua voz mais autêntica."*
 
-**Pregunta 1 · Tono dominante** (multi-select):
-- (a) Formal y autoridad — propuesta corporativa
-- (b) Divulgativo profesional — explicas con claridad sin ser corporate
-- (c) Cercano y directo — como hablas con un amigo
-- (d) Provocador — opiniones fuertes, sin miedo a ofender
-- (e) Cálido y empático — humano, vulnerable
-- (f) Técnico y específico — datos, números, precisión
+**Se Via artefactos**:
+- 5-8 mensagens de WhatsApp com amigos próximos (anonimiza-as se for preciso, NÃO as reformules)
+- Transcrições de notas de voz que mandes
+- DMs de Instagram com pessoas de confiança
 
-**Pregunta 2 · Vocabulario del que huyes** (texto libre):
-- "¿Qué palabras nunca usas porque suenan a corporate / a vendehumos / a AI?"
+⚠️ Importante: NÃO peças mensagens que o operador queira manter privadas. Em caso de dúvida, melhor via simulação.
 
-**Pregunta 3 · Frases-firma** (texto libre):
-- "¿Hay frases que repites mucho y son tuyas? Dame 2-3"
+**Se Via simulação**:
 
-**Pregunta 4 · Jerga propia** (texto libre):
-- "¿Tienes términos propios o de tu nicho que uses constantemente? (ej. 'operador IA', 'aterrizar el sistema', 'no-fluff')"
+1. *"Um amigo escreve-te às 22h: 'pá acabei de ver o teu direto, fiquei em pulgas. diz-me o que faço para começar'. Responde-lhe."*
 
-**Pregunta 5 · Anti-modelos** (texto libre):
-- "Dime una cuenta de LinkedIn / un creador / un autor cuyo tono ODIES. (Para evitarlo)"
+2. *"Estás num grupo de WhatsApp de amigos. Sai o tema 'a IA vai tirar todos os empregos'. Mete a tua opinião em 2-3 mensagens."*
 
-**Pregunta 6 · Modelo a aspirar** (texto libre):
-- "Dime una cuenta / autor / podcaster con un tono parecido al que quieres tener"
+3. *"Mandas uma nota de voz ao teu sócio a explicar-lhe rápido porque é que mudaste de opinião sobre um cliente. Transcreve-a como se a estivesses a falar."*
 
-### Paso 6 · Análisis combinado
+4. *"Um amigo pergunta-te por WhatsApp se vale a pena montar uma agência de IA agora. Respondes o que pensas a sério."*
 
-Combinar todas las fuentes:
-- Texto scrapeado de URLs (si hubo)
-- Material de artefactos (si ruta A)
-- Respuestas a las 15 simulaciones (si ruta B o mixto)
-- Respuestas de 6 preguntas calibradoras
-- Voice profile previo (si proporcionó)
+5. *"Escreves a alguém que admiras (um criador, uma referência) por DM de Instagram para irem tomar um café. Sem pareceres fanboy."*
 
-Extraer:
+---
 
-**Personalidad** (3-5 traits):
-- ¿Es seguro / inseguro? ¿Optimista / cauto? ¿Concreto / abstracto? ¿Cálido / frío?
+### Passo 5 · 6 perguntas calibradoras
 
-**Tono spectrum** (cuantificado 0-10):
-- Formality: 0 (cercano) — 10 (formal)
-- Directness: 0 (rodeos) — 10 (sin rodeos)
-- Humor: 0 (serio) — 10 (mucho humor)
+Independentemente das URLs e da via do Passo 4, fazer 6 perguntas adicionais que captam dimensões que as simulações não cobrem bem:
+
+**Pergunta 1 · Tom dominante** (multi-select):
+- (a) Formal e autoridade — proposta corporativa
+- (b) Divulgativo profissional — explicas com clareza sem ser corporate
+- (c) Próximo e direto — como falas com um amigo
+- (d) Provocador — opiniões fortes, sem medo de ofender
+- (e) Caloroso e empático — humano, vulnerável
+- (f) Técnico e específico — dados, números, precisão
+
+**Pergunta 2 · Vocabulário de que foges** (texto livre):
+- "Que palavras nunca usas porque soam a corporate / a vende-banha / a AI?"
+
+**Pergunta 3 · Frases-assinatura** (texto livre):
+- "Há frases que repetes muito e são tuas? Dá-me 2-3"
+
+**Pergunta 4 · Jargão próprio** (texto livre):
+- "Tens termos próprios ou do teu nicho que uses constantemente? (ex. 'operador IA', 'aterrar o sistema', 'no-fluff')"
+
+**Pergunta 5 · Anti-modelos** (texto livre):
+- "Diz-me uma conta de LinkedIn / um criador / um autor cujo tom DETESTAS. (Para o evitar)"
+
+**Pergunta 6 · Modelo a aspirar** (texto livre):
+- "Diz-me uma conta / autor / podcaster com um tom parecido ao que queres ter"
+
+### Passo 6 · Análise combinada
+
+Combinar todas as fontes:
+- Texto scrapeado das URLs (se houve)
+- Material de artefactos (se via A)
+- Respostas às 15 simulações (se via B ou misto)
+- Respostas das 6 perguntas calibradoras
+- Voice profile prévio (se forneceu)
+
+Extrair:
+
+**Personalidade** (3-5 traits):
+- É seguro / inseguro? Otimista / cauto? Concreto / abstrato? Caloroso / frio?
+
+**Spectrum do tom** (quantificado 0-10):
+- Formality: 0 (próximo) — 10 (formal)
+- Directness: 0 (rodeios) — 10 (sem rodeios)
+- Humor: 0 (sério) — 10 (muito humor)
 - Authority: 0 (humilde) — 10 (afirmativo)
-- Warmth: 0 (distante) — 10 (cercano)
+- Warmth: 0 (distante) — 10 (próximo)
 
-**Vocabulario**:
-- Palabras-firma (las que aparecen ≥3 veces en samples scrapeados/simulaciones)
-- Palabras prohibidas (de pregunta 2 + AI tells del humanizer + las que NUNCA aparecieron en simulaciones de su registro pero sí en patrones de IA)
-- Jerga propia (de pregunta 4)
-- Muletillas auténticas (palabras que repite muchas veces y son parte de su firma)
+**Vocabulário**:
+- Palavras-assinatura (as que aparecem ≥3 vezes em samples scrapeados/simulações)
+- Palavras proibidas (da pergunta 2 + AI tells do humanizer + as que NUNCA apareceram em simulações do seu registo mas sim em padrões de IA)
+- Jargão próprio (da pergunta 4)
+- Muletas autênticas (palavras que repete muitas vezes e que fazem parte da sua assinatura)
 
-**Estructura típica** por registro:
-- Longitud media de frase
+**Estrutura típica** por registo:
+- Comprimento médio de frase
 - Uso de listas vs prosa
-- Posición de la opinión (al inicio? al final? entrelazada?)
-- Cómo abre / cómo cierra
+- Posição da opinião (no início? no final? entrelaçada?)
+- Como abre / como fecha
 
-### Paso 7 · Validación intermedia
+### Passo 7 · Validação intermédia
 
-ANTES de generar los 8 archivos, devolver al operador un análisis breve:
+ANTES de gerar os 8 ficheiros, devolver ao operador uma análise breve:
 
 ```
-Tengo material de los 3 registros y las 6 preguntas. Antes de generar el voice-profile final, te devuelvo lo que detecto. Confírmame si te encaja:
+Tenho material dos 3 registos e das 6 perguntas. Antes de gerar o voice-profile final, devolvo-te o que deteto. Confirma se te encaixa:
 
-**Registro Profesional (A):**
-- Tono: [una frase descriptiva]
-- Estructura típica: [cómo abre, desarrolla, cierra]
-- Palabras/frases recurrentes: [3-5 ejemplos extraídos del material]
-- Lo que NO haces: [2-3 cosas que evitas]
+**Registo Profissional (A):**
+- Tom: [uma frase descritiva]
+- Estrutura típica: [como abre, desenvolve, fecha]
+- Palavras/frases recorrentes: [3-5 exemplos extraídos do material]
+- O que NÃO fazes: [2-3 coisas que evitas]
 
-**Registro Divulgativo (B):** [mismo formato]
-**Registro Conversacional (C):** [mismo formato]
+**Registo Divulgativo (B):** [mesmo formato]
+**Registo Conversacional (C):** [mesmo formato]
 
 **Spectrum global:**
 - Formality: X/10
@@ -226,269 +226,269 @@ Tengo material de los 3 registros y las 6 preguntas. Antes de generar el voice-p
 - Authority: X/10
 - Warmth: X/10
 
-¿Te suena? ¿Hay algo que matizar o corregir antes de que genere los archivos finales?
+Faz sentido? Há algo a matizar ou corrigir antes de eu gerar os ficheiros finais?
 ```
 
-Espera confirmación o corrección. Si el usuario corrige, integra. Si dice "perfecto", pasa a Paso 8.
+Espera confirmação ou correção. Se o utilizador corrige, integra. Se diz "perfeito", passa ao Passo 8.
 
-### Paso 8 · Generación de output · 8 archivos
+### Passo 8 · Geração de output · 8 ficheiros
 
 #### 8.1 · `voice-profile.md`
 
 ```markdown
-# Voice Profile — [Nombre operador]
+# Voice Profile — [Nome operador]
 
-> Generado: YYYY-MM-DD · v2 (doble ruta)
-> Fuentes: web + LinkedIn + 15 simulaciones + 6 preguntas calibradoras
-> Ruta usada: artefactos / simulación / mixto
+> Gerado: YYYY-MM-DD · v2 (dupla via)
+> Fontes: web + LinkedIn + 15 simulações + 6 perguntas calibradoras
+> Via usada: artefactos / simulação / misto
 
-## Personalidad
+## Personalidade
 - Trait 1
 - Trait 2
 - Trait 3
 
-## Tono spectrum
+## Spectrum do tom
 - Formality: X/10
 - Directness: X/10
 - Humor: X/10
 - Authority: X/10
 - Warmth: X/10
 
-## Palabras-firma (uso frecuente, marcan voz)
+## Palavras-assinatura (uso frequente, marcam a voz)
 - ...
 
-## Vocabulario prohibido (nunca usar)
+## Vocabulário proibido (nunca usar)
 - ...
 
-## Jerga propia (términos del nicho que uso natural)
+## Jargão próprio (termos do nicho que uso de forma natural)
 - ...
 
-## Muletillas auténticas (NO eliminarlas, son parte de mi marca)
+## Muletas autênticas (NÃO eliminar, fazem parte da minha marca)
 - ...
 
-## Estructura típica por registro
-**Registro A (Profesional):**
-- Longitud media de frase: X palabras
+## Estrutura típica por registo
+**Registo A (Profissional):**
+- Comprimento médio de frase: X palavras
 - Listas vs prosa: 60/40 prosa
-- Opinión: al inicio del bloque
-- Cierre: pregunta abierta o llamada concreta
+- Opinião: no início do bloco
+- Cierre: pergunta aberta ou chamada concreta
 
-**Registro B (Divulgativo):** [...]
-**Registro C (Conversacional):** [...]
+**Registo B (Divulgativo):** [...]
+**Registo C (Conversacional):** [...]
 
 ## Anti-modelo
-- "No quiero sonar como [creador X], cuyo tono es [Y]"
+- "Não quero soar como [criador X], cujo tom é [Y]"
 
 ## Modelo a aspirar
-- "Tono parecido a [creador Z], cuya virtud es [W]"
+- "Tom parecido a [criador Z], cuja virtude é [W]"
 ```
 
 #### 8.2 · `samples.md`
 
 10-15 frases representativas:
-- 5 de inputs scrapeados o artefactos (extraídas con criterio · no genéricas)
-- 5 de las 15 simulaciones (las más auténticas)
-- 5 sintéticas siguiendo el voice profile (para validar internamente)
+- 5 de inputs scrapeados ou artefactos (extraídas com critério · não genéricas)
+- 5 das 15 simulações (as mais autênticas)
+- 5 sintéticas a seguir o voice profile (para validar internamente)
 
 #### 8.3 · `register-a-formal.md`
 
 ```markdown
-# Registro A · Formal
+# Registo A · Formal
 
-## Cuándo usarlo
-- Email a cliente premium o C-level
-- Propuesta comercial
-- Contrato o documento legal
-- Pitch a inversor
+## Quando usá-lo
+- Email a cliente premium ou C-level
+- Proposta comercial
+- Contrato ou documento legal
+- Pitch a investidor
 
-## Reglas
-- Frases largas y bien construidas (15-25 palabras)
-- Vocabulario preciso, sin jerga
-- Cero emojis
-- Sin abreviaturas
+## Regras
+- Frases longas e bem construídas (15-25 palavras)
+- Vocabulário preciso, sem jargão
+- Zero emojis
+- Sem abreviaturas
 
-## Vocabulario permitido
-[lista del voice-profile aplicada]
+## Vocabulário permitido
+[lista do voice-profile aplicada]
 
-## Vocabulario prohibido en este registro
-[palabras del voice-profile que NO aplican aquí]
+## Vocabulário proibido neste registo
+[palavras do voice-profile que NÃO se aplicam aqui]
 
-## Plantilla email cliente
-[rellena según voice-profile + reglas formales]
+## Template email cliente
+[preencher conforme voice-profile + regras formais]
 
-## Ejemplo (de las simulaciones o samples)
-[Frase del operador adaptada a tono formal]
+## Exemplo (das simulações ou samples)
+[Frase do operador adaptada a tom formal]
 ```
 
 #### 8.4 · `register-b-divulgativo.md`
 
 ```markdown
-# Registro B · Divulgativo
+# Registo B · Divulgativo
 
-## Cuándo usarlo
-- LinkedIn post / artículo
+## Quando usá-lo
+- LinkedIn post / artigo
 - Blog post
 - Video script (YouTube, talk)
-- Newsletter (cuerpo)
-- Twitter thread (largos)
+- Newsletter (corpo)
+- Twitter thread (longos)
 
-## Reglas
-- Frases mixtas (10-20 palabras), variar ritmo
-- Lenguaje claro, sin jerga innecesaria pero con jerga propia OK
-- 0-2 emojis intencionales máximo
-- Apoyarse en números concretos
+## Regras
+- Frases mistas (10-20 palavras), variar ritmo
+- Linguagem clara, sem jargão desnecessário mas com jargão próprio OK
+- 0-2 emojis intencionais no máximo
+- Apoiar-se em números concretos
 
-## Estructura típica para LinkedIn post
+## Estrutura típica para LinkedIn post
 1. Hook (1-2 frases contundentes)
-2. Contexto personal
-3. Insight (la lección)
-4. Detalle concreto
-5. Pregunta o llamada al final
+2. Contexto pessoal
+3. Insight (a lição)
+4. Detalhe concreto
+5. Pergunta ou chamada no final
 
-## Ejemplo (rebuild de samples del operador)
-[Sample del voice-profile reescrito en B]
+## Exemplo (rebuild de samples do operador)
+[Sample do voice-profile reescrito em B]
 ```
 
 #### 8.5 · `register-c-cercano.md`
 
 ```markdown
-# Registro C · Cercano
+# Registo C · Próximo
 
-## Cuándo usarlo
-- WhatsApp grupo comunidad
-- Respuestas a comentarios en LinkedIn/Instagram
-- DMs a leads cálidos
-- Mensajes Slack a equipo
-- Captions cortas en stories
+## Quando usá-lo
+- WhatsApp grupo comunidade
+- Respostas a comentários em LinkedIn/Instagram
+- DMs a leads quentes
+- Mensagens Slack à equipa
+- Captions curtas em stories
 
-## Reglas
-- Frases cortas (5-12 palabras)
-- Tono coloquial, contracciones permitidas
-- 1-3 emojis OK si son relevantes
-- Tuteo siempre
+## Regras
+- Frases curtas (5-12 palavras)
+- Tom coloquial, contrações permitidas
+- 1-3 emojis OK se forem relevantes
+- Tutear sempre
 
-## Vocabulario permitido
-[palabras-firma + slang propio + casual]
+## Vocabulário permitido
+[palavras-assinatura + slang próprio + casual]
 
-## Ejemplo
-[Una de las simulaciones del registro C del operador]
+## Exemplo
+[Uma das simulações do registo C do operador]
 ```
 
-#### 8.6 · `audit-prompt.md` *(nuevo en v2)*
+#### 8.6 · `audit-prompt.md` *(novo na v2)*
 
 ```markdown
 # Audit Prompt — Brand Voice Checker
 
-Prompt sistema para auditar si un texto está en tu voz o no.
+Prompt de sistema para auditar se um texto está na tua voz ou não.
 
-## Cómo usarlo
+## Como usá-lo
 
-Pégalo como instrucción de sistema (Claude Project, ChatGPT GEM, instrucción inicial) acompañado de tu `voice-profile.md`. Después pásale cualquier texto a auditar.
+Cola-o como instrução de sistema (Claude Project, ChatGPT GEM, instrução inicial) acompanhado do teu `voice-profile.md`. Depois passa-lhe qualquer texto a auditar.
 
 ## Prompt
 
-Eres un auditor de voz de [Nombre del operador]. Tu única misión es verificar si un texto está escrito en la voz de [Nombre], y en qué registro (A profesional / B divulgativo / C conversacional).
+És um auditor de voz de [Nome do operador]. A tua única missão é verificar se um texto está escrito na voz de [Nome], e em que registo (A profissional / B divulgativo / C conversacional).
 
-Procedimiento:
-1. Lee el voice-profile.md adjunto.
-2. Lee el texto a auditar.
-3. Identifica el registro probable según el contexto (LinkedIn = A, Reel = B, WhatsApp = C).
-4. Audita en 4 dimensiones:
-   - Tono (¿coincide con el registro?)
-   - Estructura (¿usa la estructura típica del registro?)
-   - Vocabulario (¿usa palabras-firma? ¿usa anti-vocabulario?)
-   - Spectrum 0-10 (¿se ajusta a los valores del operador?)
-5. Da una puntuación de 0 a 10 por dimensión.
-6. Marca con ✗ las palabras/frases que son anti-voz y propón sustitución concreta.
-7. Devuelve una versión corregida solo si la puntuación general es < 7.
+Procedimento:
+1. Lê o voice-profile.md em anexo.
+2. Lê o texto a auditar.
+3. Identifica o registo provável conforme o contexto (LinkedIn = A, Reel = B, WhatsApp = C).
+4. Audita em 4 dimensões:
+   - Tom (coincide com o registo?)
+   - Estrutura (usa a estrutura típica do registo?)
+   - Vocabulário (usa palavras-assinatura? usa anti-vocabulário?)
+   - Spectrum 0-10 (ajusta-se aos valores do operador?)
+5. Dá uma pontuação de 0 a 10 por dimensão.
+6. Marca com ✗ as palavras/frases que são anti-voz e propõe substituição concreta.
+7. Devolve uma versão corrigida só se a pontuação geral for < 7.
 
 Output formato:
-- Registro detectado: [A/B/C]
-- Puntuación general: X/10
-- Desglose por dimensión: T:X E:X V:X S:X
-- Anti-voz detectada: [lista con sustituciones]
-- Versión corregida: [solo si <7]
+- Registo detetado: [A/B/C]
+- Pontuação geral: X/10
+- Detalhe por dimensão: T:X E:X V:X S:X
+- Anti-voz detetada: [lista com substituições]
+- Versão corrigida: [só se <7]
 ```
 
-#### 8.7 · `vocabulary.md` *(nuevo en v2)*
+#### 8.7 · `vocabulary.md` *(novo na v2)*
 
 ```markdown
-# Vocabulary · [Nombre operador]
+# Vocabulary · [Nome operador]
 
-## Palabras y frases que SÍ usas
+## Palavras e frases que USAS
 
-### Registro A · Profesional
-- [palabra] — contexto: [ejemplo de uso]
+### Registo A · Profissional
+- [palavra] — contexto: [exemplo de uso]
 - [10-15 entradas]
 
-### Registro B · Divulgativo
+### Registo B · Divulgativo
 - [10-15 entradas]
 
-### Registro C · Conversacional
+### Registo C · Conversacional
 - [10-15 entradas]
 
-## Palabras y frases que NUNCA usas (anti-vocabulario)
+## Palavras e frases que NUNCA usas (anti-vocabulário)
 
-### Anti-corporate (no en A)
-- "Estimado/a", "Cordialmente", "Quedo a su disposición"
-- [palabras detectadas del análisis]
+### Anti-corporate (não em A)
+- "Estimado/a", "Cordialmente", "Fico ao seu dispor"
+- [palavras detetadas da análise]
 
-### Anti-hype (no en B)
-- "Game changer", "Revolucionario"
-- [específicos según análisis]
+### Anti-hype (não em B)
+- "Game changer", "Revolucionário"
+- [específicos conforme análise]
 
-### Anti-genérico de IA (no en ningún registro)
-- "No solo X sino también Y"
-- "En el mundo actual..."
-- [otros AI tells del humanizer]
+### Anti-genérico de IA (não em nenhum registo)
+- "Não só X mas também Y"
+- "No mundo atual..."
+- [outros AI tells do humanizer]
 
-## Muletillas auténticas
+## Muletas autênticas
 
-Palabras/frases que repites mucho de forma natural. NO eliminarlas · son parte de tu marca:
-- [Muletilla 1]
-- [3-5 más]
+Palavras/frases que repetes muito de forma natural. NÃO eliminar · fazem parte da tua marca:
+- [Muleta 1]
+- [3-5 mais]
 ```
 
-#### 8.8 · `installation.md` *(nuevo en v2)*
+#### 8.8 · `installation.md` *(novo na v2)*
 
 ```markdown
-# Cómo instalar tu Voice Profile en cualquier sistema
+# Como instalar o teu Voice Profile em qualquer sistema
 
-## Opción 1 · iAmasters OS (este repo)
+## Opção 1 · iAmasters OS (este repo)
 
-Ya está instalado. Las skills `marketing-*` lo usan automáticamente al iniciar sesión.
+Já está instalado. As skills `marketing-*` usam-no automaticamente ao iniciar sessão.
 
-## Opción 2 · Claude (Claude Desktop o claude.ai)
+## Opção 2 · Claude (Claude Desktop ou claude.ai)
 
-1. Crea un Project nuevo o edita el actual
-2. En "Project Instructions" pega el contenido de `voice-profile.md`
-3. Añade al final: "Antes de responder a cualquier prompt, escribe en el registro indicado del voice-profile. Si no se indica registro, pregunta cuál usar."
+1. Cria um Project novo ou edita o atual
+2. Em "Project Instructions" cola o conteúdo do `voice-profile.md`
+3. Adiciona no final: "Antes de responder a qualquer prompt, escreve no registo indicado do voice-profile. Se não for indicado registo, pergunta qual usar."
 
-## Opción 3 · ChatGPT GEM
+## Opção 3 · ChatGPT GEM
 
-1. ChatGPT → "Crear un GEM"
-2. Nombre: "Mi voz · [Tu nombre]"
-3. Instrucciones: pega `voice-profile.md`
-4. Knowledge: sube `voice-profile.md` + `vocabulary.md`
-5. Conversation starters: "Escribe en mi registro A", "Audita este texto con mi voz"
+1. ChatGPT → "Criar um GEM"
+2. Nome: "A minha voz · [O teu nome]"
+3. Instruções: cola `voice-profile.md`
+4. Knowledge: sobe `voice-profile.md` + `vocabulary.md`
+5. Conversation starters: "Escreve no meu registo A", "Audita este texto com a minha voz"
 
-## Opción 4 · Cualquier LLM
+## Opção 4 · Qualquer LLM
 
-Al inicio de cada sesión, pega:
+No início de cada sessão, cola:
 
-> Aquí está mi voice profile. Léelo. Todo lo que generes a continuación debe estar en uno de mis 3 registros. Si no sé cuál usar, pregúntame.
-> [contenido de voice-profile.md]
+> Aqui está o meu voice profile. Lê-o. Tudo o que gerares a seguir deve estar num dos meus 3 registos. Se não souberes qual usar, pergunta-me.
+> [conteúdo de voice-profile.md]
 
-## Mantenimiento
+## Manutenção
 
-- Cada 3 meses revisa tu voice-profile.md. Tu voz evoluciona.
-- Si haces cambios grandes (nueva línea de negocio, cambio de tono), re-ejecuta `marketing-brand-voice`.
-- El `audit-prompt.md` te sirve para verificar outputs sospechosos. Úsalo cuando un output "no te suene a ti".
+- Cada 3 meses revê o teu voice-profile.md. A tua voz evolui.
+- Se fizeres alterações grandes (nova linha de negócio, mudança de tom), volta a executar `marketing-brand-voice`.
+- O `audit-prompt.md` serve para verificar outputs suspeitos. Usa-o quando um output "não te soar a ti".
 ```
 
-### Paso 9 · Cierre integrado con OS
+### Passo 9 · Cierre integrado com o OS
 
-- Output guardado en `brand-context/voice/`:
+- Output guardado em `brand-context/voice/`:
   - voice-profile.md
   - samples.md
   - register-a-formal.md
@@ -497,17 +497,17 @@ Al inicio de cada sesión, pega:
   - audit-prompt.md
   - vocabulary.md
   - installation.md
-- Plus assets en `brand-context/assets/` (si Firecrawl extrajo)
-- Append en `context/learnings.md`:
+- Mais assets em `brand-context/assets/` (se Firecrawl extraiu)
+- Append em `context/learnings.md`:
   ```
   ## marketing-brand-voice
-  - YYYY-MM-DD: voice profile v2 generado. Ruta usada: <artefactos|simulación|mixto>. Reto principal: <X>. Aprender: <Y>.
+  - YYYY-MM-DD: voice profile v2 gerado. Via usada: <artefactos|simulação|misto>. Desafio principal: <X>. Aprender: <Y>.
   ```
-- Update `~/.claude/skills/_operator-state.json` con flag `brandVoiceConfigured: true`
+- Update `~/.claude/skills/_operator-state.json` com flag `brandVoiceConfigured: true`
 
 ## Outputs
 
-8 archivos en `brand-context/voice/`:
+8 ficheiros em `brand-context/voice/`:
 - voice-profile.md
 - samples.md
 - register-a-formal.md
@@ -517,24 +517,24 @@ Al inicio de cada sesión, pega:
 - **vocabulary.md** *(v2 NEW)*
 - **installation.md** *(v2 NEW)*
 
-Plus assets en `brand-context/assets/` (si Firecrawl extrajo).
+Mais assets em `brand-context/assets/` (se Firecrawl extraiu).
 
-## Skills que llama
+## Skills que chama
 
-- `tool-firecrawl-scraper` — para scrapear URLs públicas (paso 3)
+- `tool-firecrawl-scraper` — para scrapear URLs públicas (passo 3)
 
 ## Edge cases
 
-- **Operador no tiene presencia online (común)**: usar Ruta simulación global. Las 15 simulaciones capturan voz tan bien o mejor que el material online porque las respuestas son espontáneas y auténticas.
-- **Operador no quiere dar URLs ni simulación larga**: hacer Ruta simulación reducida (1-2 simulaciones por registro = 6 simulaciones totales). Generar voice profile con disclaimers ("low confidence, refine cuando tengas más datos").
-- **URLs no scrapeables (login required)**: pedir al operador que copie/pegue 3-5 posts representativos.
-- **Operador en idioma no castellano/inglés**: detectar y avisar — el flujo funciona pero la calidad de detección de patrones es menor.
-- **Voice cambia mucho entre canales** (LinkedIn formal vs Instagram casual): generar 2 voice-profiles separados (`voice-profile-pro.md`, `voice-profile-personal.md`) y advertir al operador que las skills marketing-* preguntarán cuál usar.
-- **Operador idealiza sus respuestas en simulaciones** (responde "como debería ser" en vez de "como soy"): el Paso 7 (validación intermedia) lo detecta. Si el operador dice "esto no soy yo", reformular preguntas de simulación pidiéndole respuestas más auténticas ("respóndeme como lo harías de verdad un sábado a las 23h, no como te gustaría sonar").
+- **Operador não tem presença online (comum)**: usar Via simulação global. As 15 simulações captam a voz tão bem ou melhor que o material online porque as respostas são espontâneas e autênticas.
+- **Operador não quer dar URLs nem simulação longa**: fazer Via simulação reduzida (1-2 simulações por registo = 6 simulações totais). Gerar voice profile com disclaimers ("low confidence, refinar quando tiveres mais dados").
+- **URLs não scrapáveis (login required)**: pedir ao operador que copie/cole 3-5 posts representativos.
+- **Operador em idioma que não seja português/inglês**: detetar e avisar — o fluxo funciona mas a qualidade de deteção de padrões é menor.
+- **A voz muda muito entre canais** (LinkedIn formal vs Instagram casual): gerar 2 voice-profiles separados (`voice-profile-pro.md`, `voice-profile-personal.md`) e avisar o operador que as skills marketing-* vão perguntar qual usar.
+- **Operador idealiza as suas respostas nas simulações** (responde "como devia ser" em vez de "como sou"): o Passo 7 (validação intermédia) deteta-o. Se o operador disser "isto não sou eu", reformular perguntas de simulação a pedir-lhe respostas mais autênticas ("responde-me como o farias a sério um sábado às 23h, não como gostarias de soar").
 
 ## Examples
 
 Ver `references/examples.md` para 3 casos:
-1. Operador con LinkedIn pro + blog → voice profile robusto con ruta artefactos + 3 registers diferenciados
-2. Operador sin presencia online → ruta simulación 100%, voice profile auténtico
-3. Operador mixto (LinkedIn sí, Instagram no) → ruta híbrida, registro A con artefactos + registro C con simulación
+1. Operador com LinkedIn pro + blog → voice profile robusto com via artefactos + 3 registers diferenciados
+2. Operador sem presença online → via simulação 100%, voice profile autêntico
+3. Operador misto (LinkedIn sim, Instagram não) → via híbrida, registo A com artefactos + registo C com simulação
