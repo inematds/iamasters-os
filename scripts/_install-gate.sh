@@ -1,41 +1,41 @@
 #!/bin/bash
 # ============================================================
 #  iAmasters OS — Install Gate (SessionStart hook)
-#  Bloquea respuestas del agente si la instalación está incompleta.
+#  Bloqueia respostas do agente se a instalação estiver incompleta.
 #
-#  Output: JSON con additionalContext en stdout (formato Claude Code hooks).
-#  Comportamiento:
-#    - Si OS no instalado (no hay state) → inyecta mensaje "instalar primero"
-#    - Si OS instalado parcial → inyecta mensaje "ejecuta /install --resume"
-#    - Si OS completo → no hace nada (sale 0 sin output)
+#  Output: JSON com additionalContext em stdout (formato Claude Code hooks).
+#  Comportamento:
+#    - Se OS não instalado (sem state) → injeta mensagem "instalar primeiro"
+#    - Se OS instalado parcial → injeta mensagem "executa /install --resume"
+#    - Se OS completo → não faz nada (sai 0 sem output)
 #
-#  Este hook se registra en ~/.claude/settings.json en la sección
-#  "hooks.SessionStart". Lo instala scripts/install.sh.
+#  Este hook regista-se em ~/.claude/settings.json na secção
+#  "hooks.SessionStart". Instala-o scripts/install.sh.
 # ============================================================
 
-set +e  # Nunca queremos que un hook roto bloquee la sesión
+set +e  # Nunca queremos que um hook partido bloqueie a sessão
 
 STATE_FILE="$HOME/.claude/skills/_install-state.json"
 
-# Si no tenemos node, no podemos parsear el state. Salimos silencioso.
-# (Si node no está, Sinapsis tampoco funciona, así que el OS está roto de todos modos.)
+# Se não temos node, não conseguimos fazer parse do state. Saímos silencioso.
+# (Se node não está, o Sinapsis também não funciona, portanto o OS está partido na mesma.)
 if ! command -v node >/dev/null 2>&1; then
     exit 0
 fi
 
-# Caso 1: state file NO existe → OS no instalado en absoluto
+# Caso 1: state file NÃO existe → OS não instalado de todo
 if [ ! -f "$STATE_FILE" ]; then
-    # Solo inyectamos el aviso si estamos dentro de un repo iamasters-os
-    # (detectado por presencia de vendor/sinapsis/ + CLAUDE.md con mención)
+    # Só injetamos o aviso se estivermos dentro de um repo iamasters-os
+    # (detetado pela presença de vendor/sinapsis/ + CLAUDE.md com menção)
     if [ -d "$PWD/vendor/sinapsis" ] && [ -f "$PWD/CLAUDE.md" ] && grep -q "iAmasters OS" "$PWD/CLAUDE.md" 2>/dev/null; then
         cat <<'EOF'
-{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"[INSTALL GATE] iAmasters OS detectado en este repo pero NO instalado (no existe ~/.claude/skills/_install-state.json).\n\nAntes de responder al usuario:\n1. Indícale claramente: 'iAmasters OS no está instalado. Necesito que ejecutes en terminal:\\n\\n   bash scripts/install.sh\\n\\nCuando termine, vuelve aquí y lo retomamos.'\n2. NO intentes crear archivos manualmente para simular la instalación.\n3. NO reportes que instalaste nada hasta que el state file exista y todas las fases required estén en 'done'.\n4. Si el usuario insiste en avanzar sin instalar, recuérdale que el sistema no funcionará correctamente."}}
+{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"[INSTALL GATE] iAmasters OS detetado neste repo mas NÃO instalado (não existe ~/.claude/skills/_install-state.json).\n\nAntes de responder ao utilizador:\n1. Indica-lhe claramente: 'iAmasters OS não está instalado. Preciso que executes no terminal:\\n\\n   bash scripts/install.sh\\n\\nQuando terminar, volta aqui e retomamos.'\n2. NÃO tentes criar ficheiros manualmente para simular a instalação.\n3. NÃO reportes que instalaste nada até o state file existir e todas as fases required estarem em 'done'.\n4. Se o utilizador insistir em avançar sem instalar, lembra-o que o sistema não funcionará corretamente."}}
 EOF
     fi
     exit 0
 fi
 
-# Caso 2: state file existe → evaluamos completitud
+# Caso 2: state file existe → avaliamos completude
 node <<NODE_EOF
 try {
   const fs = require('fs');
@@ -45,12 +45,12 @@ try {
   const required = Object.entries(phases).filter(([k, v]) => v.required === true);
   const pending = required.filter(([k, v]) => v.status !== 'done');
 
-  // Todo OK: no inyectamos nada
+  // Tudo OK: não injetamos nada
   if (pending.length === 0) {
     process.exit(0);
   }
 
-  // Hay fases pendientes/fallidas: construir mensaje
+  // Há fases pendentes/falhadas: construir mensagem
   const total = required.length;
   const done = total - pending.length;
   const failed = pending.filter(([k, v]) => v.status === 'failed');
@@ -100,7 +100,7 @@ try {
   context += '5. If the FIRST pending phase is "welcome-completed", invoke welcome-quick-win.\n';
   context += '6. NEVER report installation as complete unless the state file confirms all required phases are "done".\n';
   context += '7. NEVER create installation files manually to simulate progress — only the wizard and welcome-quick-win can mark phases done.\n\n';
-  context += 'If the user says "stop" or "no quiero seguir":\n';
+  context += 'If the user says "stop", "para" or "não quero seguir":\n';
   context += '- Mark pausedBy="user" in the state file and pausedAtPhase=<current>.\n';
   context += '- Remind them they can resume anytime with /install --resume.\n';
   context += '- Do NOT pretend the installation is complete.\n';
@@ -114,7 +114,7 @@ try {
   process.stdout.write(JSON.stringify(out));
   process.exit(0);
 } catch (e) {
-  // State corrupto: avisamos al modelo en vez de crashar silencioso
+  // State corrupto: avisamos o modelo em vez de crashar silencioso
   const out = {
     hookSpecificOutput: {
       hookEventName: 'SessionStart',

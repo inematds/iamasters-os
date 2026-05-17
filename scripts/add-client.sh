@@ -1,8 +1,8 @@
 #!/bin/bash
 # ============================================================
 #  iAmasters OS — add-client.sh
-#  Crea cliente nuevo en clients/<nombre>/ desde un template vertical
-#  Uso: bash scripts/add-client.sh <nombre-cliente> [vertical]
+#  Cria cliente novo em clients/<nome>/ a partir de um template vertical
+#  Uso: bash scripts/add-client.sh <nome-cliente> [vertical]
 #       bash scripts/add-client.sh acme-corp freelance-ia
 #       bash scripts/add-client.sh widget-shop agencia-marketing
 # ============================================================
@@ -29,11 +29,11 @@ CLIENT_NAME="${1:-}"
 TEMPLATE="${2:-}"
 
 if [ -z "$CLIENT_NAME" ]; then
-    echo -e "${RED}ERROR${NC} Falta nombre del cliente"
+    echo -e "${RED}ERROR${NC} Falta o nome do cliente"
     echo ""
-    echo "Uso: bash scripts/add-client.sh <nombre-cliente> [vertical]"
+    echo "Uso: bash scripts/add-client.sh <nome-cliente> [vertical]"
     echo ""
-    echo "Verticales disponibles:"
+    echo "Verticais disponíveis:"
     if [ -d "$TEMPLATES_DIR" ]; then
         for t in "$TEMPLATES_DIR"/*/; do
             tname=$(basename "$t")
@@ -41,16 +41,16 @@ if [ -z "$CLIENT_NAME" ]; then
             echo "  - $tname"
         done
     fi
-    echo "  - vacio (sin template, estructura mínima)"
+    echo "  - vacio (sem template, estrutura mínima)"
     echo ""
-    echo "Ejemplo: bash scripts/add-client.sh acme-corp freelance-ia"
+    echo "Exemplo: bash scripts/add-client.sh acme-corp freelance-ia"
     exit 1
 fi
 
 # Sanitize client name (kebab-case only)
 if [[ ! "$CLIENT_NAME" =~ ^[a-z0-9-]+$ ]]; then
-    echo -e "${RED}ERROR${NC} Nombre del cliente solo permite [a-z0-9-]"
-    echo "       Convierte espacios a guiones: 'Acme Corp' → 'acme-corp'"
+    echo -e "${RED}ERROR${NC} Nome do cliente só permite [a-z0-9-]"
+    echo "       Converte espaços para hífenes: 'Acme Corp' → 'acme-corp'"
     exit 1
 fi
 
@@ -58,20 +58,20 @@ CLIENT_DIR="$CLIENTS_DIR/$CLIENT_NAME"
 
 # Check if client already exists
 if [ -d "$CLIENT_DIR" ]; then
-    echo -e "${RED}ERROR${NC} El cliente '$CLIENT_NAME' ya existe en $CLIENT_DIR"
+    echo -e "${RED}ERROR${NC} O cliente '$CLIENT_NAME' já existe em $CLIENT_DIR"
     exit 1
 fi
 
 # Resolve template
 if [ -z "$TEMPLATE" ] || [ "$TEMPLATE" = "vacio" ]; then
     USE_TEMPLATE=false
-    echo -e "${CYAN}Modo:${NC} estructura vacía (sin template)"
+    echo -e "${CYAN}Modo:${NC} estrutura vazia (sem template)"
 else
     TEMPLATE_DIR="$TEMPLATES_DIR/$TEMPLATE"
     if [ ! -d "$TEMPLATE_DIR" ]; then
-        echo -e "${RED}ERROR${NC} Template '$TEMPLATE' no existe en $TEMPLATES_DIR"
+        echo -e "${RED}ERROR${NC} Template '$TEMPLATE' não existe em $TEMPLATES_DIR"
         echo ""
-        echo "Verticales disponibles:"
+        echo "Verticais disponíveis:"
         for t in "$TEMPLATES_DIR"/*/; do
             tname=$(basename "$t")
             [ "$tname" = "_templates" ] && continue
@@ -80,11 +80,11 @@ else
         exit 1
     fi
     USE_TEMPLATE=true
-    echo -e "${CYAN}Modo:${NC} clonar desde template '$TEMPLATE'"
+    echo -e "${CYAN}Modo:${NC} clonar do template '$TEMPLATE'"
 fi
 
 echo ""
-echo -e "${BLUE}Creando cliente '$CLIENT_NAME'...${NC}"
+echo -e "${BLUE}A criar cliente '$CLIENT_NAME'...${NC}"
 
 # Step 1: Create base structure
 mkdir -p "$CLIENT_DIR"/{brand-context/{voice,positioning,icp,assets},context,projects/briefs}
@@ -107,60 +107,60 @@ if $USE_TEMPLATE; then
     fi
 
     echo -e "${GREEN}  OK${NC} Template '$TEMPLATE' clonado"
-    echo -e "${CYAN}  ->${NC} Recuerda completar los placeholders {{...}} en:"
+    echo -e "${CYAN}  ->${NC} Lembra-te de preencher os placeholders {{...}} em:"
     echo -e "       $CLIENT_DIR/brand-context/voice/voice-profile.md"
     echo -e "       $CLIENT_DIR/brand-context/positioning/positioning.md"
     echo -e "       $CLIENT_DIR/brand-context/icp/icp.md"
     echo -e "       $CLIENT_DIR/context/user.md"
 else
-    # Modo vacío: solo .gitkeep en cada subcarpeta
+    # Modo vazio: só .gitkeep em cada subpasta
     for d in brand-context/voice brand-context/positioning brand-context/icp brand-context/assets context projects projects/briefs; do
         touch "$CLIENT_DIR/$d/.gitkeep"
     done
-    echo -e "${GREEN}  OK${NC} Estructura vacía creada"
-    echo -e "${CYAN}  ->${NC} Configura el cliente con:"
+    echo -e "${GREEN}  OK${NC} Estrutura vazia criada"
+    echo -e "${CYAN}  ->${NC} Configura o cliente com:"
     echo -e "       cd clients/$CLIENT_NAME && claude"
-    echo -e "       Y ejecuta: /start-here (lanzará marketing-brand-voice si no hay voice profile)"
+    echo -e "       E executa: /start-here (lança marketing-brand-voice se não houver voice profile)"
 fi
 
-# Step 3: Optional client-specific CLAUDE.md (override del raíz)
+# Step 3: Optional client-specific CLAUDE.md (override do raiz)
 cat > "$CLIENT_DIR/CLAUDE.md" <<EOF
 # CLAUDE.md — Cliente $CLIENT_NAME
 
-> Este archivo añade overrides específicos para este cliente.
-> El CLAUDE.md raíz del repo se sigue aplicando; este se merge encima.
+> Este ficheiro adiciona overrides específicos para este cliente.
+> O CLAUDE.md raiz do repo continua a aplicar-se; este faz merge por cima.
 
 ## Cliente
-- Nombre: $CLIENT_NAME
+- Nome: $CLIENT_NAME
 - Template base: ${TEMPLATE:-vacio}
-- Creado: $(date -u +%Y-%m-%d)
+- Criado: $(date -u +%Y-%m-%d)
 
-## Reglas específicas para este cliente
+## Regras específicas para este cliente
 
-(Añade aquí cualquier regla que se aplique SOLO a este cliente)
+(Adiciona aqui qualquer regra que se aplique SÓ a este cliente)
 
-- Voice principal: leer brand-context/voice/voice-profile.md
-- ICP a respetar: leer brand-context/icp/icp.md
-- Positioning: leer brand-context/positioning/positioning.md
+- Voice principal: ler brand-context/voice/voice-profile.md
+- ICP a respeitar: ler brand-context/icp/icp.md
+- Positioning: ler brand-context/positioning/positioning.md
 
-## Skills prioritarias para este cliente
+## Skills prioritárias para este cliente
 
-(Si tienes skills custom para este cliente, lístalas aquí)
+(Se tens skills custom para este cliente, lista-as aqui)
 
 ## Notas operativas
 
-(Cualquier cosa que el operador deba recordar al trabajar aquí)
+(Qualquer coisa que o operador deva lembrar ao trabalhar aqui)
 EOF
 
-echo -e "${GREEN}  OK${NC} CLAUDE.md del cliente creado"
+echo -e "${GREEN}  OK${NC} CLAUDE.md do cliente criado"
 
 # Done
 echo ""
 echo -e "${GREEN}${BOLD}============================================================${NC}"
-echo -e "${GREEN}${BOLD}  Cliente '$CLIENT_NAME' creado correctamente${NC}"
+echo -e "${GREEN}${BOLD}  Cliente '$CLIENT_NAME' criado com sucesso${NC}"
 echo -e "${GREEN}${BOLD}============================================================${NC}"
 echo ""
-echo -e "  ${BOLD}Estructura:${NC}"
+echo -e "  ${BOLD}Estrutura:${NC}"
 echo -e "  $CLIENT_DIR/"
 echo -e "  ├── CLAUDE.md (overrides cliente)"
 echo -e "  ├── brand-context/"
@@ -173,7 +173,7 @@ echo -e "  │   ├── soul.md"
 echo -e "  │   └── user.md"
 echo -e "  └── projects/"
 echo ""
-echo -e "  ${BOLD}Siguiente paso:${NC}"
+echo -e "  ${BOLD}Próximo passo:${NC}"
 echo -e "  ${CYAN}cd clients/$CLIENT_NAME && claude${NC}"
-echo -e "  Y ejecuta ${CYAN}/start-here${NC} para arrancar la sesión con este cliente"
+echo -e "  E executa ${CYAN}/start-here${NC} para arrancar a sessão com este cliente"
 echo ""

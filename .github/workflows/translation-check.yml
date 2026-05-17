@@ -1,0 +1,22 @@
+name: Translation quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    name: PT-PT translation + structural integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (para validação JSON)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run check-translation.sh
+        run: bash scripts/check-translation.sh

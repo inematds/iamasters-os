@@ -1,10 +1,10 @@
 #!/bin/bash
 # ============================================================
 #  iAmasters OS — update.sh
-#  Actualiza el repo desde upstream con conflict resolution
-#  - Skills propias del operador NO se sobrescriben
-#  - Brand context, context, projects NUNCA se tocan
-#  - Sinapsis vendored se actualiza si hay nueva versión upstream
+#  Atualiza o repo a partir do upstream com conflict resolution
+#  - Skills próprias do operador NÃO se sobrescrevem
+#  - Brand context, context, projects NUNCA são tocados
+#  - Sinapsis vendorizado atualiza-se se houver nova versão upstream
 # ============================================================
 
 set -e
@@ -33,18 +33,18 @@ echo ""
 cd "$REPO_ROOT"
 
 # ── Step 1: Check git state ──
-echo -e "${BLUE}[1/6]${NC} Verificando estado del repo..."
+echo -e "${BLUE}[1/6]${NC} A verificar estado do repo..."
 
 if [ ! -d ".git" ]; then
-    echo -e "${RED}  ERROR${NC} Este directorio no es un git repo"
+    echo -e "${RED}  ERROR${NC} Este diretório não é um git repo"
     exit 1
 fi
 
 # Detect uncommitted changes
 if ! git diff-index --quiet HEAD -- 2>/dev/null; then
-    echo -e "${YELLOW}  ! Tienes cambios sin commitear${NC}"
-    echo -e "${YELLOW}    Recomendación: commitea o stash antes de update${NC}"
-    read -p "  ¿Continuar de todas formas? (y/N) " -n 1 -r
+    echo -e "${YELLOW}  ! Tens mudanças por commitar${NC}"
+    echo -e "${YELLOW}    Recomendação: commit ou stash antes do update${NC}"
+    read -p "  Continuar de qualquer forma? (y/N) " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         echo "Update cancelado."
@@ -53,13 +53,13 @@ if ! git diff-index --quiet HEAD -- 2>/dev/null; then
 fi
 
 CURRENT_BRANCH=$(git branch --show-current)
-echo -e "${GREEN}  OK${NC} Branch actual: $CURRENT_BRANCH"
+echo -e "${GREEN}  OK${NC} Branch atual: $CURRENT_BRANCH"
 
 # ── Step 2: Backup ──
-echo -e "${BLUE}[2/6]${NC} Creando backup..."
+echo -e "${BLUE}[2/6]${NC} A criar backup..."
 
 mkdir -p "$BACKUP_DIR"
-# Backup user data (skills propias añadidas, brand-context, context, projects, clients, .env)
+# Backup user data (skills próprias adicionadas, brand-context, context, projects, clients, .env)
 for d in ".claude/skills" "brand-context" "context" "projects" "clients" ".env" ".claude/settings.json"; do
     if [ -e "$REPO_ROOT/$d" ]; then
         # Use cp -R to preserve structure
@@ -69,17 +69,17 @@ for d in ".claude/skills" "brand-context" "context" "projects" "clients" ".env" 
     fi
 done
 
-echo -e "${GREEN}  OK${NC} Backup en: ${BACKUP_DIR/$REPO_ROOT/.}/"
+echo -e "${GREEN}  OK${NC} Backup em: ${BACKUP_DIR/$REPO_ROOT/.}/"
 
 # ── Step 3: Detect remote ──
-echo -e "${BLUE}[3/6]${NC} Comprobando remote..."
+echo -e "${BLUE}[3/6]${NC} A verificar remote..."
 
 if ! git remote get-url origin &> /dev/null; then
-    echo -e "${YELLOW}  ! No hay remote 'origin' configurado${NC}"
-    echo -e "${YELLOW}    Para activar updates futuros:${NC}"
+    echo -e "${YELLOW}  ! Não há remote 'origin' configurado${NC}"
+    echo -e "${YELLOW}    Para ativar updates futuros:${NC}"
     echo -e "${YELLOW}    git remote add origin <url>${NC}"
     echo
-    echo "Update local-only completado (no hay upstream)."
+    echo "Update local-only completado (não há upstream)."
     exit 0
 fi
 
@@ -87,10 +87,10 @@ REMOTE_URL=$(git remote get-url origin)
 echo -e "${GREEN}  OK${NC} Remote: $REMOTE_URL"
 
 # ── Step 4: Fetch upstream changes ──
-echo -e "${BLUE}[4/6]${NC} Fetching upstream..."
+echo -e "${BLUE}[4/6]${NC} A fazer fetch do upstream..."
 
 git fetch origin "$CURRENT_BRANCH" 2>&1 | tail -3 || {
-    echo -e "${RED}  ERROR${NC} Fetch falló. Comprueba conexión y permisos."
+    echo -e "${RED}  ERROR${NC} Fetch falhou. Verifica ligação e permissões."
     exit 1
 }
 
@@ -99,22 +99,22 @@ LOCAL=$(git rev-parse HEAD)
 REMOTE=$(git rev-parse "origin/$CURRENT_BRANCH" 2>/dev/null || echo "")
 
 if [ -z "$REMOTE" ]; then
-    echo -e "${YELLOW}  ! Branch '$CURRENT_BRANCH' no existe en origin${NC}"
+    echo -e "${YELLOW}  ! Branch '$CURRENT_BRANCH' não existe em origin${NC}"
     echo "Update local-only completado."
     exit 0
 fi
 
 if [ "$LOCAL" = "$REMOTE" ]; then
-    echo -e "${GREEN}  OK${NC} Ya estás al día. Nada nuevo upstream."
+    echo -e "${GREEN}  OK${NC} Já estás em dia. Nada novo upstream."
     echo
-    echo "Update completado (sin cambios)."
+    echo "Update completado (sem mudanças)."
     exit 0
 fi
 
-echo -e "${CYAN}  ->${NC} Hay cambios upstream. Analizando..."
+echo -e "${CYAN}  ->${NC} Há mudanças upstream. A analisar..."
 
 # ── Step 5: Categorize changes ──
-echo -e "${BLUE}[5/6]${NC} Clasificando cambios..."
+echo -e "${BLUE}[5/6]${NC} A classificar mudanças..."
 
 CHANGED_FILES=$(git diff --name-only HEAD..origin/"$CURRENT_BRANCH")
 
@@ -126,7 +126,7 @@ SKILLS_MODIFIED=()
 
 while IFS= read -r file; do
     case "$file" in
-        # NEVER touch user data — siempre keep local
+        # NEVER touch user data — sempre keep local
         brand-context/*|context/*|projects/*|clients/*|.env)
             USER_DATA_CONFLICT+=("$file")
             ;;
@@ -138,7 +138,7 @@ while IFS= read -r file; do
                 SKILLS_NEW+=("$file")
             fi
             ;;
-        # Sinapsis vendored: safe to update (es upstream del repo de Luis)
+        # Sinapsis vendorizado: safe to update (é upstream do repo do Luis)
         vendor/sinapsis/*)
             SAFE_TO_UPDATE+=("$file")
             ;;
@@ -150,21 +150,21 @@ while IFS= read -r file; do
 done <<< "$CHANGED_FILES"
 
 echo
-echo -e "${BOLD}Resumen de cambios:${NC}"
-echo -e "  ${GREEN}Safe to update${NC}: ${#SAFE_TO_UPDATE[@]} archivos (system, vendor)"
-echo -e "  ${CYAN}Skills nuevas${NC}: ${#SKILLS_NEW[@]} archivos"
-echo -e "  ${YELLOW}Skills modificadas${NC}: ${#SKILLS_MODIFIED[@]} archivos (potencial conflicto)"
-echo -e "  ${RED}User data${NC}: ${#USER_DATA_CONFLICT[@]} archivos (NUNCA se tocan, ignoramos upstream)"
+echo -e "${BOLD}Resumo de mudanças:${NC}"
+echo -e "  ${GREEN}Safe to update${NC}: ${#SAFE_TO_UPDATE[@]} ficheiros (system, vendor)"
+echo -e "  ${CYAN}Skills novas${NC}: ${#SKILLS_NEW[@]} ficheiros"
+echo -e "  ${YELLOW}Skills modificadas${NC}: ${#SKILLS_MODIFIED[@]} ficheiros (potencial conflito)"
+echo -e "  ${RED}User data${NC}: ${#USER_DATA_CONFLICT[@]} ficheiros (NUNCA são tocados, ignoramos upstream)"
 echo
 
 # ── Step 6: Apply updates ──
-echo -e "${BLUE}[6/6]${NC} Aplicando updates..."
+echo -e "${BLUE}[6/6]${NC} A aplicar updates..."
 
 # Strategy:
-# - SAFE_TO_UPDATE: pull directo (con git checkout origin/branch -- file)
-# - SKILLS_NEW: pull (no había local, no hay conflicto)
-# - SKILLS_MODIFIED: preguntar al operador caso por caso
-# - USER_DATA_CONFLICT: skip (mantener local)
+# - SAFE_TO_UPDATE: pull direto (com git checkout origin/branch -- file)
+# - SKILLS_NEW: pull (não havia local, não há conflito)
+# - SKILLS_MODIFIED: perguntar ao operador caso a caso
+# - USER_DATA_CONFLICT: skip (manter local)
 
 # Apply safe updates
 for file in "${SAFE_TO_UPDATE[@]}" "${SKILLS_NEW[@]}"; do
@@ -173,21 +173,21 @@ done
 
 if [ ${#SAFE_TO_UPDATE[@]} -gt 0 ] || [ ${#SKILLS_NEW[@]} -gt 0 ]; then
     UPDATED=$((${#SAFE_TO_UPDATE[@]} + ${#SKILLS_NEW[@]}))
-    echo -e "${GREEN}  OK${NC} $UPDATED archivos actualizados (safe + new skills)"
+    echo -e "${GREEN}  OK${NC} $UPDATED ficheiros atualizados (safe + new skills)"
 fi
 
 # Handle skill conflicts case-by-case
 if [ ${#SKILLS_MODIFIED[@]} -gt 0 ]; then
     echo
-    echo -e "${YELLOW}Conflictos en skills modificadas localmente:${NC}"
+    echo -e "${YELLOW}Conflitos em skills modificadas localmente:${NC}"
     echo
     for file in "${SKILLS_MODIFIED[@]}"; do
         echo -e "${BOLD}$file${NC}"
-        echo "  [k] Keep local (mantener tu versión)"
-        echo "  [u] Use upstream (aceptar cambio del repo)"
-        echo "  [d] Diff (ver diferencia)"
-        echo "  [s] Skip (decidir después)"
-        read -p "  Acción: " -n 1 -r action
+        echo "  [k] Keep local (manter a tua versão)"
+        echo "  [u] Use upstream (aceitar mudança do repo)"
+        echo "  [d] Diff (ver diferença)"
+        echo "  [s] Skip (decidir depois)"
+        read -p "  Ação: " -n 1 -r action
         echo
         case "$action" in
             u|U)
@@ -196,26 +196,26 @@ if [ ${#SKILLS_MODIFIED[@]} -gt 0 ]; then
                 ;;
             d|D)
                 git diff HEAD..origin/"$CURRENT_BRANCH" -- "$file" | head -30
-                echo "  (diff truncado a 30 líneas)"
-                read -p "  Acción tras ver diff (k/u/s): " -n 1 -r action2
+                echo "  (diff truncado a 30 linhas)"
+                read -p "  Ação após ver diff (k/u/s): " -n 1 -r action2
                 echo
                 if [[ "$action2" =~ ^[uU]$ ]]; then
                     git checkout "origin/$CURRENT_BRANCH" -- "$file"
                     echo -e "  ${CYAN}->${NC} upstream aplicado"
                 else
-                    echo -e "  ${CYAN}->${NC} local mantenido"
+                    echo -e "  ${CYAN}->${NC} local mantido"
                 fi
                 ;;
             *)
-                echo -e "  ${CYAN}->${NC} local mantenido"
+                echo -e "  ${CYAN}->${NC} local mantido"
                 ;;
         esac
     done
 fi
 
-# Skip user data (always keep local — that's the contract)
+# Skip user data (always keep local — esse é o contrato)
 if [ ${#USER_DATA_CONFLICT[@]} -gt 0 ]; then
-    echo -e "${CYAN}  ->${NC} ${#USER_DATA_CONFLICT[@]} archivos de user data ignorados (siempre keep local)"
+    echo -e "${CYAN}  ->${NC} ${#USER_DATA_CONFLICT[@]} ficheiros de user data ignorados (sempre keep local)"
 fi
 
 # ── Done ──
@@ -224,12 +224,12 @@ echo -e "${GREEN}${BOLD}========================================================
 echo -e "${GREEN}${BOLD}  Update completado${NC}"
 echo -e "${GREEN}${BOLD}============================================================${NC}"
 echo
-echo -e "  ${BOLD}Backup guardado en:${NC} ${BACKUP_DIR/$REPO_ROOT/.}/"
-echo -e "  ${BOLD}Si algo va mal:${NC}"
-echo -e "  cp -r ${BACKUP_DIR/$REPO_ROOT/.}/<carpeta> ./<carpeta>"
+echo -e "  ${BOLD}Backup guardado em:${NC} ${BACKUP_DIR/$REPO_ROOT/.}/"
+echo -e "  ${BOLD}Se algo correr mal:${NC}"
+echo -e "  cp -r ${BACKUP_DIR/$REPO_ROOT/.}/<pasta> ./<pasta>"
 echo
 echo -e "  ${BOLD}Recomendado:${NC}"
-echo -e "  - Revisar ${CYAN}git status${NC} y ${CYAN}git diff HEAD${NC}"
-echo -e "  - Probar ${CYAN}claude${NC} en el repo y verificar que todo funciona"
-echo -e "  - Si todo OK: ${CYAN}git add . && git commit -m 'chore: update from upstream'${NC}"
+echo -e "  - Rever ${CYAN}git status${NC} e ${CYAN}git diff HEAD${NC}"
+echo -e "  - Testar ${CYAN}claude${NC} no repo e verificar que tudo funciona"
+echo -e "  - Se tudo OK: ${CYAN}git add . && git commit -m 'chore: update from upstream'${NC}"
 echo
