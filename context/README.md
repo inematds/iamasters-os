@@ -1,20 +1,20 @@
 # Context
 
-Capa dinámica que evoluciona con el uso del OS. Aquí vive todo lo que cambia con el tiempo: identidad del operador, decisiones tomadas, lecciones aprendidas.
+Camada dinâmica que evolui com o uso do OS. Aqui vive tudo o que muda com o tempo: identidade do operador, decisões tomadas, lições aprendidas.
 
-## Archivos
+## Ficheiros
 
-- `soul.md` — personalidad del agente (cómo responde, boundaries). Estática, la editas tú.
-- `user.md` — perfil del operador en el repo (preferencias, stack del día a día). Se rellena en onboarding y va creciendo.
-- `learnings.md` — feedback consolidado por skill, en formato humano-legible.
-- `daily-memory/<YYYY-MM-DD>.md` — sesiones del día con goal/done/pending/decisions.
+- `soul.md` — personalidade do agente (como responde, boundaries). Estática, editas tu.
+- `user.md` — perfil do operador no repo (preferências, stack do dia a dia). Preenche-se no onboarding e vai crescendo.
+- `learnings.md` — feedback consolidado por skill, em formato human-readable.
+- `daily-memory/<YYYY-MM-DD>.md` — sessões do dia com goal/done/pending/decisions.
 
-## Diferencia con Sinapsis
+## Diferença com o Sinapsis
 
-Sinapsis (en `~/.claude/skills/_*.json`) guarda el contexto **global del operador** que aplica a todos los proyectos.
+O Sinapsis (em `~/.claude/skills/_*.json`) guarda o contexto **global do operador** que se aplica a todos os projetos.
 
-Este `context/` guarda el contexto **específico del repo iAmasters OS** que solo aplica aquí (decisiones que tomaste sobre tu marca, learnings de skills propias, etc.).
+Este `context/` guarda o contexto **específico do repo iAmasters OS** que só se aplica aqui (decisões que tomaste sobre a tua marca, learnings de skills próprias, etc.).
 
-## Privacidad
+## Privacidade
 
-`user.md`, `daily-memory/` están en `.gitignore`. Solo `soul.md`, `learnings.md` (genérico) y este README van al git.
+`user.md`, `daily-memory/` estão no `.gitignore`. Só `soul.md`, `learnings.md` (genérico) e este README vão para o git.
