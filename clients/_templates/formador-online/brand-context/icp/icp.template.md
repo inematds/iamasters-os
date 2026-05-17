@@ -1,79 +1,79 @@
 # ICP — {{NOMBRE_FORMADOR}}
 
-> Plantilla `formador-online`.
+> Template `formador-online`.
 
 ## Demográfico
 
-- **Edad**: {{rango, ej. 28-45}}
-- **Geografía**: {{específica}}
-- **Estado profesional**: {{ej. "freelance establecido o empleado en transición"}}
-- **Ingresos**: {{rango €/mes}}
-- **Madurez en el tema**: {{principiante motivado / intermedio frustrado / avanzado que quiere atajo}}
+- **Idade**: {{intervalo, ex. 28-45}}
+- **Geografia**: {{específica}}
+- **Estado profissional**: {{ex. "freelance estabelecido ou empregado em transição"}}
+- **Rendimentos**: {{intervalo €/mês}}
+- **Maturidade no tema**: {{principiante motivado / intermédio frustrado / avançado que quer atalho}}
 
-## Aspiraciones
+## Aspirações
 
-- {{Qué quiere lograr en 12 meses}}
-- {{Qué impacto cualitativo busca: libertad / ingresos / impacto social / etc.}}
-- {{Qué identidad quiere construir: "ser visto como X"}}
+- {{O que quer alcançar em 12 meses}}
+- {{Que impacto qualitativo procura: liberdade / rendimentos / impacto social / etc.}}
+- {{Que identidade quer construir: "ser visto como X"}}
 
-## Dolor concreto
+## Dor concreta
 
-> "{{Cita textual del prospect}}"
+> "{{Citação textual do prospect}}"
 
-Síntomas:
-- Sensación de estar atascado en {{X}}
-- Probó {{Y, Z}} y no funcionó
-- Pierde {{N horas/semana}} en {{tarea Y}}
+Sintomas:
+- Sensação de estar atascado em {{X}}
+- Tentou {{Y, Z}} e não funcionou
+- Perde {{N horas/semana}} em {{tarefa Y}}
 
 ## Buying triggers
 
-- {{Evento personal: cumple años, hijo nace, despido}}
-- {{Evento profesional: pierde trabajo, cliente clave se va, no llega a fin de mes}}
-- {{Evento social: amigo X consigue lo que quiere, FOMO}}
-- {{Evento mercado: regulación, tecnología nueva, oportunidad}}
+- {{Evento pessoal: faz anos, nasce filho, despedimento}}
+- {{Evento profissional: perde trabalho, cliente-chave vai-se embora, não chega ao fim do mês}}
+- {{Evento social: amigo X consegue o que quer, FOMO}}
+- {{Evento de mercado: regulação, tecnologia nova, oportunidade}}
 
-## Objeciones + respuesta
+## Objeções + resposta
 
-| Objeción | Respuesta |
+| Objeção | Resposta |
 |---|---|
-| "No tengo tiempo" | {{Mostrar caso de alumno con menos tiempo que sí lo logró}} |
-| "Es caro" | {{ROI: el problema cuesta más que la solución}} |
-| "No estoy listo todavía" | {{Esperar más es más caro: el coste de inacción}} |
-| "Y si no funciona conmigo" | {{Garantía / refund / casos similares}} |
-| "Ya hay info gratis en YouTube" | {{Curva aprendizaje + comunidad + accountability}} |
+| "Não tenho tempo" | {{Mostrar caso de aluno com menos tempo que mesmo assim conseguiu}} |
+| "É caro" | {{ROI: o problema custa mais do que a solução}} |
+| "Ainda não estou pronto" | {{Esperar mais é mais caro: o custo de inação}} |
+| "E se não funcionar comigo" | {{Garantia / refund / casos similares}} |
+| "Já há info grátis no YouTube" | {{Curva de aprendizagem + comunidade + accountability}} |
 
 ## Anti-ICP
 
-- Buscador de fórmula mágica sin trabajo
-- Curioso sin compromiso real (preguntan mucho, nunca compran)
-- Cliente que ya gastó mucho en cursos similares y echa la culpa fuera
-- Quien no puede pagar realmente (forzar su economía es daño, no servicio)
+- Procurador de fórmula mágica sem trabalho
+- Curioso sem compromisso real (perguntam muito, nunca compram)
+- Cliente que já gastou muito em cursos similares e atira a culpa para fora
+- Quem não pode pagar realmente (forçar a sua economia é dano, não serviço)
 
-## Lenguaje que usa
+## Linguagem que usa
 
-Frases reales:
-- {{Frase 1 que dice el ICP}}
+Frases reais:
+- {{Frase 1 que o ICP diz}}
 - {{Frase 2}}
 - {{Frase 3}}
 
-Vocabulario prohibido (no lo usan, sentirá que no le entiendes):
-- {{Jerga técnica del nicho que él aún no domina}}
+Vocabulário proibido (não o usam, vai sentir que não o entendes):
+- {{Jargão técnico do nicho que ele ainda não domina}}
 
 ## Customer Journey típico
 
-1. **Awareness**: 1 reel viral, 1 LinkedIn post fuerte, recomendación de amigo
-2. **Consideration**: sigue 2-4 semanas en redes, lee newsletter, escucha 1-2 podcasts
-3. **Trigger**: evento personal/profesional que activa urgencia
-4. **Decision**: ve oferta limitada (cohort que arranca / precio de lanzamiento)
-5. **Compra**: paga (a veces en pago único, a veces en plan)
-6. **Onboarding**: primera victoria visible <14 días = clave de retención
-7. **Renewal/Upsell**: si retiene 90 días, tasa upsell a próximo curso/programa alta
+1. **Awareness**: 1 reel viral, 1 LinkedIn post forte, recomendação de amigo
+2. **Consideration**: segue durante 2-4 semanas nas redes, lê a newsletter, ouve 1-2 podcasts
+3. **Trigger**: evento pessoal/profissional que ativa urgência
+4. **Decision**: vê oferta limitada (cohort que arranca / preço de lançamento)
+5. **Compra**: paga (às vezes pagamento único, às vezes em plano)
+6. **Onboarding**: primeira vitória visível <14 dias = chave de retenção
+7. **Renewal/Upsell**: se retém 90 dias, taxa de upsell para próximo curso/programa alta
 
-## Frases de validación
+## Frases de validação
 
-En la próxima llamada/encuesta:
-- "¿Has intentado antes resolver {{problema}}? ¿Qué pasó?"
-- "¿Cuánto tiempo llevas con esta sensación?"
-- "¿Si pudieras tener {{transformación}} en {{tiempo}}, qué cambiaría?"
+Na próxima chamada/inquérito:
+- "Já tentaste antes resolver {{problema}}? O que aconteceu?"
+- "Há quanto tempo andas com esta sensação?"
+- "Se pudesses ter {{transformação}} em {{tempo}}, o que mudaria?"
 
-Si responde "no es prioridad ahora" → no es ICP en este momento, posible nurture pero no buyer.
+Se responder "não é prioridade agora" → não é ICP neste momento, possível nurture mas não buyer.

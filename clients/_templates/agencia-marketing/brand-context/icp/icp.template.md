@@ -1,67 +1,67 @@
 # ICP — {{CLIENT_NAME}}
 
-> Plantilla `agencia-marketing`. ICP del cliente final del cliente, no del cliente.
+> Template `agencia-marketing`. ICP do cliente final do cliente, não do cliente.
 
 ## Demográfico
 
-- **Sector**: {{específico}}
-- **Tamaño**: {{revenue range}}
-- **Headcount**: {{rango}}
-- **Geografía**: {{país/región}}
+- **Setor**: {{específico}}
+- **Tamanho**: {{revenue range}}
+- **Headcount**: {{intervalo}}
+- **Geografia**: {{país/região}}
 
-## Quien decide
+## Quem decide
 
-- **Rol**: {{CMO / Marketing Manager / Founder}}
-- **Vetea**: {{CFO / CEO}}
-- **Tiempo decisión**: {{semanas/meses}}
+- **Papel**: {{CMO / Marketing Manager / Founder}}
+- **Veta**: {{CFO / CEO}}
+- **Tempo de decisão**: {{semanas/meses}}
 
-## Dolor concreto
+## Dor concreta
 
-> "{{Cita textual del dolor}}"
+> "{{Citação textual da dor}}"
 
-Síntomas:
+Sintomas:
 - {{...}}
 - {{...}}
 
-Coste:
-- {{Pérdida directa €}}
-- {{Coste oportunidad}}
+Custo:
+- {{Perda direta €}}
+- {{Custo oportunidade}}
 
 ## Buying triggers
 
-- {{Lanzamiento producto}}
-- {{Cambio CMO}}
-- {{Crecimiento que satura equipo interno}}
-- {{Auditoría que detecta gaps de marketing}}
+- {{Lançamento de produto}}
+- {{Mudança de CMO}}
+- {{Crescimento que satura a equipa interna}}
+- {{Auditoria que deteta gaps de marketing}}
 
-## Lenguaje del ICP
+## Linguagem do ICP
 
-Palabras suyas:
-- {{términos del nicho}}
+Palavras suas:
+- {{termos do nicho}}
 
-Palabras prohibidas:
-- jerga marketing genérica que pueda sonar a agencia mediocre
+Palavras proibidas:
+- jargão marketing genérico que possa soar a agência medíocre
 
-## Objeciones + respuesta
+## Objeções + resposta
 
-| Objeción | Respuesta |
+| Objeção | Resposta |
 |---|---|
-| "Es caro" | {{ROI específico, ej. cliente generó X€ en mes 3}} |
-| "Probamos antes con otra agencia y fue mal" | {{Pregunta qué falló, mostrar diferencia}} |
-| "No tengo tiempo de gestionar agencia" | {{Modelo bajo input cliente, agencia ejecuta}} |
-| "¿Y si no funciona?" | {{Contrato corto inicial 3 meses, métricas claras}} |
+| "É caro" | {{ROI específico, ex. cliente gerou X€ no mês 3}} |
+| "Já tentámos antes com outra agência e correu mal" | {{Pergunta o que falhou, mostrar diferença}} |
+| "Não tenho tempo para gerir uma agência" | {{Modelo com pouco input do cliente, agência executa}} |
+| "E se não funcionar?" | {{Contrato curto inicial de 3 meses, métricas claras}} |
 
 ## Anti-ICP
 
-- Cliente que cambia objetivos cada 2 semanas
-- Cliente sin presupuesto real (solo "exploramos")
-- Cliente que quiere "transformación completa" sin foco
-- Cliente que pidió a 5 agencias propuesta y compara solo precio
+- Cliente que muda objetivos a cada 2 semanas
+- Cliente sem orçamento real (só "exploramos")
+- Cliente que quer "transformação completa" sem foco
+- Cliente que pediu a 5 agências uma proposta e compara apenas preço
 
 ## Customer journey
 
-1. Awareness: {{cómo conoce a la agencia}}
-2. Consideration: {{lee case studies, llama a referenciados}}
-3. Decision: {{propuesta + workshop pago de 1 día}}
-4. Onboarding: {{kick-off, brand audit, primer entregable mes 1}}
-5. Expansion: {{escalan presupuesto, añaden servicios}}
+1. Awareness: {{como conhece a agência}}
+2. Consideration: {{lê case studies, telefona a referenciados}}
+3. Decision: {{proposta + workshop pago de 1 dia}}
+4. Onboarding: {{kick-off, brand audit, primeiro entregável mês 1}}
+5. Expansion: {{aumentam orçamento, acrescentam serviços}}

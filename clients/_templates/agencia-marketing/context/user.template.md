@@ -1,35 +1,35 @@
-# User — perfil operador en cliente {{CLIENT_NAME}}
+# User — perfil do operador no cliente {{CLIENT_NAME}}
 
-> Plantilla del template 'agencia-marketing'. Reemplazar campos.
+> Template do template 'agencia-marketing'. Substituir campos.
 
-## Identidad del cliente
+## Identidade do cliente
 
-- Nombre: {{CLIENT_NAME}}
-- Sector: {{SECTOR}}
-- Tamaño: {{HEADCOUNT}}
+- Nome: {{CLIENT_NAME}}
+- Setor: {{SECTOR}}
+- Tamanho: {{HEADCOUNT}}
 - Web: {{WEB_URL}}
 - Contacto principal: {{CONTACT_NAME}} ({{CONTACT_EMAIL}})
 
-## Acceso a herramientas del cliente
+## Acesso a ferramentas do cliente
 
 - CRM: {{tipo + URL}}
 - Email marketing: {{plataforma}}
-- Social: {{cuentas asignadas}}
-- Analytics: {{acceso GA / similar}}
-- Otros: {{...}}
+- Social: {{contas atribuídas}}
+- Analytics: {{acesso GA / similar}}
+- Outros: {{...}}
 
-## Reglas específicas del cliente
+## Regras específicas do cliente
 
-- {{Algo único del cliente que cambia cómo trabajar}}
-- {{Tono/estilo que pidió explícitamente}}
-- {{Áreas que NO tocar}}
+- {{Algo único do cliente que muda a forma de trabalhar}}
+- {{Tom/estilo que pediu explicitamente}}
+- {{Áreas que NÃO tocar}}
 
 ## Cadence
 
-- Reuniones: {{semanal / quincenal}}
-- Reports: {{mensual / quincenal}}
-- Entregables: {{cadence}}
+- Reuniões: {{semanal / quinzenal}}
+- Reports: {{mensal / quinzenal}}
+- Entregáveis: {{cadence}}
 
-## Notas adicionales
+## Notas adicionais
 
-{{Cualquier cosa relevante que el operador deba recordar al trabajar para este cliente}}
+{{Qualquer coisa relevante que o operador deva recordar ao trabalhar para este cliente}}

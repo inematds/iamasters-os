@@ -5,8 +5,8 @@
 <h1 align="center">iAmasters OS</h1>
 
 <p align="center">
-  <em>El sistema operativo agéntico para operadores de IA.<br>
-  Castellano. Multi-cliente. Con memoria que evoluciona.</em>
+  <em>O sistema operativo agêntico para operadores de IA.<br>
+  Português. Multi-cliente. Com memória que evolui.</em>
 </p>
 
 <p align="center">
@@ -19,9 +19,9 @@
 
 ---
 
-## 🚀 Instalación (v0.6 — con install gate)
+## 🚀 Instalação (v0.6 — com install gate)
 
-**Camino corto (recomendado)** — desde terminal:
+**Caminho curto (recomendado)** — pelo terminal:
 
 ```bash
 git clone https://github.com/iamasters-academy/iamasters-os.git ~/iamasters-os
@@ -29,281 +29,281 @@ cd ~/iamasters-os
 bash scripts/install.sh
 ```
 
-Esto instala las fases técnicas (prereqs + Sinapsis engine) con validación profunda. Cuando termine, abre Claude Code en esta carpeta y el resto se completa por dentro:
+Isto instala as fases técnicas (prereqs + engine Sinapsis) com validação profunda. Quando terminar, abre o Claude Code nesta pasta e o resto completa-se por dentro:
 
-1. El hook **SessionStart** detecta que faltan fases (onboarding + welcome) y guía al agente.
-2. El agente invoca el comando `/install` que orquesta las 4 fases conversacionales restantes.
-3. El **onboarding wizard** te entrevista por sub-fases con **commits incrementales**: si te interrumpes a mitad, lo guardado queda guardado y `/install --resume` retoma exactamente donde lo dejaste.
-4. Tras el wizard se genera tu primer entregable (`welcome-quick-win`, ~5 min).
+1. O hook **SessionStart** detecta que faltam fases (onboarding + welcome) e guia o agente.
+2. O agente invoca o comando `/install` que orquestra as 4 fases conversacionais restantes.
+3. O **onboarding wizard** entrevista-te por sub-fases com **commits incrementais**: se interromperes a meio, o guardado fica guardado e `/install --resume` retoma exatamente onde paraste.
+4. Após o wizard gera-se o teu primeiro entregável (`welcome-quick-win`, ~5 min).
 
 Total realista: 15-20 minutos.
 
-**¿Algo falla?** Ejecuta:
+**Alguma coisa falha?** Executa:
 ```bash
-bash scripts/install.sh --resume        # continúa desde la última fase exitosa
-bash scripts/install.sh --force-reinstall  # backup del state actual y arranca limpio
+bash scripts/install.sh --resume        # continua desde a última fase bem-sucedida
+bash scripts/install.sh --force-reinstall  # backup do state atual e arranca limpo
 ```
 
-Y desde dentro de Claude Code: `/install-status` te muestra el dashboard sin tocar nada.
+E de dentro do Claude Code: `/install-status` mostra-te o dashboard sem tocar em nada.
 
-> 💡 **Por qué este flujo** (v0.6+): la versión anterior reportaba a veces "todo instalado" cuando partes habían fallado silenciosamente. Ahora hay un **state machine persistente** en `~/.claude/skills/_install-state.json` que es la fuente de verdad sobre qué está realmente instalado. Validación profunda, no solo presencia de archivos. Ver [`docs/install-state-schema.md`](docs/install-state-schema.md).
+> 💡 **Porquê este fluxo** (v0.6+): a versão anterior reportava por vezes "tudo instalado" quando partes tinham falhado silenciosamente. Agora há um **state machine persistente** em `~/.claude/skills/_install-state.json` que é a fonte da verdade sobre o que está realmente instalado. Validação profunda, não só presença de ficheiros. Ver [`docs/install-state-schema.md`](docs/install-state-schema.md).
 
-¿No tienes Claude Desktop todavía? [Descárgalo aquí](https://claude.com/download). ¿No sabes qué plan necesitas? Ver [💰 Coste real](#-coste-real) abajo.
+Ainda não tens o Claude Desktop? [Descarrega aqui](https://claude.com/download). Não sabes que plano precisas? Ver [💰 Custo real](#-custo-real) abaixo.
 
 ---
 
-## Qué es
+## O que é
 
-**iAmasters OS** es un repositorio Claude Code que convierte una sesión vanilla en un sistema operativo profesional para operadores de IA. Tres capas:
+**iAmasters OS** é um repositório Claude Code que converte uma sessão vanilla num sistema operativo profissional para operadores de IA. Três camadas:
 
-1. **Sinapsis v4.5 (engine)** — memoria persistente, instintos auto-aprendidos, skills on-demand. Vendoreado intacto del [repo de Luis Pitik](https://github.com/Luispitik/sinapsis).
-2. **Capa OS** — brand context (voice, positioning, ICP), agent context sectorizado (me, work, team, priorities, goals), proyectos estructurados, multi-cliente con templates por vertical.
-3. **Skills curadas** — 23 skills validadas para marketing, estrategia, automatización, tools, visualización y meta-pensamiento. Todas siguen patrón skill.md + references/ + scripts/. Skills oficiales de Anthropic (docx, xlsx, pdf, pptx) se instalan vía marketplace en el día 4 de `/aprende`.
+1. **Sinapsis v4.5 (engine)** — memória persistente, instintos auto-aprendidos, skills on-demand. Vendorizado intacto do [repo do Luis Pitik](https://github.com/Luispitik/sinapsis).
+2. **Camada OS** — brand context (voice, positioning, ICP), agent context setorizado (me, work, team, priorities, goals), projetos estruturados, multi-cliente com templates por vertical.
+3. **Skills curadas** — 23 skills validadas para marketing, estratégia, automação, tools, visualização e meta-pensamento. Todas seguem o padrão skill.md + references/ + scripts/. Skills oficiais da Anthropic (docx, xlsx, pdf, pptx) instalam-se via marketplace no dia 4 do `/aprende`.
 
-> 🌱 **Sistema vivo**: el catálogo crece con la comunidad. Cuando una skill nueva de IA Masters Academy demuestra valor en producción, entra al repo. Ver [`docs/skills-recommended.md`](docs/skills-recommended.md) para proponer una.
+> 🌱 **Sistema vivo**: o catálogo cresce com a comunidade. Quando uma skill nova da IA Masters Academy demonstra valor em produção, entra no repo. Ver [`docs/skills-recommended.md`](docs/skills-recommended.md) para propor uma.
 
-## Para quién
+## Para quem
 
-- Operador IA freelancer que sirve a varios clientes
-- Empresario que automatiza su negocio con Claude Code
-- Agencia pequeña que quiere estandarizar su stack agéntico
-- Formador que enseña Claude Code y necesita un repo de referencia
-- Cualquier miembro de [IA Masters Academy](https://www.skool.com/ia-masters-automations) (es la audiencia principal)
+- Operador IA freelancer que serve vários clientes
+- Empreendedor que automatiza o seu negócio com Claude Code
+- Agência pequena que quer padronizar a sua stack agêntica
+- Formador que ensina Claude Code e precisa de um repo de referência
+- Qualquer membro da [IA Masters Academy](https://www.skool.com/ia-masters-automations) (é a audiência principal)
 
-No requiere conocimientos de programación. Sí requiere paciencia para configurarlo la primera vez (~15-20 min de onboarding guiado).
+Não requer conhecimentos de programação. Requer paciência para configurar pela primeira vez (~15-20 min de onboarding guiado).
 
-## Qué te da el primer día
+## O que te dá no primeiro dia
 
-- ✅ Memoria que persiste entre sesiones (no más "explícame tu stack otra vez")
-- ✅ Tu primer entregable real generado por el sistema en los primeros 20 min (welcome-quick-win)
-- ✅ 23 skills curadas, instaladas, listas para activarse cuando hablas con Claude
-- ✅ Brand context (voz, posicionamiento, ICP) generable en 30 minutos extra
-- ✅ Multi-cliente listo para escalar (4 templates de vertical incluidos)
-- ✅ Sistema de aprendizaje continuo: lo que repites se gradúa a regla
-- ✅ Decisions log append-only que mantiene a Claude coherente entre sesiones
-- ✅ `/doctor` para diagnosticar y arreglar cualquier desviación
+- ✅ Memória que persiste entre sessões (acabou o "explica-me a tua stack outra vez")
+- ✅ O teu primeiro entregável real gerado pelo sistema nos primeiros 20 min (welcome-quick-win)
+- ✅ 23 skills curadas, instaladas, prontas a ativar-se quando falas com o Claude
+- ✅ Brand context (voz, posicionamento, ICP) gerável em 30 minutos extra
+- ✅ Multi-cliente pronto para escalar (4 templates de vertical incluídos)
+- ✅ Sistema de aprendizagem contínua: o que repetes gradua-se a regra
+- ✅ Decisions log append-only que mantém o Claude coerente entre sessões
+- ✅ `/doctor` para diagnosticar e arranjar qualquer desvio
 
-## 💰 Coste real
+## 💰 Custo real
 
-**Importante leerlo antes de instalar.** iAmasters OS es gratis y open source, pero requiere Claude (de Anthropic), que NO es gratis.
+**Importante ler antes de instalar.** O iAmasters OS é grátis e open source, mas requer o Claude (da Anthropic), que NÃO é grátis.
 
-| Concepto | Coste | Cuándo se paga |
+| Conceito | Custo | Quando se paga |
 |---|---|---|
-| iAmasters OS (este repo) | **Gratis** (MIT) | Nunca |
-| Membresía iAmasters Academy | (ver web) | Si quieres la comunidad y formación. **No** es necesaria para usar el OS |
-| Claude Desktop app | Gratis (descarga) | Nunca |
-| **Anthropic Pro** | **$20/mes** | Mínimo necesario para que el OS funcione bien |
-| **Anthropic Max** | $100-200/mes | Si vas a usar mucho Cowork o sesiones largas de Code |
-| Firecrawl API (opcional) | Gratis 500 créditos | Si quieres que el OS scrapee tu web/LinkedIn auto |
+| iAmasters OS (este repo) | **Grátis** (MIT) | Nunca |
+| Membership iAmasters Academy | (ver site) | Se quiseres a comunidade e formação. **Não** é necessária para usar o OS |
+| Claude Desktop app | Grátis (descarga) | Nunca |
+| **Anthropic Pro** | **$20/mês** | Mínimo necessário para o OS funcionar bem |
+| **Anthropic Max** | $100-200/mês | Se vais usar muito Cowork ou sessões longas de Code |
+| Firecrawl API (opcional) | Grátis 500 créditos | Se quiseres que o OS faça scraping do teu site/LinkedIn auto |
 
-**Conclusión**: el coste mínimo realista para empezar bien es **$20/mes de Anthropic Pro**. Con plan Free los modelos buenos no llegan y el OS se siente roto.
+**Conclusão**: o custo mínimo realista para começar bem é **$20/mês de Anthropic Pro**. Com o plano Free os modelos bons não chegam e o OS sente-se partido.
 
-> Si vienes de iAmasters Academy: tu membresía NO incluye Anthropic. Son cuentas separadas. Lo decimos claro porque otros productos lo esconden.
+> Se vens da iAmasters Academy: a tua membership NÃO inclui Anthropic. São contas separadas. Dizemo-lo claro porque outros produtos escondem.
 
-## Instalación alternativa (vía Claude Code)
+## Instalação alternativa (via Claude Code)
 
-Si prefieres lanzar todo desde Claude Code (no recomendado para v0.6 — el script técnico se ejecuta mejor desde terminal):
+Se preferires lançar tudo a partir do Claude Code (não recomendado para v0.6 — o script técnico executa-se melhor do terminal):
 
 ```
-Instala iAmasters OS desde
+Instala o iAmasters OS desde
 https://github.com/iamasters-academy/iamasters-os
-y guíame en el setup
+e guia-me no setup
 ```
 
-Claude Code clonará el repo y te indicará abrir terminal para ejecutar `bash scripts/install.sh` (las fases técnicas necesitan terminal). Tras eso, el flujo es el mismo: el install gate guía las fases restantes.
+O Claude Code vai clonar o repo e indicar-te abrir o terminal para executar `bash scripts/install.sh` (as fases técnicas precisam de terminal). Depois disso, o fluxo é o mesmo: o install gate guia as fases restantes.
 
-Detalle completo en [`docs/installation.md`](docs/installation.md) y schema del state machine en [`docs/install-state-schema.md`](docs/install-state-schema.md).
+Detalhe completo em [`docs/installation.md`](docs/installation.md) e schema do state machine em [`docs/install-state-schema.md`](docs/install-state-schema.md).
 
-## Después de instalar
+## Depois de instalar
 
-Lo más útil para arrancar:
+O mais útil para arrancar:
 
-| Comando / acción | Qué hace |
+| Comando / ação | O que faz |
 |---|---|
-| `/install` | Orquesta la instalación por fases. Reentrante con `--resume` (v0.6) |
-| `/install-status` | Dashboard read-only del state machine (v0.6) |
-| Onboarding wizard (auto) | Te entrevista por sub-fases con commits incrementales |
-| `/welcome` | Genera tu primer entregable HTML compartible (5 min) |
-| `/doctor` | Diagnostica el OS con validación profunda, detecta drift, propone fixes |
-| `/start-here` | Ritual diario de inicio: resumen ayer + propuesta hoy |
-| `/wrap-up` | Ritual de cierre: registra deliverables, decisiones, lecciones |
+| `/install` | Orquestra a instalação por fases. Reentrante com `--resume` (v0.6) |
+| `/install-status` | Dashboard read-only do state machine (v0.6) |
+| Onboarding wizard (auto) | Entrevista-te por sub-fases com commits incrementais |
+| `/welcome` | Gera o teu primeiro entregável HTML partilhável (5 min) |
+| `/doctor` | Diagnostica o OS com validação profunda, deteta drift, propõe fixes |
+| `/start-here` | Ritual diário de início: resumo de ontem + proposta de hoje |
+| `/wrap-up` | Ritual de fecho: regista deliverables, decisões, lições |
 
-## Skills incluidas (Capa 1 — preinstaladas)
+## Skills incluídas (Camada 1 — pré-instaladas)
 
 ```
-_meta/                            Sistema y rituales del OS
-├── meta-skill-creator            Crea skills nuevas siguiendo el patrón canónico
-├── meta-onboarding-wizard        Entrevista express adaptativa (8 dimensiones críticas)
-├── meta-deep-dive                🆕 Entrevista profunda adaptativa (22-25 dimensiones)
-├── meta-start-here               Ritual diario de inicio
-├── meta-wrap-up                  Ritual diario de cierre
-├── welcome-quick-win             Tu primer entregable garantizado en 5 min
-├── six-hats                      Método 6 sombreros de De Bono
-├── decisions-log                 Diario append-only inspirado en second-brain
-├── health-check                  Diagnóstico (vía `/doctor`)
-└── find-skills                   Descoverabilidad por intent en lenguaje natural
+_meta/                            Sistema e rituais do OS
+├── meta-skill-creator            Cria skills novas seguindo o padrão canónico
+├── meta-onboarding-wizard        Entrevista express adaptativa (8 dimensões críticas)
+├── meta-deep-dive                🆕 Entrevista profunda adaptativa (22-25 dimensões)
+├── meta-start-here               Ritual diário de início
+├── meta-wrap-up                  Ritual diário de fecho
+├── welcome-quick-win             O teu primeiro entregável garantido em 5 min
+├── six-hats                      Método 6 chapéus de De Bono
+├── decisions-log                 Diário append-only inspirado em second-brain
+├── health-check                  Diagnóstico (via `/doctor`)
+└── find-skills                   Descoberta por intent em linguagem natural
 
-marketing/                        Voz, contenido y conversión
-├── marketing-brand-voice         Voice profile + 3 registros A/B/C
-├── marketing-positioning         Análisis de posicionamiento
-├── marketing-icp                 Cliente ideal: dolores, lenguaje, triggers
-├── marketing-copywriting         Copy con humanizer gate obligatorio
-├── marketing-content-repurposing Distribución multiplataforma
-└── marketing-email-sequence      🆕 Secuencias de email (welcome, nurture, win-back)
+marketing/                        Voz, conteúdo e conversão
+├── marketing-brand-voice         Voice profile + 3 registos A/B/C
+├── marketing-positioning         Análise de posicionamento
+├── marketing-icp                 Cliente ideal: dores, linguagem, triggers
+├── marketing-copywriting         Copy com humanizer gate obrigatório
+├── marketing-content-repurposing Distribuição multiplataforma
+└── marketing-email-sequence      🆕 Sequências de email (welcome, nurture, win-back)
 
-automation/                       🆕 Automatización y migración
-├── automation-n8n-to-claude      Migra workflows n8n al ecosistema Claude
-└── automation-n8n-builder        Crea workflows n8n desde Claude (vía MCP n8n-mcp)
+automation/                       🆕 Automação e migração
+├── automation-n8n-to-claude      Migra workflows n8n para o ecossistema Claude
+└── automation-n8n-builder        Cria workflows n8n desde o Claude (via MCP n8n-mcp)
 
-strategy/                         🆕 Investigación y estrategia
-└── strategy-web-research         Research profundo multi-fuente (LangChain)
+strategy/                         🆕 Investigação e estratégia
+└── strategy-web-research         Research profundo multi-fonte (LangChain)
 
-tools/                            Utilidades transversales
-├── tool-firecrawl-scraper        Wrapper Firecrawl con fallback manual
-├── tool-humanizer                Quita patrones AI-tell del output
-└── tool-output-verifier          Gate de calidad (humanizer + voice + length)
+tools/                            Utilidades transversais
+├── tool-firecrawl-scraper        Wrapper Firecrawl com fallback manual
+├── tool-humanizer                Remove padrões AI-tell do output
+└── tool-output-verifier          Gate de qualidade (humanizer + voice + length)
 
-visualization/                    Outputs compartibles
-└── tool-visual-explainer         Genera HTML autocontenido compartible
+visualization/                    Outputs partilháveis
+└── tool-visual-explainer         Gera HTML autocontido partilhável
 
-_meta/_optional/                  Activables con `/install-skill <nombre>`
-└── cognito                       Sistema Operativo de Pensamiento (Luis Pitik)
+_meta/_optional/                  Ativáveis com `/install-skill <nome>`
+└── cognito                       Sistema Operativo de Pensamento (Luis Pitik)
 ```
 
-> 📦 **Skills oficiales Anthropic (`docx`, `xlsx`, `pdf`, `pptx`)**: NO se vendorean en este repo porque su licencia es "source-available" (no permite redistribución). Se instalan vía marketplace oficial dentro de Claude Code (`/plugin install anthropic-skills`). El comando `/aprende` día 4 te guía paso a paso.
+> 📦 **Skills oficiais Anthropic (`docx`, `xlsx`, `pdf`, `pptx`)**: NÃO são vendorizadas neste repo porque a licença é "source-available" (não permite redistribuição). Instalam-se via marketplace oficial dentro do Claude Code (`/plugin install anthropic-skills`). O comando `/aprende` dia 4 guia-te passo a passo.
 
-¿Quieres más? Ver [`docs/skills-recommended.md`](docs/skills-recommended.md) — catálogo de Capa 2 instalable on-demand con `/install-skill`.
+Queres mais? Ver [`docs/skills-recommended.md`](docs/skills-recommended.md) — catálogo da Camada 2 instalável on-demand com `/install-skill`.
 
-## Estructura del repo
+## Estrutura do repo
 
 ```
 iamasters-os/
 ├── .claude/
-│   ├── settings.json           # Hooks Sinapsis + permisos seguros por defecto
-│   ├── commands/               # Slash commands del OS
-│   └── skills/                 # 22 skills curadas por categoría
+│   ├── settings.json           # Hooks Sinapsis + permissões seguras por defeito
+│   ├── commands/               # Slash commands do OS
+│   └── skills/                 # 22 skills curadas por categoria
 │
-├── brand-context/              # Tu marca: voice, positioning, ICP, assets
-├── context/                    # Contexto sectorizado: me, work, team, priorities, goals
-│   ├── me.md                   # Identidad
-│   ├── work.md                 # Negocio y revenue
-│   ├── team.md                 # Equipo
-│   ├── current-priorities.md   # Foco actual (cambia mensualmente)
+├── brand-context/              # A tua marca: voice, positioning, ICP, assets
+├── context/                    # Contexto setorizado: me, work, team, priorities, goals
+│   ├── me.md                   # Identidade
+│   ├── work.md                 # Negócio e receita
+│   ├── team.md                 # Equipa
+│   ├── current-priorities.md   # Foco atual (muda mensalmente)
 │   ├── goals.md                # Objetivos 12 meses
-│   ├── decisions-log.md        # Decisiones append-only
+│   ├── decisions-log.md        # Decisões append-only
 │   ├── learnings.md            # Feedback de skills
-│   └── soul.md                 # Personalidad agente
+│   └── soul.md                 # Personalidade do agente
 │
-├── projects/                   # Outputs por skill o por brief
-│   └── welcome/                # Tu primer entregable vive aquí
+├── projects/                   # Outputs por skill ou por brief
+│   └── welcome/                # O teu primeiro entregável vive aqui
 │
 ├── clients/                    # Multi-cliente
-│   └── _templates/             # 4 verticales: freelance-ia, agencia-marketing,
+│   └── _templates/             # 4 verticais: freelance-ia, agencia-marketing,
 │                               #               formador-online, consultoria-b2b
 │
-├── docs/                       # Guías de instalación, multi-cliente, skills curadas
+├── docs/                       # Guias de instalação, multi-cliente, skills curadas
 ├── scripts/                    # install, update, add-client, validate-skill
 └── vendor/
-    └── sinapsis/               # Sinapsis v4.5 vendored (engine de memoria)
+    └── sinapsis/               # Sinapsis v4.5 vendorizado (engine de memória)
 ```
 
 ## Diferencial vs vanilla Claude Code
 
-| Sin OS | Con iAmasters OS |
+| Sem OS | Com iAmasters OS |
 |---|---|
-| Cada sesión empieza explicando tu stack | Sinapsis recuerda y carga skills relevantes |
-| Skills sueltas sin curar | 18 skills validadas para tu avatar |
-| Brand voice cada vez que escribes | Voice profile permanente con 3 registros A/B/C |
-| Outputs sin gate de calidad | `tool-output-verifier` antes de entregar |
-| 1 cliente o se mezcla todo | Multi-cliente con templates por vertical |
-| Sin aprendizaje | Lo que repites 3+ sesiones → regla automática |
-| Sin coherencia entre sesiones | `decisions-log.md` mantiene track record |
-| Si algo se rompe, abandono | `/doctor` diagnostica y propone fixes |
+| Cada sessão começa a explicar a tua stack | Sinapsis lembra-se e carrega skills relevantes |
+| Skills soltas sem curadoria | 18 skills validadas para o teu avatar |
+| Brand voice cada vez que escreves | Voice profile permanente com 3 registos A/B/C |
+| Outputs sem gate de qualidade | `tool-output-verifier` antes de entregar |
+| 1 cliente ou mistura-se tudo | Multi-cliente com templates por vertical |
+| Sem aprendizagem | O que repetes 3+ sessões → regra automática |
+| Sem coerência entre sessões | `decisions-log.md` mantém track record |
+| Se algo parte, abandono | `/doctor` diagnostica e propõe fixes |
 
-## Compatibilidad
+## Compatibilidade
 
-- **Anthropic Plan**: Pro o Max (Free no llega)
-- **OS**: macOS, Linux, Windows (Git Bash o WSL)
-- **Requiere**: Claude Code (incluido en Claude Desktop), Node.js 18+, Python 3.9+, Git
-- **Opcional**: Firecrawl API key (para auto-extraer voice profile y brand assets)
+- **Anthropic Plan**: Pro ou Max (Free não chega)
+- **OS**: macOS, Linux, Windows (Git Bash ou WSL)
+- **Requer**: Claude Code (incluído no Claude Desktop), Node.js 18+, Python 3.9+, Git
+- **Opcional**: Firecrawl API key (para auto-extrair voice profile e brand assets)
 
 ## Roadmap
 
-Ver [`CHANGELOG.md`](CHANGELOG.md) para historial detallado.
+Ver [`CHANGELOG.md`](CHANGELOG.md) para histórico detalhado.
 
-- **v0.1.0** ✅ esqueleto + Sinapsis vendored + meta-skills + brand-context flow
+- **v0.1.0** ✅ esqueleto + Sinapsis vendorizado + meta-skills + brand-context flow
 - **v0.2.0** ✅ skills marketing core + output-verifier + skill marketplace local
-- **v0.3.0** ✅ multi-cliente + 4 templates verticales + update.sh con conflict resolution
-- **v0.4.0** ✅ MCPs curated + atribución (6 capas)
-- **v0.4.3** ✅ Plug-and-play (URL conversacional, /doctor, welcome quick-win, six-hats, decisions-log, sectorización context)
-- **v0.5.0** ✅ Sistema vivo + skills automation/email/strategy + comando `/aprende` (tour de 5 días) + showcase pre-poblado + plugins Anthropic vía marketplace
-- **v0.6.0** ✅ **Install gate** con state machine persistente, validación profunda anti-"instalación fantasma", hook SessionStart, onboarding por sub-fases con commits incrementales, comandos `/install` y `/install-status`, detección Python multi-plataforma
-- **v0.7.0** — Skills nativas en español (meeting-notes, proposal-writer, youtube-transcript, linkedin-posts) reescritas con voice profile del operador
-- **v1.0.0** — release pública estable + vídeos Loom integrados + landing en iamastersacademy.com/os
+- **v0.3.0** ✅ multi-cliente + 4 templates verticais + update.sh com conflict resolution
+- **v0.4.0** ✅ MCPs curados + atribuição (6 camadas)
+- **v0.4.3** ✅ Plug-and-play (URL conversacional, /doctor, welcome quick-win, six-hats, decisions-log, setorização context)
+- **v0.5.0** ✅ Sistema vivo + skills automation/email/strategy + comando `/aprende` (tour de 5 dias) + showcase pré-povoado + plugins Anthropic via marketplace
+- **v0.6.0** ✅ **Install gate** com state machine persistente, validação profunda anti-"instalação fantasma", hook SessionStart, onboarding por sub-fases com commits incrementais, comandos `/install` e `/install-status`, deteção Python multi-plataforma
+- **v0.7.0** — Skills nativas em português (meeting-notes, proposal-writer, youtube-transcript, linkedin-posts) reescritas com voice profile do operador
+- **v1.0.0** — release pública estável + vídeos Loom integrados + landing em iamastersacademy.com/os
 
 ## 🌱 Sistema vivo
 
-iAmasters OS **no es un producto cerrado**. Es un repositorio que crece con la comunidad de IA Masters Academy.
+iAmasters OS **não é um produto fechado**. É um repositório que cresce com a comunidade IA Masters Academy.
 
-Cada vez que un miembro construye una skill que demuestra valor en producción (validada ≥2 semanas, útil para ≥3 avatares, sin dependencias privadas), entra al catálogo en la siguiente release. Cada vez que una skill se queda obsoleta o tiene mejor reemplazo, sale.
+Cada vez que um membro constrói uma skill que demonstra valor em produção (validada ≥2 semanas, útil para ≥3 avatares, sem dependências privadas), entra no catálogo na próxima release. Cada vez que uma skill fica obsoleta ou tem melhor substituto, sai.
 
-**Cómo proponer una skill nueva**: ver criterios y proceso en [`docs/skills-recommended.md`](docs/skills-recommended.md) → sección "Cómo proponer una skill al catálogo". El maintainer (Angel) revisa, y las que pasan entran en próxima release con crédito al autor.
+**Como propor uma skill nova**: ver critérios e processo em [`docs/skills-recommended.md`](docs/skills-recommended.md) → secção "Como propor uma skill ao catálogo". O maintainer (Angel) revê, e as que passam entram na próxima release com crédito ao autor.
 
-**Cadencia esperada**: release menor cada 4-6 semanas con skills validadas por la comunidad.
+**Cadência esperada**: release menor a cada 4-6 semanas com skills validadas pela comunidade.
 
 ## Contribuir
 
-iAmasters OS es código abierto bajo MIT. Las contribuciones bienvenidas:
+iAmasters OS é código aberto sob MIT. Contribuições bem-vindas:
 
-- Nuevas skills (siguiendo el patrón en [`docs/skill-creation-guide.md`](docs/skill-creation-guide.md))
-- Templates de cliente para nuevos verticales
-- Mejoras a la documentación
-- Reportes de bugs en `/doctor` o instalación
+- Skills novas (seguindo o padrão em [`docs/skill-creation-guide.md`](docs/skill-creation-guide.md))
+- Templates de cliente para novos verticais
+- Melhorias à documentação
+- Reportes de bugs em `/doctor` ou instalação
 
 ## Créditos
 
-- **Sinapsis**: [Luis Pitik](https://github.com/Luispitik/sinapsis) — el engine de memoria persistente
-- **Patrón decisions-log**: inspirado en [`Luispitik/claude-code-second-brain`](https://github.com/Luispitik/claude-code-second-brain)
-- **cognito skill**: original de Luis Pitik, copiada con autorización
-- **find-skills, visual-explainer**: de la suite Anthropic skills + comunidad
-- **Brand Voice patterns A/B/C**: inspirado en el Brand Voice Manual de Fernando Montero
-- **6 sombreros**: método de Edward de Bono, dominio público
+- **Sinapsis**: [Luis Pitik](https://github.com/Luispitik/sinapsis) — o engine de memória persistente
+- **Padrão decisions-log**: inspirado em [`Luispitik/claude-code-second-brain`](https://github.com/Luispitik/claude-code-second-brain)
+- **skill cognito**: original do Luis Pitik, copiada com autorização
+- **find-skills, visual-explainer**: da suite Anthropic skills + comunidade
+- **Brand Voice patterns A/B/C**: inspirado no Brand Voice Manual de Fernando Montero
+- **6 chapéus**: método de Edward de Bono, domínio público
 
-## Sobre el proyecto
+## Sobre o projeto
 
-**iAmasters OS** es propiedad de **Angel Aparicio** y forma parte del ecosistema de productos de **[IA Masters Academy](https://www.skool.com/ia-masters-automations)**, la comunidad de operadores de IA en castellano.
+**iAmasters OS** é propriedade de **Angel Aparicio** e faz parte do ecossistema de produtos da **[IA Masters Academy](https://www.skool.com/ia-masters-automations)**, a comunidade de operadores de IA.
 
 | | |
 |---|---|
-| **Autor y mantenedor** | Angel Aparicio |
+| **Autor e mantenedor** | Angel Aparicio |
 | **Marca** | IA Masters Academy |
 | **Empresa legal** | AASC Associates |
-| **Web personal** | [angelaparicio.com](https://angelaparicio.com) |
+| **Site pessoal** | [angelaparicio.com](https://angelaparicio.com) |
 | **LinkedIn** | [angel-aparicio92](https://www.linkedin.com/in/angel-aparicio92/) |
 | **GitHub** | [@angelapaia](https://github.com/angelapaia) |
 | **GitHub Org** | [@iamasters-academy](https://github.com/iamasters-academy) |
-| **Comunidad** | [skool.com/ia-masters-automations](https://www.skool.com/ia-masters-automations) |
+| **Comunidade** | [skool.com/ia-masters-automations](https://www.skool.com/ia-masters-automations) |
 | **Email** | aaparicio@iamastersacademy.com |
-| **Año** | 2025-2026 |
+| **Ano** | 2025-2026 |
 
-### Cómo citar
+### Como citar
 
-Si usas iAmasters OS en tu trabajo, proyecto o publicación, agradecemos la citación. Ver [`CITATION.cff`](CITATION.cff) para el formato estructurado. Referencia rápida:
+Se usares o iAmasters OS no teu trabalho, projeto ou publicação, agradecemos a citação. Ver [`CITATION.cff`](CITATION.cff) para o formato estruturado. Referência rápida:
 
 > Aparicio, A. (2025-2026). *iAmasters OS* [Software]. IA Masters Academy.
 > https://github.com/iamasters-academy/iamasters-os
 
 ### Code ownership
 
-Este repositorio sigue el modelo CODEOWNERS de GitHub. Cualquier PR requiere review del propietario. Ver [`.github/CODEOWNERS`](.github/CODEOWNERS) para el detalle.
+Este repositório segue o modelo CODEOWNERS do GitHub. Qualquer PR requer review do proprietário. Ver [`.github/CODEOWNERS`](.github/CODEOWNERS) para o detalhe.
 
 ### Marca
 
-"IA Masters Academy", "iAmasters OS" y el logo del camaleón son marcas registradas de **AASC Associates · Angel Aparicio**. El código fuente se publica bajo licencia MIT (libre uso/modificación), pero el uso de la marca y los logos requiere autorización explícita por escrito.
+"IA Masters Academy", "iAmasters OS" e o logo do camaleão são marcas registadas de **AASC Associates · Angel Aparicio**. O código-fonte publica-se sob licença MIT (uso/modificação livres), mas o uso da marca e dos logos requer autorização explícita por escrito.
 
-Para uso de marca, contactar: aaparicio@iamastersacademy.com
+Para uso da marca, contactar: aaparicio@iamastersacademy.com
 
-## Licencia
+## Licença
 
-Código fuente bajo MIT — ver [LICENSE](LICENSE).
-Componente vendored Sinapsis v4.5 conserva su licencia "Source Available" original de Luis Pitik en [`vendor/sinapsis/LICENSE`](vendor/sinapsis/LICENSE).
+Código-fonte sob MIT — ver [LICENSE](LICENSE).
+Componente vendorizado Sinapsis v4.5 conserva a sua licença "Source Available" original do Luis Pitik em [`vendor/sinapsis/LICENSE`](vendor/sinapsis/LICENSE).

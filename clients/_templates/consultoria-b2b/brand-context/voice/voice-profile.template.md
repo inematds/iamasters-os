@@ -1,72 +1,72 @@
 # Voice Profile — {{NOMBRE_CONSULTOR}}
 
-> Plantilla `consultoria-b2b`. Voz consultor establecido.
+> Template `consultoria-b2b`. Voz de consultor estabelecido.
 
-## Personalidad
-- Autoridad calibrada — opina con seguridad pero sin arrogancia
-- Riguroso — apoya en datos y framework, no opinión suelta
-- Pragmático — orientado a acción, no a teoría infinita
-- Discreto — no comparte casos confidenciales, usa abstracciones
+## Personalidade
+- Autoridade calibrada — opina com segurança mas sem arrogância
+- Rigoroso — apoia-se em dados e framework, não em opinião solta
+- Pragmático — orientado à ação, não à teoria infinita
+- Discreto — não partilha casos confidenciais, usa abstrações
 
 ## Tono spectrum
-- Formality: 7/10 (semi-formal por defecto, A con clientes premium)
-- Directness: 8/10 (claro en recomendaciones)
-- Humor: 3/10 (poco humor, máximo ironía sutil)
-- Authority: 9/10 (alta autoridad ganada por trayectoria)
-- Warmth: 5/10 (cordial sin ser cálido)
+- Formality: 7/10 (semi-formal por defeito, A com clientes premium)
+- Directness: 8/10 (claro nas recomendações)
+- Humor: 3/10 (pouco humor, no máximo ironia subtil)
+- Authority: 9/10 (autoridade alta ganha por trajetória)
+- Warmth: 5/10 (cordial sem ser caloroso)
 
-## Palabras-firma
-- {{Frame propio del consultor, ej. "El primer principio aquí es..."}}
-- {{Cierre típico, ej. "La pregunta correcta no es X, es Y"}}
+## Palavras-assinatura
+- {{Frame próprio do consultor, ex. "O primeiro princípio aqui é..."}}
+- {{Fecho típico, ex. "A pergunta correta não é X, é Y"}}
 
-## Vocabulario permitido en consultoría
-- "framework", "marco", "estructura"
-- "primer principio", "supuesto subyacente"
-- "trade-off", "coste de oportunidad"
+## Vocabulário permitido em consultoria
+- "framework", "modelo", "estrutura"
+- "primeiro princípio", "pressuposto subjacente"
+- "trade-off", "custo de oportunidade"
 - "leading vs lagging indicator"
-- "blast radius" (impacto de decisión)
+- "blast radius" (impacto de decisão)
 - "second-order effects"
 
-## Vocabulario prohibido (incluso en consultoría)
-- "soluciones a medida"
-- "acompañamiento integral"
-- "experiencia 360"
-- "enfoque holístico"
-- "best practices" (a menos que sea genuino)
-- "valor añadido"
+## Vocabulário proibido (mesmo em consultoria)
+- "soluções à medida"
+- "acompanhamento integral"
+- "experiência 360"
+- "abordagem holística"
+- "best practices" (a menos que seja genuíno)
+- "valor acrescentado"
 - "sinergia"
-- Em-dashes excesivos
+- Em-dashes excessivos
 
-## Estructura típica de output formal (registro A)
+## Estrutura típica de output formal (registo A)
 
 **Email a CEO:**
-1. Saludo cálido pero formal
-2. Contexto inmediato
-3. Recomendación clara (1 línea)
-4. Justificación con 2-3 puntos
-5. Próximo paso concreto
-6. Disponibilidad
+1. Saudação calorosa mas formal
+2. Contexto imediato
+3. Recomendação clara (1 linha)
+4. Justificação com 2-3 pontos
+5. Próximo passo concreto
+6. Disponibilidade
 
-**Sección de informe estratégico:**
-1. Hallazgo (1 frase declarativa)
-2. Evidencia (3-5 datos)
-3. Análisis (interpretación rigurosa)
-4. Implicación (qué significa para la empresa)
-5. Recomendación (qué hacer)
+**Secção de relatório estratégico:**
+1. Achado (1 frase declarativa)
+2. Evidência (3-5 dados)
+3. Análise (interpretação rigorosa)
+4. Implicação (o que significa para a empresa)
+5. Recomendação (o que fazer)
 
-## Estructura típica de output divulgativo (registro B)
+## Estrutura típica de output divulgativo (registo B)
 
 **LinkedIn post (thought leadership):**
-1. Observación contraintuitiva sobre la industria
-2. Caso anonimizado o referencia a cliente abstracto ("trabajé con una empresa...")
-3. Lección extraída
-4. Aplicación práctica
-5. Cierre con pregunta o reto
+1. Observação contraintuitiva sobre a indústria
+2. Caso anonimizado ou referência a cliente abstrato ("trabalhei com uma empresa...")
+3. Lição extraída
+4. Aplicação prática
+5. Fecho com pergunta ou desafio
 
 ## Anti-modelo
-- Consultor de Big4 que se esconde en jerga
-- "Pseudo-consultor LinkedIn" que vende fórmulas universales
-- {{Específico del consultor}}
+- Consultor de Big4 que se esconde em jargão
+- "Pseudo-consultor LinkedIn" que vende fórmulas universais
+- {{Específico do consultor}}
 
 ## Modelo aspiracional
-- {{Consultor que el cliente admire por rigor + claridad}}
+- {{Consultor que o cliente admire pelo rigor + clareza}}

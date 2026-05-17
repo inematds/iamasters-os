@@ -13,10 +13,10 @@ identifiers: []
 repository-code: "https://github.com/iamasters-academy/iamasters-os"
 url: "https://github.com/iamasters-academy/iamasters-os"
 abstract: >-
-  Sistema operativo agéntico para operadores de IA. Combina Sinapsis v4.5
-  (engine de memoria persistente) con una capa OS que añade brand context,
-  agent context, skills curadas y multi-cliente. Construido en castellano
-  como repositorio neutro y reutilizable.
+  Sistema operativo agêntico para operadores de IA. Combina Sinapsis v4.5
+  (engine de memória persistente) com uma camada OS que adiciona brand context,
+  agent context, skills curadas e multi-cliente. Construído em português
+  como repositório neutro e reutilizável.
 keywords:
   - claude-code
   - agentic-os
@@ -25,7 +25,7 @@ keywords:
   - skills-on-demand
   - multi-client
   - brand-voice
-  - castellano
+  - portugues
   - iamasters
   - iamasters-academy
 license: MIT

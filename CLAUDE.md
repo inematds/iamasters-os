@@ -5,59 +5,59 @@
 
 ---
 
-## ⛔ INSTALLATION GATE — LEER ANTES QUE NADA
+## ⛔ INSTALLATION GATE — LER ANTES DE TUDO
 
-Antes de responder al primer mensaje del usuario en este repo, **debes** comprobar si la instalación está completa.
+Antes de responderes à primeira mensagem do utilizador neste repo, **tens** de verificar se a instalação está completa.
 
-**Fuente de verdad**: `~/.claude/skills/_install-state.json` (state machine persistente, v0.6+).
+**Fonte de verdade**: `~/.claude/skills/_install-state.json` (state machine persistente, v0.6+).
 
-**Comprobación obligatoria** (en este orden):
+**Verificação obrigatória** (por esta ordem):
 
-1. **¿Existe el state file?**
-   - Si NO existe → la instalación técnica nunca corrió. Indica al usuario:
-     > "iAmasters OS no está instalado. Necesito que ejecutes desde terminal: `bash scripts/install.sh`. Cuando termine, vuelve aquí."
-   - NO crees archivos manualmente para simular instalación. NO marques nada como instalado.
+1. **O state file existe?**
+   - Se NÃO existir → a instalação técnica nunca correu. Indica ao utilizador:
+     > "iAmasters OS não está instalado. Preciso que executes a partir do terminal: `bash scripts/install.sh`. Quando terminar, volta aqui."
+   - NÃO cries ficheiros à mão para simular instalação. NÃO marques nada como instalado.
 
-2. **Si existe, ¿todas las fases `required: true` están en `status: "done"`?**
-   - Si NO → la instalación está incompleta. Invoca el comando `/install` (o el wizard directamente, según la fase pendiente).
-   - **NO respondas a otras peticiones del usuario hasta cerrar la instalación.**
+2. **Se existir, todas as fases `required: true` estão em `status: "done"`?**
+   - Se NÃO → a instalação está incompleta. Invoca o comando `/install` (ou o wizard diretamente, conforme a fase pendente).
+   - **NÃO respondas a outros pedidos do utilizador até fechar a instalação.**
 
-3. **El hook SessionStart (`_install-gate.sh`) ya inyecta este aviso automáticamente cuando aplica.** Esta sección es tu *backup* por si el hook falla, no la fuente principal.
+3. **O hook SessionStart (`_install-gate.sh`) já injeta este aviso automaticamente quando aplica.** Esta secção é o teu *backup* caso o hook falhe, não a fonte principal.
 
-**Lo que NUNCA haces durante una instalación incompleta**:
-- ❌ Reportar "todo instalado" cuando el state dice lo contrario
-- ❌ Crear archivos `.json` o `.md` manualmente para "completar" fases
-- ❌ Marcar fases como `done` sin que la validación profunda lo confirme
-- ❌ Avanzar a tareas del usuario si quedan fases `required` sin completar
+**O que NUNCA fazes durante uma instalação incompleta**:
+- ❌ Reportar "tudo instalado" quando o state diz o contrário
+- ❌ Criar ficheiros `.json` ou `.md` à mão para "completar" fases
+- ❌ Marcar fases como `done` sem que a validação profunda o confirme
+- ❌ Avançar para tarefas do utilizador se ficarem fases `required` por completar
 
-**Si el usuario dice "para" / "ya no quiero seguir":**
-- Marca `pausedBy: "user"` en el state con la fase actual
-- Despídete: "Cuando vuelvas, `/install --resume` retoma desde aquí. Lo guardado está guardado."
-- NO insistas. NO reportes la instalación como completa.
+**Se o utilizador disser "para" / "já não quero continuar":**
+- Marca `pausedBy: "user"` no state com a fase atual
+- Despede-te: "Quando voltares, `/install --resume` retoma a partir daqui. O que está guardado, está guardado."
+- NÃO insistas. NÃO reportes a instalação como completa.
 
-**Si dudas del estado**: ejecuta `/install-status` para ver el dashboard sin tocar nada.
+**Se duvidares do estado**: executa `/install-status` para ver o dashboard sem tocar em nada.
 
 ---
 
 ## Session Entry — EXECUTE ON FIRST MESSAGE OF EVERY SESSION
 
-(Una vez que el INSTALLATION GATE de arriba ha pasado.)
+(Uma vez que o INSTALLATION GATE acima tenha passado.)
 
 ### Paths absolutos (relativos a este repo)
-- **Skills del OS**: `.claude/skills/`
-- **Commands del OS**: `.claude/commands/`
+- **Skills do OS**: `.claude/skills/`
+- **Commands do OS**: `.claude/commands/`
 - **Brand context**: `brand-context/` (voice, positioning, ICP, assets)
 - **Agent context sectorizado**: `context/` (me.md, work.md, team.md, current-priorities.md, goals.md, decisions-log.md, learnings.md, soul.md)
-- **Proyectos**: `projects/` (`projects/briefs/<nombre>/`, `projects/welcome/`, `projects/six-hats/`, `projects/visual/`)
-- **Clientes**: `clients/<nombre>/` (con `clients/_templates/` para nuevos)
+- **Projetos**: `projects/` (`projects/briefs/<nome>/`, `projects/welcome/`, `projects/six-hats/`, `projects/visual/`)
+- **Clientes**: `clients/<nome>/` (com `clients/_templates/` para novos)
 - **Docs operativos**: `docs/`
-- **Scripts del installer**: `scripts/install.sh`, `scripts/_install-gate.sh`, `scripts/_install-state.template.json`
-- **Vendored**: `vendor/sinapsis/` (engine), `vendor/cognito/` (Sistema Operativo de Pensamiento de Luis Pitik)
+- **Scripts do installer**: `scripts/install.sh`, `scripts/_install-gate.sh`, `scripts/_install-state.template.json`
+- **Vendored**: `vendor/sinapsis/` (engine), `vendor/cognito/` (Sistema Operativo de Pensamento de Luis Pitik)
 
-### Paths Sinapsis (engine global del operador)
+### Paths Sinapsis (engine global do operador)
 - **Skills root global**: `~/.claude/skills/` (Sinapsis instalado por install.sh)
 - **Operator state**: `~/.claude/skills/_operator-state.json`
-- **Install state (v0.6+)**: `~/.claude/skills/_install-state.json` ← fuente de verdad de la instalación
+- **Install state (v0.6+)**: `~/.claude/skills/_install-state.json` ← fonte de verdade da instalação
 - **Install gate hook**: `~/.claude/skills/_install-gate.sh` (SessionStart hook)
 - **Instincts**: `~/.claude/skills/_instincts-index.json`
 - **Daily summaries**: `~/.claude/skills/_daily-summaries/`
@@ -65,62 +65,62 @@ Antes de responder al primer mensaje del usuario en este repo, **debes** comprob
 
 ### MANDATORY first action (post-gate)
 
-Una vez confirmado que la instalación está completa, antes de responder al primer mensaje del usuario:
+Uma vez confirmado que a instalação está completa, antes de responder à primeira mensagem do utilizador:
 
-1. Lee `~/.claude/skills/_operator-state.json` (Sinapsis: perfil del operador, decisiones, lecciones).
-2. Lee los 5 archivos sectorizados de `context/` si existen: `me.md`, `work.md`, `team.md`, `current-priorities.md`, `goals.md`.
-3. Lee `context/decisions-log.md` (últimas 5 entradas) para mantener coherencia.
-4. Lee cualquier plan activo en `.claude/plans/` si la carpeta existe (planes en progreso de sesiones anteriores).
-5. Lee `synapsis/daily-summaries/<TODAY>.md` o `<YESTERDAY>.md` (continuidad diaria).
+1. Lê `~/.claude/skills/_operator-state.json` (Sinapsis: perfil do operador, decisões, lições).
+2. Lê os 5 ficheiros sectorizados de `context/` se existirem: `me.md`, `work.md`, `team.md`, `current-priorities.md`, `goals.md`.
+3. Lê `context/decisions-log.md` (últimas 5 entradas) para manter coerência.
+4. Lê qualquer plano ativo em `.claude/plans/` se a pasta existir (planos em curso de sessões anteriores).
+5. Lê `synapsis/daily-summaries/<TODAY>.md` ou `<YESTERDAY>.md` (continuidade diária).
 
-### Session continuity (operativa diaria)
+### Session continuity (operativa diária)
 
-Cuando todo está configurado y la instalación está completa:
-1. Daily summary de ayer (Sinapsis)
+Quando tudo está configurado e a instalação está completa:
+1. Daily summary de ontem (Sinapsis)
 2. `context/learnings.md` (feedback consolidado de skills)
-3. Proyectos abiertos en `projects/briefs/*/brief.md` con `status: active`
-4. Saluda con: "Ayer dejaste X. Sigues con Y o cambias?"
+3. Projetos abertos em `projects/briefs/*/brief.md` com `status: active`
+4. Cumprimenta com: "Ontem deixaste X. Continuas com Y ou mudas?"
 
 ---
 
-## Sobre el sistema
+## Sobre o sistema
 
-### Sinapsis (engine de memoria)
-Sinapsis es el sistema que hace que Claude Code aprenda de ti. Vive instalado en `~/.claude/` (no en este repo). El repo lo trae vendored en `vendor/sinapsis/` para instalación.
+### Sinapsis (engine de memória)
+Sinapsis é o sistema que faz com que o Claude Code aprenda contigo. Vive instalado em `~/.claude/` (não neste repo). O repo trá-lo vendored em `vendor/sinapsis/` para instalação.
 
-Sinapsis te da:
-- **Operator state**: tu identidad, stack, decisiones — persiste en TODOS los proyectos
-- **Instincts**: patrones aprendidos que se inyectan automáticamente cuando aplican
-- **Passive rules**: guardrails técnicos (seguridad, calidad, workflow)
-- **Skills on-demand**: solo carga las relevantes (~2.800 tokens vs ~25.000)
-- **Dream cycle**: limpieza periódica de memoria
-- **Dashboard** (`/dashboard-sinapsis`): métricas reales
+Sinapsis dá-te:
+- **Operator state**: a tua identidade, stack, decisões — persiste em TODOS os projetos
+- **Instincts**: padrões aprendidos que se injetam automaticamente quando aplicam
+- **Passive rules**: guardrails técnicos (segurança, qualidade, workflow)
+- **Skills on-demand**: só carrega as relevantes (~2.800 tokens vs ~25.000)
+- **Dream cycle**: limpeza periódica de memória
+- **Dashboard** (`/dashboard-sinapsis`): métricas reais
 
 Comandos Sinapsis instalados global:
 - `/system-status` · `/evolve` · `/instinct-status` · `/passive-status` · `/eod` · `/dream` · `/analyze-session`
 
 ### Capa OS (este repo)
-Lo que aporta este repo encima de Sinapsis:
+O que este repo acrescenta por cima do Sinapsis:
 
 **Brand Context (`brand-context/`)** — estática:
-- Voice profile + 3 registros (A formal / B divulgativo / C cercano)
+- Voice profile + 3 registos (A formal / B divulgativo / C próximo)
 - Positioning, ICP, brand assets
 
-**Agent Context (`context/`)** — dinámica:
-- `soul.md` — personalidad del agente (cómo respondes)
+**Agent Context (`context/`)** — dinâmica:
+- `soul.md` — personalidade do agente (como respondes)
 - `me.md`, `work.md`, `team.md`, `current-priorities.md`, `goals.md`
 - `learnings.md`, `decisions-log.md`
 
-**Skills curadas (`.claude/skills/`)** — 23 skills core (ver registry abajo).
+**Skills curadas (`.claude/skills/`)** — 23 skills core (ver registry abaixo).
 
-**Niveles de proyecto**:
-1. **Single task** — pregunta directa. Output a `projects/<skill-name>/<fecha>-<titulo>/`.
-2. **Planned project** — scoping conversation. Output a `projects/briefs/<nombre>/`.
-3. **GSD project** — multi-fase. `.planning/` en cliente o raíz.
+**Níveis de projeto**:
+1. **Single task** — pergunta direta. Output para `projects/<skill-name>/<data>-<titulo>/`.
+2. **Planned project** — scoping conversation. Output para `projects/briefs/<nome>/`.
+3. **GSD project** — multi-fase. `.planning/` no cliente ou na raiz.
 
 **Multi-cliente**:
-- `clients/<nombre>/` con su propio brand-context, context, projects
-- Templates en `clients/_templates/` para 4 verticales
+- `clients/<nome>/` com o seu próprio brand-context, context, projects
+- Templates em `clients/_templates/` para 4 verticais
 
 ---
 
@@ -130,66 +130,66 @@ Capa 1 = 23 skills core + 1 opcional.
 
 ### `_meta/` — sistema (10)
 
-| Skill | Descripción corta |
+| Skill | Descrição curta |
 |---|---|
-| `meta-skill-creator` | Crea skills nuevas |
-| `meta-onboarding-wizard` | Entrevista express por **4 sub-fases con commits incrementales** (v0.6) |
-| `meta-deep-dive` | Entrevista profunda (22-25 dimensiones) — opcional |
-| `meta-start-here` | Ritual diario de inicio |
-| `meta-wrap-up` | Ritual diario de cierre |
-| `welcome-quick-win` | Primer entregable en 5 min |
-| `six-hats` | Método 6 sombreros |
-| `decisions-log` | Diario append-only de decisiones |
-| `health-check` | Diagnóstico del OS con **validación profunda y detección de drift** (v0.6) |
-| `find-skills` | Descoverabilidad por intent |
+| `meta-skill-creator` | Cria skills novas |
+| `meta-onboarding-wizard` | Entrevista express por **4 sub-fases com commits incrementais** (v0.6) |
+| `meta-deep-dive` | Entrevista profunda (22-25 dimensões) — opcional |
+| `meta-start-here` | Ritual diário de início |
+| `meta-wrap-up` | Ritual diário de fecho |
+| `welcome-quick-win` | Primeiro entregável em 5 min |
+| `six-hats` | Método 6 chapéus |
+| `decisions-log` | Diário append-only de decisões |
+| `health-check` | Diagnóstico do OS com **validação profunda e deteção de drift** (v0.6) |
+| `find-skills` | Descobribilidade por intent |
 
 ### `_meta/_optional/` (1)
 
-| Skill | Cómo activar |
+| Skill | Como ativar |
 |---|---|
 | `cognito` | `/install-skill cognito` |
 
 ### `marketing/` (6)
 
-| Skill | Descripción |
+| Skill | Descrição |
 |---|---|
-| `marketing-brand-voice` | Voice profile + 3 registros |
-| `marketing-positioning` | Posicionamiento competitivo |
+| `marketing-brand-voice` | Voice profile + 3 registos |
+| `marketing-positioning` | Posicionamento competitivo |
 | `marketing-icp` | Cliente ideal |
-| `marketing-copywriting` | Copy con humanizer gate |
-| `marketing-content-repurposing` | Distribución multiplataforma |
-| `marketing-email-sequence` | Secuencias de email |
+| `marketing-copywriting` | Copy com humanizer gate |
+| `marketing-content-repurposing` | Distribuição multiplataforma |
+| `marketing-email-sequence` | Sequências de email |
 
 ### `automation/` (2)
 
-| Skill | Descripción |
+| Skill | Descrição |
 |---|---|
-| `automation-n8n-to-claude` | Migra workflows n8n al ecosistema Claude |
-| `automation-n8n-builder` | Crea workflows n8n vía MCP `n8n-mcp` |
+| `automation-n8n-to-claude` | Migra workflows n8n para o ecossistema Claude |
+| `automation-n8n-builder` | Cria workflows n8n via MCP `n8n-mcp` |
 
 ### `strategy/` (1)
 
-| Skill | Descripción |
+| Skill | Descrição |
 |---|---|
-| `strategy-web-research` | Research con subagentes |
+| `strategy-web-research` | Research com subagentes |
 
 ### `tools/` (3)
 
-| Skill | Descripción |
+| Skill | Descrição |
 |---|---|
 | `tool-firecrawl-scraper` | Wrapper Firecrawl |
-| `tool-humanizer` | Quita patrones AI-tell |
-| `tool-output-verifier` | Gate de calidad |
+| `tool-humanizer` | Tira padrões AI-tell |
+| `tool-output-verifier` | Gate de qualidade |
 
 ### `visualization/` (1)
 
-| Skill | Descripción |
+| Skill | Descrição |
 |---|---|
-| `tool-visual-explainer` | HTML autocontenido compartible |
+| `tool-visual-explainer` | HTML autocontido partilhável |
 
-### Plugins Anthropic (instalación vía marketplace)
+### Plugins Anthropic (instalação via marketplace)
 
-| Skill | Cómo activar |
+| Skill | Como ativar |
 |---|---|
 | `docx`, `xlsx`, `pdf`, `pptx` | `/plugin install anthropic-skills` |
 
@@ -197,78 +197,78 @@ Capa 1 = 23 skills core + 1 opcional.
 
 `/install` · `/install-status` · `/start-here` · `/wrap-up` · `/doctor` · `/add-client` · `/install-skill` · `/install-mcp` · `/aprende` · `/deep-dive`
 
-Los dos primeros (`/install`, `/install-status`) son nuevos en v0.6 y son la **única vía oficial** para gestionar la instalación desde dentro de Claude Code.
+Os dois primeiros (`/install`, `/install-status`) são novos em v0.6 e são a **única via oficial** para gerir a instalação a partir de dentro do Claude Code.
 
 ### Capa 2 — on-demand library
 
-Ver [`docs/skills-recommended.md`](docs/skills-recommended.md) para skills opcionales instalables vía `/install-skill <github-url>`.
+Ver [`docs/skills-recommended.md`](docs/skills-recommended.md) para skills opcionais instaláveis via `/install-skill <github-url>`.
 
 ---
 
-## Niveles de proyecto — heartbeat
+## Níveis de projeto — heartbeat
 
-Al iniciar cada sesión (post-gate), comprueba `projects/briefs/*/brief.md`:
-- Si hay `status: active`, recuérdale qué dejó abierto.
-- Si hay un `.planning/` en raíz o cliente, indica que hay un GSD en marcha.
-- Si terminó algo (`status: done`), pregunta si archivamos.
-
----
-
-## Cómo registrar skills nuevas (auto)
-
-Cuando se añade una skill nueva en `.claude/skills/<categoria>/<nombre>/`:
-- `/start-here` la detecta y registra en catalog
-- `/wrap-up` actualiza el registry de este CLAUDE.md
-- El comando `/install-skill <github-url>` la valida antes de añadirla
+Ao iniciar cada sessão (post-gate), verifica `projects/briefs/*/brief.md`:
+- Se houver `status: active`, lembra-lhe o que ficou em aberto.
+- Se houver um `.planning/` na raiz ou no cliente, indica que há um GSD em curso.
+- Se terminou algo (`status: done`), pergunta se arquivamos.
 
 ---
 
-## Permisos (recordatorio)
+## Como registar skills novas (auto)
 
-`.claude/settings.json` viene con permisos seguros por defecto:
-- ✅ Read files, dev server, git operations, edit files dentro del repo
-- ❌ Install packages globalmente, delete files, leer `.env`
+Quando se adiciona uma skill nova em `.claude/skills/<categoria>/<nome>/`:
+- `/start-here` deteta-a e regista no catalog
+- `/wrap-up` atualiza o registry deste CLAUDE.md
+- O comando `/install-skill <github-url>` valida-a antes de a adicionar
 
-Si necesitas más permisos: `claude --dangerously-skip-permissions` (puntual) o edita `settings.json`.
+---
+
+## Permissões (lembrete)
+
+`.claude/settings.json` vem com permissões seguras por defeito:
+- ✅ Read files, dev server, git operations, edit files dentro do repo
+- ❌ Install packages globalmente, delete files, ler `.env`
+
+Se precisares de mais permissões: `claude --dangerously-skip-permissions` (pontual) ou edita `settings.json`.
 
 ---
 
 ## Idioma
 
-- **Operativa con el usuario**: castellano por defecto
-- **Comentarios técnicos en código**: inglés
-- **Commits**: conventional commits en inglés
-- **Outputs entregables al cliente**: idioma del cliente (detectar en brand-context)
+- **Operativa com o utilizador**: Português por defeito
+- **Comentários técnicos em código**: inglês
+- **Commits**: conventional commits em inglês
+- **Outputs entregáveis ao cliente**: idioma do cliente (detetar em brand-context)
 
 ---
 
-## Convenciones del repo
+## Convenções do repo
 
-- Carpetas en kebab-case (`brand-context`, `clients`, `projects`)
-- Archivos markdown en kebab-case
-- Skills en kebab-case con prefijo de categoría: `marketing-brand-voice`, `tool-humanizer`, etc.
-- Outputs por fecha: `YYYY-MM-DD-titulo-corto/`
-- Variables de entorno en `.env`
-
----
-
-## Cuándo NO usar el OS
-
-Casos donde mejor abre Claude Code en otro lado:
-- Editar el código de tu propia app
-- Bug puntual sin necesidad de brand context
-- Sesión exploratoria que no quieres que ensucie tu memory
-
-Para casos donde sí:
-- Crear contenido (LinkedIn, X, blog, email, video script)
-- Trabajar con un cliente (entras en `clients/<nombre>/`)
-- Análisis estratégico
-- Generar deliverables con voice consistente
+- Pastas em kebab-case (`brand-context`, `clients`, `projects`)
+- Ficheiros markdown em kebab-case
+- Skills em kebab-case com prefixo de categoria: `marketing-brand-voice`, `tool-humanizer`, etc.
+- Outputs por data: `YYYY-MM-DD-titulo-curto/`
+- Variáveis de ambiente em `.env`
 
 ---
 
-## Soporte y comunidad
+## Quando NÃO usar o OS
+
+Casos em que é melhor abrir o Claude Code noutro lado:
+- Editar o código da tua própria app
+- Bug pontual sem necessidade de brand context
+- Sessão exploratória que não queres que suje a tua memory
+
+Para casos em que sim:
+- Criar conteúdo (LinkedIn, X, blog, email, video script)
+- Trabalhar com um cliente (entras em `clients/<nome>/`)
+- Análise estratégica
+- Gerar deliverables com voice consistente
+
+---
+
+## Suporte e comunidade
 
 - Issues: https://github.com/iamasters-academy/iamasters-os/issues
 - Sinapsis upstream: https://github.com/Luispitik/sinapsis
-- Schema doc del install gate: [`docs/install-state-schema.md`](docs/install-state-schema.md)
+- Schema doc do install gate: [`docs/install-state-schema.md`](docs/install-state-schema.md)

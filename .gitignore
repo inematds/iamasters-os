@@ -20,7 +20,7 @@ desktop.ini
 .claude/settings.local.json
 .claude/.local/
 
-# Operator data — privado por usuario, no se commitea
+# Operator data — privado por utilizador, não é commitado
 context/daily-memory/
 context/user.md
 context/me.md
@@ -43,26 +43,26 @@ brand-context/positioning/positioning.md
 brand-context/icp/icp.md
 brand-context/assets/
 
-# v0.6 — state machine vive en ~/.claude/skills/, nunca en el repo
-# (por si acaso se generara aquí por error)
+# v0.6 — state machine vive em ~/.claude/skills/, nunca no repo
+# (por precaução caso se gere aqui por erro)
 _install-state.json
 _install-state.*.bak
 
-# Project outputs — son del usuario, no del repo
+# Project outputs — são do utilizador, não do repo
 projects/briefs/*
 projects/*/
 !projects/.gitkeep
 !projects/briefs/.gitkeep
-# Excepción: el showcase sí forma parte del repo (material de referencia)
+# Exceção: o showcase faz parte do repo (material de referência)
 !projects/_showcase/
 !projects/_showcase/**
 
-# Client data — sensible
+# Client data — sensível
 clients/*
 !clients/_templates
 !clients/_templates/**
 
-# GSD planning folders (per-project, no del repo)
+# GSD planning folders (per-project, não do repo)
 .planning/
 **/.planning/
 
@@ -92,6 +92,6 @@ node_modules/
 package-lock.json
 yarn.lock
 
-# Synapsis temporary files (si alguna vez se genera dentro del repo)
+# Synapsis temporary files (caso alguma vez sejam gerados dentro do repo)
 *.tmp
 *.lock

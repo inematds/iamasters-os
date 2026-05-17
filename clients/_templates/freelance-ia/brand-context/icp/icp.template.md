@@ -1,98 +1,98 @@
 # ICP — {{CLIENT_NAME}}
 
-> Plantilla del template `freelance-ia`. Reemplaza con investigación real del cliente.
+> Template do template `freelance-ia`. Substitui com investigação real do cliente.
 
 ## Demográfico / Firmográfico
 
-- **Sector**: {{Especificar, ej. "gestorías y asesorías fiscales"}}
-- **Tamaño**: {{Revenue range}}
-- **Headcount**: {{Rango de empleados}}
-- **Geografía**: {{España + LATAM, o más específico}}
-- **Madurez digital**: {{Bajo / medio / alto}}
+- **Setor**: {{Especificar, ex. "contabilistas e consultoras fiscais"}}
+- **Tamanho**: {{Revenue range}}
+- **Headcount**: {{Intervalo de colaboradores}}
+- **Geografia**: {{Portugal + LATAM, ou mais específico}}
+- **Maturidade digital**: {{Baixa / média / alta}}
 
-## Quien decide
+## Quem decide
 
-- **Rol del comprador**: {{Founder / CEO / Office Manager / IT / ...}}
-- **Quien vetea**: {{Si hay aprobación de socio o partner}}
-- **Tiempo medio de decisión**: {{2 semanas / 2 meses / ...}}
+- **Papel do comprador**: {{Founder / CEO / Office Manager / IT / ...}}
+- **Quem veta**: {{Se há aprovação de sócio ou partner}}
+- **Tempo médio de decisão**: {{2 semanas / 2 meses / ...}}
 
-## Dolor concreto (en SU lenguaje)
+## Dor concreta (na SUA linguagem)
 
-> "{{Cita textual de cómo lo describen ellos}}"
+> "{{Citação textual de como eles descrevem}}"
 
-Síntomas observables:
-- {{Pierden X horas/semana en Y}}
-- {{Tienen N personas haciendo tareas que un agente podría hacer}}
-- {{Los clientes esperan respuestas de 2 días, ahora tardan 5}}
+Sintomas observáveis:
+- {{Perdem X horas/semana em Y}}
+- {{Têm N pessoas a fazer tarefas que um agente podia fazer}}
+- {{Os clientes esperam respostas em 2 dias, agora demoram 5}}
 
-Coste real (€):
-- Pérdida directa: {{tiempo facturable perdido / mes}}
-- Coste de oportunidad: {{proyectos no atendidos}}
-- Coste reputacional: {{clientes que churnean}}
+Custo real (€):
+- Perda direta: {{tempo faturável perdido / mês}}
+- Custo de oportunidade: {{projetos não atendidos}}
+- Custo reputacional: {{clientes que fazem churn}}
 
 ## Buying triggers
 
-- {{Pierden cliente importante por falta de capacidad}}
-- {{Empleado clave pide aumento o se va}}
-- {{Cliente top les dice "o automatizáis o me voy"}}
-- {{Lanzan producto/servicio nuevo y el equipo no escala}}
-- {{Auditoría / regulación nueva}}
+- {{Perdem cliente importante por falta de capacidade}}
+- {{Colaborador-chave pede aumento ou vai-se embora}}
+- {{Cliente top diz-lhes "ou automatizam ou vou-me embora"}}
+- {{Lançam produto/serviço novo e a equipa não escala}}
+- {{Auditoria / regulação nova}}
 
-## Lenguaje que usan
+## Linguagem que usam
 
-Palabras EN su mundo:
+Palavras NO seu mundo:
 - {{...}}
 
-Palabras prohibidas en propuestas (no las entienden o desconfían):
-- "agéntico", "agente conversacional", "LLM", "RAG"
-- "stack", "deploy", "API" (a menos que sean técnicos)
+Palavras proibidas em propostas (não as entendem ou desconfiam):
+- "agêntico", "agente conversacional", "LLM", "RAG"
+- "stack", "deploy", "API" (a menos que sejam técnicos)
 
-## Objeciones típicas + respuesta
+## Objeções típicas + resposta
 
-| Objeción | Respuesta breve |
+| Objeção | Resposta breve |
 |---|---|
-| "Es muy caro" | {{ROI específico para su sector}} |
-| "Ya lo intentamos con [otro]" | {{Pregunta qué falló, mostrar fit distinto}} |
-| "No tenemos tiempo para implementarlo" | {{Tu servicio incluye implementación}} |
-| "¿Y si la IA falla?" | {{Control humano, validación, opción off}} |
-| "No sé si servirá para nuestro caso" | {{Pre-análisis gratuito de 30 min}} |
+| "É muito caro" | {{ROI específico para o seu setor}} |
+| "Já tentámos com [outro]" | {{Pergunta o que falhou, mostrar fit distinto}} |
+| "Não temos tempo para implementar" | {{O teu serviço inclui implementação}} |
+| "E se a IA falhar?" | {{Controlo humano, validação, opção off}} |
+| "Não sei se servirá para o nosso caso" | {{Pré-análise gratuita de 30 min}} |
 
-## Canales donde están
+## Canais onde estão
 
-- LinkedIn: {{Activo? Grupos del sector?}}
-- YouTube: {{Canales del sector que siguen}}
-- Newsletter / podcasts del sector
-- Eventos: {{Cuáles atienden}}
-- Búsqueda Google: keywords ("automatizar {{su sector}}", "ahorrar tiempo {{su tarea}}")
+- LinkedIn: {{Ativo? Grupos do setor?}}
+- YouTube: {{Canais do setor que seguem}}
+- Newsletter / podcasts do setor
+- Eventos: {{Quais frequentam}}
+- Pesquisa Google: keywords ("automatizar {{o seu setor}}", "poupar tempo {{a sua tarefa}}")
 
-## Anti-ICP (no aceptes)
+## Anti-ICP (não aceites)
 
-Síntomas:
-- {{Buscan "magia" sin trabajar}}
-- {{No tienen budget real}}
-- {{Toman decisiones por comité de 5+}}
-- {{Han probado 3 vendors y nadie es "lo suficientemente bueno"}}
-- {{No tienen el dolor real (lo "deberían tener")}}
+Sintomas:
+- {{Procuram "magia" sem trabalhar}}
+- {{Não têm budget real}}
+- {{Tomam decisões por comité de 5+}}
+- {{Já tentaram 3 vendors e ninguém é "suficientemente bom"}}
+- {{Não têm a dor real (apenas "deveriam ter")}}
 
 ## Customer Journey
 
-1. **Awareness**: {{LinkedIn de operador, recomendación, evento}}
-2. **Consideration**: {{Case studies, demo, llamada exploratoria}}
-3. **Decision**: {{Llamada con caso real similar, prueba acotada}}
-4. **Onboarding**: {{Kick-off, discovery, primera entrega visible <30 días}}
-5. **Expansion**: {{Más procesos automatizados, más clientes/usuarios, soporte continuo}}
+1. **Awareness**: {{LinkedIn do operador, recomendação, evento}}
+2. **Consideration**: {{Case studies, demo, chamada exploratória}}
+3. **Decision**: {{Chamada com caso real similar, prova delimitada}}
+4. **Onboarding**: {{Kick-off, discovery, primeira entrega visível <30 dias}}
+5. **Expansion**: {{Mais processos automatizados, mais clientes/utilizadores, suporte contínuo}}
 
-## Frases de validación en próxima llamada
+## Frases de validação na próxima chamada
 
-- "¿Pierdes alrededor de {{X horas/semana}} en {{Y tarea}}?"
-- "¿Si pudieras tener {{Z resuelto}} te ahorraría {{N€/mes}}?"
-- "¿Has intentado antes con {{tipo de solución}}? ¿Qué falló?"
+- "Perdes cerca de {{X horas/semana}} em {{Y tarefa}}?"
+- "Se pudesses ter {{Z resolvido}} pouparias {{N€/mês}}?"
+- "Já tentaste antes com {{tipo de solução}}? O que falhou?"
 
-Si responde "no" o "más o menos" a 2+ → no es ICP.
+Se responder "não" ou "mais ou menos" a 2+ → não é ICP.
 
-## Cuándo revisar este ICP
+## Quando rever este ICP
 
-- Cada 3 meses con datos nuevos (10+ clientes nuevos)
-- Cuando cambies positioning
-- Cuando entres a vertical nuevo
-- Cuando observes drift (cierras a clientes muy distintos del descrito)
+- A cada 3 meses com dados novos (10+ clientes novos)
+- Quando mudares de positioning
+- Quando entrares numa vertical nova
+- Quando observares drift (fechas com clientes muito diferentes do descrito)

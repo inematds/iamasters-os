@@ -1,34 +1,34 @@
-# Showcase — Qué puede generar iAmasters OS
+# Showcase — O que o iAmasters OS consegue gerar
 
-Esta carpeta contiene **4 outputs reales generados por el sistema** con datos sintéticos. Sirven como referencia visual de qué tipo de resultados puedes esperar antes de generar los tuyos.
+Esta pasta contém **4 outputs reais gerados pelo sistema** com dados sintéticos. Servem como referência visual de que tipo de resultados podes esperar antes de gerar os teus.
 
 ## Caso unificado
 
-Todos los outputs comparten un caso de uso ficticio para que se entienda la coherencia del sistema cuando trabaja con brand context propio:
+Todos os outputs partilham um caso de uso fictício para que se entenda a coerência do sistema quando trabalha com brand context próprio:
 
-> **Marta Sánchez** — Consultora IA independiente para PYMEs.
-> Trabaja con **Logística del Norte SL** (transporte y distribución, 80 empleados, Aragón).
-> Brief: ayudarles a automatizar la gestión de albaranes y el seguimiento de incidencias.
+> **Marta Sánchez** — Consultora IA independente para PMEs.
+> Trabalha com **Logística do Norte SL** (transporte e distribuição, 80 colaboradores, Aragão).
+> Brief: ajudá-los a automatizar a gestão de guias de transporte e o seguimento de incidências.
 
-## Los 4 outputs
+## Os 4 outputs
 
-| # | Output | Skill que lo generó |
+| # | Output | Skill que o gerou |
 |---|---|---|
-| 01 | Post LinkedIn anunciando el proyecto | `marketing-copywriting` + `tool-visual-explainer` |
-| 02 | Secuencia de 5 emails de bienvenida para nuevos leads | `marketing-email-sequence` |
-| 03 | Resumen ejecutivo de reunión de kick-off | `tool-visual-explainer` (input: transcripción) |
-| 04 | Propuesta comercial premium (HTML branded) | `marketing-copywriting` + `tool-visual-explainer` |
+| 01 | Post LinkedIn a anunciar o projeto | `marketing-copywriting` + `tool-visual-explainer` |
+| 02 | Sequência de 5 emails de boas-vindas para novos leads | `marketing-email-sequence` |
+| 03 | Resumo executivo de reunião de kick-off | `tool-visual-explainer` (input: transcrição) |
+| 04 | Proposta comercial premium (HTML branded) | `marketing-copywriting` + `tool-visual-explainer` |
 
-## Cómo leerlos
+## Como lê-los
 
-Cada output tiene su `preview.html` — ábrelo en el navegador. Los HTMLs son **autocontenidos** (sin dependencias externas, sin JS), por lo que se pueden enviar por WhatsApp/Telegram/email y se ven igual.
+Cada output tem o seu `preview.html` — abre-o no browser. Os HTMLs são **autocontidos** (sem dependências externas, sem JS), pelo que podem ser enviados por WhatsApp/Telegram/email e veem-se iguais.
 
-## Quitar este showcase
+## Remover este showcase
 
-Si quieres limpiar antes de empezar a trabajar de verdad:
+Se quiseres limpar antes de começar a trabalhar a sério:
 
 ```bash
 rm -rf projects/_showcase/
 ```
 
-No afecta a nada del sistema. Es puramente material de referencia.
+Não afeta nada do sistema. É puramente material de referência.

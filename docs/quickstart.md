@@ -1,92 +1,92 @@
-# Quickstart — primeros 30 minutos con iAmasters OS
+# Quickstart — primeiros 30 minutos com o iAmasters OS
 
-> Para alguien que clonó el repo, ejecutó `bash scripts/install.sh`, y abrió Claude Code en el repo.
+> Para alguém que clonou o repo, executou `bash scripts/install.sh` e abriu o Claude Code no repo.
 
 ## Minuto 0-5 · Onboarding
 
-Claude Code te lanza el wizard automáticamente. 7 preguntas:
+O Claude Code lança-te o wizard automaticamente. 7 perguntas:
 
-1. Avatar (single business / freelance / agencia / formador)
-2. Nivel técnico (cero / intermedio / avanzado)
-3. Dominio principal (marketing / operations / strategy / dev / mixto)
-4. Stack actual (multi-select)
-5. Idioma de outputs cliente (si aplica)
-6. Firecrawl API key (opcional pero recomendado)
-7. Identidad básica (nombre, email, web/LinkedIn)
+1. Avatar (single business / freelance / agência / formador)
+2. Nível técnico (zero / intermédio / avançado)
+3. Domínio principal (marketing / operations / strategy / dev / misto)
+4. Stack atual (multi-select)
+5. Idioma de outputs cliente (se aplicável)
+6. Firecrawl API key (opcional mas recomendado)
+7. Identidade básica (nome, email, site/LinkedIn)
 
-Output: `~/.claude/skills/_operator-state.json` y `context/user.md` rellenados.
+Output: `~/.claude/skills/_operator-state.json` e `context/user.md` preenchidos.
 
-## Minuto 5-15 · Brand voice (opcional pero recomendado)
+## Minuto 5-15 · Brand voice (opcional mas recomendado)
 
-Si dijiste sí al brand voice:
+Se disseste sim ao brand voice:
 
-- Pega tus URLs públicas (web, LinkedIn, YouTube, blog)
-- Firecrawl scraping → extrae voice samples
-- Claude analiza patrones de tu voz
-- Genera `brand-context/voice/voice-profile.md` + 3 registros (A/B/C)
-- Genera `brand-context/positioning/positioning.md` y `brand-context/icp/icp.md`
+- Cola os teus URLs públicos (site, LinkedIn, YouTube, blog)
+- Firecrawl scraping → extrai voice samples
+- O Claude analisa padrões da tua voz
+- Gera `brand-context/voice/voice-profile.md` + 3 registos (A/B/C)
+- Gera `brand-context/positioning/positioning.md` e `brand-context/icp/icp.md`
 
-Output: tu marca queda "instalada" en el OS. Cualquier skill marketing-* la usará automáticamente.
+Output: a tua marca fica "instalada" no OS. Qualquer skill marketing-* usá-la-á automaticamente.
 
-## Minuto 15-25 · Primera tarea real
+## Minuto 15-25 · Primeira tarefa real
 
-Pide algo concreto. Ejemplos:
+Pede algo concreto. Exemplos:
 
 ```
-"Escribe 3 versiones de post LinkedIn sobre <tema>"
-→ Claude usa marketing-copywriting con tu voice profile
+"Escreve 3 versões de post LinkedIn sobre <tema>"
+→ O Claude usa marketing-copywriting com o teu voice profile
 
-"Repurposea esta clase del Café Camaleónico para redes"
+"Faz repurpose desta aula do Café Camaleónico para redes"
 → marketing-content-repurposing
 
-"Genera un HTML compartible explicando esta decisión"
+"Gera um HTML partilhável a explicar esta decisão"
 → tool-visual-explainer
 ```
 
 ## Minuto 25-30 · Wrap-up
 
-Antes de cerrar:
+Antes de fechar:
 
 ```
 /wrap-up
 ```
 
-Claude:
-- Genera daily summary en `synapsis/daily-summaries/<TODAY>.md`
-- Updates skills registry si añadiste alguna
-- Propone git commit (acepta o rechaza)
-- Te dice qué empezar mañana al volver
+O Claude:
+- Gera daily summary em `synapsis/daily-summaries/<TODAY>.md`
+- Atualiza skills registry se adicionaste alguma
+- Propõe git commit (aceita ou rejeita)
+- Diz-te o que começar amanhã ao voltar
 
-## Próximos días
+## Próximos dias
 
-Cuando vuelvas a abrir Claude Code en el repo:
+Quando voltares a abrir o Claude Code no repo:
 
 ```
 /start-here
 ```
 
-Te recapitulará lo de ayer + propondrá tarea del día. La memoria persiste — no más "explícame tu stack otra vez".
+Recapitula-te o de ontem + propõe tarefa do dia. A memória persiste — acabou o "explica-me a tua stack outra vez".
 
 ## Comandos básicos
 
-| Comando | Qué hace |
+| Comando | O que faz |
 |---|---|
-| `/start-here` | Ritual de inicio (resumen + propuesta) |
-| `/wrap-up` | Cierre de sesión + commit |
-| `/add-client` | Crear cliente nuevo (multi-cliente) |
+| `/start-here` | Ritual de início (resumo + proposta) |
+| `/wrap-up` | Fecho de sessão + commit |
+| `/add-client` | Criar cliente novo (multi-cliente) |
 | `/system-status` | Dashboard Sinapsis (engine) |
 | `/evolve` | Promover instincts aprendidos a permanentes |
-| `/eod` | End of day multi-proyecto (Sinapsis) |
-| `/dashboard-sinapsis` | Visualización del aprendizaje del sistema |
+| `/eod` | End of day multi-projeto (Sinapsis) |
+| `/dashboard-sinapsis` | Visualização da aprendizagem do sistema |
 
-## Cuándo NO usar el OS
+## Quando NÃO usar o OS
 
-- Editar el código de tu app → abre Claude Code en la carpeta de la app, no en este repo
-- Sesión exploratoria que no quieres ensuciar memoria → modo vanilla en otra carpeta
-- Tarea ultracorta (<2 min) → más fricción que valor
+- Editar o código da tua app → abre o Claude Code na pasta da app, não neste repo
+- Sessão exploratória que não queres sujar memória → modo vanilla noutra pasta
+- Tarefa ultracurta (<2 min) → mais fricção que valor
 
-## Siguiente lectura
+## Próxima leitura
 
-- `docs/multi-client-guide.md` (en v0.3.0) — flujo completo de servir N clientes
-- `docs/skill-creation-guide.md` — crear tus propias skills siguiendo el patrón
-- `docs/synapsis-overview.md` — entender qué hace el engine de memoria
+- `docs/multi-client-guide.md` (em v0.3.0) — fluxo completo de servir N clientes
+- `docs/skill-creation-guide.md` — criar as tuas próprias skills seguindo o padrão
+- `docs/synapsis-overview.md` — entender o que o engine de memória faz

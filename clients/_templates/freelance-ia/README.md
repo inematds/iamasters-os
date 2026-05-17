@@ -1,37 +1,37 @@
 # Template · Operador IA Freelance
 
-> Para operadores que sirven a múltiples clientes desde su laptop, sin equipo grande.
+> Para operadores que servem múltiplos clientes a partir do seu portátil, sem equipa grande.
 
-## Para quién es este template
+## Para quem é este template
 
-- Eres tú solo (o equipo de 1-2)
-- Atiendes 3-10 clientes a la vez
-- Tu producto: implementación + mantenimiento de IA en sus procesos
-- Quieres profesionalizar entregables sin crear estructura corporate
+- És tu sozinho (ou equipa de 1-2)
+- Atendes 3-10 clientes ao mesmo tempo
+- O teu produto: implementação + manutenção de IA nos processos deles
+- Queres profissionalizar entregáveis sem criar estrutura corporate
 
-## Qué viene preconfigurado
+## O que vem pré-configurado
 
-- **Voice profile**: tono profesional pero personal (B+ con toques de C)
-- **Positioning**: especialista IA aplicada a pymes, anti-vendehumos
-- **ICP**: pymes de 5-30 personas con dolor concreto
+- **Voice profile**: tom profissional mas pessoal (B+ com toques de C)
+- **Positioning**: especialista IA aplicada a PMEs, anti-vendehumos
+- **ICP**: PMEs de 5-30 pessoas com dor concreta
 - **Skills favoritas**: marketing-copywriting, marketing-content-repurposing, tool-output-verifier
-- **Estructura proyectos**: orientado a entregables por cliente
+- **Estrutura projetos**: orientado a entregáveis por cliente
 
-## Qué adaptar al clonar a un cliente real
+## O que adaptar ao clonar para um cliente real
 
-- Nombre del cliente y datos legales
-- ICP específico de ese cliente (su mercado, no el tuyo)
-- Voice profile del cliente (lo extraes con marketing-brand-voice)
-- Positioning del cliente (no el tuyo)
+- Nome do cliente e dados legais
+- ICP específico desse cliente (o mercado dele, não o teu)
+- Voice profile do cliente (extrais com marketing-brand-voice)
+- Positioning do cliente (não o teu)
 
-## Estructura
+## Estrutura
 
 ```
 freelance-ia/
-├── README.md                         # Este archivo
+├── README.md                         # Este ficheiro
 ├── brand-context/
 │   ├── voice/
-│   │   ├── voice-profile.template.md # Tono base
+│   │   ├── voice-profile.template.md # Tom base
 │   │   ├── register-a-formal.template.md
 │   │   ├── register-b-divulgativo.template.md
 │   │   └── register-c-cercano.template.md
@@ -40,15 +40,15 @@ freelance-ia/
 │   └── icp/
 │       └── icp.template.md
 ├── context/
-│   ├── soul.md                       # Personalidad del agente para servicio
-│   └── user.template.md              # Plantilla del operador-en-cliente
-└── projects/                         # Vacío, se rellena en uso
+│   ├── soul.md                       # Personalidade do agente para serviço
+│   └── user.template.md              # Template do operador-no-cliente
+└── projects/                         # Vazio, preenche-se no uso
 ```
 
-## Cómo usar
+## Como usar
 
 ```bash
 bash scripts/add-client.sh acme-corp freelance-ia
 ```
 
-Esto clona este template a `clients/acme-corp/` y deja al operador rellenar campos específicos.
+Isto clona este template para `clients/acme-corp/` e deixa o operador preencher os campos específicos.

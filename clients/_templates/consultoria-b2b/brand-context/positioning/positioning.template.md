@@ -1,71 +1,71 @@
 # Positioning — {{NOMBRE_CONSULTOR}}
 
-> Plantilla `consultoria-b2b`.
+> Template `consultoria-b2b`.
 
 ## Statement principal
 
-> Para {{empresas medianas/grandes con problema estratégico X}}, {{NOMBRE}} es el {{categoría especialista}} que {{diferencial concreto}}, a diferencia de {{Big4 / boutiques genéricas / equipo interno}}.
+> Para {{empresas médias/grandes com problema estratégico X}}, {{NOMBRE}} é o {{categoria especialista}} que {{diferencial concreto}}, ao contrário de {{Big4 / boutiques genéricas / equipa interna}}.
 
-## Categoría
+## Categoria
 
-NO genérico:
-- ❌ "Consultor de estrategia"
-- ❌ "Consultor de transformación digital"
+NÃO genérico:
+- ❌ "Consultor de estratégia"
+- ❌ "Consultor de transformação digital"
 - ❌ "Consultor de management"
 
-Sí específico:
-- ✅ "Consultor de pricing strategy para SaaS B2B con 5-50M ARR"
-- ✅ "Consultor de M&A integration para empresas en post-acquisition primer año"
-- ✅ "Consultor de IA aplicada en operaciones para retail mid-market"
+Sim específico:
+- ✅ "Consultor de pricing strategy para SaaS B2B com 5-50M ARR"
+- ✅ "Consultor de M&A integration para empresas no primeiro ano post-acquisition"
+- ✅ "Consultor de IA aplicada em operações para retail mid-market"
 
 ## Diferencial
 
-1. {{Vertical o método propio nombrado}}
-2. {{Track record verificable: X engagements, Y resultados}}
-3. {{Algo que Big4 no puede ofrecer (cercanía / agilidad / especialización)}}
+1. {{Vertical ou método próprio com nome}}
+2. {{Track record verificável: X engagements, Y resultados}}
+3. {{Algo que Big4 não pode oferecer (proximidade / agilidade / especialização)}}
 
-## Alternativas que tu cliente considera
+## Alternativas que o teu cliente considera
 
-| Alternativa | Cuándo eligen otra | Cuándo te eligen a ti |
+| Alternativa | Quando escolhem outra | Quando te escolhem a ti |
 |---|---|---|
-| Big4 (McKinsey/BCG/Bain) | Empresa muy grande, problema mainstream | Empresa mediana, problema específico |
-| Boutique generalista | Confianza / network | Especialización + agilidad |
-| Equipo interno | Caso "estratégico core" | Caso que requiere external perspective |
-| Freelancer/independiente | Presupuesto bajo | Needs reputación + estructura |
+| Big4 (McKinsey/BCG/Bain) | Empresa muito grande, problema mainstream | Empresa média, problema específico |
+| Boutique generalista | Confiança / network | Especialização + agilidade |
+| Equipa interna | Caso "estratégico core" | Caso que requer perspetiva externa |
+| Freelancer/independente | Orçamento baixo | Precisam de reputação + estrutura |
 
 ## Unfair advantage
 
-{{Track record en vertical específico, asset (libro, framework propio nombrado), network, ex-de-empresa-prestigiosa, certificación rara}}
+{{Track record em vertical específico, asset (livro, framework próprio com nome), network, ex-empresa-de-prestígio, certificação rara}}
 
-## Mensaje en 3 longitudes
+## Mensagem em 3 comprimentos
 
-### Long (web, propuesta, intro podcast)
-{{3-4 frases con statement + advantage + 1-2 logros verificables + framework propio}}
+### Long (web, proposta, intro podcast)
+{{3-4 frases com statement + advantage + 1-2 conquistas verificáveis + framework próprio}}
 
 ### Mid (LinkedIn bio)
-{{1 frase compacta + 1 dato verificable}}
+{{1 frase compacta + 1 dado verificável}}
 
 ### Short (tagline)
-{{"[Especialista en X] para [ICP-vertical]"}}
+{{"[Especialista em X] para [ICP-vertical]"}}
 
 ---
 
-## Notas consultoría B2B específicamente
+## Notas consultoria B2B especificamente
 
-Posicionamientos que funcionan:
+Posicionamentos que funcionam:
 - **Vertical + use-case**: "Pricing para SaaS B2B early-stage"
-- **Método propio**: "Framework X para [problema]"
-- **Ex-prestige**: "Ex-McKinsey ahora especializado en [X específico]"
-- **Anti-Big4**: "Mismo rigor que Big4, 1/4 del coste y la mitad del tiempo"
+- **Método próprio**: "Framework X para [problema]"
+- **Ex-prestige**: "Ex-McKinsey agora especializado em [X específico]"
+- **Anti-Big4**: "Mesmo rigor que Big4, 1/4 do custo e metade do tempo"
 
-Lo que mata el posicionamiento en B2B:
-- Ser horizontal ("ayudo a empresas a crecer")
-- Cobrar por horas en lugar de por engagement
-- No tener un framework propio nombrado
-- No publicar (LinkedIn / artículos): tu IP debe ser visible
+O que mata o posicionamento em B2B:
+- Ser horizontal ("ajudo empresas a crescer")
+- Cobrar por horas em vez de por engagement
+- Não ter um framework próprio com nome
+- Não publicar (LinkedIn / artigos): a tua IP tem de ser visível
 
-Cuándo el posicionamiento funciona:
-- Cuando un CEO en tu mercado puede decir tu nombre + categoría sin pensar
-- Cuando recibes referrals con fit alto sin esfuerzo
-- Cuando el ticket promedio sube cada año
-- Cuando rechazas 30%+ de los leads (sub-fit)
+Quando o posicionamento funciona:
+- Quando um CEO no teu mercado consegue dizer o teu nome + categoria sem pensar
+- Quando recebes referrals com fit alto sem esforço
+- Quando o ticket médio sobe a cada ano
+- Quando rejeitas 30%+ dos leads (sub-fit)

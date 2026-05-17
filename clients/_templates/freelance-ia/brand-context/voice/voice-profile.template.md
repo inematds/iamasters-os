@@ -1,53 +1,53 @@
 # Voice Profile — {{CLIENT_NAME}}
 
-> Plantilla del template `freelance-ia`. Reemplaza los `{{placeholders}}` con datos reales del cliente.
+> Template do template `freelance-ia`. Substitui os `{{placeholders}}` por dados reais do cliente.
 
-## Personalidad
-- Profesional pero accesible
-- Confiable: dice lo que va a hacer, hace lo que dice
-- Honesto: comunica límites y riesgos
+## Personalidade
+- Profissional mas acessível
+- Fiável: diz o que vai fazer, faz o que diz
+- Honesto: comunica limites e riscos
 - Pragmático: prioriza resultado sobre forma
 
 ## Tono spectrum
-- Formality: 6/10 (semi-formal en escrito profesional, casual en chat interno)
-- Directness: 8/10 (sin rodeos)
-- Humor: 4/10 (algún toque, no humor protagonista)
-- Authority: 7/10 (claro en recomendaciones, no autoritario)
-- Warmth: 7/10 (cálido sin ser íntimo)
+- Formality: 6/10 (semi-formal em escrita profissional, casual em chat interno)
+- Directness: 8/10 (sem rodeios)
+- Humor: 4/10 (algum toque, humor não é protagonista)
+- Authority: 7/10 (claro nas recomendações, não autoritário)
+- Warmth: 7/10 (caloroso sem ser íntimo)
 
-## Palabras-firma (sustituir por las del cliente real)
-- {{Frase típica del cliente 1}}
-- {{Frase típica del cliente 2}}
+## Palavras-assinatura (substituir pelas do cliente real)
+- {{Frase típica do cliente 1}}
+- {{Frase típica do cliente 2}}
 
-## Vocabulario prohibido (genérico para freelance IA)
-- "leverage", "aprovechar el potencial"
-- "transformación digital integral"
-- "soluciones de vanguardia"
-- "ecosistema holístico"
-- Em-dashes innecesarios
-- Jerga técnica que el cliente no use ("LLM", "RAG", "embeddings" — a menos que sean técnicos)
+## Vocabulário proibido (genérico para freelance IA)
+- "leverage", "aproveitar o potencial"
+- "transformação digital integral"
+- "soluções de vanguarda"
+- "ecossistema holístico"
+- Em-dashes desnecessários
+- Jargão técnico que o cliente não use ("LLM", "RAG", "embeddings" — a menos que sejam técnicos)
 
-## Jerga propia (sustituir)
-- {{Términos del cliente}}
+## Jargão próprio (substituir)
+- {{Termos do cliente}}
 
-## Estructura típica
-- Frases de longitud mixta (10-20 palabras)
-- 60% prosa / 40% listas (cuando hay datos accionables)
-- Opinión clara al inicio del bloque
-- Cierre con próximo paso concreto
+## Estrutura típica
+- Frases de comprimento misto (10-20 palavras)
+- 60% prosa / 40% listas (quando há dados acionáveis)
+- Opinião clara no início do bloco
+- Fecho com próximo passo concreto
 
 ## Anti-modelo
-- "No quiero sonar como agencia grande genérica que vende humo de IA"
+- "Não quero soar a agência grande genérica que vende fumo de IA"
 
 ## Modelo a aspirar
-- {{Cuenta/autor que el cliente admire en su sector}}
+- {{Conta/autor que o cliente admire no seu setor}}
 
-## Cuándo aplicar este voice
-- Comunicación con cliente final (Registro A para premium, B para regular)
-- Documentación técnica entregable
-- Reportes mensuales/semanales
-- Propuestas comerciales
+## Quando aplicar esta voice
+- Comunicação com cliente final (Registo A para premium, B para regular)
+- Documentação técnica entregável
+- Reports mensais/semanais
+- Propostas comerciais
 
-## Cuándo NO aplicar
-- Comunicación interna del operador (puede ser más informal)
-- Materiales de marketing del operador (esos van con voice del operador, no del cliente)
+## Quando NÃO aplicar
+- Comunicação interna do operador (pode ser mais informal)
+- Materiais de marketing do operador (esses vão com voice do operador, não do cliente)

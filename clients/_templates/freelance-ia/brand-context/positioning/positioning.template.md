@@ -1,75 +1,75 @@
 # Positioning — {{CLIENT_NAME}}
 
-> Plantilla del template `freelance-ia`. Reemplaza con info real.
+> Template do template `freelance-ia`. Substitui com info real.
 
 ## Statement principal
 
-> Para {{ICP-resumen}}, {{CLIENT_NAME}} es {{categoría}} que {{diferencial concreto}}, a diferencia de {{alternativas que considera}}.
+> Para {{ICP-resumo}}, {{CLIENT_NAME}} é {{categoria}} que {{diferencial concreto}}, ao contrário de {{alternativas que considera}}.
 
-## Para quién (ICP en una frase)
+## Para quem (ICP numa frase)
 
-{{Resumen ICP, ver brand-context/icp/icp.md para detalle}}
+{{Resumo do ICP, ver brand-context/icp/icp.md para detalhe}}
 
-## Categoría
+## Categoria
 
-{{Cómo quieres que te clasifiquen mentalmente. Ejemplo: "Operador IA aplicado a [vertical específico]" no "consultoría general"}}
+{{Como queres que te classifiquem mentalmente. Exemplo: "Operador IA aplicado a [vertical específico]" e não "consultoria geral"}}
 
 ## Diferencial
 
-1. {{Cosa concreta y verificable 1}}
-2. {{Cosa concreta y verificable 2}}
-3. {{Cosa concreta y verificable 3}}
+1. {{Coisa concreta e verificável 1}}
+2. {{Coisa concreta e verificável 2}}
+3. {{Coisa concreta e verificável 3}}
 
-## Alternativas que tu cliente considera
+## Alternativas que o teu cliente considera
 
-| Alternativa | Por qué no funciona para él |
+| Alternativa | Porque não funciona para ele |
 |---|---|
-| Agencia grande de IA | {{razón específica para tu vertical}} |
-| Becario con ChatGPT | No escala, sin garantías de calidad |
-| DIY (interno) | Sin tiempo, sin expertise técnica |
+| Agência grande de IA | {{razão específica para a tua vertical}} |
+| Estagiário com ChatGPT | Não escala, sem garantias de qualidade |
+| DIY (interno) | Sem tempo, sem expertise técnica |
 
-## Tu unfair advantage
+## O teu unfair advantage
 
-{{Lo que solo tú o pocos tienen. Puede ser: experiencia en vertical, network, capacidad técnica + comercial juntas, certificación específica, idioma, time-to-market}}
+{{O que só tu ou poucos têm. Pode ser: experiência em vertical, network, capacidade técnica + comercial juntas, certificação específica, idioma, time-to-market}}
 
-## Mensaje en 3 longitudes
+## Mensagem em 3 comprimentos
 
-### Long (LinkedIn about, web hero, propuesta)
-{{2-3 frases con statement + advantage + por qué confiar}}
+### Long (LinkedIn about, web hero, proposta)
+{{2-3 frases com statement + advantage + porque confiar}}
 
 ### Mid (X bio, email signature, intro de podcast)
-{{1 frase con statement compacto}}
+{{1 frase com statement compacto}}
 
 ### Short (tagline, slug)
-{{"[Categoría] para [ICP-clave]"}}
+{{"[Categoria] para [ICP-chave]"}}
 
-## Riesgos del posicionamiento elegido
+## Riscos do posicionamento escolhido
 
-- Clientes potenciales que pierdes con este ángulo
-- Qué pasa si tu mercado cambia (plan B)
-- Qué te encierra
+- Clientes potenciais que perdes com este ângulo
+- O que acontece se o teu mercado mudar (plano B)
+- O que te fecha
 
-## Cuándo revisar
+## Quando rever
 
-- Cada 6 meses
-- Cuando aparezca competidor nuevo que copie tu ángulo
-- Cuando entres a vertical adicional
-- Cuando observes que el mensaje no convierte (engagement cae)
+- A cada 6 meses
+- Quando aparecer um concorrente novo que copie o teu ângulo
+- Quando entrares numa vertical adicional
+- Quando observares que a mensagem não converte (engagement cai)
 
 ---
 
-## Notas para freelance IA específicamente
+## Notas para freelance IA especificamente
 
-Posicionamientos comunes que funcionan:
-- **Vertical-specialist**: "Operador IA para [gestorías / clínicas dentales / despachos abogados]"
-- **Use-case-specialist**: "Implemento [agentes de soporte / automatizaciones de email / dashboards] para pymes"
-- **Anti-vendehumos**: "IA aterrizada en operativa real, no demos espectaculares"
+Posicionamentos comuns que funcionam:
+- **Vertical-specialist**: "Operador IA para [contabilistas / clínicas dentárias / escritórios de advogados]"
+- **Use-case-specialist**: "Implemento [agentes de suporte / automatizações de email / dashboards] para PME"
+- **Anti-vende-banhas**: "IA aterrada na operativa real, não demos espetaculares"
 
-Combinaciones potentes:
-- Vertical + Use-case: "Agentes de soporte para gestorías"
-- Vertical + Anti-genérico: "IA en clínicas dentales — sin slop, con métricas reales"
+Combinações potentes:
+- Vertical + Use-case: "Agentes de suporte para contabilistas"
+- Vertical + Anti-genérico: "IA em clínicas dentárias — sem slop, com métricas reais"
 
-Lo que NO funciona típicamente:
-- "Consultoría 360 de IA"
-- "Tu partner estratégico de transformación digital"
-- "Soluciones a medida para tu negocio"
+O que NÃO funciona tipicamente:
+- "Consultoria 360 de IA"
+- "O teu partner estratégico de transformação digital"
+- "Soluções à medida para o teu negócio"

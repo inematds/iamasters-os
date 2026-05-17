@@ -1,31 +1,31 @@
 # Template · Formador / Educador online
 
-> Para coaches, formadores, educadores que venden cursos, comunidades o cohortes.
+> Para coaches, formadores, educadores que vendem cursos, comunidades ou cohorts.
 
-## Para quién
+## Para quem
 
-- Vendes conocimiento empaquetado (curso, comunidad, cohort, mastermind)
-- Audiencia construida en redes (LinkedIn, X, YouTube, Instagram)
-- Modelo de revenue: subscription / launch-based / mixed
-- Tu marca personal ES el producto (o muy cercano)
+- Vendes conhecimento empacotado (curso, comunidade, cohort, mastermind)
+- Audiência construída nas redes (LinkedIn, X, YouTube, Instagram)
+- Modelo de receita: subscription / launch-based / mixed
+- A tua marca pessoal É o produto (ou muito próximo)
 
-## Diferencia con otros templates
+## Diferença com outros templates
 
-| Aspecto | freelance-ia | agencia-marketing | formador-online |
+| Aspeto | freelance-ia | agencia-marketing | formador-online |
 |---|---|---|---|
-| Producto | Servicio implementación | Servicio recurrente | Curso/comunidad escalable |
-| Cliente final | Empresa B2B | Empresa B2B/B2C | Personas individuales |
-| Voice | Profesional accesible | Voice del cliente final | Voice personal del formador |
-| Skills favoritas | copywriting + repurposing | content-repurposing + copywriting | content-repurposing (alta frecuencia) + email-sequence |
+| Produto | Serviço implementação | Serviço recorrente | Curso/comunidade escalável |
+| Cliente final | Empresa B2B | Empresa B2B/B2C | Pessoas individuais |
+| Voice | Profissional acessível | Voice do cliente final | Voice pessoal do formador |
+| Skills favoritas | copywriting + repurposing | content-repurposing + copywriting | content-repurposing (alta frequência) + email-sequence |
 
-## Qué viene preconfigurado
+## O que vem pré-configurado
 
-- **Voice profile**: cercano, autoridad ganada, vulnerabilidad calibrada (B con C importante)
-- **Positioning**: especialista en transformación específica medible
-- **ICP**: persona aspiracional con dolor concreto que puede pagar 200-2000€
-- **Estructura**: orientada a content engine (alta frecuencia de output multiplataforma)
+- **Voice profile**: próximo, autoridade ganha, vulnerabilidade calibrada (B com C importante)
+- **Positioning**: especialista em transformação específica mensurável
+- **ICP**: persona aspiracional com dor concreta que pode pagar 200-2000€
+- **Estrutura**: orientada a content engine (alta frequência de output multiplataforma)
 
-## Estructura
+## Estrutura
 
 ```
 formador-online/
@@ -40,10 +40,10 @@ formador-online/
 └── (...)
 ```
 
-## Skills prioritarias
+## Skills prioritárias
 
-1. `marketing-brand-voice` (la voz personal es el producto)
-2. `marketing-content-repurposing` (1 video → 8 piezas, indispensable)
+1. `marketing-brand-voice` (a voz pessoal é o produto)
+2. `marketing-content-repurposing` (1 vídeo → 8 peças, indispensável)
 3. `marketing-email-sequence` (nurture → launch)
 4. `marketing-copywriting` (high-volume social)
 5. `tool-output-verifier` (gate constante, evita slop)

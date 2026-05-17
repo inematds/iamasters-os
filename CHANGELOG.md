@@ -1,164 +1,164 @@
 # Changelog
 
-Todos los cambios notables a iAmasters OS se documentan aquí.
+Todas as mudanças notáveis ao iAmasters OS documentam-se aqui.
 
-Formato basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+Formato baseado em [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
 ## [Unreleased]
 
-### Próximas versiones (en backlog)
-- v0.7.0: skills nativas en español (meeting-notes, proposal-writer, youtube-transcript, linkedin-posts) reescritas con voice profile del operador
-- v0.8.0: dashboard del OS (pendiente decidir si se integra con dashboard Sinapsis)
-- v1.0.0: release pública estable + vídeos Loom integrados + landing en iamastersacademy.com/os
+### Próximas versões (em backlog)
+- v0.7.0: skills nativas em português (meeting-notes, proposal-writer, youtube-transcript, linkedin-posts) reescritas com voice profile do operador
+- v0.8.0: dashboard do OS (a decidir se se integra com o dashboard Sinapsis)
+- v1.0.0: release pública estável + vídeos Loom integrados + landing em iamastersacademy.com/os
 
 ---
 
-## v0.6.0 — Install Gate · state machine anti-instalación-fantasma (2026-05-15)
+## v0.6.0 — Install Gate · state machine anti-instalação-fantasma (2026-05-15)
 
-> **Por qué esta release**: el primer feedback negativo de la comunidad reportó una instalación que parecía completa pero no lo estaba — el agente Claude del usuario había creado archivos JSON "fantasma" simulando que Sinapsis se instaló, cuando en realidad había fallado por Python en Windows. Esta versión cierra esa puerta a nivel estructural: hay un state machine persistente, un hook SessionStart que bloquea respuestas si la instalación no está completa, y validación profunda en cada fase.
+> **Porquê esta release**: o primeiro feedback negativo da comunidade reportou uma instalação que parecia completa mas não estava — o agente Claude do utilizador tinha criado ficheiros JSON "fantasma" a simular que o Sinapsis se instalou, quando na verdade tinha falhado por causa do Python em Windows. Esta versão fecha essa porta a nível estrutural: há um state machine persistente, um hook SessionStart que bloqueia respostas se a instalação não está completa, e validação profunda em cada fase.
 
-### Added — Install gate con state machine
+### Added — Install gate com state machine
 
-- **`scripts/_install-state.template.json`** (nuevo) — template del state machine persistente. Tras `install.sh`, vive en `~/.claude/skills/_install-state.json` con 6 fases tipadas: `prereqs`, `sinapsis-engine`, `context-files`, `operator-state`, `welcome-completed`, `deep-dive-completed` (esta última deferrable).
-- **`scripts/_install-gate.sh`** (nuevo) — hook SessionStart en bash + node. Lee el state file y, si hay fases `required: true` no `done`, inyecta `additionalContext` al modelo: `"[INSTALL GATE] Installation incomplete. Before responding to the user, you MUST execute /install --resume."`. Es enforcement real — la harness lo ejecuta antes de que el modelo vea el primer mensaje, no depende de la voluntad del modelo de leer el CLAUDE.md.
-- **`docs/install-state-schema.md`** (nuevo) — spec completa del schema: estados por fase, contrato de quién escribe qué, validación de "done", edge cases (sesión rota a mitad, drift, reinstalación).
-- **Comandos `/install` y `/install-status`** en `.claude/commands/` — orquestador reentrante y dashboard read-only. `/install` lee el state, identifica la fase pendiente y la ejecuta (script bash desde terminal si es `prereqs`/`sinapsis-engine`, skill conversacional si es `context-files`/`operator-state`/`welcome-completed`). `--resume` continúa desde donde se quedó. `--force-reinstall` requiere confirmación explícita y hace backup del state.
+- **`scripts/_install-state.template.json`** (novo) — template do state machine persistente. Após `install.sh`, vive em `~/.claude/skills/_install-state.json` com 6 fases tipadas: `prereqs`, `sinapsis-engine`, `context-files`, `operator-state`, `welcome-completed`, `deep-dive-completed` (esta última deferrable).
+- **`scripts/_install-gate.sh`** (novo) — hook SessionStart em bash + node. Lê o state file e, se houver fases `required: true` não `done`, injeta `additionalContext` ao modelo: `"[INSTALL GATE] Installation incomplete. Before responding to the user, you MUST execute /install --resume."`. É enforcement real — a harness executa antes do modelo ver a primeira mensagem, não depende da vontade do modelo de ler o CLAUDE.md.
+- **`docs/install-state-schema.md`** (novo) — spec completa do schema: estados por fase, contrato de quem escreve o quê, validação de "done", edge cases (sessão partida a meio, drift, reinstalação).
+- **Comandos `/install` e `/install-status`** em `.claude/commands/` — orquestrador reentrante e dashboard read-only. `/install` lê o state, identifica a fase pendente e executa (script bash do terminal se é `prereqs`/`sinapsis-engine`, skill conversacional se é `context-files`/`operator-state`/`welcome-completed`). `--resume` continua de onde ficou. `--force-reinstall` requer confirmação explícita e faz backup do state.
 
 ### Changed — `scripts/install.sh` reescrito completo
 
-- **Detección Python multi-plataforma**: intenta `python3` → `py -3` → `python` → `python3.11/12/10` → rutas absolutas Windows (`/c/Python311/python.exe` etc.). Resuelve el caso típico Windows + Microsoft Store launcher que rompía la v0.5.x.
-- **Validación profunda de Sinapsis** (función `validate_sinapsis_deep`): no se conforma con "el archivo existe". Comprueba JSON parseable, hooks ejecutables (`_passive-activator.sh`, `_session-learner.sh`, etc.), settings.json con sección hooks, y conteo ≥1 de `SKILL.md` reales. Si Sinapsis se instaló pero la validación profunda falla, marca `failed` con detalle en `errors[]` y aborta.
-- **Modo `--resume`**: si el state file existe con fases `done`, las salta. Continúa solo desde la primera no completada. Idempotente — ejecutar varias veces no rompe nada.
-- **Modo `--force-reinstall`**: backup del state actual a `_install-state.<timestamp>.bak`, borra y arranca limpio.
-- **`compute_and_store_checksum`** — guarda hash sha256 de los archivos críticos de Sinapsis (`_*.json` + `_*.sh`) en el state. `health-check` puede detectar drift posterior comparando.
-- **`register_session_start_hook`** — modifica `~/.claude/settings.json` para añadir el hook SessionStart preservando todos los hooks existentes de Sinapsis (PreToolUse, PostToolUse, Stop, PreCompact). Idempotente: no duplica si ya está registrado.
-- **Output estructurado** mantenido: `[OK]/[SKIP]/[WARN]/[ERROR]`. Cada fase escribe su estado al state file en cuanto termina, no al final.
+- **Deteção Python multi-plataforma**: tenta `python3` → `py -3` → `python` → `python3.11/12/10` → paths absolutos Windows (`/c/Python311/python.exe` etc.). Resolve o caso típico Windows + Microsoft Store launcher que partia a v0.5.x.
+- **Validação profunda do Sinapsis** (função `validate_sinapsis_deep`): não se contenta com "o ficheiro existe". Verifica JSON parseable, hooks executáveis (`_passive-activator.sh`, `_session-learner.sh`, etc.), settings.json com secção hooks, e contagem ≥1 de `SKILL.md` reais. Se o Sinapsis se instalou mas a validação profunda falha, marca `failed` com detalhe em `errors[]` e aborta.
+- **Modo `--resume`**: se o state file existe com fases `done`, salta-as. Continua só desde a primeira não completada. Idempotente — executar várias vezes não parte nada.
+- **Modo `--force-reinstall`**: backup do state atual para `_install-state.<timestamp>.bak`, apaga e arranca limpo.
+- **`compute_and_store_checksum`** — guarda hash sha256 dos ficheiros críticos do Sinapsis (`_*.json` + `_*.sh`) no state. `health-check` pode detetar drift posterior comparando.
+- **`register_session_start_hook`** — modifica `~/.claude/settings.json` para adicionar o hook SessionStart preservando todos os hooks existentes do Sinapsis (PreToolUse, PostToolUse, Stop, PreCompact). Idempotente: não duplica se já está registado.
+- **Output estruturado** mantido: `[OK]/[SKIP]/[WARN]/[ERROR]`. Cada fase escreve o seu estado para o state file assim que termina, não no fim.
 
-### Changed — `meta-onboarding-wizard` con commits incrementales
+### Changed — `meta-onboarding-wizard` com commits incrementais
 
-- **De entrevista monolítica a 4 sub-fases con commits**. La v0.5 escribía los 4 archivos de `context/` al final ("Solo cuando las 8 dimensiones tienen dato sólido"). La v0.6 escribe cada archivo **inmediatamente** al cerrar su sub-fase:
-  - W1 Identidad → `context/me.md` + actualiza state
-  - W2 Negocio → `context/work.md` + actualiza state
-  - W3 Foco → `context/current-priorities.md` + `context/goals.md` + actualiza state
+- **De entrevista monolítica a 4 sub-fases com commits**. A v0.5 escrevia os 4 ficheiros de `context/` no fim ("Só quando as 8 dimensões têm dado sólido"). A v0.6 escreve cada ficheiro **imediatamente** ao fechar a sua sub-fase:
+  - W1 Identidade → `context/me.md` + atualiza state
+  - W2 Negócio → `context/work.md` + atualiza state
+  - W3 Foco → `context/current-priorities.md` + `context/goals.md` + atualiza state
   - W4 Config técnica → `~/.claude/skills/_operator-state.json` + marca `context-files.status: done` + `operator-state.status: done`
-- **Reentrada inteligente**: al arrancar lee `phases.context-files.filesCreated` y empieza en la primera sub-fase con archivos pendientes. Si el usuario hizo W1+W2 ayer, hoy retoma en W3 con un saludo breve, sin repetir la apertura completa.
-- **Comportamiento ante "para"** definido y persistido: marca `pausedBy: user` con la sub-fase actual, no insiste, no reporta como completo. La siguiente sesión el hook lo detecta y guía a `/install --resume`.
-- **Validación post-commit anti-fantasma**: al cerrar cada sub-fase verifica que el archivo escrito existe con >100 chars de contenido real. Si la validación falla, NO marca `done`. Avisa al usuario y deja la fase `in-progress`.
+- **Reentrada inteligente**: ao arrancar lê `phases.context-files.filesCreated` e começa na primeira sub-fase com ficheiros pendentes. Se o utilizador fez W1+W2 ontem, hoje retoma em W3 com uma saudação breve, sem repetir a abertura completa.
+- **Comportamento perante "para"** definido e persistido: marca `pausedBy: user` com a sub-fase atual, não insiste, não reporta como completo. Na próxima sessão o hook deteta e guia para `/install --resume`.
+- **Validação pós-commit anti-fantasma**: ao fechar cada sub-fase verifica que o ficheiro escrito existe com >100 chars de conteúdo real. Se a validação falha, NÃO marca `done`. Avisa o utilizador e deixa a fase `in-progress`.
 
-### Changed — `health-check` con validación profunda y detección de drift
+### Changed — `health-check` com validação profunda e deteção de drift
 
-- **Antes**: comprobaba presencia de archivos. **Ahora**: parsea JSON, valida campos mínimos, ejecuta `test -x` sobre hooks, mide tamaño de archivos críticos (`me.md` debe tener >100 chars y `## Nombre` con valor real).
-- **DRIFT detection** (nuevo): si el state machine dice que una fase está `done` pero la validación profunda falla, lo reporta como 🔴 **STATE DRIFT** y ofrece revertir el state a `in-progress` para que el sistema fuerce re-ejecución. Requiere confirmación literal "sí, revertir" — no es auto-fix por defecto.
-- **Cruce con state machine**: la skill ahora usa `~/.claude/skills/_install-state.json` como fuente de verdad sobre qué *debería* estar instalado, y compara con el estado real del disco.
+- **Antes**: verificava presença de ficheiros. **Agora**: faz parse de JSON, valida campos mínimos, executa `test -x` sobre hooks, mede tamanho de ficheiros críticos (`me.md` deve ter >100 chars e `## Nome` com valor real).
+- **DRIFT detection** (novo): se o state machine diz que uma fase está `done` mas a validação profunda falha, reporta como 🔴 **STATE DRIFT** e oferece reverter o state para `in-progress` para que o sistema force re-execução. Requer confirmação literal "sim, reverter" — não é auto-fix por defeito.
+- **Cruzamento com state machine**: a skill agora usa `~/.claude/skills/_install-state.json` como fonte da verdade sobre o que *devia* estar instalado, e compara com o estado real do disco.
 
-### Changed — `CLAUDE.md` del repo
+### Changed — `CLAUDE.md` do repo
 
-- **Sección `⛔ INSTALLATION GATE` al inicio del documento**, antes que cualquier otra cosa. Imposible de ignorar visualmente. Define el contrato anti-fantasma: nunca crear archivos manualmente para simular instalación, nunca reportar `done` sin que el state lo confirme.
-- Movida la sección `MANDATORY first action` a *post-gate*. Añadida instrucción explícita de leer planes activos en `.claude/plans/` (caso del feedback).
+- **Secção `⛔ INSTALLATION GATE` no início do documento**, antes de qualquer outra coisa. Impossível de ignorar visualmente. Define o contrato anti-fantasma: nunca criar ficheiros manualmente para simular instalação, nunca reportar `done` sem que o state confirme.
+- Movida a secção `MANDATORY first action` para *pós-gate*. Adicionada instrução explícita de ler planos ativos em `.claude/plans/` (caso do feedback).
 
 ### Fixed
 
-- **Detección "Sinapsis ya instalada" falsa positiva**: la v0.5.x consideraba Sinapsis instalada con solo la presencia de `_catalog.json` o `_operator-state.json`. Si el agente del usuario había creado esos archivos previamente (caso del feedback), el script saltaba la instalación real. Ahora se valida que esos JSON sean parseables, que los hooks de Sinapsis sean ejecutables y que haya al menos 1 `SKILL.md` real instalada.
+- **Deteção "Sinapsis já instalada" falso positiva**: a v0.5.x considerava o Sinapsis instalado só com a presença de `_catalog.json` ou `_operator-state.json`. Se o agente do utilizador tinha criado esses ficheiros previamente (caso do feedback), o script saltava a instalação real. Agora valida-se que esses JSON são parseable, que os hooks do Sinapsis são executáveis e que há pelo menos 1 `SKILL.md` real instalada.
 
-### Migración desde v0.5.x
+### Migração desde v0.5.x
 
-Para operadores que ya tenían v0.5.x funcionando:
-1. `git pull` para traer v0.6.0
-2. `bash scripts/install.sh --resume` — el script detectará que Sinapsis ya estaba instalada (validación profunda pasa), creará el `_install-state.json` retroactivamente con `sinapsis-engine.status: done` y `prereqs.status: done`, y registrará el hook SessionStart.
-3. Si el operator-state ya tenía `needsOnboarding: false`, el wizard marca `context-files` y `operator-state` como `done` también — la migración es transparente y no rompe la instalación existente.
+Para operadores que já tinham a v0.5.x a funcionar:
+1. `git pull` para trazer a v0.6.0
+2. `bash scripts/install.sh --resume` — o script deteta que o Sinapsis já estava instalado (validação profunda passa), cria o `_install-state.json` retroativamente com `sinapsis-engine.status: done` e `prereqs.status: done`, e regista o hook SessionStart.
+3. Se o operator-state já tinha `needsOnboarding: false`, o wizard marca `context-files` e `operator-state` como `done` também — a migração é transparente e não parte a instalação existente.
 
 ---
 
-## v0.5.2 — Brand Voice v2.0 con doble ruta (2026-05-15)
+## v0.5.2 — Brand Voice v2.0 com dupla rota (2026-05-15)
 
-> **Visión**: la skill `marketing-brand-voice` capturaba bien la voz si el operador tenía presencia online (URLs scrapeables, posts representativos), pero se quedaba corta cuando alguien no tenía archivo digital o no quería compartir privados. Esta release integra la mecánica de **Brand Voice Pro** (skill standalone publicada como bonus del lanzamiento iAmasters Academy 17-may en `iamasters-academy/brand-voice-pro`), manteniendo toda la integración con el ecosistema OS.
+> **Visão**: a skill `marketing-brand-voice` capturava bem a voz se o operador tinha presença online (URLs scrapeáveis, posts representativos), mas ficava curta quando alguém não tinha arquivo digital ou não queria partilhar privados. Esta release integra a mecânica de **Brand Voice Pro** (skill standalone publicada como bónus do lançamento iAmasters Academy 17-mai em `iamasters-academy/brand-voice-pro`), mantendo toda a integração com o ecossistema OS.
 
 ### Changed — `marketing-brand-voice` reescrita a v2.0
 
-- **De preguntas teóricas a captura de voz auténtica**. La v1 hacía 6 preguntas sobre el tono (que el operador podía contestar de forma idealizada). La v2 incorpora **doble ruta por registro**: artefactos reales o **15 simulaciones reales** (5 por cada registro A/B/C) que sacan la voz natural sin que el operador sepa que está "siendo medido".
-- **Detección de ruta global** al inicio (Paso 2). Pregunta clave: *"¿Eres una persona activa en redes / escribes mucho online?"* → asigna ruta artefactos (a), simulación (b) o híbrida (c) por registro.
-- **Validación intermedia** antes de generar los archivos finales (Paso 7). Muestra al operador el análisis detectado por registro + spectrum 0-10 y pide corrección antes de cerrar.
-- **Edge case nuevo**: operador idealiza respuestas en simulación. Si en Paso 7 el operador dice "esto no soy yo", reformular preguntas pidiendo respuestas más auténticas ("respóndeme como lo harías un sábado a las 23h, no como te gustaría sonar").
+- **De perguntas teóricas a captura de voz autêntica**. A v1 fazia 6 perguntas sobre o tom (que o operador podia responder de forma idealizada). A v2 incorpora **dupla rota por registo**: artefactos reais ou **15 simulações reais** (5 por cada registo A/B/C) que tiram a voz natural sem que o operador saiba que está a "ser medido".
+- **Deteção de rota global** ao início (Passo 2). Pergunta-chave: *"És uma pessoa ativa nas redes / escreves muito online?"* → atribui rota artefactos (a), simulação (b) ou híbrida (c) por registo.
+- **Validação intermédia** antes de gerar os ficheiros finais (Passo 7). Mostra ao operador a análise detetada por registo + spectrum 0-10 e pede correção antes de fechar.
+- **Edge case novo**: operador idealiza respostas em simulação. Se no Passo 7 o operador diz "isto não sou eu", reformular perguntas pedindo respostas mais autênticas ("responde-me como o farias num sábado às 23h, não como gostarias de soar").
 
-### Added — 3 archivos nuevos al output
+### Added — 3 ficheiros novos no output
 
-Output total: 5 → **8 archivos** en `brand-context/voice/`:
+Output total: 5 → **8 ficheiros** em `brand-context/voice/`:
 
-- **`audit-prompt.md`** *(nuevo)* — prompt sistema reutilizable para auditar cualquier texto y verificar si está en la voz del operador. Devuelve puntuación por dimensión (tono, estructura, vocabulario, spectrum 0-10) + sustituciones concretas para anti-voz detectada. Pegable como instrucción de sistema en Claude Project, ChatGPT GEM o cualquier LLM.
-- **`vocabulary.md`** *(nuevo)* — archivo independiente con: palabras-firma por registro · anti-corporate · anti-hype · anti-genérico de IA · muletillas auténticas (las que el operador repite naturalmente y NO debe eliminar porque son parte de su marca).
-- **`installation.md`** *(nuevo)* — guía multi-sistema para instalar el voice profile en Claude Desktop / Claude Project / ChatGPT GEM / cualquier LLM externo. Permite que el operador use su voz fuera del OS también.
+- **`audit-prompt.md`** *(novo)* — prompt sistema reutilizável para auditar qualquer texto e verificar se está na voz do operador. Devolve pontuação por dimensão (tom, estrutura, vocabulário, spectrum 0-10) + substituições concretas para anti-voz detetada. Colável como instrução de sistema no Claude Project, ChatGPT GEM ou qualquer LLM.
+- **`vocabulary.md`** *(novo)* — ficheiro independente com: palavras-assinatura por registo · anti-corporate · anti-hype · anti-genérico de IA · muletas autênticas (as que o operador repete naturalmente e NÃO deve eliminar porque são parte da sua marca).
+- **`installation.md`** *(novo)* — guia multi-sistema para instalar o voice profile no Claude Desktop / Claude Project / ChatGPT GEM / qualquer LLM externo. Permite que o operador use a sua voz fora do OS também.
 
-### Kept — toda la integración OS y la calidad cuantitativa de la v1
+### Kept — toda a integração OS e a qualidade quantitativa da v1
 
-Se mantiene sin cambios:
+Mantém-se sem mudanças:
 
-- Firecrawl auto-scraping de URLs (web, LinkedIn, YouTube, X) via `tool-firecrawl-scraper`
-- Spectrum 0-10 en 5 dimensiones: formality, directness, humor, authority, warmth
-- 6 preguntas calibradoras (anti-modelo, modelo aspiracional, frases-firma, jerga propia, vocabulario prohibido, tono dominante)
-- Integración con `meta-onboarding-wizard` (invocación tras identidad)
-- Update de `operator-state.json` con flag `brandVoiceConfigured: true`
-- Append a `context/learnings.md` con la entrada del día
-- Edge cases existentes: idioma no castellano, voice multi-canal, URLs no scrapeables, sin presencia online
+- Firecrawl auto-scraping de URLs (site, LinkedIn, YouTube, X) via `tool-firecrawl-scraper`
+- Spectrum 0-10 em 5 dimensões: formality, directness, humor, authority, warmth
+- 6 perguntas calibradoras (anti-modelo, modelo aspiracional, frases-assinatura, jargão próprio, vocabulário proibido, tom dominante)
+- Integração com `meta-onboarding-wizard` (invocação após identidade)
+- Update do `operator-state.json` com flag `brandVoiceConfigured: true`
+- Append a `context/learnings.md` com a entrada do dia
+- Edge cases existentes: idioma não-castelhano, voice multi-canal, URLs não scrapeáveis, sem presença online
 
-### Relación con Brand Voice Pro (repo standalone)
+### Relação com Brand Voice Pro (repo standalone)
 
-El repo privado [`iamasters-academy/brand-voice-pro`](https://github.com/iamasters-academy/brand-voice-pro) **se mantiene** como producto independiente para:
+O repo privado [`iamasters-academy/brand-voice-pro`](https://github.com/iamasters-academy/brand-voice-pro) **mantém-se** como produto independente para:
 
-- Bonus de la lista prioritaria del lanzamiento iAmasters Academy del 17-may-2026 (ventana 18:00-19:00h)
-- Operadores que aún no usan iAmasters OS y quieren la skill desde ChatGPT GEM o Claude Project sueltos
+- Bónus da lista prioritária do lançamento iAmasters Academy de 17-mai-2026 (janela 18:00-19:00h)
+- Operadores que ainda não usam o iAmasters OS e querem a skill desde o ChatGPT GEM ou Claude Project soltos
 
-La v2 dentro del OS añade encima de Brand Voice Pro la **integración con el ecosistema** (Firecrawl + spectrum + onboarding-wizard + learnings + multi-cliente). Quien usa el OS tiene la versión completa.
+A v2 dentro do OS adiciona em cima do Brand Voice Pro a **integração com o ecossistema** (Firecrawl + spectrum + onboarding-wizard + learnings + multi-cliente). Quem usa o OS tem a versão completa.
 
 ---
 
-## v0.5.1 — Onboarding profundo y conversacional (2026-05-13)
+## v0.5.1 — Onboarding profundo e conversacional (2026-05-13)
 
-> **Visión**: el wizard inicial era un formulario disfrazado de conversación (14 preguntas predefinidas, respuestas planas). Esta release lo convierte en una entrevista real adaptativa, con profundización dinámica según las respuestas. Y añade una segunda fase opcional (`meta-deep-dive`) que profundiza 22-25 dimensiones residuales en ~25 min.
+> **Visão**: o wizard inicial era um formulário disfarçado de conversa (14 perguntas predefinidas, respostas planas). Esta release converte-o numa entrevista real adaptativa, com aprofundamento dinâmico conforme as respostas. E adiciona uma segunda fase opcional (`meta-deep-dive`) que aprofunda 22-25 dimensões residuais em ~25 min.
 
 ### Changed — `meta-onboarding-wizard` reescrita
 
-- **De formulario a entrevista conversacional adaptativa**. Ya no hay preguntas literales en el SKILL.md — solo **8 dimensiones críticas** que el agente cubre dinámicamente.
-- **Reglas de profundización explícitas**: cuándo insistir (respuesta corta, abstracta, cifra sin contexto, adjetivo sin ejemplo) vs cuándo pasar (respuesta rica, fatiga del usuario, "no sé" honesto).
-- **Repertorio de 6 técnicas conversacionales** en `references/tecnicas-conversacionales.md`: pedir ejemplo concreto, 5 whys ligero (máx 2 niveles), inversión, espejo corto, anclaje temporal, aceptar el "no sé".
-- **Anti-formulario explícito** documentado: prohibido numerar preguntas visibles al usuario, anunciar la siguiente pregunta, doble pregunta por turno, tono terapéutico, emojis durante la entrevista, juicio implícito, validación falsa tipo "qué buena pregunta".
-- **Definición de "done"** clara por dimensión en `references/dimensiones-express.md` — cada dimensión exige dato sólido (no genérico, no evasivo) antes de cerrar el wizard.
-- Tiempo objetivo del express: 10-12 min (sin cambios respecto a versión anterior, pero ahora con info más valiosa por turno).
+- **De formulário a entrevista conversacional adaptativa**. Já não há perguntas literais no SKILL.md — só **8 dimensões críticas** que o agente cobre dinamicamente.
+- **Regras de aprofundamento explícitas**: quando insistir (resposta curta, abstrata, número sem contexto, adjetivo sem exemplo) vs quando passar (resposta rica, fadiga do utilizador, "não sei" honesto).
+- **Repertório de 6 técnicas conversacionais** em `references/tecnicas-conversacionales.md`: pedir exemplo concreto, 5 whys ligeiro (máx 2 níveis), inversão, espelho curto, ancoragem temporal, aceitar o "não sei".
+- **Anti-formulário explícito** documentado: proibido numerar perguntas visíveis ao utilizador, anunciar a próxima pergunta, dupla pergunta por turno, tom terapêutico, emojis durante a entrevista, juízo implícito, validação falsa tipo "que boa pergunta".
+- **Definição de "done"** clara por dimensão em `references/dimensiones-express.md` — cada dimensão exige dado sólido (não genérico, não evasivo) antes de fechar o wizard.
+- Tempo objetivo do express: 10-12 min (sem mudanças face à versão anterior, mas agora com info mais valiosa por turno).
 
-### Added — `meta-deep-dive` (skill nueva)
+### Added — `meta-deep-dive` (skill nova)
 
-- **Segunda fase del onboarding** — opcional pero recomendada al día siguiente del wizard inicial.
-- Profundiza **22-25 dimensiones residuales** organizadas en 4 bloques:
-  - **A · Persona profunda** (7): horario productivo, interrupciones, contexto vital, motivadores profundos, drenadores, estilo de comunicación con IA, palabras/tonos prohibidos.
-  - **B · Negocio profundo** (6): salud financiera (rango), margen, ticket medio, diferencial real, side projects, fricciones del modelo.
-  - **C · Equipo y clientes** (6, condicional): tamaño equipo, roles + dinámica, comunicación interna, delegación, clientes top, clientes problemáticos.
-  - **D · Foco profundo** (6): decisión pendiente, meta 3 años profesional, meta 3 años vital, miedo profesional, métrica semanal, definición personal de éxito.
-- **Idempotente**: si el operador para a la mitad, `operator-state.deepDiveProgress` guarda el avance. Retoma donde se quedó.
-- **Branching condicional**: si trabaja solo, el bloque equipo se reduce a 2 dimensiones (clientes top + problemáticos).
-- **Checkpoints cada 7 dimensiones**: oportunidad de pausar sin perder progreso.
-- Tarda ~25-30 min total.
-- Reglas de profundización y técnicas conversacionales idénticas al wizard inicial — `references/tecnicas-conversacionales.md` duplicada para autocontención.
+- **Segunda fase do onboarding** — opcional mas recomendada no dia seguinte ao wizard inicial.
+- Aprofunda **22-25 dimensões residuais** organizadas em 4 blocos:
+  - **A · Persona profunda** (7): horário produtivo, interrupções, contexto vital, motivadores profundos, drenadores, estilo de comunicação com IA, palavras/tons proibidos.
+  - **B · Negócio profundo** (6): saúde financeira (intervalo), margem, ticket médio, diferencial real, side projects, fricções do modelo.
+  - **C · Equipa e clientes** (6, condicional): tamanho equipa, papéis + dinâmica, comunicação interna, delegação, clientes top, clientes problemáticos.
+  - **D · Foco profundo** (6): decisão pendente, meta 3 anos profissional, meta 3 anos vital, medo profissional, métrica semanal, definição pessoal de sucesso.
+- **Idempotente**: se o operador para a meio, `operator-state.deepDiveProgress` guarda o avanço. Retoma onde ficou.
+- **Branching condicional**: se trabalha sozinho, o bloco equipa reduz-se a 2 dimensões (clientes top + problemáticos).
+- **Checkpoints cada 7 dimensões**: oportunidade de pausar sem perder progresso.
+- Demora ~25-30 min total.
+- Regras de aprofundamento e técnicas conversacionais idênticas ao wizard inicial — `references/tecnicas-conversacionales.md` duplicada para autocontenção.
 
-### Added — `/deep-dive` (slash command nuevo)
+### Added — `/deep-dive` (slash command novo)
 
-- Invoca `meta-deep-dive` con detección automática de estado: primera vez vs retomar vs ya completado.
-- Avisa si el operador no ha hecho aún el onboarding inicial (lo redirige al wizard).
+- Invoca `meta-deep-dive` com deteção automática de estado: primeira vez vs retomar vs já completado.
+- Avisa se o operador ainda não fez o onboarding inicial (redireciona-o para o wizard).
 
-### Changed — `meta-start-here` actualizada
+### Changed — `meta-start-here` atualizada
 
-- Detecta `deepDiveCompleted: false` + `onboardingDate > 12h` y muestra **recordatorio breve** (1 línea) al final del saludo diario hasta que el operador complete la deep-dive.
-- No es intrusivo: aparece como PD, no como bloqueo del flow normal.
+- Deteta `deepDiveCompleted: false` + `onboardingDate > 12h` e mostra **lembrete breve** (1 linha) no fim da saudação diária até o operador completar a deep-dive.
+- Não é intrusivo: aparece como PS, não como bloqueio do flow normal.
 
-### Filosofía v0.5.1
+### Filosofia v0.5.1
 
-- **La diferencia entre output decente y output que parece tuyo está en el contexto que el sistema tiene de ti**. Una entrevista de 14 preguntas planas genera contexto plano. Una entrevista adaptativa de 30+ preguntas dinámicas genera contexto que el sistema puede usar para hablar como tú.
-- **Honestidad sobre el coste de tiempo**: el wizard inicial sigue siendo ~10 min (no inflar el primer wow). La deep-dive (~25 min) es opcional, separada, recomendada al día siguiente.
-- **No formularios disfrazados**: si el agente termina haciendo las mismas preguntas en el mismo orden a todos los operadores, hemos fallado. La entrevista tiene que sentirse como conversación humana, no como tour guiado.
+- **A diferença entre output decente e output que parece teu está no contexto que o sistema tem de ti**. Uma entrevista de 14 perguntas planas gera contexto plano. Uma entrevista adaptativa de 30+ perguntas dinâmicas gera contexto que o sistema pode usar para falar como tu.
+- **Honestidade sobre o custo de tempo**: o wizard inicial continua a ser ~10 min (não inflar o primeiro wow). A deep-dive (~25 min) é opcional, separada, recomendada no dia seguinte.
+- **Sem formulários disfarçados**: se o agente acaba a fazer as mesmas perguntas na mesma ordem a todos os operadores, falhámos. A entrevista tem de sentir-se como conversa humana, não como tour guiado.
 
-### Counts post-v0.5.1
+### Counts pós-v0.5.1
 
-| Categoría | v0.5.0 | v0.5.1 |
+| Categoria | v0.5.0 | v0.5.1 |
 |---|---:|---:|
 | `_meta/` | 9 | **10** (+meta-deep-dive) |
 | Resto | 13 | 13 |
@@ -170,80 +170,80 @@ La v2 dentro del OS añade encima de Brand Voice Pro la **integración con el ec
 
 ## v0.5.0 — Sistema vivo + skills automation/email/strategy + /aprende (2026-05-13)
 
-> **Visión**: convertir iAmasters OS en un **sistema vivo** que crece con la comunidad. Cierre del feedback de Fernando Montero sobre v0.4.3 con decisiones tomadas explícitamente (vendoreo selectivo, plugins Anthropic vía marketplace, comando educativo `/aprende`).
+> **Visão**: converter o iAmasters OS num **sistema vivo** que cresce com a comunidade. Fecho do feedback do Fernando Montero sobre v0.4.3 com decisões tomadas explicitamente (vendoreio seletivo, plugins Anthropic via marketplace, comando educativo `/aprende`).
 
-### Added — Skills nuevas vendoreadas (3, todas MIT con ORIGIN.md)
+### Added — Skills novas vendorizadas (3, todas MIT com ORIGIN.md)
 
-- **`marketing-email-sequence`** — secuencias welcome/nurture/win-back/lifecycle. Vendoreada de [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) (MIT, Corey Haines). Renombrada de `email-sequence` para seguir convención iAmasters OS.
-- **`strategy-web-research`** — research profundo multi-fuente con subagentes. Vendoreada de [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) (MIT, LangChain Inc.). Renombrada de `web-research`.
-- **`automation-n8n-to-claude`** — migra workflows n8n/Make al ecosistema Claude. Vendoreada del catálogo personal de Angel Aparicio (iAmasters Automations).
+- **`marketing-email-sequence`** — sequências welcome/nurture/win-back/lifecycle. Vendorizada de [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) (MIT, Corey Haines). Renomeada de `email-sequence` para seguir a convenção iAmasters OS.
+- **`strategy-web-research`** — research profundo multi-fonte com subagentes. Vendorizada de [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) (MIT, LangChain Inc.). Renomeada de `web-research`.
+- **`automation-n8n-to-claude`** — migra workflows n8n/Make para o ecossistema Claude. Vendorizada do catálogo pessoal do Angel Aparicio (iAmasters Automations).
 
-### Added — Skill nueva escrita desde cero (1)
+### Added — Skill nova escrita de zero (1)
 
-- **`automation-n8n-builder`** — crea, valida y despliega workflows n8n desde Claude usando el MCP `n8n-mcp`. Incluye patrones comunes (webhook→procesar→notificar, schedule→leer→reportar, etc.) y guardrails sobre cuándo NO usar n8n.
+- **`automation-n8n-builder`** — cria, valida e deploya workflows n8n desde o Claude usando o MCP `n8n-mcp`. Inclui padrões comuns (webhook→processar→notificar, schedule→ler→reportar, etc.) e guardrails sobre quando NÃO usar n8n.
 
-### Added — Slash command nuevo
+### Added — Slash command novo
 
-- **`/aprende`** — tour interactivo de 5 días para alumnos que empiezan desde cero. Idempotente vía marker en `context/learn-progress.json`. Currículum:
-  - **Día 1**: qué es una skill, cómo Claude las activa sola, demo en vivo
-  - **Día 2**: brand context (voice, ICP, positioning) — output personal vs genérico
-  - **Día 3**: multi-cliente con `/add-client`
-  - **Día 4**: catálogo (plugins Anthropic, `/install-skill`, `/install-mcp`)
-  - **Día 5**: flujo end-to-end real (reunión → notas → propuesta → email)
+- **`/aprende`** — tour interativo de 5 dias para alunos que começam de zero. Idempotente via marker em `context/learn-progress.json`. Currículo:
+  - **Dia 1**: o que é uma skill, como o Claude as ativa sozinho, demo em direto
+  - **Dia 2**: brand context (voice, ICP, positioning) — output pessoal vs genérico
+  - **Dia 3**: multi-cliente com `/add-client`
+  - **Dia 4**: catálogo (plugins Anthropic, `/install-skill`, `/install-mcp`)
+  - **Dia 5**: fluxo end-to-end real (reunião → notas → proposta → email)
 
-### Changed — Cognito mueve a opcional
+### Changed — Cognito move para opcional
 
-- **`cognito` movida a `.claude/skills/_meta/_optional/cognito/`**. No se instala automáticamente. Se activa con `/install-skill cognito` cuando el alumno conoce los fundamentos. Razón: feedback de Fernando — para alguien que abre el OS por primera vez, cognito es ruido conceptual.
-- **`/install-skill`** ampliado: si el argumento NO es URL sino nombre simple (ej. `cognito`), busca en `_optional/` y activa.
-- **`scripts/install.sh`** YA NO copia cognito automáticamente — solo muestra mensaje informativo.
+- **`cognito` movida para `.claude/skills/_meta/_optional/cognito/`**. Não se instala automaticamente. Ativa-se com `/install-skill cognito` quando o aluno conhece os fundamentos. Razão: feedback do Fernando — para alguém que abre o OS pela primeira vez, o cognito é ruído conceptual.
+- **`/install-skill`** ampliado: se o argumento NÃO é URL mas nome simples (ex. `cognito`), procura em `_optional/` e ativa.
+- **`scripts/install.sh`** JÁ NÃO copia o cognito automaticamente — só mostra mensagem informativa.
 
-### Changed — tool-visual-explainer mueve a visualization/
+### Changed — tool-visual-explainer move para visualization/
 
-- **`tool-visual-explainer`** movida de `tools/` → `visualization/`. Razón: las carpetas `operations/`, `strategy/` y `visualization/` existían vacías en v0.4.3 (bug documental detectado por Fernando). Ahora `visualization/` tiene contenido coherente.
+- **`tool-visual-explainer`** movida de `tools/` → `visualization/`. Razão: as pastas `operations/`, `strategy/` e `visualization/` existiam vazias na v0.4.3 (bug documental detetado pelo Fernando). Agora `visualization/` tem conteúdo coerente.
 
-### Changed — Filosofía "Sistema vivo" explícita en README
+### Changed — Filosofia "Sistema vivo" explícita no README
 
-- Nueva sección 🌱 **Sistema vivo** en README explicando que el catálogo crece con la comunidad (ciclo 4-6 semanas). Refuerza el proceso de propuesta y retirada de skills documentado en `docs/skills-recommended.md`.
-- Cadencia esperada de release menor: cada 4-6 semanas con skills validadas por la comunidad.
+- Nova secção 🌱 **Sistema vivo** no README a explicar que o catálogo cresce com a comunidade (ciclo 4-6 semanas). Reforça o processo de proposta e retirada de skills documentado em `docs/skills-recommended.md`.
+- Cadência esperada de release menor: cada 4-6 semanas com skills validadas pela comunidade.
 
-### Changed — Plugins oficiales Anthropic vía marketplace (NO vendoreados)
+### Changed — Plugins oficiais Anthropic via marketplace (NÃO vendorizados)
 
-- **Decisión legal**: las 4 skills oficiales de Anthropic (`docx`, `xlsx`, `pdf`, `pptx`) tienen licencia **"source-available", NO open source** (verificado en `skills/docx/LICENSE.txt` del repo `anthropics/skills`). **No se pueden redistribuir** en este repo MIT.
-- **Solución**: documentar instalación vía marketplace oficial dentro de Claude Code (`/plugin install anthropic-skills`). El usuario las recibe directamente de Anthropic, no de este repo. Ventaja añadida: cuando Anthropic actualiza, el usuario las recibe sin esperar release.
-- **Integración**: día 4 del comando `/aprende` guía al alumno paso a paso para activarlas.
+- **Decisão legal**: as 4 skills oficiais da Anthropic (`docx`, `xlsx`, `pdf`, `pptx`) têm licença **"source-available", NÃO open source** (verificado em `skills/docx/LICENSE.txt` do repo `anthropics/skills`). **Não se podem redistribuir** neste repo MIT.
+- **Solução**: documentar instalação via marketplace oficial dentro do Claude Code (`/plugin install anthropic-skills`). O utilizador recebe-as diretamente da Anthropic, não deste repo. Vantagem adicional: quando a Anthropic atualiza, o utilizador recebe-as sem esperar release.
+- **Integração**: dia 4 do comando `/aprende` guia o aluno passo a passo para as ativar.
 
-### Added — Showcase pre-poblado
+### Added — Showcase pré-povoado
 
-- **`projects/_showcase/`** — 4 outputs reales generados con datos sintéticos para que el alumno vea qué tipo de resultado produce el sistema antes de generar el suyo:
-  1. **Post LinkedIn** — preview visual simulando LinkedIn nativo
-  2. **Secuencia de bienvenida** (5 emails) — HTML interactivo desplegable
-  3. **Resumen de reunión kick-off** — HTML con temas, action items y riesgos
-  4. **Propuesta comercial** — HTML branded premium estilo Sintaxis Lab
-- Caso unificado: consultora ficticia "Marta Sánchez" trabajando con "Logística del Norte SL". Coherencia entre outputs muestra cómo el brand context atraviesa todas las skills.
-- Borrable sin afectar nada: `rm -rf projects/_showcase/`.
+- **`projects/_showcase/`** — 4 outputs reais gerados com dados sintéticos para que o aluno veja que tipo de resultado o sistema produz antes de gerar o seu:
+  1. **Post LinkedIn** — preview visual a simular LinkedIn nativo
+  2. **Sequência de boas-vindas** (5 emails) — HTML interativo desdobrável
+  3. **Resumo de reunião kick-off** — HTML com temas, action items e riscos
+  4. **Proposta comercial** — HTML branded premium estilo Sintaxis Lab
+- Caso unificado: consultora fictícia "Marta Sánchez" a trabalhar com "Logística do Norte SL". Coerência entre outputs mostra como o brand context atravessa todas as skills.
+- Removível sem afetar nada: `rm -rf projects/_showcase/`.
 
-### Fixed — Inconsistencias documentales detectadas en revisión Fernando
+### Fixed — Inconsistências documentais detetadas em revisão Fernando
 
-- **`docs/quickstart.md`** ya no menciona skills inexistentes (`operations-meeting-notes`, `strategy-competitor-monitor`). Sustituidas por ejemplos con skills que sí existen.
-- **Recuento de skills**: README y CLAUDE.md ahora dicen 22 skills core (era 18 anunciadas pero descuadradas con el sistema real).
-- **Carpetas vacías**: `operations/` y `strategy/` ya no son fantasmas — `strategy/` tiene `strategy-web-research`. `operations/` se mantiene vacía hasta v0.6.0 (donde entran las versiones nativas en español).
+- **`docs/quickstart.md`** já não menciona skills inexistentes (`operations-meeting-notes`, `strategy-competitor-monitor`). Substituídas por exemplos com skills que existem.
+- **Contagem de skills**: README e CLAUDE.md agora dizem 22 skills core (era 18 anunciadas mas desencontradas com o sistema real).
+- **Pastas vazias**: `operations/` e `strategy/` já não são fantasmas — `strategy/` tem `strategy-web-research`. `operations/` mantém-se vazia até à v0.6.0 (onde entram as versões nativas em português).
 
-### Filosofía v0.5.0
+### Filosofia v0.5.0
 
-- **Vendoreo selectivo, no a ciegas**: de 6 skills sugeridas por Fernando, solo 2 pasaron auditoría (Haiku-evaluated): email-sequence y web-research. Las otras 4 (meeting-notes, proposal-writer, youtube-transcript, linkedin-posts) están en backlog v0.6.0 para reescritura nativa en español con voice profile.
-- **Cumplimiento legal explícito**: dos decisiones de licencia tomadas (Sinapsis pasa a MIT por acuerdo con Luis Pitik · skills oficiales Anthropic vía marketplace, no copiadas). Cero zonas grises.
-- **Sistema vivo como narrativa**: el repo no es producto cerrado. Cada release menor incorpora 1-3 skills validadas por la comunidad.
-- **Educación incluida**: el alumno desde cero tiene un tutorial guiado (`/aprende`) y un showcase de referencia (`projects/_showcase/`). No depende de vídeos externos.
+- **Vendoreio seletivo, não às cegas**: das 6 skills sugeridas pelo Fernando, só 2 passaram auditoria (Haiku-evaluated): email-sequence e web-research. As outras 4 (meeting-notes, proposal-writer, youtube-transcript, linkedin-posts) estão em backlog v0.6.0 para reescrita nativa em português com voice profile.
+- **Cumprimento legal explícito**: duas decisões de licença tomadas (Sinapsis passa a MIT por acordo com o Luis Pitik · skills oficiais Anthropic via marketplace, não copiadas). Zero zonas cinzentas.
+- **Sistema vivo como narrativa**: o repo não é produto fechado. Cada release menor incorpora 1-3 skills validadas pela comunidade.
+- **Educação incluída**: o aluno de zero tem um tutorial guiado (`/aprende`) e um showcase de referência (`projects/_showcase/`). Não depende de vídeos externos.
 
-### Counts post-v0.5.0
+### Counts pós-v0.5.0
 
-| Categoría | v0.4.3 | v0.5.0 |
+| Categoria | v0.4.3 | v0.5.0 |
 |---|---:|---:|
-| `_meta/` | 10 (con cognito) | 9 |
+| `_meta/` | 10 (com cognito) | 9 |
 | `_meta/_optional/` | 0 | 1 (cognito) |
 | `marketing/` | 5 | 6 (+email-sequence) |
-| `automation/` | 0 | 2 (nuevo) |
-| `strategy/` | 0 | 1 (nuevo) |
+| `automation/` | 0 | 2 (novo) |
+| `strategy/` | 0 | 1 (novo) |
 | `tools/` | 4 | 3 (-visual-explainer) |
 | `visualization/` | 0 | 1 (+visual-explainer) |
 | **Total core** | **18** | **22** |
@@ -253,233 +253,233 @@ La v2 dentro del OS añade encima de Brand Voice Pro la **integración con el ec
 
 ## v0.4.3 — Plug-and-play conversacional (2026-05-08)
 
-> **Visión**: convertir la instalación de iAmasters OS en una experiencia conversacional. El miembro pega una URL en Claude Code y el sistema sabe qué hacer. Cero terminal manual, primer entregable garantizado en ~15-20 min.
+> **Visão**: converter a instalação do iAmasters OS numa experiência conversacional. O membro cola um URL no Claude Code e o sistema sabe o que fazer. Zero terminal manual, primeiro entregável garantido em ~15-20 min.
 
-### Added — Skills nuevas
+### Added — Skills novas
 
-- **`_meta/welcome-quick-win`** — primera tarea garantizada en 5 min tras el onboarding. Pide URL pública del usuario (LinkedIn / web), ejecuta análisis de posicionamiento, genera 3 hooks LinkedIn + plan semana, todo empaquetado en HTML autocontenido y compartible. Es la skill que entrega el "primer wow".
-- **`_meta/six-hats`** — método de los 6 sombreros de Edward de Bono. Analiza decisiones desde 6 perspectivas separadas (proceso, datos, riesgos, oportunidades, creatividad, intuición). Universal y útil para cualquier emprendedor que toma decisiones grandes.
-- **`_meta/decisions-log`** — diario append-only de decisiones del operador. Inspirado directamente en [`Luispitik/claude-code-second-brain`](https://github.com/Luispitik/claude-code-second-brain) de Luis Pitik (con crédito explícito en SKILL.md y README). Mantiene a Claude coherente entre sesiones.
-- **`_meta/health-check`** — diagnóstico completo del OS. Verifica entorno, Sinapsis, brand-context, context sectorizado, skills curadas, settings, API keys. Devuelve reporte 🟢🟡🔴 con auto-fixes.
-- **`_meta/cognito`** (wrapper) — Sistema Operativo de Pensamiento de Luis Pitik vendoreado en `vendor/cognito/`. El installer la copia a `~/.claude/skills/cognito/` la primera vez. Mantenida intacta.
-- **`_meta/find-skills`** — descoverabilidad. Te ayuda a encontrar skills cuando el catálogo crezca por intent en lenguaje natural.
-- **`tools/tool-visual-explainer`** — genera HTML autocontenido y bonito para outputs compartibles (sin JS, móvil-first, paleta naranja iAmasters). Invocada por welcome-quick-win, six-hats, marketing-positioning, etc.
+- **`_meta/welcome-quick-win`** — primeira tarefa garantida em 5 min após o onboarding. Pede URL público do utilizador (LinkedIn / site), executa análise de posicionamento, gera 3 hooks LinkedIn + plano de semana, tudo empacotado em HTML autocontido e partilhável. É a skill que entrega o "primeiro wow".
+- **`_meta/six-hats`** — método dos 6 chapéus de Edward de Bono. Analisa decisões a partir de 6 perspetivas separadas (processo, dados, riscos, oportunidades, criatividade, intuição). Universal e útil para qualquer empreendedor que toma decisões grandes.
+- **`_meta/decisions-log`** — diário append-only de decisões do operador. Inspirado diretamente em [`Luispitik/claude-code-second-brain`](https://github.com/Luispitik/claude-code-second-brain) do Luis Pitik (com crédito explícito em SKILL.md e README). Mantém o Claude coerente entre sessões.
+- **`_meta/health-check`** — diagnóstico completo do OS. Verifica ambiente, Sinapsis, brand-context, context setorizado, skills curadas, settings, API keys. Devolve report 🟢🟡🔴 com auto-fixes.
+- **`_meta/cognito`** (wrapper) — Sistema Operativo de Pensamento do Luis Pitik vendorizado em `vendor/cognito/`. O instalador copia-a para `~/.claude/skills/cognito/` na primeira vez. Mantida intacta.
+- **`_meta/find-skills`** — descoberta. Ajuda-te a encontrar skills quando o catálogo crescer por intent em linguagem natural.
+- **`tools/tool-visual-explainer`** — gera HTML autocontido e bonito para outputs partilháveis (sem JS, mobile-first, paleta laranja iAmasters). Invocada por welcome-quick-win, six-hats, marketing-positioning, etc.
 
 ### Added — Slash commands
 
-- **`/doctor`** — invoca `_meta/health-check` con presentación 🟢🟡🔴 + propuesta auto-fix
-- (Pendiente v0.5.0: `/welcome` y `/cognito-mode` como aliases explícitos)
+- **`/doctor`** — invoca `_meta/health-check` com apresentação 🟢🟡🔴 + proposta auto-fix
+- (Pendente v0.5.0: `/welcome` e `/cognito-mode` como aliases explícitos)
 
 ### Changed — Refactor crítico
 
-- **`AGENTS.md`** completamente reescrito. Sección principal nueva: "Si eres Claude Code y recibes el prompt URL canónico" con workflow paso-a-paso (clone → install → onboarding → welcome). Sección cross-tool conservada al final.
-- **`README.md`** rediseñado con:
-  - Sección "🚀 Instalación en 30 segundos" al inicio con prompt URL canónico copy-paste destacado
-  - Sección "💰 Coste real" transparente sobre Anthropic Pro/Max ($20-200/mes) — comunicación honesta antes que el miembro choque con la factura
-  - Lista de 18 skills core preinstaladas (12 v0.4.2 + 6 nuevas)
-  - Renovado bloque créditos con autoría correcta (Luis Pitik, De Bono, Anthropic skills)
+- **`AGENTS.md`** completamente reescrito. Secção principal nova: "Se és Claude Code e recebes o prompt URL canónico" com workflow passo-a-passo (clone → install → onboarding → welcome). Secção cross-tool conservada no fim.
+- **`README.md`** redesenhado com:
+  - Secção "🚀 Instalação em 30 segundos" no início com prompt URL canónico copy-paste destacado
+  - Secção "💰 Custo real" transparente sobre Anthropic Pro/Max ($20-200/mês) — comunicação honesta antes que o membro choque com a fatura
+  - Lista das 18 skills core pré-instaladas (12 v0.4.2 + 6 novas)
+  - Renovado bloco de créditos com autoria correta (Luis Pitik, De Bono, Anthropic skills)
 - **`scripts/install.sh`** robustecido:
-  - Detección OS (macOS / Linux / Windows-bash)
-  - Salida estructurada parseable: `[OK]`, `[SKIP]`, `[WARN]`, `[ERROR]` (Claude Code agent puede leer el output y reaccionar)
-  - Idempotente: ejecutar varias veces no rompe nada
-  - Crea `context/decisions-log.md` con header canónico
-  - Crea `projects/welcome/` directorio
-  - Step 7 nuevo: copia `vendor/cognito/` a `~/.claude/skills/cognito/` si no existe
+  - Deteção OS (macOS / Linux / Windows-bash)
+  - Saída estruturada parseável: `[OK]`, `[SKIP]`, `[WARN]`, `[ERROR]` (Claude Code agent pode ler o output e reagir)
+  - Idempotente: executar várias vezes não parte nada
+  - Cria `context/decisions-log.md` com header canónico
+  - Cria diretório `projects/welcome/`
+  - Step 7 novo: copia `vendor/cognito/` para `~/.claude/skills/cognito/` se não existir
 - **`meta-onboarding-wizard`** completamente reescrito:
-  - Entrevista por bloques temáticos (no todo de golpe — patrón second-brain)
-  - Llena 5 archivos sectorizados: `context/me.md`, `work.md`, `team.md`, `current-priorities.md`, `goals.md` (en lugar de `user.md` monolítico)
-  - Pregunta cognito mode (guiado / completo) y guarda en operator-state
-  - Lanza `welcome-quick-win` al cerrar para garantizar primer wow
+  - Entrevista por blocos temáticos (não tudo de uma vez — padrão second-brain)
+  - Enche 5 ficheiros setorizados: `context/me.md`, `work.md`, `team.md`, `current-priorities.md`, `goals.md` (em vez de `user.md` monolítico)
+  - Pergunta cognito mode (guiado / completo) e guarda no operator-state
+  - Lança `welcome-quick-win` ao fechar para garantir o primeiro wow
 
-### Added — Documentación
+### Added — Documentação
 
-- **`docs/skills-recommended.md`** rediseñado:
-  - Catálogo Capa 2 con ~30 skills opcionales agrupadas por categoría
-  - Sección "Alternativa lean: claude-code-second-brain" con tabla "cuándo elegir uno u otro" — referencia y respeta a Luis
-  - Procesos de propuesta y retirada de skills del catálogo
-- **`context/README.md`** nuevo, explicando el patrón sectorizado
-- **`brand-context/README.md`** explicando qué skill genera cada archivo
+- **`docs/skills-recommended.md`** redesenhado:
+  - Catálogo Camada 2 com ~30 skills opcionais agrupadas por categoria
+  - Secção "Alternativa lean: claude-code-second-brain" com tabela "quando escolher um ou outro" — referencia e respeita o Luis
+  - Processos de proposta e retirada de skills do catálogo
+- **`context/README.md`** novo, a explicar o padrão setorizado
+- **`brand-context/README.md`** a explicar que skill gera cada ficheiro
 
-### Refactor — context/ sectorizado
+### Refactor — context/ setorizado
 
-- `context/user.md` monolítico → 5 archivos sectorizados creados por el wizard:
-  - `me.md` — identidad personal (nombre, ubicación, descripción profesional)
-  - `work.md` — negocio, servicios, revenue, stack
-  - `team.md` — equipo (puede estar vacío si trabaja solo)
-  - `current-priorities.md` — foco del mes, cuello de botella
+- `context/user.md` monolítico → 5 ficheiros setorizados criados pelo wizard:
+  - `me.md` — identidade pessoal (nome, localização, descrição profissional)
+  - `work.md` — negócio, serviços, receita, stack
+  - `team.md` — equipa (pode estar vazia se trabalha sozinho)
+  - `current-priorities.md` — foco do mês, gargalo
   - `goals.md` — objetivos 12 meses
-- `context/decisions-log.md` nuevo (creado por install.sh con header)
-- `context/soul.md` y `context/learnings.md` mantenidos
+- `context/decisions-log.md` novo (criado por install.sh com header)
+- `context/soul.md` e `context/learnings.md` mantidos
 
 ### Vendored
 
-- **`vendor/cognito/`** — sistema cognito de Luis Pitik vendoreado intacto (sin modificar). Incluye SKILL.md, modes/, phases/, profiles/, hooks/, commands/, integrations/, templates/, config/. Excluido: tests/, .git/, .github/.
+- **`vendor/cognito/`** — sistema cognito do Luis Pitik vendorizado intacto (sem modificar). Inclui SKILL.md, modes/, phases/, profiles/, hooks/, commands/, integrations/, templates/, config/. Excluído: tests/, .git/, .github/.
 
-### Filosofía v0.4.3
+### Filosofia v0.4.3
 
-- **No inflar el catálogo**: pasamos de 12 → 18 skills core (todas validadas), no a 19 con sprint a ciegas. Catálogo Capa 2 disponible on-demand.
-- **Validación antes que construcción**: el experimento de Sesión 1 (Angel + URL canónico en Claude Desktop limpio) confirmó que el flow funcionará. Sprint v0.5.0 esperará a feedback real de uso, no a planificación a ciegas.
-- **Crédito explícito a Luis Pitik**: tres de las skills nuevas (decisions-log inspirada en second-brain, cognito vendoreada intacta, find-skills) referencian a Luis con atribución completa. Coherente con regla de las 6 capas de atribución.
+- **Não inflar o catálogo**: passámos de 12 → 18 skills core (todas validadas), não a 19 com sprint às cegas. Catálogo Camada 2 disponível on-demand.
+- **Validação antes que construção**: a experiência da Sessão 1 (Angel + URL canónico em Claude Desktop limpo) confirmou que o flow vai funcionar. Sprint v0.5.0 esperará feedback real de uso, não planeamento às cegas.
+- **Crédito explícito ao Luis Pitik**: três das skills novas (decisions-log inspirada em second-brain, cognito vendorizada intacta, find-skills) referenciam o Luis com atribuição completa. Coerente com a regra das 6 camadas de atribuição.
 
 ---
 
-## v0.4.2 — Migración a org iamasters-academy + datos finales (2026-05-07)
+## v0.4.2 — Migração para org iamasters-academy + dados finais (2026-05-07)
 
 ### Changed
 - **Repo migrado**: `angelapaia/iamasters-os` → `iamasters-academy/iamasters-os`
-  - Nueva URL: https://github.com/iamasters-academy/iamasters-os
-  - GitHub mantiene redirects automáticos del URL anterior
-- **Atribución corregida** en todos los archivos del repo:
-  - "iAmasters Academy" → "IA Masters Academy" (3 palabras separadas, según logo oficial)
+  - Novo URL: https://github.com/iamasters-academy/iamasters-os
+  - GitHub mantém redirects automáticos do URL anterior
+- **Atribuição corrigida** em todos os ficheiros do repo:
+  - "iAmasters Academy" → "IA Masters Academy" (3 palavras separadas, conforme logo oficial)
   - Email gmail → `aaparicio@iamastersacademy.com` (corporativo)
-  - Copyright `2026` → `2025-2026` (incluye año fundación academia)
-  - Añadida entidad legal: AASC Associates (a brand of)
-  - Añadido LinkedIn: linkedin.com/in/angel-aparicio92/
-  - Añadido GitHub Org link: @iamasters-academy
-- **Logo añadido**: `assets/logo.png` (2.4 MB, 1536×1024 PNG RGBA transparente). Mostrado en header del README, header del HTML team-presentation y footer del HTML.
-- **README header rediseñado**: logo centrado + título + subtitle + 5 badges centrados.
-- **LICENSE** ampliada con sección "Trademark notice" (marcas de AASC Associates).
-- **CITATION.cff** version bumpeada a 0.4.2 con URLs actualizadas a la org nueva.
+  - Copyright `2026` → `2025-2026` (inclui ano de fundação da academia)
+  - Adicionada entidade legal: AASC Associates (a brand of)
+  - Adicionado LinkedIn: linkedin.com/in/angel-aparicio92/
+  - Adicionado GitHub Org link: @iamasters-academy
+- **Logo adicionado**: `assets/logo.png` (2.4 MB, 1536×1024 PNG RGBA transparente). Mostrado no header do README, header do HTML team-presentation e footer do HTML.
+- **README header redesenhado**: logo centrado + título + subtitle + 5 badges centrados.
+- **LICENSE** ampliada com secção "Trademark notice" (marcas da AASC Associates).
+- **CITATION.cff** version bumpeada a 0.4.2 com URLs atualizados para a org nova.
 
 ### Added
 - **`assets/logo.png`** — logo oficial IA Masters Academy
-- **Sweep global** automatizado para reemplazar referencias antiguas en todos los .md, .html, .cff, .json, .sh del repo
+- **Sweep global** automatizado para substituir referências antigas em todos os .md, .html, .cff, .json, .sh do repo
 
 ### Brand assets central
-El logo y futuros assets viven en
+O logo e futuros assets vivem em
 `Empresa/01-IA Masters/07-Equipo/brand-assets/iamasters-academy-logo.png`
-como fuente única de verdad. Cada repo nuevo lo copia desde ahí siguiendo el
+como fonte única de verdade. Cada repo novo copia-o daí seguindo o
 checklist `captacion-shared/07-Equipo/repo-attribution-checklist.md`.
 
 ---
 
-## v0.4.1 — Atribución y propiedad (2026-05-07)
+## v0.4.1 — Atribuição e propriedade (2026-05-07)
 
 ### Added
-- **LICENSE actualizado** con copyright "© 2026 Angel Aparicio · IA Masters Academy" + sección Authorship & Maintenance + bloque Vendored components clarificando licencia Sinapsis + bloque How to cite
+- **LICENSE atualizado** com copyright "© 2026 Angel Aparicio · IA Masters Academy" + secção Authorship & Maintenance + bloco Vendored components a clarificar licença Sinapsis + bloco How to cite
 - **README badges** (5): version, license, sinapsis-engine, maintained-by-angel-aparicio, by-iamasters-academy
-- **README sección "Sobre el proyecto"** con tabla de autoría + cómo citar + nota de marca + code ownership
-- **`.github/CODEOWNERS`** con `* @angelapaia` global + paths específicos
-- **`CITATION.cff`** formato académico con datos completos + preferred-citation + referencia a Sinapsis vendored
-- **GitHub repo metadata** actualizado: description con atribución, homepage a comunidad iAmasters, 7 topics (claude-code, agentic-os, sinapsis, ai-operator, skills-on-demand, iamasters, castellano)
-- **Footer team-presentation.html** con copyright, links propios, nota de marcas
+- **README secção "Sobre o projeto"** com tabela de autoria + como citar + nota de marca + code ownership
+- **`.github/CODEOWNERS`** com `* @angelapaia` global + paths específicos
+- **`CITATION.cff`** formato académico com dados completos + preferred-citation + referência a Sinapsis vendorizado
+- **GitHub repo metadata** atualizado: description com atribuição, homepage para comunidade iAmasters, 7 topics (claude-code, agentic-os, sinapsis, ai-operator, skills-on-demand, iamasters, castellano)
+- **Footer team-presentation.html** com copyright, links próprios, nota de marcas
 
-Aplica las 6 capas estándar de atribución documentadas en el repo
-compartido del equipo (`captacion-shared/07-Equipo/repo-attribution-checklist.md`).
+Aplica as 6 camadas standard de atribuição documentadas no repo
+partilhado da equipa (`captacion-shared/07-Equipo/repo-attribution-checklist.md`).
 
 ---
 
 ## v0.4.0 — Marketplace local + MCPs curados (2026-05-07)
 
 ### Added
-- **`/install-skill <github-url>`** comando para instalar skills externas con validación previa:
-  - Descarga a `/tmp/iamasters-os-skill-validate-<hash>/`
-  - Valida estructura (SKILL.md, YAML frontmatter, name kebab-case, description 50-500 chars)
-  - Detecta verbos de intención en description (afecta activación)
-  - Comprueba scripts por patrones peligrosos (rm -rf /, eval, dd if=, mkfs, etc.)
-  - Detecta credenciales hardcoded (regex API keys, tokens)
-  - Comprueba conflicto con skills locales del mismo nombre
-  - Output: report con OK/WARN/ERROR + recomendaciones de instalación
+- **`/install-skill <github-url>`** comando para instalar skills externas com validação prévia:
+  - Descarrega para `/tmp/iamasters-os-skill-validate-<hash>/`
+  - Valida estrutura (SKILL.md, YAML frontmatter, name kebab-case, description 50-500 chars)
+  - Deteta verbos de intenção na description (afeta ativação)
+  - Verifica scripts por padrões perigosos (rm -rf /, eval, dd if=, mkfs, etc.)
+  - Deteta credenciais hardcoded (regex API keys, tokens)
+  - Verifica conflito com skills locais do mesmo nome
+  - Output: report com OK/WARN/ERROR + recomendações de instalação
 - **`/install-mcp <name>`** comando para instalar MCP servers:
-  - Lista curada en `docs/mcps-curated.md` (top 5 + 5 útiles + warnings)
-  - Configura `.mcp.json` con templates probados
-  - Mode custom para URLs no curadas (con warnings)
-- **`scripts/validate-skill.sh`** ejecuta toda la validación
-- **`docs/mcps-curated.md`** lista mantenida de 10 MCPs útiles para operadores IA:
+  - Lista curada em `docs/mcps-curated.md` (top 5 + 5 úteis + warnings)
+  - Configura `.mcp.json` com templates testados
+  - Modo custom para URLs não curados (com warnings)
+- **`scripts/validate-skill.sh`** executa toda a validação
+- **`docs/mcps-curated.md`** lista mantida de 10 MCPs úteis para operadores IA:
   - ⭐ Top 5: context7, github, supabase, notion, firecrawl
-  - 🔧 Útiles: linear, gmail (read-only), slack, filesystem
-  - ⚠️ MCPs a evitar (write redes sociales sin gates, scopes opacos)
-  - Patrón de token budget (5-7 MCPs activos máximo)
+  - 🔧 Úteis: linear, gmail (read-only), slack, filesystem
+  - ⚠️ MCPs a evitar (write redes sociais sem gates, scopes opacos)
+  - Padrão de token budget (5-7 MCPs ativos máximo)
 - **`docs/skills-recommended.md`** lista de skills externas validadas:
   - Anthropic core: skill-creator, visual-explainer, pdf, docx, xlsx
   - Marketing: content-strategy, social-content, email-marketing-bible, ad-creative
   - Operations: marketing-psychology, product-management, saas-revenue-growth-metrics
   - Tech: nextjs-*, vercel-deployment, tailwind-design-system, web-security-audit
-  - ⚠️ Skills a evitar (sin description clara, duplicadas, "todo en uno")
-- **`docs/multi-client-guide.md`** guía operativa multi-cliente:
-  - Cuándo usar / no usar
-  - Estructura herencia CLAUDE.md
-  - Skills custom por cliente vs skills globales del repo
-  - Best practices de seguridad: separación de info entre clientes
+  - ⚠️ Skills a evitar (sem description clara, duplicadas, "tudo em um")
+- **`docs/multi-client-guide.md`** guia operativo multi-cliente:
+  - Quando usar / não usar
+  - Estrutura herança CLAUDE.md
+  - Skills custom por cliente vs skills globais do repo
+  - Best practices de segurança: separação de info entre clientes
   - Troubleshooting típico
 
-### Decisiones de diseño
-- Validate-skill.sh siempre crea TMP dir y NO elimina automáticamente (operador puede inspeccionar manualmente)
-- Hardcoded secrets detection usa regex permissivo (puede haber falsos positivos, mejor warning que false-negative)
-- MCP install no toca .mcp.json sin confirmación explícita del operador
-- Curated lists son opinionated: solo skills/MCPs con experiencia real >2 semanas
+### Decisões de design
+- O validate-skill.sh cria sempre TMP dir e NÃO elimina automaticamente (operador pode inspecionar manualmente)
+- Hardcoded secrets detection usa regex permissivo (pode haver falsos positivos, melhor warning que false-negative)
+- MCP install não toca em .mcp.json sem confirmação explícita do operador
+- Curated lists são opinativas: só skills/MCPs com experiência real >2 semanas
 
 ---
 
-## v0.3.0 — Multi-cliente + scripts de gestión (2026-05-07)
+## v0.3.0 — Multi-cliente + scripts de gestão (2026-05-07)
 
 ### Added
-- **4 templates verticales completos** en `clients/_templates/`:
-  - `freelance-ia/` — operador IA solo, ticket 5-50K€/proyecto
-  - `agencia-marketing/` — pequeña agencia, MRR recurrente
+- **4 templates verticais completos** em `clients/_templates/`:
+  - `freelance-ia/` — operador IA solo, ticket 5-50K€/projeto
+  - `agencia-marketing/` — pequena agência, MRR recorrente
   - `formador-online/` — coach/educador, ticket 200-2000€
   - `consultoria-b2b/` — high-ticket 30-300K€/engagement
-- Cada template incluye: README específico + voice-profile + positioning + ICP + soul + user (template) — 6 archivos × 4 templates = 24 archivos
-- **`scripts/add-client.sh`** — crea cliente nuevo desde template o vacío:
-  - Valida nombre kebab-case
-  - Clona template + reemplaza placeholders `{{CLIENT_NAME}}`
-  - Genera `clients/<nombre>/CLAUDE.md` con overrides específicos
-  - Output: estructura completa lista para configurar
-- **`scripts/update.sh`** — actualiza repo desde upstream con conflict resolution:
-  - 4 escenarios manejados: nada cambia / upstream actualiza / local modificó / conflicto
-  - Backup automático en `.backup/<timestamp>/` antes de tocar nada
-  - User data (brand-context, context, projects, clients, .env) NUNCA se sobrescribe
-  - Skills locales modificadas: prompt caso por caso (keep / use upstream / diff / skip)
+- Cada template inclui: README específico + voice-profile + positioning + ICP + soul + user (template) — 6 ficheiros × 4 templates = 24 ficheiros
+- **`scripts/add-client.sh`** — cria cliente novo desde template ou vazio:
+  - Valida nome kebab-case
+  - Clona template + substitui placeholders `{{CLIENT_NAME}}`
+  - Gera `clients/<nome>/CLAUDE.md` com overrides específicos
+  - Output: estrutura completa pronta a configurar
+- **`scripts/update.sh`** — atualiza repo desde upstream com conflict resolution:
+  - 4 cenários tratados: nada muda / upstream atualiza / local modificou / conflito
+  - Backup automático em `.backup/<timestamp>/` antes de tocar em nada
+  - User data (brand-context, context, projects, clients, .env) NUNCA se sobrescreve
+  - Skills locais modificadas: prompt caso a caso (keep / use upstream / diff / skip)
   - Vendor sinapsis + system files: safe to update
 
 ### Notas operativas
-- Heredancia CLAUDE.md: el del cliente añade overrides al del raíz, no lo sustituye
-- Skills se copian al cliente (no se heredan automáticamente); se sincronizan con `update.sh`
-- El operador puede crear skills custom dentro de `clients/<nombre>/.claude/skills/` que sólo aplican a ese cliente
+- Herança CLAUDE.md: o do cliente adiciona overrides ao do raiz, não o substitui
+- Skills copiam-se para o cliente (não se herdam automaticamente); sincronizam-se com `update.sh`
+- O operador pode criar skills custom dentro de `clients/<nome>/.claude/skills/` que só se aplicam a esse cliente
 
 ---
 
 ## v0.2.0 — Skills marketing core (2026-05-07)
 
 ### Added
-- **8 skills nuevas** siguiendo patrón canónico del meta-skill-creator:
-  - `tool-humanizer` — detector + reescritor anti-AI con `references/ai-tells.md`
+- **8 skills novas** seguindo o padrão canónico do meta-skill-creator:
+  - `tool-humanizer` — detetor + reescritor anti-AI com `references/ai-tells.md`
   - `tool-output-verifier` — gate 4-checks (humanizer + brand-voice + length + factuality)
-  - `tool-firecrawl-scraper` — wrapper Firecrawl con degradación graceful
-  - `marketing-brand-voice` — voice profile + 3 registros A/B/C (formal/divulgativo/cercano)
-  - `marketing-positioning` — análisis competidores + 3-5 ángulos + recomendación
-  - `marketing-icp` — perfil cliente ideal completo con buying triggers + lenguaje + anti-ICP
-  - `marketing-copywriting` — generador con voice + register auto + 2-3 variaciones por output
-  - `marketing-content-repurposing` — 1 fuente → 5-8 piezas multiplataforma con calendar
-- **Patrón de skill collaboration** documentado: copywriting → output-verifier → humanizer
-- **Plataform limits reference** mantenido con 30+ plataformas
+  - `tool-firecrawl-scraper` — wrapper Firecrawl com degradação graceful
+  - `marketing-brand-voice` — voice profile + 3 registos A/B/C (formal/divulgativo/próximo)
+  - `marketing-positioning` — análise concorrentes + 3-5 ângulos + recomendação
+  - `marketing-icp` — perfil cliente ideal completo com buying triggers + linguagem + anti-ICP
+  - `marketing-copywriting` — gerador com voice + register auto + 2-3 variações por output
+  - `marketing-content-repurposing` — 1 fonte → 5-8 peças multiplataforma com calendar
+- **Padrão de skill collaboration** documentado: copywriting → output-verifier → humanizer
+- **Plataform limits reference** mantido com 30+ plataformas
 
-### Decisiones de diseño
-- Todas las skills marketing-* invocan tool-output-verifier obligatoriamente como gate
-- Humanizer score thresholds varían por plataforma (email premium ≥8, WhatsApp ≥6)
-- Brand voice se compone de 3 registros separados, no 1 generic
-- Firecrawl es opcional: si falta API key, fallback a WebFetch con warning
+### Decisões de design
+- Todas as skills marketing-* invocam tool-output-verifier obrigatoriamente como gate
+- Humanizer score thresholds variam por plataforma (email premium ≥8, WhatsApp ≥6)
+- Brand voice compõe-se de 3 registos separados, não 1 generic
+- Firecrawl é opcional: se faltar API key, fallback para WebFetch com warning
 
 ---
 
 ## v0.1.0 — esqueleto + Sinapsis (2026-05-07)
 
-**Objetivo**: repo clonable que instale Sinapsis y deje preparada la capa OS para construir encima.
+**Objetivo**: repo clonável que instala Sinapsis e deixa preparada a camada OS para construir em cima.
 
 ### Added
-- Estructura completa de carpetas
-- Sinapsis v4.5 vendored en `vendor/sinapsis/`
-- `install.sh` que delega a Sinapsis y luego inicializa capa OS
+- Estrutura completa de pastas
+- Sinapsis v4.5 vendorizado em `vendor/sinapsis/`
+- `install.sh` que delega ao Sinapsis e depois inicializa a camada OS
 - README, CLAUDE.md, AGENTS.md, LICENSE, .gitignore, .env.example
 - Meta-skills v0: `meta-skill-creator`, `meta-onboarding-wizard`, `meta-start-here`, `meta-wrap-up`
-- Plantillas vacías de brand-context y context
+- Templates vazios de brand-context e context
 
 ---
 
-## Versionado de Sinapsis vendored
+## Versionamento do Sinapsis vendorizado
 
-| iAmasters OS | Sinapsis vendored |
+| iAmasters OS | Sinapsis vendorizado |
 |---|---|
 | v0.1.0 | v4.5.0 |
 
-Cuando Sinapsis publique nueva versión upstream, se actualiza vendor con un commit dedicado.
+Quando o Sinapsis publica nova versão upstream, atualiza-se o vendor com um commit dedicado.

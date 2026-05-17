@@ -1,31 +1,31 @@
 # Multi-Cliente Guide
 
-> Cómo trabajar con N clientes desde una sola instalación de iAmasters OS.
+> Como trabalhar com N clientes a partir de uma única instalação do iAmasters OS.
 
-## Cuándo usar multi-cliente
+## Quando usar multi-cliente
 
-Activa multi-cliente si:
-- Eres freelance / agencia con 2+ clientes simultáneos
-- Cada cliente tiene voice + ICP + positioning distintos
-- Quieres separación clara de outputs por cliente
+Ativa multi-cliente se:
+- És freelance / agência com 2+ clientes em simultâneo
+- Cada cliente tem voice + ICP + positioning distintos
+- Queres separação clara de outputs por cliente
 
-NO uses multi-cliente si:
-- Eres single-business (trabaja directamente en raíz del repo)
-- Tus "clientes" son verticales del mismo producto (eso es 1 marca con sub-segmentos)
+NÃO uses multi-cliente se:
+- És single-business (trabalha diretamente na raiz do repo)
+- Os teus "clientes" são verticais do mesmo produto (isso é 1 marca com sub-segmentos)
 
-## Crear cliente nuevo
+## Criar cliente novo
 
 ```bash
 bash scripts/add-client.sh acme-corp freelance-ia
 ```
 
-Esto crea `clients/acme-corp/` con:
+Isto cria `clients/acme-corp/` com:
 
 ```
 clients/acme-corp/
 ├── CLAUDE.md                       # Overrides específicos
 ├── brand-context/
-│   ├── voice/voice-profile.md      # (con placeholders del template)
+│   ├── voice/voice-profile.md      # (com placeholders do template)
 │   ├── positioning/positioning.md
 │   ├── icp/icp.md
 │   └── assets/
@@ -36,158 +36,158 @@ clients/acme-corp/
     └── briefs/
 ```
 
-**Verticales disponibles**:
+**Verticais disponíveis**:
 - `freelance-ia` — operador IA solo
-- `agencia-marketing` — pequeña agencia
+- `agencia-marketing` — agência pequena
 - `formador-online` — coach/educador
 - `consultoria-b2b` — high-ticket B2B
-- `vacio` — sin template
+- `vazio` — sem template
 
-## Trabajar dentro de un cliente
+## Trabalhar dentro de um cliente
 
 ```bash
 cd clients/acme-corp
 claude
 ```
 
-Claude Code arranca en el contexto del cliente:
-- Lee `CLAUDE.md` raíz del repo (instrucciones generales)
+O Claude Code arranca no contexto do cliente:
+- Lê o `CLAUDE.md` raiz do repo (instruções gerais)
 - + `clients/acme-corp/CLAUDE.md` (overrides específicos)
-- + `clients/acme-corp/brand-context/` (voice, positioning, ICP del cliente)
-- + `clients/acme-corp/context/` (soul, user, learnings del cliente)
+- + `clients/acme-corp/brand-context/` (voice, positioning, ICP do cliente)
+- + `clients/acme-corp/context/` (soul, user, learnings do cliente)
 
-## Heredancia y overrides
+## Herança e overrides
 
-### Qué se hereda del repo raíz
-- `CLAUDE.md` raíz (las instrucciones generales)
-- Skills del repo (`.claude/skills/`)
+### O que se herda do repo raiz
+- `CLAUDE.md` raiz (as instruções gerais)
+- Skills do repo (`.claude/skills/`)
 - Sinapsis (instalado global)
 
-### Qué es del cliente solo
-- `clients/<nombre>/CLAUDE.md` (overrides)
-- `clients/<nombre>/brand-context/` (voice/positioning/ICP propios)
-- `clients/<nombre>/context/` (soul/user del cliente)
-- `clients/<nombre>/projects/` (outputs solo del cliente)
+### O que é do cliente apenas
+- `clients/<nome>/CLAUDE.md` (overrides)
+- `clients/<nome>/brand-context/` (voice/positioning/ICP próprios)
+- `clients/<nome>/context/` (soul/user do cliente)
+- `clients/<nome>/projects/` (outputs apenas do cliente)
 
 ### Skills custom por cliente
 
-Si un cliente requiere una skill que NO aplica a otros:
+Se um cliente requer uma skill que NÃO se aplica a outros:
 
 ```bash
 mkdir -p clients/acme-corp/.claude/skills/marketing/marketing-acme-special
-# Crear SKILL.md, references/, etc.
+# Criar SKILL.md, references/, etc.
 ```
 
-Esa skill solo está disponible cuando trabajas en `clients/acme-corp/`. No se hereda al raíz ni a otros clientes.
+Essa skill só está disponível quando trabalhas em `clients/acme-corp/`. Não se herda à raiz nem a outros clientes.
 
-## Cambiar de cliente
+## Mudar de cliente
 
 ```bash
-# Estás en clients/acme-corp
-# Cierra Claude Code (Ctrl+C × 2) o ejecuta /wrap-up
+# Estás em clients/acme-corp
+# Fecha o Claude Code (Ctrl+C × 2) ou executa /wrap-up
 
-cd ../widget-shop  # otro cliente
+cd ../widget-shop  # outro cliente
 claude
 ```
 
-El operator-state global de Sinapsis persiste, pero el contexto específico del cliente cambia automáticamente.
+O operator-state global do Sinapsis persiste, mas o contexto específico do cliente muda automaticamente.
 
-**Pro tip**: ejecuta `/wrap-up` ANTES de cambiar de cliente. Eso guarda el daily summary específico del cliente actual.
+**Pro tip**: executa `/wrap-up` ANTES de mudar de cliente. Isso guarda o daily summary específico do cliente atual.
 
-## Trabajar en raíz vs en cliente
+## Trabalhar na raiz vs no cliente
 
-| Si trabajas en... | Útil para... |
+| Se trabalhas em... | Útil para... |
 |---|---|
-| Raíz del repo | Marketing del operador propio (LinkedIn personal, blog, marca personal), gestión interna |
-| `clients/X/` | Cualquier output entregable al cliente X (copy, reports, deliverables) |
+| Raiz do repo | Marketing do operador próprio (LinkedIn pessoal, blog, marca pessoal), gestão interna |
+| `clients/X/` | Qualquer output entregável ao cliente X (copy, reports, deliverables) |
 
-Regla: nunca generes contenido del cliente desde raíz. Siempre `cd clients/X` primero.
+Regra: nunca geres conteúdo do cliente desde a raiz. Sempre `cd clients/X` primeiro.
 
-## Seguridad: separación de info
+## Segurança: separação de info
 
-Por diseño, las skills NO comparten info entre clientes automáticamente:
-- No sumas datos de cliente A en respuestas que vas a entregar al cliente B
-- No referencias casos de cliente A en propuestas a cliente B
-- `.gitignore` mantiene `clients/<nombre>/` fuera del git público (configurar por usuario si quieres compartir entre máquinas via repo privado)
+Por design, as skills NÃO partilham info entre clientes automaticamente:
+- Não somas dados do cliente A em respostas que vais entregar ao cliente B
+- Não referencias casos do cliente A em propostas ao cliente B
+- O `.gitignore` mantém `clients/<nome>/` fora do git público (configurar por utilizador se quiseres partilhar entre máquinas via repo privado)
 
-Si quieres usar info de cliente A para inspirar cliente B:
-- Hazlo manual y consciente
-- Genera "case study anonimizado" como output de cliente A
-- Referencia el case study en cliente B
+Se queres usar info do cliente A para inspirar cliente B:
+- Faz manual e consciente
+- Gera "case study anonimizado" como output do cliente A
+- Referencia o case study no cliente B
 
-## Update.sh y multi-cliente
+## Update.sh e multi-cliente
 
-Cuando ejecutas `bash scripts/update.sh`:
-- ✅ Skills del repo raíz se actualizan
-- ✅ Templates de `clients/_templates/` se actualizan (si upstream tiene cambios)
-- ❌ Tus clientes en `clients/<nombre>/` NUNCA se tocan
-- ❌ Tu brand-context, context, projects propios NUNCA se tocan
+Quando executas `bash scripts/update.sh`:
+- ✅ Skills do repo raiz atualizam-se
+- ✅ Templates de `clients/_templates/` atualizam-se (se upstream tiver mudanças)
+- ❌ Os teus clientes em `clients/<nome>/` NUNCA são tocados
+- ❌ O teu brand-context, context, projects próprios NUNCA são tocados
 
-Si quieres "refrescar" un cliente con el último template:
-- Hazlo manual: `cp -r clients/_templates/freelance-ia/X clients/<cliente>/X`
-- Pero suele ser mala idea: el template es punto de partida, no destino
+Se queres "refrescar" um cliente com o último template:
+- Faz manual: `cp -r clients/_templates/freelance-ia/X clients/<cliente>/X`
+- Mas costuma ser má ideia: o template é ponto de partida, não destino
 
-## Ejemplos de flujos típicos
+## Exemplos de fluxos típicos
 
-### Flujo 1 · Lunes: 3 clientes
+### Fluxo 1 · Segunda-feira: 3 clientes
 
 ```bash
 # Cliente A (freelance-ia)
 cd clients/acme-corp && claude
-> "Crea LinkedIn post sobre case study X" → marketing-copywriting genera con voice de Acme
+> "Cria post LinkedIn sobre case study X" → marketing-copywriting gera com voice de Acme
 > /wrap-up
 exit
 
 # Cliente B (agencia-marketing)
 cd ../widget-shop && claude
-> "Repurpose último video de su CEO en 5 piezas" → marketing-content-repurposing
+> "Repurpose último vídeo do CEO em 5 peças" → marketing-content-repurposing
 > /wrap-up
 exit
 
 # Cliente C (consultoria-b2b)
 cd ../north-star-consult && claude
-> "Redacta propuesta comercial para nuevo lead" → marketing-copywriting registro A
+> "Redige proposta comercial para novo lead" → marketing-copywriting registo A
 > /wrap-up
 exit
 ```
 
-### Flujo 2 · Operador propio + 1 cliente
+### Fluxo 2 · Operador próprio + 1 cliente
 
 ```bash
-# Marca personal: contenido propio
+# Marca pessoal: conteúdo próprio
 cd /repos/iamasters-os
 claude
-> "Crea LinkedIn post sobre mi experiencia con cliente X (anonimizado)"
+> "Cria post LinkedIn sobre a minha experiência com cliente X (anonimizado)"
 > /wrap-up
 exit
 
 # Cliente principal
 cd clients/biggest-client && claude
-> "Genera report mensual de KPIs"
+> "Gera report mensal de KPIs"
 > /wrap-up
 ```
 
 ## Best practices
 
-1. **Siempre `cd` antes de `claude`**. No trabajar en cliente X desde raíz.
-2. **Wrap-up al cambiar contexto**. Daily summary se separa por cliente.
-3. **Brand voice por cliente**, no compartir entre clientes.
-4. **Una skill custom = un cliente** o promoverla al raíz si aplica a varios.
-5. **Backup el cliente regularmente** si tiene info crítica (no del git público).
+1. **Sempre `cd` antes de `claude`**. Não trabalhar no cliente X desde a raiz.
+2. **Wrap-up ao mudar de contexto**. Daily summary separa-se por cliente.
+3. **Brand voice por cliente**, não partilhar entre clientes.
+4. **Uma skill custom = um cliente** ou promovê-la para a raiz se aplicar a vários.
+5. **Backup do cliente regularmente** se tiver info crítica (não do git público).
 
 ## Troubleshooting
 
-### "Claude no aplica voice del cliente"
-- Verifica que estás `cd` en el cliente correcto antes de `claude`
-- Comprueba `clients/<nombre>/brand-context/voice/voice-profile.md` está rellenado (no placeholders {{...}})
-- Comprueba `clients/<nombre>/CLAUDE.md` referencia el path correcto
+### "O Claude não aplica voice do cliente"
+- Verifica que estás `cd` no cliente correto antes de `claude`
+- Verifica que `clients/<nome>/brand-context/voice/voice-profile.md` está preenchido (não placeholders {{...}})
+- Verifica que `clients/<nome>/CLAUDE.md` referencia o path correto
 
-### "Skills del raíz no aparecen al estar en cliente"
-- Las skills del raíz (`.claude/skills/`) son globales en el repo, deberían estar disponibles
-- Si no se invocan: reinicia Claude Code (Ctrl+C × 2)
-- Si persiste: ejecuta `bash scripts/sync-synapsis.sh` (futura skill v0.5)
+### "Skills da raiz não aparecem ao estar em cliente"
+- As skills da raiz (`.claude/skills/`) são globais no repo, deviam estar disponíveis
+- Se não se invocam: reinicia o Claude Code (Ctrl+C × 2)
+- Se persistir: executa `bash scripts/sync-synapsis.sh` (futura skill v0.5)
 
-### "Mezclo info de clientes accidentalmente"
-- Es señal de no respetar `cd clients/X` antes de trabajar
-- Implementa la regla: salir de Claude (Ctrl+C × 2) entre clientes, no abrir 2 sesiones a la vez
-- Para 2 sesiones simultáneas: usar 2 terminales con `cd` distinto cada uno
+### "Misturo info de clientes acidentalmente"
+- É sinal de não respeitar `cd clients/X` antes de trabalhar
+- Implementa a regra: sair do Claude (Ctrl+C × 2) entre clientes, não abrir 2 sessões ao mesmo tempo
+- Para 2 sessões simultâneas: usar 2 terminais com `cd` distinto cada um

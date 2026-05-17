@@ -1,20 +1,20 @@
 # Voice Profile — {{CLIENT_NAME}}
 
-> Plantilla del template `agencia-marketing`. Reemplaza con la voz del cliente.
+> Template do template `agencia-marketing`. Substitui pela voz do cliente.
 >
-> IMPORTANTE: en agencia, cada cliente tiene SU voice. Esta plantilla son los defaults inteligentes
-> para arrancar; obligatorio refinarla con `marketing-brand-voice` en sesión de onboarding.
+> IMPORTANTE: numa agência, cada cliente tem a SUA voice. Este template são os defaults inteligentes
+> para arrancar; é obrigatório refiná-lo com `marketing-brand-voice` em sessão de onboarding.
 
-## Personalidad
-- {{Trait dominante 1 — sacar de brief del cliente}}
+## Personalidade
+- {{Trait dominante 1 — extrair do brief do cliente}}
 - {{Trait dominante 2}}
 - {{Trait dominante 3}}
 
-Ejemplos típicos por sector:
-- B2B SaaS técnico: confiable, autoridad, claro
-- DTC consumer: fresco, atrevido, cálido
-- Lujo: exclusivo, refinado, conciso
-- Salud: empático, riguroso, accesible
+Exemplos típicos por setor:
+- B2B SaaS técnico: fiável, autoridade, claro
+- DTC consumer: fresco, atrevido, caloroso
+- Luxo: exclusivo, refinado, conciso
+- Saúde: empático, rigoroso, acessível
 
 ## Tono spectrum
 - Formality: {{X/10}}
@@ -23,42 +23,42 @@ Ejemplos típicos por sector:
 - Authority: {{X/10}}
 - Warmth: {{X/10}}
 
-## Palabras-firma del cliente
-- {{Frase 1 que repite el cliente}}
+## Palavras-assinatura do cliente
+- {{Frase 1 que o cliente repete}}
 - {{Frase 2}}
 
-## Vocabulario prohibido (en general para agencia)
-- "leverage", "aprovechar el potencial"
-- "sinergia", "ecosistema integral"
-- "soluciones a medida"
-- "transformación digital"
-- "experiencia 360"
-- Em-dashes excesivos
+## Vocabulário proibido (em geral para agência)
+- "leverage", "aproveitar o potencial"
+- "sinergia", "ecossistema integral"
+- "soluções à medida"
+- "transformação digital"
+- "experiência 360"
+- Em-dashes excessivos
 
-## Vocabulario específico del cliente
-- {{Términos del nicho}}
-- {{Productos/servicios con sus nombres exactos}}
-- {{Slogans o claims oficiales}}
+## Vocabulário específico do cliente
+- {{Termos do nicho}}
+- {{Produtos/serviços com os seus nomes exatos}}
+- {{Slogans ou claims oficiais}}
 
-## Estructura típica
-- {{Longitud media de frase: variar según vertical}}
-- {{Listas vs prosa según plataforma}}
-- {{Posición de la opinión}}
-- {{Cierre típico}}
+## Estrutura típica
+- {{Comprimento médio de frase: variar consoante a vertical}}
+- {{Listas vs prosa consoante plataforma}}
+- {{Posição da opinião}}
+- {{Fecho típico}}
 
-## Anti-modelo (qué evitar para este cliente)
-- {{Competidor cuyo tono no quiere parecerse}}
+## Anti-modelo (o que evitar para este cliente)
+- {{Concorrente cujo tom não quer parecer-se}}
 
 ## Modelo a aspirar
-- {{Cuenta/marca cuyo tono el cliente admira}}
+- {{Conta/marca cujo tom o cliente admira}}
 
-## Cuándo aplicar este voice
-- TODO output entregable al cliente final
-- Posts en redes que firmemos como marca del cliente
-- Email marketing del cliente
+## Quando aplicar esta voice
+- TODO o output entregável ao cliente final
+- Posts em redes que assinamos como marca do cliente
+- Email marketing do cliente
 - Landing page copy
 
-## Cuándo NO aplicar
-- Comunicación interna agencia ↔ cliente (más casual)
-- Reports al cliente (semi-formal pero no este voice)
-- Materiales de marketing de la agencia (ese va con voice de la agencia, no del cliente)
+## Quando NÃO aplicar
+- Comunicação interna agência ↔ cliente (mais casual)
+- Reports ao cliente (semi-formal mas não esta voice)
+- Materiais de marketing da agência (esses vão com voice da agência, não do cliente)

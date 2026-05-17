@@ -1,40 +1,40 @@
-# Template · Agencia de Marketing
+# Template · Agência de Marketing
 
-> Para agencias pequeñas (2-10 personas) que sirven a múltiples clientes con servicios de marketing/contenido.
+> Para agências pequenas (2-10 pessoas) que servem múltiplos clientes com serviços de marketing/conteúdo.
 
-## Para quién es este template
+## Para quem é este template
 
-- Equipo de 2-10 personas
-- Vertical: marketing, contenido, social media, paid ads
-- Atendéis 5-30 clientes simultáneamente
-- Necesitáis estandarizar entregables y voice por cliente
-- Vendéis tiempo de equipo + producción mensual recurrente
+- Equipa de 2-10 pessoas
+- Vertical: marketing, conteúdo, social media, paid ads
+- Atendem 5-30 clientes em simultâneo
+- Precisam padronizar entregáveis e voice por cliente
+- Vendem tempo de equipa + produção mensal recorrente
 
-## Qué viene preconfigurado
+## O que vem pré-configurado
 
-- **Voice profile**: profesional creativo, equilibrio formal-cercano (B con A para premium)
-- **Positioning**: agencia especialista (no full-service) con foco vertical o servicio
-- **ICP**: pymes/scaleups con MRR ya establecido buscando crecer
-- **Estructura proyectos**: orientada a entregables mensuales recurrentes (content calendar, ad creatives, reports)
-- **Workflow**: separación clara entre work-on-account (cliente) vs work-on-firm (agencia propia)
+- **Voice profile**: profissional criativo, equilíbrio formal-próximo (B com A para premium)
+- **Positioning**: agência especialista (não full-service) com foco vertical ou serviço
+- **ICP**: PMEs/scaleups com MRR já estabelecido a buscar crescer
+- **Estrutura projetos**: orientada a entregáveis mensais recorrentes (content calendar, ad creatives, reports)
+- **Workflow**: separação clara entre work-on-account (cliente) vs work-on-firm (agência própria)
 
-## Diferencia con freelance-ia
+## Diferença com freelance-ia
 
-| Aspecto | freelance-ia | agencia-marketing |
+| Aspeto | freelance-ia | agencia-marketing |
 |---|---|---|
-| Quien decide | Founder solo | Account manager o socio |
-| Tipo de output | Implementación técnica IA | Contenido + estrategia + reports |
-| Cliente principal | Pymes con dolor concreto | Pymes/scaleups con marketing budget |
-| Frecuencia entrega | Por proyecto | Mensual recurrente |
-| Voice | Tu voice (operador) | Cada cliente tiene su voice |
+| Quem decide | Founder solo | Account manager ou sócio |
+| Tipo de output | Implementação técnica IA | Conteúdo + estratégia + reports |
+| Cliente principal | PMEs com dor concreta | PMEs/scaleups com marketing budget |
+| Frequência entrega | Por projeto | Mensal recorrente |
+| Voice | A tua voice (operador) | Cada cliente tem a sua voice |
 
-## Adaptaciones específicas
+## Adaptações específicas
 
-- Carpeta `monthly-reports/` para reports recurrentes por cliente
-- Carpeta `content-calendar/` con plantilla mensual editable
-- Skill priority: `marketing-content-repurposing` + `marketing-copywriting` (mucho output volumen)
+- Pasta `monthly-reports/` para reports recorrentes por cliente
+- Pasta `content-calendar/` com template mensal editável
+- Skill priority: `marketing-content-repurposing` + `marketing-copywriting` (muito output volume)
 
-## Estructura
+## Estrutura
 
 ```
 agencia-marketing/
@@ -44,12 +44,12 @@ agencia-marketing/
 │   ├── positioning/positioning.template.md
 │   └── icp/icp.template.md
 ├── context/
-│   ├── soul.md                       # Personalidad agencia-style
+│   ├── soul.md                       # Personalidade agência-style
 │   └── user.template.md
-└── (subcarpetas creadas al instalar)
+└── (subpastas criadas ao instalar)
 ```
 
-## Cómo usar
+## Como usar
 
 ```bash
 bash scripts/add-client.sh acme-coffee agencia-marketing

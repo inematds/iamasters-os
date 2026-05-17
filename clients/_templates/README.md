@@ -1,39 +1,39 @@
 # Templates de cliente vertical
 
-> En v0.1.0 los templates están vacíos (solo .gitkeep). Se rellenan en v0.3.0.
+> Na v0.1.0 os templates estão vazios (só .gitkeep). Preenchem-se na v0.3.0.
 
-## Verticales planificados
+## Verticais planeados
 
-1. **freelance-ia** — operador IA solo, sirve a múltiples clientes desde su laptop
-2. **agencia-marketing** — agencia pequeña 2-10 personas, especializada en marketing/contenido
-3. **formador-online** — coach o educador que vende cursos/comunidad
-4. **consultoria-b2b** — consultor B2B (estrategia, ops, transformación)
+1. **freelance-ia** — operador IA solo, serve múltiplos clientes a partir do seu portátil
+2. **agencia-marketing** — agência pequena 2-10 pessoas, especializada em marketing/conteúdo
+3. **formador-online** — coach ou educador que vende cursos/comunidade
+4. **consultoria-b2b** — consultor B2B (estratégia, ops, transformação)
 
-## Qué traerá cada template
+## O que cada template traz
 
 ```
 clients/_templates/<vertical>/
 ├── brand-context/
-│   ├── voice/voice-profile.md          # Tono típico del vertical
-│   ├── positioning/positioning.md      # Ángulos comunes
-│   └── icp/icp.md                      # Cliente ideal del vertical
+│   ├── voice/voice-profile.md          # Tom típico do vertical
+│   ├── positioning/positioning.md      # Ângulos comuns
+│   └── icp/icp.md                      # Cliente ideal do vertical
 ├── context/
-│   ├── soul.md                         # Personalidad ajustada
-│   └── user.md                         # Plantilla con campos típicos
+│   ├── soul.md                         # Personalidade ajustada
+│   └── user.md                         # Template com campos típicos
 └── projects/
-    └── (vacío)
+    └── (vazio)
 ```
 
-## Cómo se usa
+## Como se usa
 
 ```bash
-bash scripts/add-client.sh <nombre-cliente> <vertical>
+bash scripts/add-client.sh <nome-cliente> <vertical>
 ```
 
-Esto clona el template del vertical seleccionado a `clients/<nombre-cliente>/` y deja al operador rellenar lo específico (nombre del cliente, web, etc.).
+Isto clona o template do vertical selecionado para `clients/<nome-cliente>/` e deixa o operador preencher o específico (nome do cliente, site, etc.).
 
-## Contribuir nuevos verticales
+## Contribuir verticais novos
 
-1. Crear `clients/_templates/<nombre-vertical>/`
-2. Seguir la estructura estándar
-3. Pull request con la justificación del vertical (qué tipo de operador lo necesita)
+1. Criar `clients/_templates/<nome-vertical>/`
+2. Seguir a estrutura padrão
+3. Pull request com a justificação do vertical (que tipo de operador precisa dele)

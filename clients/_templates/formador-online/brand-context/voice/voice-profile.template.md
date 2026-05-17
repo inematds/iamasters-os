@@ -1,56 +1,56 @@
 # Voice Profile — {{NOMBRE_FORMADOR}}
 
-> Plantilla `formador-online`. La voz personal es el producto. Refinamiento intensivo recomendado.
+> Template `formador-online`. A voz pessoal é o produto. Refinamento intensivo recomendado.
 
-## Personalidad
-- Autoridad ganada (no impuesta) — habla desde experiencia, no desde teoría
-- Vulnerable cuando aporta — comparte fallos propios cuando enseñan
-- Directo sin ser frío — dice las cosas claras pero con cariño
-- {{Trait específico del formador}}
+## Personalidade
+- Autoridade ganha (não imposta) — fala a partir da experiência, não da teoria
+- Vulnerável quando acrescenta — partilha falhas próprias quando ensinam
+- Direto sem ser frio — diz as coisas claras mas com carinho
+- {{Trait específico do formador}}
 
 ## Tono spectrum
-- Formality: 4/10 (cercano, conversacional)
-- Directness: 9/10 (sin rodeos)
-- Humor: 6/10 (con humor pero no comediante)
-- Authority: 8/10 (claro en posiciones)
-- Warmth: 8/10 (cálido genuino)
+- Formality: 4/10 (próximo, conversacional)
+- Directness: 9/10 (sem rodeios)
+- Humor: 6/10 (com humor mas não comediante)
+- Authority: 8/10 (claro nas posições)
+- Warmth: 8/10 (caloroso genuíno)
 
-## Palabras-firma del formador
-- {{Frase recurrente 1, ej. "lo importante es..."}}
-- {{Frase recurrente 2}}
-- {{Frase recurrente 3}}
+## Palavras-assinatura do formador
+- {{Frase recorrente 1, ex. "o importante é..."}}
+- {{Frase recorrente 2}}
+- {{Frase recorrente 3}}
 
-## Vocabulario prohibido (formador-online típicamente)
-- "secretos" (en sentido vendehumos)
+## Vocabulário proibido (formador-online tipicamente)
+- "segredos" (em sentido vende-banhas)
 - "fórmulas mágicas"
-- "transforma tu vida en 30 días"
-- "millonario en 90 días"
-- "élite", "exclusivo" (a menos que sea genuino)
+- "transforma a tua vida em 30 dias"
+- "milionário em 90 dias"
+- "elite", "exclusivo" (a menos que seja genuíno)
 - "leverage your potential"
-- Cualquier cliché de coaching genérico
+- Qualquer cliché de coaching genérico
 
-## Anti-modelo (sectorial)
-- Coach genérico de Instagram que vende cursos sin sustancia
-- Formador que vende fórmulas universales sin matices
-- {{Específico del formador}}
+## Anti-modelo (setorial)
+- Coach genérico de Instagram que vende cursos sem substância
+- Formador que vende fórmulas universais sem nuances
+- {{Específico do formador}}
 
 ## Modelo aspiracional
-- {{Formador que el cliente admire por su tono}}
+- {{Formador que o cliente admire pelo seu tom}}
 
-## Estructura típica
-- Frases mixtas (5-25 palabras)
-- Mucha pregunta retórica
-- Personal stories como vehículo del insight
-- Cierre con acción específica (no "reflexiona sobre esto")
+## Estrutura típica
+- Frases mistas (5-25 palavras)
+- Muita pergunta retórica
+- Personal stories como veículo do insight
+- Fecho com ação específica (não "reflete sobre isto")
 
-## Patrón de hook típico
-- Anécdota personal con tensión inmediata
-- Afirmación contraintuitiva sobre el nicho
-- Pregunta directa al lector
-- Stat sorprendente del nicho
+## Padrão de hook típico
+- Anedota pessoal com tensão imediata
+- Afirmação contraintuitiva sobre o nicho
+- Pergunta direta ao leitor
+- Stat surpreendente do nicho
 
-## Cuándo usar registros
+## Quando usar registos
 
 - **A formal**: emails 1:1 a clientes premium / partners corporativos
-- **B divulgativo**: 95% del contenido público (LinkedIn, X, YouTube, blog, newsletter)
-- **C cercano**: comunidad propia (Skool, Discord, WhatsApp grupo), respuestas DM, comentarios
+- **B divulgativo**: 95% do conteúdo público (LinkedIn, X, YouTube, blog, newsletter)
+- **C próximo**: comunidade própria (Skool, Discord, grupo WhatsApp), respostas DM, comentários

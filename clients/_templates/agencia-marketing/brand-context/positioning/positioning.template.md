@@ -1,54 +1,54 @@
 # Positioning — {{CLIENT_NAME}}
 
-> Plantilla `agencia-marketing`. Reemplaza con info real del cliente.
+> Template `agencia-marketing`. Substitui com info real do cliente.
 
 ## Statement principal
 
-> Para {{ICP del cliente}}, {{CLIENT_NAME}} es {{categoría}} que {{diferencial}}, a diferencia de {{alternativas}}.
+> Para {{ICP do cliente}}, {{CLIENT_NAME}} é {{categoria}} que {{diferencial}}, ao contrário de {{alternativas}}.
 
-## Categoría
+## Categoria
 
-{{Cómo el cliente quiere ser percibido en su mercado}}
+{{Como o cliente quer ser percecionado no seu mercado}}
 
 ## Diferencial
 
-1. {{Cosa concreta verificable 1}}
-2. {{Cosa concreta verificable 2}}
-3. {{Cosa concreta verificable 3}}
+1. {{Coisa concreta verificável 1}}
+2. {{Coisa concreta verificável 2}}
+3. {{Coisa concreta verificável 3}}
 
-## Alternativas que su cliente considera
+## Alternativas que o seu cliente considera
 
-| Alternativa | Por qué no funciona |
+| Alternativa | Porque não funciona |
 |---|---|
-| Competidor directo | {{razón}} |
-| DIY | {{razón}} |
-| No hacer nada | {{coste de inacción}} |
+| Concorrente direto | {{razão}} |
+| DIY | {{razão}} |
+| Não fazer nada | {{custo de inação}} |
 
 ## Unfair advantage
 
-{{Lo que solo este cliente tiene}}
+{{O que só este cliente tem}}
 
-## Mensaje en 3 longitudes
+## Mensagem em 3 comprimentos
 
 ### Long
-{{Para web, propuestas comerciales}}
+{{Para web, propostas comerciais}}
 
 ### Mid
 {{Para bio LinkedIn, intro podcast}}
 
 ### Short (tagline)
-{{4-7 palabras}}
+{{4-7 palavras}}
 
 ---
 
-## Notas para agencia-marketing específicamente
+## Notas para agencia-marketing especificamente
 
-Posicionamientos típicos que funcionan en clientes B2B:
-- "Software de [categoría] para [ICP específico]"
-- "El [adjetivo diferencial] [categoría] del mercado"
-- "Hacemos que [proceso] sea [adjetivo: 10x más rápido / sin código / etc.]"
+Posicionamentos típicos que funcionam em clientes B2B:
+- "Software de [categoria] para [ICP específico]"
+- "O [adjetivo diferencial] [categoria] do mercado"
+- "Fazemos com que [processo] seja [adjetivo: 10x mais rápido / sem código / etc.]"
 
-Lo que NO funciona en B2B:
-- "Tu partner integral"
-- "Soluciones 360"
-- "Excelencia operativa"
+O que NÃO funciona em B2B:
+- "O teu partner integral"
+- "Soluções 360"
+- "Excelência operacional"
